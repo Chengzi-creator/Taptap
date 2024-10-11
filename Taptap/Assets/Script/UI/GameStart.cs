@@ -24,6 +24,14 @@ public class GameStart : MonoBehaviour
         Time.timeScale = 0f;
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            OnstartButtonClick();
+        }
+    }
+
     private void OnstartButtonClick()
     {   
         Time.timeScale = 1f;
