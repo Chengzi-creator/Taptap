@@ -9,7 +9,7 @@ public class MyGridManager : MonoBehaviour
     public GameObject gridPrefab;
 
     /// <summary>
-    /// µØÍ¼ÆğÊ¼Î»ÖÃ
+    /// åœ°å›¾èµ·å§‹ä½ç½®
     /// </summary>
     public Vector3 StartPos;
 
@@ -23,14 +23,14 @@ public class MyGridManager : MonoBehaviour
         {
             Destroy(this);
         }
-        //²âÊÔ
+        //æµ‹è¯•
         Init();
 
     }
 
-    #region ×ø±ê×ª»»
+    #region åæ ‡è½¬æ¢
     /// <summary>
-    /// ·µ»ØGridµÄÊÀ½ç×ø±ê£¬ÊÇÖĞĞÄÖµ
+    /// è¿”å›Gridçš„ä¸–ç•Œåæ ‡ï¼Œæ˜¯ä¸­å¿ƒå€¼
     /// </summary>
     /// <param name="mapPos"></param>
     /// <returns></returns>
@@ -47,13 +47,13 @@ public class MyGridManager : MonoBehaviour
         }
     }
     /// <summary>
-    /// »ñÈ¡ÊÀ½ç×ø±ê¶ÔÓ¦µÄ¸ñ×Ó×ø±ê
+    /// è·å–ä¸–ç•Œåæ ‡å¯¹åº”çš„æ ¼å­åæ ‡
     /// </summary>
     /// <param name="worldPos"></param>
     /// <returns></returns>
     public Vector2 GetMapPos(Vector2 worldPos)
     {
-        //×¢ÒâÆğÊ¼¸ñ×ÓµÄÖĞĞÄµãÔÚStarPos,Òò´Ë¼ÓÉÏ1/2µÄ¸ñ×Ó´óĞ¡
+        //æ³¨æ„èµ·å§‹æ ¼å­çš„ä¸­å¿ƒç‚¹åœ¨StarPos,å› æ­¤åŠ ä¸Š1/2çš„æ ¼å­å¤§å°
         Vector2 pos = worldPos - new Vector2(StartPos.x, StartPos.y) + MyGrid.GridSize * 1 / 2;
         int x = (int)(pos.x / MyGrid.GridSize.x);
         int y = (int)(pos.y / MyGrid.GridSize.y);
@@ -61,17 +61,17 @@ public class MyGridManager : MonoBehaviour
     }
     #endregion
 
-    #region Ñ°Â·Ê¹ÓÃ
+    #region å¯»è·¯ä½¿ç”¨
     /// <summary>
-    /// ÄÜ·ñÍ¨¹ıGrid£¬·µ»ØÖµÎªtrueÔò¿ÉÒÔÍ¨¹ı
+    /// èƒ½å¦é€šè¿‡Gridï¼Œè¿”å›å€¼ä¸ºtrueåˆ™å¯ä»¥é€šè¿‡
     /// </summary>
-    /// <param name="mapPos">µØÍ¼×ø±ê</param>
+    /// <param name="mapPos">åœ°å›¾åæ ‡</param>
     /// <returns></returns>
     public bool CanPassGrid(Vector2 mapPos)
     {
         if (IsInMap(mapPos))
         {
-           return myGrids[(int)mapPos.x, (int)mapPos.y].CanPass;
+            return myGrids[(int)mapPos.x, (int)mapPos.y].CanPass;
         }
         Debug.LogError("Wrong mapPos");
         return false;
@@ -104,7 +104,7 @@ public class MyGridManager : MonoBehaviour
                 GameObject go = Instantiate(gridPrefab, WorldPos, Quaternion.identity, transform);
                 var myGrid = go.GetComponent<MyGrid>();
                 myGrid.Init(new Vector2(i, j), new Vector2(WorldPos.x, WorldPos.y));
-                myGrids[i,j] = myGrid;
+                myGrids[i, j] = myGrid;
             }
         }
     }
