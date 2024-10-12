@@ -57,13 +57,14 @@ public class TowerManager
     public enum TowerType
     {
         X,
-        Y
+        Y,
+        Z
     }
     public struct TowerAttribute
     {
         public float cost;
         public Vector3 damage;
-        public Vector3 elementTime;
+        public Vector3 elementDamage;
         public float timeInterval;
         public List<Vector2Int> attackRange;
     }
@@ -80,13 +81,13 @@ public class TowerManager
             DestroyTower(tower);
         }
     }
-    public BaseTower CreateTower(TowerType type , Vector2Int position)
+    public BaseTower CreateTower(TowerType type , Vector2Int position , int faceDirection)
     {
         if(towerPool[(int)type].Count > 0)
         {
             BaseTower tower = towerPool[(int)type].Peek();
             towerPool[(int)type].Pop();
-            tower.ReInit(towerConfig.GetTowerAttribute(type) , position);
+            tower.ReInit(towerConfig.GetTowerAttribute(type) , position , faceDirection);
             towerList.Add(tower);
             return tower;
         }
@@ -94,7 +95,7 @@ public class TowerManager
         {
             BaseTower tower = (BaseTower)Activator.CreateInstance(towerClassList[type]);
             GameObject gameObject = GameObject.Instantiate(prefabTowerList[type]);
-            tower.Init(gameObject , towerConfig.GetTowerAttribute(type) , position);
+            tower.Init(gameObject , towerConfig.GetTowerAttribute(type) , position , faceDirection);
             towerList.Add(tower);
             return tower;
         }

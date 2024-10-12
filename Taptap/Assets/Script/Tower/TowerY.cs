@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TowerX : BaseTower
+public class TowerY : BaseTower
 {
     public override void Init(GameObject gameObject, TowerManager.TowerAttribute towerAttribute, Vector2Int position , int faceDirection)
     {
         base.Init(gameObject, towerAttribute, position , faceDirection);
-        this.type = TowerManager.TowerType.X;
+        this.type = TowerManager.TowerType.Y;
     }
     public override void ReInit(TowerManager.TowerAttribute towerAttribute, Vector2Int position , int faceDirection)
     {
@@ -21,7 +21,8 @@ public class TowerX : BaseTower
         {
             if(attackRange[i].enemyCount() > 0)
             {
-                attackRange[i].GetEnemy(0).BeAttacked(damage , elementDamage);
+                for(int j = 0 ; j < attackRange[i].enemyCount() ; j++)
+                    attackRange[i].GetEnemy(j).BeAttacked(damage , elementDamage);
                 flag = true;
                 break;
             }
