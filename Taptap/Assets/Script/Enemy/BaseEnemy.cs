@@ -12,7 +12,7 @@ public class BaseEnemy : IEnemy
     public float speed;
     protected Vector2 position;
     protected float moveScale;
-    // protected BaseHorn horn;
+    protected float timeScale;
     protected int pathIndex;
     protected int pathNodeIndex;
     protected Vector2Int nextPosition;
@@ -32,7 +32,7 @@ public class BaseEnemy : IEnemy
     public virtual void BeAttacked(Vector3 damage , Vector3 elementTime)
     {}
 #endregion
-    protected virtual void Die()
+    public  virtual void Die()
     {}
 
     protected virtual void Move(float deltaTime)
@@ -42,6 +42,9 @@ public class BaseEnemy : IEnemy
     {}
 
     protected virtual void ArriveDestination()
+    {}
+
+    protected virtual void WaitCD(float deltaTime)
     {}
 
     public virtual void Init(GameObject gameObject , EnemyManager.EnemyAttribute enemyAttribute , int pathIndex)

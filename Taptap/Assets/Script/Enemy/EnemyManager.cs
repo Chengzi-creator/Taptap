@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyManager : MonoBehaviour
+public class EnemyManager
 {
     private static EnemyManager instance;
     public static EnemyManager Instance => instance;
@@ -83,7 +83,7 @@ public class EnemyManager : MonoBehaviour
         else
         {
             BaseEnemy enemy = (BaseEnemy)Activator.CreateInstance(EnemyClassList[type]);
-            GameObject gameObject = Instantiate(prefabEnemyList[type]);
+            GameObject gameObject = GameObject.Instantiate(prefabEnemyList[type]);
             enemy.Init(gameObject , enemyConfig.GetEnemyAttribute(type) , pathIndex);
             enemyList.Add(enemy);
             return enemy;
@@ -92,11 +92,12 @@ public class EnemyManager : MonoBehaviour
 
     public void DestroyEnemy(BaseEnemy enemy)
     {
+        enemy.Die();
         enemyList.Remove(enemy);
         enemyPool[(int)enemy.type].Push(enemy);
     }
 
-    private void Update()
+    public void Update(float deltaTime)
     {
         foreach(BaseEnemy enemy in enemyList)
         {
