@@ -5,29 +5,29 @@ using UnityEngine;
 public class MyGrid : MonoBehaviour
 {
     /// <summary>
-    /// µØÍ¼×ø±ê
+    /// åœ°å›¾åæ ‡
     /// </summary>
     public Vector2 MapPos { get; private set; }
     /// <summary>
-    /// ÊÀ½ç×ø±ê
+    /// ä¸–ç•Œåæ ‡
     /// </summary>
     public Vector2 WorldPos { get; private set; }
 
     /// <summary>
-    /// ÔÚ¸Ã¸ñ×ÓÉÏµÄÎïÌå(µÆËş£¬ÕÏ°­Îï£¬Æğµã£¬ÖÕµã),Èç¹ûÃ»ÓĞÔòÎª¿Õ
+    /// åœ¨è¯¥æ ¼å­ä¸Šçš„ç‰©ä½“(ç¯å¡”ï¼Œéšœç¢ç‰©ï¼Œèµ·ç‚¹ï¼Œç»ˆç‚¹),å¦‚æœæ²¡æœ‰åˆ™ä¸ºç©º
     /// </summary>
     public GridObject HoldObject;
     /// <summary>
-    /// ¹â
+    /// å…‰
     /// </summary>
     //public MyLight light;
     /// <summary>
-    /// ¸ñ×Ó´óĞ¡
+    /// æ ¼å­å¤§å°
     /// </summary>
     public static Vector2 GridSize = new Vector2(2, 2);
 
     /// <summary>
-    /// ¿ÉÍ¨¹ı¸ñ×Ó
+    /// å¯é€šè¿‡æ ¼å­
     /// </summary>
     public bool CanPass
     {
@@ -35,14 +35,14 @@ public class MyGrid : MonoBehaviour
     }
 
     /// <summary>
-    /// ÊÇÖÕµã¸ñ×Ó
+    /// æ˜¯ç»ˆç‚¹æ ¼å­
     /// </summary>
     public bool IsEndGrid
     {
         get => HoldObject != null && HoldObject.Type == GridObjectType.End;
     }
     /// <summary>
-    /// ³õÊ¼»¯¸ñµã
+    /// åˆå§‹åŒ–æ ¼ç‚¹
     /// </summary>
     /// <param name="mapPos"></param>
     /// <param name="worldPos"></param>
@@ -55,7 +55,7 @@ public class MyGrid : MonoBehaviour
             SetHoldObject(holdObject);
     }
     /// <summary>
-    /// ÉèÖÃ¸ñ×ÓÉÏµÄÎïÌå
+    /// è®¾ç½®æ ¼å­ä¸Šçš„ç‰©ä½“
     /// </summary>
     /// <param name="gridObject"></param>
     public void SetHoldObject(GridObject gridObject)
@@ -64,7 +64,7 @@ public class MyGrid : MonoBehaviour
         HoldObject.transform.position = new Vector3(WorldPos.x, WorldPos.y, 0);
     }
     /// <summary>
-    /// µã»÷¸ñ×Ó
+    /// ç‚¹å‡»æ ¼å­
     /// </summary>
     public void OnClick()
     {
@@ -80,7 +80,7 @@ public class MyGrid : MonoBehaviour
 
 
     /// <summary>
-    /// ÏÔÊ¾ÊÇ·ñ¿ÕÏĞ
+    /// æ˜¾ç¤ºæ˜¯å¦ç©ºé—²
     /// </summary>
     public void ShowEmpty()
     {
@@ -94,7 +94,7 @@ public class MyGrid : MonoBehaviour
         }
     }
     /// <summary>
-    /// È¡ÏûÏÔÊ¾ÊÇ·ñ¿ÕÏĞ
+    /// å–æ¶ˆæ˜¾ç¤ºæ˜¯å¦ç©ºé—²
     /// </summary>
     public void CancelShowEmpty()
     {

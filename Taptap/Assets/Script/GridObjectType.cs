@@ -1,4 +1,4 @@
-﻿/// <summary>
+/// <summary>
 /// Grid的物体类型
 /// </summary>
 public enum GridObjectType
