@@ -7,7 +7,7 @@ public class MyGrid : MonoBehaviour,IGrid
     /// <summary>
     /// 地图坐标
     /// </summary>
-    public Vector2 MapPos { get; private set; }
+    public Vector2Int MapPos { get; private set; }
     /// <summary>
     /// 世界坐标
     /// </summary>
@@ -70,7 +70,7 @@ public class MyGrid : MonoBehaviour,IGrid
     /// <param name="mapPos"></param>
     /// <param name="worldPos"></param>
     /// <param name="holdObject"></param>
-    public void Init(Vector2 mapPos, Vector2 worldPos, GridObject holdObject = null)
+    public void Init(Vector2Int mapPos, Vector2 worldPos, GridObject holdObject = null)
     {
         MapPos = mapPos;
         WorldPos = worldPos;
