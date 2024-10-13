@@ -360,19 +360,26 @@ public class MyGridManager : MonoBehaviour, IGraphicManager, IGridManager
         return false;
     }
 
+    List<Vector2> testPath;
     public int GetPath(Vector2 StartPos)
     {
-        throw new NotImplementedException();
+        testPath = new List<Vector2>();
+        testPath.Add(StartPos);
+        testPath.Add(new Vector2(StartPos.x + 1, StartPos.y));
+        testPath.Add(new Vector2(StartPos.x + 2, StartPos.y));
+        return 0;
     }
 
     public Vector2 GetNextTarget(int pathId, int curIdx)
     {
-        throw new NotImplementedException();
+       if(curIdx+1< testPath.Count)
+            return testPath[curIdx + 1];
+        return new Vector2(-1, -1);
     }
 
     public int GetPathCost(int id)
     {
-        throw new NotImplementedException();
+        return 3;
     }
 }
 
