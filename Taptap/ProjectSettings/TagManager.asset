@@ -7,6 +7,7 @@ TagManager:
   - Map
   - Tower
   - Enemy
+  - Grid
   layers:
   - Default
   - TransparentFX
@@ -50,9 +51,9 @@ TagManager:
   - name: Map
     uniqueID: 527284629
     locked: 0
-  - name: Enemy
-    uniqueID: 2653268387
-    locked: 0
   - name: Tower
     uniqueID: 4136136609
+    locked: 0
+  - name: Enemy
+    uniqueID: 2653268387
     locked: 0

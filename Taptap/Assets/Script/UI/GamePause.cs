@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEditor.Tilemaps;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -8,6 +10,7 @@ public class GamePause : MonoBehaviour
 {
     [SerializeField] private GameObject PauseMasks;
     [SerializeField] private GameObject SetupMasks;
+    [SerializeField] private GameObject MenuMasks;
     [SerializeField] private Button exitButton;
     [SerializeField] private Button backButton;
     [SerializeField] private Button restartButton;
@@ -19,11 +22,13 @@ public class GamePause : MonoBehaviour
     private void Awake()
     {
         PauseMasks.SetActive(false);//先隐藏
+        SetupMasks.SetActive(false);
+        MenuMasks.SetActive(true);
         exitButton.onClick.AddListener(OnexitButtonClick);//监听
-//        restartButton.onClick.AddListener(OnrestartButtonClick);
-//        backButton.onClick.AddListener(OnbackButtonClick);
-//        homeButton.onClick.AddListener(OnhomeButtonClick);
-//        setupButton.onClick.AddListener(OnsetupButtonClick);
+        restartButton.onClick.AddListener(OnrestartButtonClick);
+        backButton.onClick.AddListener(OnbackButtonClick);
+        homeButton.onClick.AddListener(OnhomeButtonClick);
+        setupButton.onClick.AddListener(OnsetupButtonClick);
         menuButton.onClick.AddListener(OnmenuButtonClick);
     }
     
@@ -32,7 +37,15 @@ public class GamePause : MonoBehaviour
         //检测是否按下ESC键来切换暂停状态
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            TogglePause();
+            if (SetupMasks.activeSelf)
+            {
+                SetupMasks.SetActive(false);
+                PauseMasks.SetActive(true);
+            }
+            else
+            {
+                TogglePause();
+            }
         }
     }
     
@@ -53,11 +66,6 @@ public class GamePause : MonoBehaviour
         }
     }
     
-    private void OnmenuButtonClick()
-    {
-        Time.timeScale = 0f; 
-        PauseMasks.SetActive(true);
-    }
     
     private void OnexitButtonClick()
     {
@@ -70,8 +78,7 @@ public class GamePause : MonoBehaviour
     
     private void OnrestartButtonClick()
     {
-        SceneManager.LoadScene("UITest");
-        Time.timeScale = 1f;
+        StartCoroutine(LoadAndRestartScene("UITest"));
     }
    
     private void OnbackButtonClick()
@@ -79,9 +86,24 @@ public class GamePause : MonoBehaviour
         ResumeGame();//恢复游戏
     }
     
+    private void OnmenuButtonClick()
+    {
+        if (SetupMasks.activeSelf)
+        {
+            SetupMasks.SetActive(false);
+            PauseMasks.SetActive(true);
+        }
+        else
+        {
+            TogglePause();
+        }
+    }
+    
     private void OnsetupButtonClick()
     {   
         //设置界面可能要在单独设置？调整音量之类的？
+        PauseMasks.SetActive(false);
+        SetupMasks.SetActive(true);
     }
     
     private void ResumeGame()
@@ -91,12 +113,7 @@ public class GamePause : MonoBehaviour
         PauseMasks.SetActive(false); //禁用暂停菜单
     }
     
-    // private void OnhomeButtonClick()
-    // {
-    //     SceneManager.LoadScene("Start");
-    //     Time.timeScale = 1f; //恢复游戏时间
-    //     ObjectPool.Instance.Clear(); //初始化对象池
-    // }
+    
     
     private void OnhomeButtonClick()    
     {   

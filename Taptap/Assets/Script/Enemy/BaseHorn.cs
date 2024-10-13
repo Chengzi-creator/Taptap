@@ -15,4 +15,7 @@ public class BaseHorn : MonoBehaviour
     {
         
     }
+
+    public void SetHP(Vector3 currentHP , Vector3 maxHP)
+    {}
 }
