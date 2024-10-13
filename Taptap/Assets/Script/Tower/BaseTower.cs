@@ -7,14 +7,17 @@ public class BaseTower :ITower
     protected GameObject gameObject;
     public TowerManager.TowerType type;
     public float cost;
+
     public Vector3 damage;
     public Vector3 elementDamage;
+
     public Vector3 elementTime;
+
     public float timeInterval;
     protected float currentTimeInterval;
     protected float timeScale;
-    protected int faceDirection;
-    public List<MyGrid> attackRange;
+    
+    public List<IGrid> attackRange;
     public Vector2Int position;
     public Vector2Int Position
     {
@@ -25,7 +28,10 @@ public class BaseTower :ITower
             gameObject.transform.position = MyGridManager.Instance.GetWorldPos(value);
         }
     }
+    protected int faceDirection;
     public int FaceDirection => faceDirection;
+
+    public List<int> AttackedEnemyID;
 
     protected virtual void Attack()
     {}
@@ -42,7 +48,8 @@ public class BaseTower :ITower
     public virtual void Init(GameObject gameObject , TowerManager.TowerAttribute towerAttribute , Vector2Int position , int faceDirection)
     {
         this.gameObject = gameObject;
-        this.attackRange = new List<MyGrid>();
+        this.attackRange = new List<IGrid>();
+        this.AttackedEnemyID = new List<int>();
         this.ReInit(towerAttribute, position , faceDirection);
     }
 
@@ -69,9 +76,10 @@ public class BaseTower :ITower
                 midRange = new Vector2Int(range.y , range.x);
             else
                 midRange = range;
-            this.attackRange.Add(MyGridManager.Instance.GetGridByVector2Int(midRange));
+            this.attackRange.Add(MyGridManager.Instance.GetGrid(midRange));
         }
-        this.attackRange.Sort(new GridDistanceComparer());
+        // this.attackRange.Sort(new GridDistanceComparer());
+        this.attackRange.Sort((a , b) => a.DirToEnd - b.DirToEnd);
     }
 
     public virtual void BeAttacked(Vector3 elementDamage)
@@ -98,12 +106,6 @@ public class BaseTower :ITower
             Attack();
         }
     }
+
 }
 
-public class GridDistanceComparer : IComparer<MyGrid>
-{
-    public int Compare(MyGrid a, MyGrid b)
-    {
-        return a.distance - b.distance;
-    }
-}
