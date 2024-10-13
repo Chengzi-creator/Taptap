@@ -32,7 +32,7 @@ namespace Algorithm
             }
         }
 
-        public Vector2 GetNextTarget(int pathId, int curIdx)
+        public Vector2 GetNextTarget(int pathId, int idx)
         {
             throw new System.NotImplementedException();
         }

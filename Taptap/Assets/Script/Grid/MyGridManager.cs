@@ -1,9 +1,7 @@
 using Algorithm;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using Unity.VisualScripting;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
@@ -370,10 +368,10 @@ public class MyGridManager : MonoBehaviour, IGraphicManager, IGridManager
         return 0;
     }
 
-    public Vector2 GetNextTarget(int pathId, int curIdx)
+    public Vector2 GetNextTarget(int pathId, int idx)
     {
-       if(curIdx+1< testPath.Count)
-            return testPath[curIdx + 1];
+        if (idx < testPath.Count)
+            return testPath[idx];
         return new Vector2(-1, -1);
     }
 
