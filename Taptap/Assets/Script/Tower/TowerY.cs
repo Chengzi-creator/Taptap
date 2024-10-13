@@ -19,14 +19,14 @@ public class TowerY : BaseTower
         AttackedEnemyID.Clear();
         for(int i = 0 ; i < attackRange.Count ; i++)
         {
-            if(attackRange[i].enemyCount() > 0)
+            if(attackRange[i].EnemysCount() > 0)
             {
-                for(int j = 0 ; j < attackRange[i].enemyCount() ; j++)
+                for(int j = 0 ; j < attackRange[i].EnemysCount() ; j++)
                 {
-                    if(AttackedEnemyID.Contains(attackRange[i].GetEnemy(j).ID))
+                    if(AttackedEnemyID.Contains(attackRange[i].GetKthEnemy(j).ID))
                         continue;
-                    AttackedEnemyID.Add(attackRange[i].GetEnemy(j).ID);
-                    attackRange[i].GetEnemy(j).BeAttacked(damage , elementDamage);
+                    AttackedEnemyID.Add(attackRange[i].GetKthEnemy(j).ID);
+                    attackRange[i].GetKthEnemy(j).BeAttacked(damage , elementDamage);
                 }
                 break;
             }

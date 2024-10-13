@@ -19,10 +19,10 @@ public class EnemyManager
             instance.enemyList = new List<BaseEnemy>();
             instance.enemyPool = new Stack<BaseEnemy>[Enum.GetValues(typeof(EnemyType)).Length];
             for(int i = 0; i < instance.enemyPool.Length; i++)  instance.enemyPool[i] = new Stack<BaseEnemy>();
-            instance.enemyInGrid = new List<BaseEnemy>[25, 25];
+            instance.enemyInGrid = new List<IEnemy>[25, 25];
             for (int i = 0; i < 25; i++)
                 for (int j = 0; j < 25; j++)
-                    instance.enemyInGrid[i, j] = new List<BaseEnemy>();
+                    instance.enemyInGrid[i, j] = new List<IEnemy>();
             return instance.LoadData();
             
         }
@@ -76,8 +76,8 @@ public class EnemyManager
     private Dictionary<EnemyType , Type> EnemyClassList;
     private List<BaseEnemy> enemyList;
     // private HashSet<BaseEnemy> enemyList;
-    private List<BaseEnemy>[,] enemyInGrid;
-    public BaseEnemy CreateEnemy(EnemyType type , int pathIndex)
+    private List<IEnemy>[,] enemyInGrid;
+    public IEnemy CreateEnemy(EnemyType type , int pathIndex)
     {
         if(enemyPool[(int)type].Count > 0)
         {
@@ -97,12 +97,6 @@ public class EnemyManager
         }
     }
 
-    // public void DestroyEnemy(BaseEnemy enemy)
-    // {
-    //     enemy.Die();
-    //     enemyList.Remove(enemy);
-    //     enemyPool[(int)enemy.type].Push(enemy);
-    // }
 
     public void Update(float deltaTime)
     {
@@ -133,7 +127,6 @@ public class EnemyManager
                 for(int y = lef.y ; y <= rig.y ; y++)
                     enemyInGrid[x, y].Add(enemyList[i]);
         }
-        // for(int i = midIndex ; i < enemyList.Count ; i++)
         for(int i = enemyList.Count - 1 ; i >= midIndex ; i--)
         {
             enemyList[i].Die();
@@ -150,5 +143,19 @@ public class EnemyManager
         if(a.PathNodeIndex != b.PathNodeIndex)
             return b.PathNodeIndex - a.PathNodeIndex;
         return (b.MoveScale - a.MoveScale) > 0 ? 1 : -1;
+    }
+    public IEnemy GetKthEnemy(int k , Vector2Int position)
+    {
+        if(k >= enemyInGrid[position.x , position.y].Count)
+            return null;
+        return enemyInGrid[position.x , position.y][k];
+    }
+    public int EnemysCount(Vector2Int position)
+    {
+        return enemyInGrid[position.x , position.y].Count;
+    }
+    public List<IEnemy> GetEnemys(Vector2Int position)
+    {
+        return enemyInGrid[position.x , position.y];
     }
 }

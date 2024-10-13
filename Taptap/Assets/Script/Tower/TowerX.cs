@@ -19,10 +19,10 @@ public class TowerX : BaseTower
         AttackedEnemyID.Clear();
         for(int i = 0 ; i < attackRange.Count ; i++)
         {
-            if(attackRange[i].enemyCount() > 0)
+            if(attackRange[i].EnemysCount() > 0)
             {
-                AttackedEnemyID.Add(attackRange[i].GetEnemy(0).ID);
-                attackRange[i].GetEnemy(0).BeAttacked(damage , elementDamage);
+                AttackedEnemyID.Add(attackRange[i].GetKthEnemy(0).ID);
+                attackRange[i].GetKthEnemy(0).BeAttacked(damage , elementDamage);
                 break;
             }
         }

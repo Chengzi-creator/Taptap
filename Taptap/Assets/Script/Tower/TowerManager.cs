@@ -82,7 +82,7 @@ public class TowerManager
             DestroyTower(tower);
         }
     }
-    public BaseTower CreateTower(TowerType type , Vector2Int position , int faceDirection)
+    public ITower CreateTower(TowerType type , Vector2Int position , int faceDirection)
     {
         if(towerPool[(int)type].Count > 0)
         {

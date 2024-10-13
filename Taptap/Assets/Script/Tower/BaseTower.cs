@@ -17,7 +17,7 @@ public class BaseTower :ITower
     protected float currentTimeInterval;
     protected float timeScale;
     
-    public List<MyGrid> attackRange;
+    public List<IGrid> attackRange;
     public Vector2Int position;
     public Vector2Int Position
     {
@@ -48,7 +48,7 @@ public class BaseTower :ITower
     public virtual void Init(GameObject gameObject , TowerManager.TowerAttribute towerAttribute , Vector2Int position , int faceDirection)
     {
         this.gameObject = gameObject;
-        this.attackRange = new List<MyGrid>();
+        this.attackRange = new List<IGrid>();
         this.AttackedEnemyID = new List<int>();
         this.ReInit(towerAttribute, position , faceDirection);
     }
@@ -76,10 +76,10 @@ public class BaseTower :ITower
                 midRange = new Vector2Int(range.y , range.x);
             else
                 midRange = range;
-            this.attackRange.Add(MyGridManager.Instance.GetGridByVector2Int(midRange));
+            this.attackRange.Add(MyGridManager.Instance.GetGrid(midRange));
         }
         // this.attackRange.Sort(new GridDistanceComparer());
-        this.attackRange.Sort((a , b) => a.distance - b.distance);
+        this.attackRange.Sort((a , b) => a.DirToEnd - b.DirToEnd);
     }
 
     public virtual void BeAttacked(Vector3 elementDamage)
