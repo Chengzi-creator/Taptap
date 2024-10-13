@@ -76,10 +76,10 @@ public class BaseTower :ITower
                 midRange = new Vector2Int(range.y , range.x);
             else
                 midRange = range;
-            this.attackRange.Add(MyGridManager.Instance.GetGrid(midRange));
+            this.attackRange.Add(MyGridManager.Instance.GetIGrid(midRange));
         }
         // this.attackRange.Sort(new GridDistanceComparer());
-        this.attackRange.Sort((a , b) => a.DirToEnd - b.DirToEnd);
+        this.attackRange.Sort((a , b) => a.DisToEnd - b.DisToEnd);
     }
 
     public virtual void BeAttacked(Vector3 elementDamage)
