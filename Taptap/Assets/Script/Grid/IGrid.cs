@@ -1,0 +1,46 @@
+﻿
+using System.Collections.Generic;
+using System.Numerics;
+
+public interface IGrid
+{
+    /// <summary>
+    /// 获取当前格子的敌人
+    /// </summary>
+    /// <returns></returns>
+    public List<IEnemy> GetEnemys();
+
+    /// <summary>
+    /// 当前格子到终点的距离
+    /// </summary>
+    /// <returns></returns>
+    public int DirToEnd { get; set; }
+
+
+    /// <summary>
+    /// 当前格子敌人数量
+    /// </summary>
+    /// <returns></returns>
+    public int EnemysCount();
+
+    /// <summary>
+    /// 获取第k个敌人
+    /// </summary>
+    /// <param name="k"></param>
+    /// <returns></returns>
+
+    public IEnemy GetKthEnemy(int k);
+
+    /// <summary>
+    /// 获取Tower
+    /// </summary>
+    /// <returns></returns>
+    public BaseTower GetTower();
+
+    /// <summary>
+    /// 设置Tower
+    /// </summary>
+    /// <param name="tower"></param>
+    public void SetTower(BaseTower tower);
+}
+
