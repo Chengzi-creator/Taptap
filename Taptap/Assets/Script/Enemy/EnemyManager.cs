@@ -11,14 +11,18 @@ public class EnemyManager
     {
         if(instance == null)
         {
-            instance = new GameObject("EnemyManager").AddComponent<EnemyManager>();
+            // instance = new GameObject("EnemyManager").AddComponent<EnemyManager>();
+            instance = new EnemyManager();
 
             instance.prefabEnemyList = new Dictionary<EnemyType, GameObject>();
             instance.EnemyClassList = new Dictionary<EnemyType, Type>();
-            instance.enemyList = new HashSet<BaseEnemy>();
+            instance.enemyList = new List<BaseEnemy>();
             instance.enemyPool = new Stack<BaseEnemy>[Enum.GetValues(typeof(EnemyType)).Length];
             for(int i = 0; i < instance.enemyPool.Length; i++)  instance.enemyPool[i] = new Stack<BaseEnemy>();
-            
+            instance.enemyInGrid = new List<BaseEnemy>[25, 25];
+            for (int i = 0; i < 25; i++)
+                for (int j = 0; j < 25; j++)
+                    instance.enemyInGrid[i, j] = new List<BaseEnemy>();
             return instance.LoadData();
             
         }
@@ -62,6 +66,7 @@ public class EnemyManager
     public struct EnemyAttribute
     {
         public Vector3 maxHP;
+        public Vector2 size;
         public float speed;
     }
 
@@ -69,7 +74,9 @@ public class EnemyManager
     private EnemyConfig enemyConfig;
     private Dictionary<EnemyType , GameObject> prefabEnemyList;
     private Dictionary<EnemyType , Type> EnemyClassList;
-    private HashSet<BaseEnemy> enemyList;
+    private List<BaseEnemy> enemyList;
+    // private HashSet<BaseEnemy> enemyList;
+    private List<BaseEnemy>[,] enemyInGrid;
     public BaseEnemy CreateEnemy(EnemyType type , int pathIndex)
     {
         if(enemyPool[(int)type].Count > 0)
@@ -90,12 +97,12 @@ public class EnemyManager
         }
     }
 
-    public void DestroyEnemy(BaseEnemy enemy)
-    {
-        enemy.Die();
-        enemyList.Remove(enemy);
-        enemyPool[(int)enemy.type].Push(enemy);
-    }
+    // public void DestroyEnemy(BaseEnemy enemy)
+    // {
+    //     enemy.Die();
+    //     enemyList.Remove(enemy);
+    //     enemyPool[(int)enemy.type].Push(enemy);
+    // }
 
     public void Update(float deltaTime)
     {
@@ -103,5 +110,45 @@ public class EnemyManager
         {
             enemy.OnUpDate(Time.deltaTime);
         }
+        RefreshEnemyInGrid();
+    }
+    private void RefreshEnemyInGrid()
+    {
+        for (int i = 0; i < 25; i++)
+            for (int j = 0; j < 25; j++)
+                enemyInGrid[i, j].Clear();
+        enemyList.Sort((a , b) => CmpEnemy(a , b));
+        int midIndex = 0;
+        for(int i = 0 ; i < enemyList.Count ; i++)
+        {
+            if(enemyList[i].IsDead)
+            {
+                midIndex = i;
+                break;
+            }
+            Vector2Int lef;
+            Vector2Int rig;
+            enemyList[i].GetOccupyGrid(out lef ,out rig);
+            for(int x = lef.x ; x <= rig.x ; x++)
+                for(int y = lef.y ; y <= rig.y ; y++)
+                    enemyInGrid[x, y].Add(enemyList[i]);
+        }
+        // for(int i = midIndex ; i < enemyList.Count ; i++)
+        for(int i = enemyList.Count - 1 ; i >= midIndex ; i--)
+        {
+            enemyList[i].Die();
+            enemyList.RemoveAt(i);
+            enemyPool[(int)enemyList[i].Type].Push(enemyList[i]);
+        }
+    }
+    private int CmpEnemy(BaseEnemy a , BaseEnemy b)
+    {
+        if(a.IsDead)
+            return 1;
+        if(b.IsDead)
+            return -1;
+        if(a.PathNodeIndex != b.PathNodeIndex)
+            return b.PathNodeIndex - a.PathNodeIndex;
+        return (b.MoveScale - a.MoveScale) > 0 ? 1 : -1;
     }
 }

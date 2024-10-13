@@ -16,19 +16,15 @@ public class TowerX : BaseTower
 
     protected override void Attack()
     {
-        bool flag = false;
+        AttackedEnemyID.Clear();
         for(int i = 0 ; i < attackRange.Count ; i++)
         {
             if(attackRange[i].enemyCount() > 0)
             {
+                AttackedEnemyID.Add(attackRange[i].GetEnemy(0).ID);
                 attackRange[i].GetEnemy(0).BeAttacked(damage , elementDamage);
-                flag = true;
                 break;
             }
-        }
-        if(flag)
-        {
-
         }
     }
     protected override void WaitCD(float deltaTime)
@@ -47,6 +43,7 @@ public class TowerX : BaseTower
     public override void OnUpDate(float deltaTime)
     {
         base.OnUpDate(deltaTime);
+        deltaTime *= timeScale;
     }
 
 }

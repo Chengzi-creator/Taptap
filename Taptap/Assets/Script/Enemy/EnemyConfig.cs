@@ -11,6 +11,7 @@ public class EnemyConfig : ScriptableObject , ISerializationCallbackReceiver
     {
         public EnemyManager.EnemyType type;
         public Vector3 maxHP;
+        public Vector2 size;
         public float speed;
     }
 
@@ -24,7 +25,7 @@ public class EnemyConfig : ScriptableObject , ISerializationCallbackReceiver
             showEnemyData.Clear();
             foreach(var data in enemyDataList)
             {
-                showEnemyData.Add(new ShowFormat{type = data.Key, maxHP = data.Value.maxHP, speed = data.Value.speed});
+                showEnemyData.Add(new ShowFormat{type = data.Key, maxHP = data.Value.maxHP,size = data.Value.size , speed = data.Value.speed});
             }
         }
     }
@@ -34,7 +35,7 @@ public class EnemyConfig : ScriptableObject , ISerializationCallbackReceiver
 
         for(int i = 0; i < showEnemyData.Count; i++)
         {
-            enemyDataList[showEnemyData[i].type] = new EnemyManager.EnemyAttribute { maxHP = showEnemyData[i].maxHP, speed = showEnemyData[i].speed };
+            enemyDataList[showEnemyData[i].type] = new EnemyManager.EnemyAttribute { maxHP = showEnemyData[i].maxHP, speed = showEnemyData[i].speed , size = showEnemyData[i].size};
         }
     }
 

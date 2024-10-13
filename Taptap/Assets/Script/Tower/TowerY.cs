@@ -16,20 +16,20 @@ public class TowerY : BaseTower
 
     protected override void Attack()
     {
-        bool flag = false;
+        AttackedEnemyID.Clear();
         for(int i = 0 ; i < attackRange.Count ; i++)
         {
             if(attackRange[i].enemyCount() > 0)
             {
                 for(int j = 0 ; j < attackRange[i].enemyCount() ; j++)
+                {
+                    if(AttackedEnemyID.Contains(attackRange[i].GetEnemy(j).ID))
+                        continue;
+                    AttackedEnemyID.Add(attackRange[i].GetEnemy(j).ID);
                     attackRange[i].GetEnemy(j).BeAttacked(damage , elementDamage);
-                flag = true;
+                }
                 break;
             }
-        }
-        if(flag)
-        {
-
         }
     }
     protected override void WaitCD(float deltaTime)

@@ -16,10 +16,16 @@ public class TowerZ : BaseTower
 
     protected override void Attack()
     {
+        AttackedEnemyID.Clear();
         for(int i = 0 ; i < attackRange.Count ; i++)
         {
             for(int j = 0 ; j < attackRange[i].enemyCount() ; j++)
+            {
+                if(AttackedEnemyID.Contains(attackRange[i].GetEnemy(j).ID))
+                    continue;
+                AttackedEnemyID.Add(attackRange[i].GetEnemy(j).ID);
                 attackRange[i].GetEnemy(j).BeAttacked(damage , elementDamage);
+            }
         }
     }
     protected override void WaitCD(float deltaTime)
