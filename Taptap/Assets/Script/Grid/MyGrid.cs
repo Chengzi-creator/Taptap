@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MyGrid : MonoBehaviour
+public class MyGrid : MonoBehaviour,IGrid
 {
     /// <summary>
     /// 地图坐标
@@ -31,7 +31,9 @@ public class MyGrid : MonoBehaviour
     /// </summary>
     public bool CanPass
     {
-        get => HoldObject == null || HoldObject.Type != GridObjectType.Obstacle;
+        get => HoldObject == null ||
+            HoldObject.Type == GridObjectType.Start ||
+            HoldObject.Type == GridObjectType.End;
     }
 
     /// <summary>
@@ -41,6 +43,27 @@ public class MyGrid : MonoBehaviour
     {
         get => HoldObject != null && HoldObject.Type == GridObjectType.End;
     }
+
+    public bool IsStartGrid
+    {
+        get => HoldObject != null && HoldObject.Type == GridObjectType.Start;
+    }
+
+    /// <summary>
+    /// 到终点的距离
+    /// </summary>
+    public int DirToEnd { get; set; }
+
+    /// <summary>
+    /// 塔
+    /// </summary>
+    public BaseTower tower;
+
+    /// <summary>
+    /// 可放置物体
+    /// </summary>
+    public bool CanPutObj => HoldObject == null;
+
     /// <summary>
     /// 初始化格点
     /// </summary>
@@ -61,32 +84,53 @@ public class MyGrid : MonoBehaviour
     public void SetHoldObject(GridObject gridObject)
     {
         HoldObject = gridObject;
-        HoldObject.transform.position = new Vector3(WorldPos.x, WorldPos.y, 0);
+        //HoldObject.transform.position = new Vector3(WorldPos.x, WorldPos.y, 0);
+        ShowGrid();
     }
     /// <summary>
     /// 点击格子
     /// </summary>
     public void OnClick()
     {
-        if (HoldObject != null)
+        //Todo
+        if (true)
         {
-            HoldObject.OnClick();
+            if (HoldObject == null && MouseTest.Instance.HoldObject != null)
+                MyGridManager.Instance.SetGridHoldObject(this, MouseTest.Instance.HoldObject);
+            //MyGridManager.Instance.LogCost(MapPos);
         }
         else
         {
-            Debug.Log("no object on this grid");
+
+            if (HoldObject != null)
+            {
+                HoldObject.OnClick();
+            }
+            else
+            {
+                Debug.Log("no object on this grid");
+            }
         }
+
     }
 
 
     /// <summary>
     /// 显示是否空闲
     /// </summary>
-    public void ShowEmpty()
+    public void ShowGrid()
     {
-        if (HoldObject)
+        if (HoldObject != null)
         {
-            GetComponent<SpriteRenderer>().color = Color.red;
+            Color color = HoldObject.Type switch
+            {
+                GridObjectType.Start => Color.blue,
+                GridObjectType.End => Color.yellow,
+                GridObjectType.Obstacle => Color.black,
+                GridObjectType.Building => Color.gray,
+                _ => Color.red
+            };
+            GetComponent<SpriteRenderer>().color = color;
         }
         else
         {
@@ -96,11 +140,34 @@ public class MyGrid : MonoBehaviour
     /// <summary>
     /// 取消显示是否空闲
     /// </summary>
-    public void CancelShowEmpty()
+    public void CancelShowGrid()
     {
         GetComponent<SpriteRenderer>().color = Color.white;
     }
 
+    public List<IEnemy> GetEnemys()
+    {
+        return null;
+    }
 
+    public int EnemysCount()
+    {
+        return 0;
+    }
+
+    public IEnemy GetKthEnemy(int k)
+    {
+        return null;
+    }
+
+    public BaseTower GetTower()
+    {
+        return tower;
+    }
+
+    public void SetTower(BaseTower tower)
+    {
+        this.tower = tower;
+    }
 
 }
