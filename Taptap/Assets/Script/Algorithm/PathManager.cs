@@ -32,7 +32,7 @@ namespace Algorithm
             }
         }
 
-        public Vector2 GetNextTarget(int pathId, Vector2 curPos)
+        public Vector2 GetNextTarget(int pathId, int curIdx)
         {
             throw new System.NotImplementedException();
         }
@@ -42,7 +42,7 @@ namespace Algorithm
             throw new System.NotImplementedException();
         }
 
-        public bool HasNextTarget(int pathId, Vector2 curPos)
+        public int GetPathCost(int id)
         {
             throw new System.NotImplementedException();
         }

@@ -14,7 +14,7 @@ public interface IGrid
     /// 当前格子到终点的距离
     /// </summary>
     /// <returns></returns>
-    public int DirToEnd { get; set; }
+    public int DisToEnd { get; set; }
 
 
     /// <summary>

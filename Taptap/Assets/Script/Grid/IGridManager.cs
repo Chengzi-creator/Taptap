@@ -9,14 +9,14 @@ public interface IGridManager:IPathManager
     /// </summary>
     /// <param name="mapPos"></param>
     /// <returns></returns>
-    public MyGrid GetGrid(Vector2 mapPos);
+    public IGrid GetIGrid(Vector2 mapPos);
 
     /// <summary>
     /// 获取一系列Grid
     /// </summary>
     /// <param name="gridsPos"></param>
     /// <returns></returns>
-    public List<MyGrid> GetGrids(List<Vector2> gridsPos);
+    public List<IGrid> GetIGrids(List<Vector2> gridsPos);
 
     /// <summary>
     /// 获取mapPos格子的敌人
