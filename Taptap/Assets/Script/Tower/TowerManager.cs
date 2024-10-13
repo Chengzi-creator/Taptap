@@ -12,6 +12,7 @@ public class TowerManager
         if(instance == null)
         {
             // instance = new GameObject("TowerManager").AddComponent<TowerManager>();
+            instance = new TowerManager();
 
             instance.prefabTowerList = new Dictionary<TowerType, GameObject>();
             instance.towerClassList = new Dictionary<TowerType, Type>();
@@ -81,7 +82,7 @@ public class TowerManager
             DestroyTower(tower);
         }
     }
-    public BaseTower CreateTower(TowerType type , Vector2Int position , int faceDirection)
+    public ITower CreateTower(TowerType type , Vector2Int position , int faceDirection)
     {
         if(towerPool[(int)type].Count > 0)
         {
@@ -114,4 +115,5 @@ public class TowerManager
             tower.OnUpDate(deltaTime);
         }
     }
+    
 }
