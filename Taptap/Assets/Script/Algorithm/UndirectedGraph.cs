@@ -10,11 +10,11 @@ namespace Algorithm
         /// <summary>
         /// 坐标
         /// </summary>
-        public Vector2 pos;
+        public Vector2Int pos;
         /// <summary>
         /// 邻居
         /// </summary>
-        public List<Vector2> neighbors;
+        public List<Vector2Int> neighbors;
 
         /// <summary>
         /// 从起点到该点的最小代价
@@ -33,10 +33,10 @@ namespace Algorithm
         /// 次短路径父节点,用于回溯路径
         /// </summary>
         public List<Point> secondParent;
-        public Point(Vector2 pos)
+        public Point(Vector2Int pos)
         {
             this.pos = pos;
-            neighbors = new List<Vector2>();
+            neighbors = new List<Vector2Int>();
             parent = new List<Point>();
             secondParent = new List<Point>();
         }
@@ -75,19 +75,19 @@ namespace Algorithm
         const int MAXCOST = 1000000;
         List<Point> points;
 
-        List<Vector2> startPoints;
+        List<Vector2Int> startPoints;
 
-        List<Vector2> endPoints;
+        List<Vector2Int> endPoints;
 
         IGraphicManager graphicManager;
         public UndirectedGraph(IGraphicManager graphicManager)
         {
             this.graphicManager = graphicManager;
             points = new List<Point>();
-            startPoints = new List<Vector2>();
-            endPoints = new List<Vector2>();
+            startPoints = new List<Vector2Int>();
+            endPoints = new List<Vector2Int>();
 
-            foreach (Vector2 point in graphicManager.GetPoints())
+            foreach (Vector2Int point in graphicManager.GetPoints())
             {
                 Point p = new Point(point);
                 p.neighbors = graphicManager.GetLinkPoints(point);
@@ -107,13 +107,13 @@ namespace Algorithm
         /// 删除图中的点
         /// </summary>
         /// <param name="pos"></param>
-        public void RemovePoint(Vector2 pos)
+        public void RemovePoint(Vector2Int pos)
         {
             Point point = GetPoint(pos);
             if (point != null)
             {
                 points.Remove(point);
-                foreach (Vector2 p in point.neighbors)
+                foreach (Vector2Int p in point.neighbors)
                 {
                     Point neighbor = GetPoint(p);
                     //Debug.Log(p+" remove neighbor:"+pos);
@@ -131,12 +131,12 @@ namespace Algorithm
         /// <param name="neighbors"></param>
         /// <param name="isStart"></param>
         /// <param name="isEnd"></param>
-        public void AddPoint(Vector2 pos, List<Vector2> neighbors, bool isStart = false, bool isEnd = false)
+        public void AddPoint(Vector2Int pos, List<Vector2Int> neighbors, bool isStart = false, bool isEnd = false)
         {
             Point point = new Point(pos);
             point.neighbors = neighbors;
             points.Add(point);
-            foreach (Vector2 neighbor in neighbors)
+            foreach (Vector2Int neighbor in neighbors)
             {
                 Point neighborPoint = GetPoint(neighbor);
                 //Debug.Log(pos + " add neighbor:" + neighbor);
@@ -154,11 +154,11 @@ namespace Algorithm
             }
         }
 
-        private bool IsStartPoint(Vector2 pos)
+        private bool IsStartPoint(Vector2Int pos)
         {
             return startPoints.Contains(pos);
         }
-        private bool IsEndPoint(Vector2 pos)
+        private bool IsEndPoint(Vector2Int pos)
         {
             return endPoints.Contains(pos);
         }
@@ -169,7 +169,7 @@ namespace Algorithm
         /// <returns></returns>
         public bool HasPath()
         {
-            foreach (Vector2 startPoint in startPoints)
+            foreach (Vector2Int startPoint in startPoints)
             {
                 //Debug.LogWarning("calculate startPoint:" + startPoint);
                 if (HasPath(startPoint))
@@ -180,10 +180,10 @@ namespace Algorithm
             return false;
         }
 
-        private bool HasPath(Vector2 startPos)
+        private bool HasPath(Vector2Int startPos)
         {
             List<Point> openList = new List<Point>();
-            List<Vector2> closeList = new List<Vector2>();
+            List<Vector2Int> closeList = new List<Vector2Int>();
             openList.Add(GetPoint(startPos));
 
             while (openList.Count != 0)
@@ -196,7 +196,7 @@ namespace Algorithm
                     Debug.LogError("point is null");
                     return false;
                 }
-                foreach (Vector2 neighbor in point.neighbors)
+                foreach (Vector2Int neighbor in point.neighbors)
                 {
                     if (IsEndPoint(neighbor))
                     {
@@ -215,21 +215,21 @@ namespace Algorithm
         public PathManager CalculatePath()
         {
             PathManager pathManager = new PathManager();
-            foreach (Vector2 startPoint in startPoints)
+            foreach (Vector2Int startPoint in startPoints)
             {
                 pathManager.AddPaths(CalculatePath(startPoint));
             }
             return pathManager;
         }
 
-        public Paths CalculatePath(Vector2 startPoint)
+        public Paths CalculatePath(Vector2Int startPoint)
         {
             ResetGraphic();
             Point start = GetPoint(startPoint);
 
             PriorityList<Point> priorityList = new PriorityList<Point>();
-            List<Vector2> openList = new List<Vector2>();
-            List<Vector2> closeList = new List<Vector2>();
+            List<Vector2Int> openList = new List<Vector2Int>();
+            List<Vector2Int> closeList = new List<Vector2Int>();
             start.cost = 0;
             start.secondCost = 0;
             priorityList.Enqueue(start);
@@ -240,7 +240,7 @@ namespace Algorithm
                 openList.Remove(cur.pos);
                 closeList.Add(cur.pos);
 
-                foreach (Vector2 neighbor in cur.neighbors)
+                foreach (Vector2Int neighbor in cur.neighbors)
                 {
                     Point neighborPoint = GetPoint(neighbor);
                     if (neighborPoint == null)
@@ -280,7 +280,7 @@ namespace Algorithm
 
             Paths paths = new Paths(startPoint);
 
-            foreach (Vector2 endPoint in endPoints)
+            foreach (Vector2Int endPoint in endPoints)
             {
                 Point end = GetPoint(endPoint);
                 if (end.cost < MAXCOST)
@@ -330,7 +330,7 @@ namespace Algorithm
             }
         }
 
-        private Point GetPoint(Vector2 pos)
+        private Point GetPoint(Vector2Int pos)
         {
             return points.Find(p => p.pos == pos);
         }

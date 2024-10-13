@@ -6,14 +6,14 @@ namespace Algorithm
 {
     public interface IGraphicManager
     {
-        public List<Vector2> GetPoints();
-        public List<Vector2> GetLinkPoints(Vector2 point);
+        public List<Vector2Int> GetPoints();
+        public List<Vector2Int> GetLinkPoints(Vector2Int point);
 
-        public bool CanPass(Vector2 point);
+        public bool CanPass(Vector2Int point);
 
-        public bool IsInGraph(Vector2 point);
-        public bool IsStartPoint(Vector2 point);
-        public bool IsEndPoint(Vector2 point);
+        public bool IsInGraph(Vector2Int point);
+        public bool IsStartPoint(Vector2Int point);
+        public bool IsEndPoint(Vector2Int point);
     }
 }
 
