@@ -147,17 +147,17 @@ public class MyGrid : MonoBehaviour,IGrid
 
     public List<IEnemy> GetEnemys()
     {
-        return null;
+        return EnemyManager.Instance.GetEnemys(MapPos);
     }
 
     public int EnemysCount()
     {
-        return 0;
+        return EnemyManager.Instance.GetEnemys(MapPos).Count;
     }
 
     public IEnemy GetKthEnemy(int k)
     {
-        return null;
+        return EnemyManager.Instance.GetKthEnemy(k, MapPos);
     }
 
     public BaseTower GetTower()

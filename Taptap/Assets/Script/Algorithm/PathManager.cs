@@ -32,12 +32,12 @@ namespace Algorithm
             }
         }
 
-        public Vector2 GetTarget(int pathId, int idx)
+        public Vector2Int GetTarget(int pathId, int idx)
         {
             throw new System.NotImplementedException();
         }
 
-        public int GetPath(Vector2 StartPos)
+        public int GetPath(Vector2Int StartPos)
         {
             throw new System.NotImplementedException();
         }
@@ -47,7 +47,7 @@ namespace Algorithm
             throw new System.NotImplementedException();
         }
 
-        public void LogCost(Vector2 vector2)
+        public void LogCost(Vector2Int vector2)
         {
             foreach (var path in paths)
             {
