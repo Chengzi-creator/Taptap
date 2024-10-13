@@ -42,6 +42,7 @@ public class BaseEnemy : IEnemy
 
     public virtual void BeAttacked(Vector3 damage , Vector3 elementDamage)
     {
+        Debug.Log("be Attacked");
         currentHP -= damage;
         this.elementTime = new Vector3(
             Mathf.Max(elementDamage.x, this.elementTime.x),
@@ -57,6 +58,7 @@ public class BaseEnemy : IEnemy
 
     protected virtual void Move(float deltaTime)
     {
+// Debug.Log("Move to " + (((Vector2)(nextPosition - beginPosition)) * moveScale + beginPosition));
         moveScale += speed * deltaTime;
         Position = ((Vector2)(nextPosition - beginPosition)) * moveScale + beginPosition;
         if(moveScale >= 1)
@@ -64,7 +66,11 @@ public class BaseEnemy : IEnemy
             moveScale -= 1;
             pathNodeIndex++;
             beginPosition = nextPosition;
-            nextPosition = GetPositionFromPathNodeIndex(pathIndex , pathNodeIndex);
+if(pathNodeIndex == MyGridManager.Instance.GetPathCost(pathNodeIndex))
+    pathNodeIndex = 0;
+            // nextPosition = GetPositionFromPathNodeIndex(pathIndex , pathNodeIndex);
+// needImprove
+            nextPosition = Vector2Int.RoundToInt(MyGridManager.Instance.GetTarget(pathIndex , pathNodeIndex));
             
             if(nextPosition == Vector2Int.one * -1)
             {
@@ -106,8 +112,11 @@ public class BaseEnemy : IEnemy
         this.timeScale = 1;
         this.pathIndex = pathIndex;
         this.pathNodeIndex = 1;
-        this.beginPosition = GetPositionFromPathNodeIndex(pathIndex , 0);
-        this.nextPosition = GetPositionFromPathNodeIndex(pathIndex , 1);
+        // this.beginPosition = GetPositionFromPathNodeIndex(pathIndex , 0);
+        // this.nextPosition = GetPositionFromPathNodeIndex(pathIndex , 1);
+// needImprove
+        this.beginPosition = Vector2Int.RoundToInt(MyGridManager.Instance.GetTarget(pathIndex , 0));
+        this.nextPosition = Vector2Int.RoundToInt(MyGridManager.Instance.GetTarget(pathIndex , 1));
         this.Position = beginPosition;
         this.moveScale = 0;
     }

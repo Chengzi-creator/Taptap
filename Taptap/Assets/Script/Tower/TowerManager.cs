@@ -30,8 +30,8 @@ public class TowerManager
     }
     private bool LoadData()
     {
-        towerConfig = Resources.Load<TowerConfig>("TowerConfig");
-        prefabTowerList[TowerType.X] = Resources.Load<GameObject>("TowerX");
+        towerConfig = Resources.Load<TowerConfig>("SO/TowerConfig");
+        prefabTowerList[TowerType.X] = Resources.Load<GameObject>("Prefab/TowerX");
         towerClassList[TowerType.X] = typeof(TowerX);
 
         if(instance.towerConfig == null)
@@ -42,12 +42,12 @@ public class TowerManager
 
         foreach(TowerType type in Enum.GetValues(typeof(TowerType)))
         {
-            if(prefabTowerList[type] == null)
+            if(prefabTowerList.ContainsKey(type) == false)
             {
                 Debug.LogWarning("Tower Prefab " + type + " not found");
                 return false;
             }
-            if(towerClassList[type] == null)
+            if(towerClassList.ContainsKey(type) == false)
             {
                 Debug.LogWarning("Tower Class " + type + " not found");
                 return false;

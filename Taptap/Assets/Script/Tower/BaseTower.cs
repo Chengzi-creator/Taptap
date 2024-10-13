@@ -25,7 +25,9 @@ public class BaseTower :ITower
         protected set
         {
             position = value;
-            gameObject.transform.position = MyGridManager.Instance.GetWorldPos(value);
+            // gameObject.transform.position = MyGridManager.Instance.GetWorldPos(value);
+            Vector2 midPos = MyGridManager.Instance.GetWorldPos(value);
+            gameObject.transform.position = midPos;
         }
     }
     protected int faceDirection;
@@ -76,6 +78,13 @@ public class BaseTower :ITower
                 midRange = new Vector2Int(range.y , range.x);
             else
                 midRange = range;
+            midRange += position;
+            if(MyGridManager.Instance.GetIGrid(midRange) == null)
+            {
+                Debug.Log(midRange + "is null");
+                // return ;
+                continue;
+            }
             this.attackRange.Add(MyGridManager.Instance.GetIGrid(midRange));
         }
         // this.attackRange.Sort(new GridDistanceComparer());
