@@ -2,7 +2,7 @@
 using UnityEngine;
 namespace Algorithm
 {
-    public class PathManager
+    public class PathManager : IPathManager
     {
         public List<Paths> paths;
 
@@ -30,6 +30,21 @@ namespace Algorithm
             {
                 path.DrawSecondPath();
             }
+        }
+
+        public Vector2 GetNextTarget(int pathId, Vector2 curPos)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public int GetPath(Vector2 StartPos)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public bool HasNextTarget(int pathId, Vector2 curPos)
+        {
+            throw new System.NotImplementedException();
         }
 
         public void LogCost(Vector2 vector2)

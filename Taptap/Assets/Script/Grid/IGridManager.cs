@@ -2,7 +2,7 @@
 using UnityEngine;
 
 
-public interface IGridManager
+public interface IGridManager:IPathManager
 {
     /// <summary>
     /// 获取mapPos格子Grid
