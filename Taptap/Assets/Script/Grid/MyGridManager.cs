@@ -368,7 +368,7 @@ public class MyGridManager : MonoBehaviour, IGraphicManager, IGridManager
         return 0;
     }
 
-    public Vector2 GetNextTarget(int pathId, int idx)
+    public Vector2 GetTarget(int pathId, int idx)
     {
         if (idx < testPath.Count)
             return testPath[idx];

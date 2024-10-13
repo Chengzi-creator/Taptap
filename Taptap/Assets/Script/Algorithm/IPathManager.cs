@@ -9,12 +9,12 @@ public interface IPathManager
     /// <returns></returns>
     public int GetPath(Vector2 StartPos);
     /// <summary>
-    /// 获取下一个路径点
+    /// 获取pathid对应path的第idx路径点
     /// </summary>
     /// <param name="pathId"></param>
     /// <param name="idx"></param>
     /// <returns></returns>
-    public Vector2 GetNextTarget(int pathId,int idx);
+    public Vector2 GetTarget(int pathId,int idx);
     /// <summary>
     /// 获取路径的总格子数
     /// </summary>
