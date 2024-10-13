@@ -52,7 +52,7 @@ public class MyGrid : MonoBehaviour,IGrid
     /// <summary>
     /// 到终点的距离
     /// </summary>
-    public int DirToEnd { get; set; }
+    public int DisToEnd { get; set; }
 
     /// <summary>
     /// 塔

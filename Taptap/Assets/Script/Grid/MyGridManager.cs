@@ -195,8 +195,7 @@ public class MyGridManager : MonoBehaviour, IGraphicManager, IGridManager
         myGraphic = new UndirectedGraph(this);
     }
 
-
-    public MyGrid GetGrid(Vector2 mapPos)
+    public IGrid GetIGrid(Vector2 mapPos)
     {
         if (IsInMap(mapPos))
         {
@@ -205,9 +204,18 @@ public class MyGridManager : MonoBehaviour, IGraphicManager, IGridManager
         return null;
     }
 
-    public List<MyGrid> GetGrids(List<Vector2> gridsPos)
+    private MyGrid GetGrid(Vector2 mapPos)
     {
-        List<MyGrid> myGrids = new List<MyGrid>();
+        if (IsInMap(mapPos))
+        {
+            return myGrids[(int)mapPos.x, (int)mapPos.y];
+        }
+        return null;
+    }
+
+    public List<IGrid> GetIGrids(List<Vector2> gridsPos)
+    {
+        List<IGrid> myGrids = new List<IGrid>();
         foreach (var mapPos in gridsPos)
         {
             var myGrid = GetGrid(mapPos);
@@ -301,7 +309,7 @@ public class MyGridManager : MonoBehaviour, IGraphicManager, IGridManager
     {
         if (IsInMap(mapPos))
         {
-            return GetGrid(mapPos).DirToEnd;
+            return GetGrid(mapPos).DisToEnd;
         }
         return 0;
     }
@@ -350,6 +358,21 @@ public class MyGridManager : MonoBehaviour, IGraphicManager, IGridManager
             return grid.CanPutObj && HasPathAfterPut(mapPos);
         }
         return false;
+    }
+
+    public int GetPath(Vector2 StartPos)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Vector2 GetNextTarget(int pathId, int curIdx)
+    {
+        throw new NotImplementedException();
+    }
+
+    public int GetPathCost(int id)
+    {
+        throw new NotImplementedException();
     }
 }
 
