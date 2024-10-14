@@ -42,7 +42,7 @@ public class MyGridManager : MonoBehaviour, IGraphicManager, IGridManager
 
     #region 坐标转换
     /// <summary>
-    /// 返回Grid的世界坐标，是中心值
+    /// 返回Grid的世界坐标,计算得到
     /// </summary>
     /// <param name="mapPos"></param>
     /// <returns></returns>
