@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 357636877850258587}
   - component: {fileID: 2592115228777580911}
+  - component: {fileID: -7198895221267205865}
   m_Layer: 8
-  m_Name: TowerX
+  m_Name: TowerSpike
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -84,3 +85,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-7198895221267205865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3790972109661619154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40b2cf3b9066ee7409375b0ab13c7504, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
+  cost: 0
+  damage: {x: 0, y: 0, z: 0}
+  elementDamage: {x: 0, y: 0, z: 0}
+  timeInterval: 0
+  position: {x: 0, y: 0}
