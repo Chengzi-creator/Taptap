@@ -17,18 +17,12 @@ public class SourceText : MonoBehaviour
 
    private void Start()
    {
-      StartCoroutine(SourceChange(_lastTime));
+      
    }
 
-   IEnumerator SourceChange(float time)
+   public void IconChange(int increase)
    {
-      yield return new WaitForSeconds(time);
-      Count++;
-      TextChange();
-   }
-
-   void TextChange()
-   {
+      Count += increase;
       _text.text = "Icon : " + Count.ToString();
    }
 }
