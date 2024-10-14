@@ -12,7 +12,8 @@ public class ABFTest : MonoBehaviour
     }
 
     // Update is called once per frame
-    bool a = false;
+    // bool a = false;
+    bool a = true;
     bool b = false;
     void Update()
     {
@@ -23,7 +24,7 @@ public class ABFTest : MonoBehaviour
         }
         if(!b && Time.time > 0.2)
         {
-            EnemyManager.Instance.CreateEnemy(EnemyManager.EnemyType.A,MyGridManager.Instance.GetPath(Vector2.zero));
+            EnemyManager.Instance.CreateEnemy(EnemyManager.EnemyType.A,MyGridManager.Instance.GetPath(Vector2Int.zero));
             b = true;
         }
         EnemyManager.Instance.Update(Time.deltaTime);

@@ -11,7 +11,6 @@ public class EnemyManager
     {
         if(instance == null)
         {
-            // instance = new GameObject("EnemyManager").AddComponent<EnemyManager>();
             instance = new EnemyManager();
 
             instance.prefabEnemyList = new Dictionary<EnemyType, GameObject>();
@@ -19,7 +18,7 @@ public class EnemyManager
             instance.enemyList = new List<BaseEnemy>();
             instance.enemyPool = new Stack<BaseEnemy>[Enum.GetValues(typeof(EnemyType)).Length];
             for(int i = 0; i < instance.enemyPool.Length; i++)  instance.enemyPool[i] = new Stack<BaseEnemy>();
-            instance.enemyInGrid = new List<IEnemy>[25, 25];
+                instance.enemyInGrid = new List<IEnemy>[25, 25];
             for (int i = 0; i < 25; i++)
                 for (int j = 0; j < 25; j++)
                     instance.enemyInGrid[i, j] = new List<IEnemy>();
@@ -29,6 +28,15 @@ public class EnemyManager
         else
         {
             return false;
+        }
+    }
+    public void ReInit()
+    {
+        for(int i = enemyList.Count - 1 ; i >= 0 ; i--)
+        {
+            enemyPool[(int)enemyList[i].Type].Push(enemyList[i]);
+            enemyList[i].Die();
+            enemyList.RemoveAt(i);
         }
     }
     private bool LoadData()
@@ -132,7 +140,6 @@ public class EnemyManager
             for(int x = lef.x ; x <= rig.x ; x++)
                 for(int y = lef.y ; y <= rig.y ; y++)
                 {
-                    // Debug.Log(x.ToString() +  y.ToString());
                     enemyInGrid[x, y].Add(enemyList[i]);
                 }
         }
@@ -141,7 +148,6 @@ public class EnemyManager
             enemyPool[(int)enemyList[i].Type].Push(enemyList[i]);
             enemyList[i].Die();
             enemyList.RemoveAt(i);
-        // Debug.Log(i);
         }
     }
     private int CmpEnemy(BaseEnemy a , BaseEnemy b)

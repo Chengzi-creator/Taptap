@@ -30,11 +30,11 @@ public class EnemyA : BaseEnemy
     }
     protected override void ArriveDestination()
     {
-        
+        base.ArriveDestination();
     }
     protected override void SetHorn(Vector3 color)
     {
-        
+        base.SetHorn(color);
     }
     public override void OnUpDate(float deltaTime)
     {

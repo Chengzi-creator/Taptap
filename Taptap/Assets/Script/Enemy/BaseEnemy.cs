@@ -15,7 +15,7 @@ public class BaseEnemy : IEnemy
     protected Vector3 currentHP;
     public bool IsDead => currentHP.x <= 0 && currentHP.y <= 0 && currentHP.z <= 0;
     protected Vector3 elementTime;
-
+    protected float defense;
     protected float timeScale;
 
     public float speed;
@@ -58,7 +58,6 @@ public class BaseEnemy : IEnemy
 
     protected virtual void Move(float deltaTime)
     {
-// Debug.Log("Move to " + (((Vector2)(nextPosition - beginPosition)) * moveScale + beginPosition));
         moveScale += speed * deltaTime;
         Position = ((Vector2)(nextPosition - beginPosition)) * moveScale + beginPosition;
         if(moveScale >= 1)
@@ -66,15 +65,13 @@ public class BaseEnemy : IEnemy
             moveScale -= 1;
             pathNodeIndex++;
             beginPosition = nextPosition;
-if(pathNodeIndex == MyGridManager.Instance.GetPathCost(pathNodeIndex))
-    pathNodeIndex = 0;
-            // nextPosition = GetPositionFromPathNodeIndex(pathIndex , pathNodeIndex);
-// needImprove
-            nextPosition = Vector2Int.RoundToInt(MyGridManager.Instance.GetTarget(pathIndex , pathNodeIndex));
-            
-            if(nextPosition == Vector2Int.one * -1)
+            if(pathNodeIndex >= MyGridManager.Instance.GetPathCost(pathIndex))
             {
                 ArriveDestination();
+            }
+            else
+            {
+                nextPosition = MyGridManager.Instance.GetTarget(pathIndex , pathNodeIndex);
             }
         }
     }
@@ -83,7 +80,10 @@ if(pathNodeIndex == MyGridManager.Instance.GetPathCost(pathNodeIndex))
     {}
 
     protected virtual void ArriveDestination()
-    {}
+    {
+        Debug.Log("arrive destination");
+        speed = 0;
+    }
 
     protected virtual void WaitCD(float deltaTime)
     {
@@ -91,12 +91,29 @@ if(pathNodeIndex == MyGridManager.Instance.GetPathCost(pathNodeIndex))
             elementTime -= deltaTime * Vector3.one;
         if(elementTime.x < 0 && elementTime.y < 0 && elementTime.z < 0)
             elementTime = Vector3.zero;
+        if(elementTime.x > 0 && elementTime.y > 0 && elementTime.z > 0)
+        {
+
+        }
+        if(elementTime.x > 0 && elementTime.y > 0)
+        {
+            // gain money
+        }
+        if(elementTime.x > 0 && elementTime.z > 0)
+        {
+            timeScale = 0.8f;
+        }
+        if(elementTime.y > 0 && elementTime.z > 0)
+        {
+            defense = 1.3f;
+        }
     }
 
     public virtual void Init(GameObject gameObject , EnemyManager.EnemyAttribute enemyAttribute , int pathIndex)
     {
         this.id = maxID++;
         this.gameObject = gameObject;
+        this.gameObject.name = "Enemy_" + this.type + "_" + this.id;
         this.type = EnemyManager.EnemyType.A;
         this.ReInit(enemyAttribute , pathIndex);
     }
@@ -109,14 +126,12 @@ if(pathNodeIndex == MyGridManager.Instance.GetPathCost(pathNodeIndex))
         this.speed = enemyAttribute.speed;
         this.maxHP = enemyAttribute.maxHP;
         this.currentHP = maxHP;
+        this.defense = 1;
         this.timeScale = 1;
         this.pathIndex = pathIndex;
         this.pathNodeIndex = 1;
-        // this.beginPosition = GetPositionFromPathNodeIndex(pathIndex , 0);
-        // this.nextPosition = GetPositionFromPathNodeIndex(pathIndex , 1);
-// needImprove
-        this.beginPosition = Vector2Int.RoundToInt(MyGridManager.Instance.GetTarget(pathIndex , 0));
-        this.nextPosition = Vector2Int.RoundToInt(MyGridManager.Instance.GetTarget(pathIndex , 1));
+        this.beginPosition = MyGridManager.Instance.GetTarget(pathIndex , 0);
+        this.nextPosition = MyGridManager.Instance.GetTarget(pathIndex , 1);
         this.Position = beginPosition;
         this.moveScale = 0;
     }

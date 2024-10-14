@@ -26,7 +26,6 @@ public class TowerX : BaseTower
                 break;
             }
         }
-        Debug.Log(attackRange.Count);
     }
     protected override void WaitCD(float deltaTime)
     {
