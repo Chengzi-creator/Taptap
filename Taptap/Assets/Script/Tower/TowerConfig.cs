@@ -12,7 +12,7 @@ public class TowerConfig : ScriptableObject , ISerializationCallbackReceiver
         public TowerManager.TowerType type;
         public float cost;
         public Vector3 damage;
-        public Vector3 elementTime;
+        public Vector3 elementDamage;
         public float timeInterval;
         public List<Vector2Int> attackRange;
     }
@@ -27,7 +27,7 @@ public class TowerConfig : ScriptableObject , ISerializationCallbackReceiver
             showTowerData.Clear();
             foreach(var data in towerDataList)
             {
-                showTowerData.Add(new ShowFormat{type = data.Key, cost = data.Value.cost, damage = data.Value.damage, elementTime = data.Value.elementTime, timeInterval = data.Value.timeInterval, attackRange = data.Value.attackRange});
+                showTowerData.Add(new ShowFormat{type = data.Key, cost = data.Value.cost, damage = data.Value.damage, elementDamage = data.Value.elementDamage, timeInterval = data.Value.timeInterval, attackRange = data.Value.attackRange});
             }
         }
     }
@@ -37,7 +37,7 @@ public class TowerConfig : ScriptableObject , ISerializationCallbackReceiver
 
         for(int i = 0; i < showTowerData.Count; i++)
         {
-            towerDataList[showTowerData[i].type] = new TowerManager.TowerAttribute {cost = showTowerData[i].cost, damage = showTowerData[i].damage, elementTime = showTowerData[i].elementTime, timeInterval = showTowerData[i].timeInterval, attackRange = showTowerData[i].attackRange };
+            towerDataList[showTowerData[i].type] = new TowerManager.TowerAttribute {cost = showTowerData[i].cost, damage = showTowerData[i].damage, elementDamage = showTowerData[i].elementDamage, timeInterval = showTowerData[i].timeInterval, attackRange = showTowerData[i].attackRange };
         }
     }
 

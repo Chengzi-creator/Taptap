@@ -57,7 +57,7 @@ public class MyGridManager : MonoBehaviour, IGraphicManager, IGridManager
         }
         else
         {
-            Debug.Log("out of range");
+            Debug.Log("out of range " + mapPos);
             return new Vector2(0, 0);
         }
     }

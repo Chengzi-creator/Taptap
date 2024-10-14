@@ -15,7 +15,7 @@ public class BaseEnemy : IEnemy
     protected Vector3 currentHP;
     public bool IsDead => currentHP.x <= 0 && currentHP.y <= 0 && currentHP.z <= 0;
     protected Vector3 elementTime;
-
+    protected float defense;
     protected float timeScale;
 
     public float speed;
@@ -42,6 +42,7 @@ public class BaseEnemy : IEnemy
 
     public virtual void BeAttacked(Vector3 damage , Vector3 elementDamage)
     {
+        Debug.Log("be Attacked");
         currentHP -= damage;
         this.elementTime = new Vector3(
             Mathf.Max(elementDamage.x, this.elementTime.x),
@@ -64,11 +65,13 @@ public class BaseEnemy : IEnemy
             moveScale -= 1;
             pathNodeIndex++;
             beginPosition = nextPosition;
-            nextPosition = GetPositionFromPathNodeIndex(pathIndex , pathNodeIndex);
-            
-            if(nextPosition == Vector2Int.one * -1)
+            if(pathNodeIndex >= MyGridManager.Instance.GetPathCost(pathIndex))
             {
                 ArriveDestination();
+            }
+            else
+            {
+                nextPosition = MyGridManager.Instance.GetTarget(pathIndex , pathNodeIndex);
             }
         }
     }
@@ -77,7 +80,10 @@ public class BaseEnemy : IEnemy
     {}
 
     protected virtual void ArriveDestination()
-    {}
+    {
+        Debug.Log("arrive destination");
+        speed = 0;
+    }
 
     protected virtual void WaitCD(float deltaTime)
     {
@@ -85,12 +91,29 @@ public class BaseEnemy : IEnemy
             elementTime -= deltaTime * Vector3.one;
         if(elementTime.x < 0 && elementTime.y < 0 && elementTime.z < 0)
             elementTime = Vector3.zero;
+        if(elementTime.x > 0 && elementTime.y > 0 && elementTime.z > 0)
+        {
+
+        }
+        if(elementTime.x > 0 && elementTime.y > 0)
+        {
+            // gain money
+        }
+        if(elementTime.x > 0 && elementTime.z > 0)
+        {
+            timeScale = 0.8f;
+        }
+        if(elementTime.y > 0 && elementTime.z > 0)
+        {
+            defense = 1.3f;
+        }
     }
 
     public virtual void Init(GameObject gameObject , EnemyManager.EnemyAttribute enemyAttribute , int pathIndex)
     {
         this.id = maxID++;
         this.gameObject = gameObject;
+        this.gameObject.name = "Enemy_" + this.type + "_" + this.id;
         this.type = EnemyManager.EnemyType.A;
         this.ReInit(enemyAttribute , pathIndex);
     }
@@ -103,11 +126,12 @@ public class BaseEnemy : IEnemy
         this.speed = enemyAttribute.speed;
         this.maxHP = enemyAttribute.maxHP;
         this.currentHP = maxHP;
+        this.defense = 1;
         this.timeScale = 1;
         this.pathIndex = pathIndex;
         this.pathNodeIndex = 1;
-        this.beginPosition = GetPositionFromPathNodeIndex(pathIndex , 0);
-        this.nextPosition = GetPositionFromPathNodeIndex(pathIndex , 1);
+        this.beginPosition = MyGridManager.Instance.GetTarget(pathIndex , 0);
+        this.nextPosition = MyGridManager.Instance.GetTarget(pathIndex , 1);
         this.Position = beginPosition;
         this.moveScale = 0;
     }
