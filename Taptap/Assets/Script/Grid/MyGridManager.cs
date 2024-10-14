@@ -50,8 +50,9 @@ public class MyGridManager : MonoBehaviour, IGraphicManager, IGridManager
     {
         if (IsInMap(mapPos))
         {
-            float x = mapPos.x * MyGrid.GridSize.x + MyGrid.GridSize.x / 2 + MapStartPos.x;
-            float y = mapPos.y * MyGrid.GridSize.y + MyGrid.GridSize.y / 2 + MapStartPos.y;
+            //注意起始格子的中心点在StarPos,因此不需要加上1/2的格子大小
+            float x = mapPos.x * MyGrid.GridSize.x + MapStartPos.x;
+            float y = mapPos.y * MyGrid.GridSize.y + MapStartPos.y;
             return new Vector2(x, y);
         }
         else
