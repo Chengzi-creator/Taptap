@@ -12,9 +12,9 @@ public class EnemyA : BaseEnemy
     {
         base.ReInit(enemyAttribute , pathIndex);
     }
-    public override void BeAttacked(Vector3 damage , Vector3 elementDamage)
+    public override void BeAttacked(Vector3 damage , int colorDamage)
     {
-        base.BeAttacked(damage , elementDamage);
+        base.BeAttacked(damage , colorDamage);
     }
     public override void Die()
     {

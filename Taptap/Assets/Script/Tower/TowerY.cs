@@ -2,34 +2,52 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TowerY : BaseTower
+public class TowerY : BaseDamageTower
 {
-    public override void Init(GameObject gameObject, TowerManager.TowerAttribute towerAttribute, Vector2Int position , int faceDirection)
+    protected LinkedList<IGrid> lockedEnemy;
+    protected LinkedList<float> lockedTime;
+    public override void Init(TowerManager.TowerAttribute towerAttribute, Vector2Int position , int faceDirection)
     {
-        base.Init(gameObject, towerAttribute, position , faceDirection);
         this.type = TowerManager.TowerType.Y;
+        this.lockedEnemy = new LinkedList<IGrid>();
+        this.lockedTime = new LinkedList<float>();
+        base.Init(towerAttribute, position , faceDirection);
     }
     public override void ReInit(TowerManager.TowerAttribute towerAttribute, Vector2Int position , int faceDirection)
     {
         base.ReInit(towerAttribute, position , faceDirection);
+        this.lockedEnemy.Clear();
+        this.lockedTime.Clear();
     }
 
     protected override void Attack()
     {
-        AttackedEnemyID.Clear();
         for(int i = 0 ; i < attackRange.Count ; i++)
         {
             if(attackRange[i].EnemysCount() > 0)
             {
-                for(int j = 0 ; j < attackRange[i].EnemysCount() ; j++)
-                {
-                    if(AttackedEnemyID.Contains(attackRange[i].GetKthEnemy(j).ID))
-                        continue;
-                    AttackedEnemyID.Add(attackRange[i].GetKthEnemy(j).ID);
-                    attackRange[i].GetKthEnemy(j).BeAttacked(damage , elementDamage);
-                }
+                lockedEnemy.AddLast(attackRange[i]);
+                lockedTime.AddLast(bulletTime);
                 break;
             }
+        }
+    }
+    protected override void BulletFly(float deltaTime)
+    {
+        var node = lockedTime.First;
+        while(node != null)
+        {
+            node.Value -= deltaTime;
+            node = node.Next;
+        }
+        node = lockedTime.First;
+        while(node != null && node.Value <= 0)
+        {
+            for(int i = 0 ; i < lockedEnemy.First.Value.EnemysCount() ; i++)
+                lockedEnemy.First.Value.GetKthEnemy(i).BeAttacked(damage , TowerManager.Instance.GetColor(position));
+            lockedEnemy.RemoveFirst();
+            lockedTime.RemoveFirst();
+            node = lockedTime.First;
         }
     }
     protected override void WaitCD(float deltaTime)
@@ -40,10 +58,6 @@ public class TowerY : BaseTower
     public override void DestroyTower()
     {
         base.DestroyTower();
-    }
-    public override void BeAttacked(Vector3 elementDamage)
-    {
-        base.BeAttacked(elementDamage);
     }
     public override void OnUpDate(float deltaTime)
     {

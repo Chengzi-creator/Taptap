@@ -11,11 +11,10 @@ public class TowerManager
     {
         if(instance == null)
         {
-            // instance = new GameObject("TowerManager").AddComponent<TowerManager>();
             instance = new TowerManager();
 
+            instance.colorMap = new int[25,25,5];
             instance.prefabTowerList = new Dictionary<TowerType, GameObject>();
-            instance.towerClassList = new Dictionary<TowerType, Type>();
             instance.towerList = new HashSet<BaseTower>();
             instance.towerPool = new Stack<BaseTower>[Enum.GetValues(typeof(TowerType)).Length];
             for(int i = 0; i < instance.towerPool.Length; i++)  instance.towerPool[i] = new Stack<BaseTower>();
@@ -31,8 +30,8 @@ public class TowerManager
     private bool LoadData()
     {
         towerConfig = Resources.Load<TowerConfig>("SO/TowerConfig");
-        prefabTowerList[TowerType.X] = Resources.Load<GameObject>("Prefab/TowerX");
-        towerClassList[TowerType.X] = typeof(TowerX);
+        prefabTowerList[TowerType.D_spike] = Resources.Load<GameObject>("Prefab/TowerDSpike");
+        prefabTowerList[TowerType.B_torch] = Resources.Load<GameObject>("Prefab/TowerBTorch");
 
         if(instance.towerConfig == null)
         {
@@ -47,11 +46,6 @@ public class TowerManager
                 Debug.LogWarning("Tower Prefab " + type + " not found");
                 return false;
             }
-            if(towerClassList.ContainsKey(type) == false)
-            {
-                Debug.LogWarning("Tower Class " + type + " not found");
-                return false;
-            }
         }
         return true;
     }
@@ -59,22 +53,30 @@ public class TowerManager
     {
         X,
         Y,
-        Z
+        Z,
+        D_spike,
+        B_torch,
+        B_flash,
+        B_lazor,
+        D_hammer,
+        D_catapult
+
     }
     public struct TowerAttribute
     {
         public float cost;
         public Vector3 damage;
-        public Vector3 elementDamage;
+        public int color;
         public float timeInterval;
+        public float bulletTime;
         public List<Vector2Int> attackRange;
     }
 
     private Stack<BaseTower>[] towerPool ; 
     private TowerConfig towerConfig;
     private Dictionary<TowerType , GameObject> prefabTowerList;
-    private Dictionary<TowerType , Type> towerClassList;
     private HashSet<BaseTower> towerList;
+    private int[,,] colorMap;
     public void ReInit()
     {
         foreach(BaseTower tower in towerList)
@@ -94,16 +96,16 @@ public class TowerManager
         }
         else
         {
-            BaseTower tower = (BaseTower)Activator.CreateInstance(towerClassList[type]);
-            GameObject gameObject = GameObject.Instantiate(prefabTowerList[type]);
-            tower.Init(gameObject , towerConfig.GetTowerAttribute(type) , position , faceDirection);
+            BaseTower tower = GameObject.Instantiate(prefabTowerList[type]).GetComponent<BaseTower>();
+            tower.Init(towerConfig.GetTowerAttribute(type) , position , faceDirection);
             towerList.Add(tower);
             return tower;
         }
     }
 
-    public void DestroyTower(BaseTower tower)
+    public void DestroyTower(ITower midTower)
     {
+        BaseTower tower = (BaseTower)midTower;
         towerList.Remove(tower);
         towerPool[(int)tower.type].Push(tower);
         tower.DestroyTower();
@@ -115,5 +117,38 @@ public class TowerManager
             tower.OnUpDate(deltaTime);
         }
     }
+    public int GetColor(Vector2Int position)
+    {
+        int ans = 0;
+        for(int i = 0 ; i < 3 ; i ++)
+        {
+            if(colorMap[position.x , position.y , i] > 0)
+                ans += 1 << i;
+        }
+        return ans;
+    }
+    public void AddColor(Vector2Int position , int color)
+    {
+        for(int i = 0 ; i < 3 ; i ++)
+        {
+            if((color & (1 << i)) > 0)
+            {
+                colorMap[position.x , position.y , i] ++;
+            }
+        }
+    }
+    public void RemoveColor(Vector2Int position , int color)
+    {
+        for(int i = 0 ; i < 3 ; i ++)
+        {
+            if((color & (1 << i)) > 0)
+            {
+                colorMap[position.x , position.y , i] --;
+            }
+        }
+    }
     
 }
+
+// 红   绿  黄  蓝  紫   青  白
+// 1    2   3   4   5   6   7

@@ -2,18 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TowerZ : BaseDamageTower
+public class TowerSpike : BaseDamageTower
 {
+    protected LinkedList<IEnemy> lockedEnemy;
     protected LinkedList<float> lockedTime;
     public override void Init(TowerManager.TowerAttribute towerAttribute, Vector2Int position , int faceDirection)
     {
-        this.type = TowerManager.TowerType.Z;
+        this.type = TowerManager.TowerType.D_spike;
+        this.lockedEnemy = new LinkedList<IEnemy>();
         this.lockedTime = new LinkedList<float>();
         base.Init(towerAttribute, position , faceDirection);
     }
     public override void ReInit(TowerManager.TowerAttribute towerAttribute, Vector2Int position , int faceDirection)
     {
         base.ReInit(towerAttribute, position , faceDirection);
+        this.lockedEnemy.Clear();
         this.lockedTime.Clear();
     }
 
@@ -23,6 +26,8 @@ public class TowerZ : BaseDamageTower
         {
             if(attackRange[i].EnemysCount() > 0)
             {
+                // attackRange[i].GetKthEnemy(0).BeAttacked(damage , elementDamage);
+                lockedEnemy.AddLast(attackRange[i].GetKthEnemy(0));
                 lockedTime.AddLast(bulletTime);
                 break;
             }
@@ -39,17 +44,11 @@ public class TowerZ : BaseDamageTower
         node = lockedTime.First;
         while(node != null && node.Value <= 0)
         {
-            for(int i = 0 ; i < attackRange.Count ; i++)
-            {
-                for(int j = 0 ; j < attackRange[i].EnemysCount() ; j++)
-                {
-                    attackRange[i].GetKthEnemy(j).BeAttacked(damage , TowerManager.Instance.GetColor(position));
-                }
-            }
+            lockedEnemy.First.Value.BeAttacked(damage , TowerManager.Instance.GetColor(position));
+            lockedEnemy.RemoveFirst();
             lockedTime.RemoveFirst();
             node = lockedTime.First;
         }
-
     }
     protected override void WaitCD(float deltaTime)
     {
@@ -60,13 +59,10 @@ public class TowerZ : BaseDamageTower
     {
         base.DestroyTower();
     }
-    // public override void BeAttacked(Vector3 elementDamage)
-    // {
-    //     base.BeAttacked(elementDamage);
-    // }
     public override void OnUpDate(float deltaTime)
     {
         base.OnUpDate(deltaTime);
+        deltaTime *= timeScale;
     }
 
 }

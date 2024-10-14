@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class BaseEnemy : IEnemy
@@ -14,7 +15,7 @@ public class BaseEnemy : IEnemy
     public Vector3 maxHP;
     protected Vector3 currentHP;
     public bool IsDead => currentHP.x <= 0 && currentHP.y <= 0 && currentHP.z <= 0;
-    protected Vector3 elementTime;
+    protected float[] colorTime;
     protected float defense;
     protected float timeScale;
 
@@ -40,20 +41,22 @@ public class BaseEnemy : IEnemy
     protected float moveScale;
     public float MoveScale => moveScale;
 
-    public virtual void BeAttacked(Vector3 damage , Vector3 elementDamage)
+    public virtual void BeAttacked(Vector3 damage , int colorDamage)
     {
         Debug.Log("be Attacked");
         currentHP -= damage;
-        this.elementTime = new Vector3(
-            Mathf.Max(elementDamage.x, this.elementTime.x),
-            Mathf.Max(elementDamage.y, this.elementTime.y),
-            Mathf.Max(elementDamage.z, this.elementTime.z)
-        );
+        this.colorTime[colorDamage] = 2;
+        // this.elementTime = new Vector3(
+        //     Mathf.Max(elementDamage.x, this.elementTime.x),
+        //     Mathf.Max(elementDamage.y, this.elementTime.y),
+        //     Mathf.Max(elementDamage.z, this.elementTime.z)
+        // );
         SetHorn(new Vector3(currentHP.x/maxHP.x , currentHP.y/maxHP.y , currentHP.z/maxHP.z));
     }
     public virtual void Die()
     {
         gameObject.SetActive(false);
+        Debug.Log("die");
     }
 
     protected virtual void Move(float deltaTime)
@@ -87,26 +90,26 @@ public class BaseEnemy : IEnemy
 
     protected virtual void WaitCD(float deltaTime)
     {
-        if(elementTime != Vector3.zero)
-            elementTime -= deltaTime * Vector3.one;
-        if(elementTime.x < 0 && elementTime.y < 0 && elementTime.z < 0)
-            elementTime = Vector3.zero;
-        if(elementTime.x > 0 && elementTime.y > 0 && elementTime.z > 0)
-        {
+        // if(elementTime != Vector3.zero)
+        //     elementTime -= deltaTime * Vector3.one;
+        // if(elementTime.x < 0 && elementTime.y < 0 && elementTime.z < 0)
+        //     elementTime = Vector3.zero;
+        // if(elementTime.x > 0 && elementTime.y > 0 && elementTime.z > 0)
+        // {
 
-        }
-        if(elementTime.x > 0 && elementTime.y > 0)
-        {
-            // gain money
-        }
-        if(elementTime.x > 0 && elementTime.z > 0)
-        {
-            timeScale = 0.8f;
-        }
-        if(elementTime.y > 0 && elementTime.z > 0)
-        {
-            defense = 1.3f;
-        }
+        // }
+        // if(elementTime.x > 0 && elementTime.y > 0)
+        // {
+        //     // gain money
+        // }
+        // if(elementTime.x > 0 && elementTime.z > 0)
+        // {
+        //     timeScale = 0.8f;
+        // }
+        // if(elementTime.y > 0 && elementTime.z > 0)
+        // {
+        //     defense = 1.3f;
+        // }
     }
 
     public virtual void Init(GameObject gameObject , EnemyManager.EnemyAttribute enemyAttribute , int pathIndex)
@@ -115,6 +118,7 @@ public class BaseEnemy : IEnemy
         this.gameObject = gameObject;
         this.gameObject.name = "Enemy_" + this.type + "_" + this.id;
         this.type = EnemyManager.EnemyType.A;
+        this.colorTime = new float[10];
         this.ReInit(enemyAttribute , pathIndex);
     }
 
@@ -134,6 +138,7 @@ public class BaseEnemy : IEnemy
         this.nextPosition = MyGridManager.Instance.GetTarget(pathIndex , 1);
         this.Position = beginPosition;
         this.moveScale = 0;
+        for(int i = 0 ; i < 10 ; i ++) this.colorTime[i] = 0;
     }
 
     public virtual void OnUpDate(float deltaTime)

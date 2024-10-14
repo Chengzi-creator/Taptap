@@ -7,7 +7,7 @@ public interface IEnemy
     public int ID{get;}
     public EnemyManager.EnemyType Type{get;}
     public bool IsDead{get;}
-    public void BeAttacked(Vector3 damage , Vector3 elementTime);
+    public void BeAttacked(Vector3 damage , int color);
     public Vector2 Position{get;}
     public float MoveScale{get;}
     public int PathNodeIndex{get;}
