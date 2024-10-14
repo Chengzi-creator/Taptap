@@ -12,8 +12,8 @@ public class ABFTest : MonoBehaviour
     }
 
     // Update is called once per frame
-    // bool a = false;
-    bool a = true;
+    bool a = false;
+    // bool a = true;
     bool b = false;
     void Update()
     {
