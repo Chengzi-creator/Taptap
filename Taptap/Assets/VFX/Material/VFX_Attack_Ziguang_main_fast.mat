@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: VFX_Pandavfx_v2.3
+  m_Name: VFX_Attack_Ziguang_main_fast
   m_Shader: {fileID: 4800000, guid: 446de4ba36021554a94eb3e445fa294c, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -18,6 +18,7 @@ Material:
   - _MASKTEXUVS_NORMAL
   m_InvalidKeywords:
   - _CADDTEXUVT_ON
+  - _CUSTOMDATADIS_ON
   - _DISSOLVEAR_ON
   - _DISSOLVEPLUSAR_ON
   - _DISTORTADDTEX_ON
@@ -64,7 +65,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DissloveTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 09de715f46a5745438192ec35bcfcf66, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DissloveTexPlus:
@@ -84,9 +85,9 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
+        m_Texture: {fileID: 2800000, guid: e0dd09288f636e447a2058589db20217, type: 3}
+        m_Scale: {x: 0.5, y: 1}
+        m_Offset: {x: 0.38, y: 0}
     - _MaskPlusTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -165,13 +166,13 @@ Material:
     - _Cullmode: 0
     - _CustomDistort: 0
     - _CustomVAT: 0
-    - _CustomdataDis: 0
+    - _CustomdataDis: 1
     - _CustomdataDisT: 0
     - _CustomdataMainTexUV: 0
     - _CustomdataMaskUV: 0
     - _Cutoff: 0.5
-    - _DIssloveFactor: 0.5
-    - _DIssloveSoft: 0.5
+    - _DIssloveFactor: 0
+    - _DIssloveSoft: 1
     - _DIssloveWide: 0.1
     - _DIssolve_rotat: 0
     - _DepthF: 0
@@ -210,7 +211,7 @@ Material:
     - _DistortNormalTex: 1
     - _DistortRemap: 0
     - _DistortTexAR: 1
-    - _DistortTex_Uspeed: 0
+    - _DistortTex_Uspeed: 0.02
     - _DistortTex_Vspeed: 0
     - _Dst: 10
     - _DstBlend: 0
@@ -263,7 +264,7 @@ Material:
     - _MaskPlusUspeed: 0
     - _MaskPlusVspeed: 0
     - _MaskTexUVS: 0
-    - _Mask_Uspeed: 0
+    - _Mask_Uspeed: 2
     - _Mask_Vspeed: 0
     - _Mask_rotat: 0
     - _Mask_scale: 1
