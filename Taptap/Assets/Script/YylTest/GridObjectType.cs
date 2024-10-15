@@ -8,5 +8,6 @@ public enum GridObjectType
     Obstacle,
     Start,
     End,
+    NoBuildGround,
 }
 

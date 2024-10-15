@@ -6,14 +6,21 @@ namespace Algorithm
     {
         public List<Paths> paths;
 
+        private Dictionary<int, Path> pathDic = new Dictionary<int, Path>();
+        private Dictionary<Vector2Int, Paths> pathsDic = new Dictionary<Vector2Int, Paths>();
         public PathManager()
         {
             paths = new List<Paths>();
         }
 
-        public void AddPaths(Paths path)
+        public void AddPaths(Paths paths)
         {
-            paths.Add(path);
+            this.paths.Add(paths);
+            pathsDic.Add(paths.startPos, paths);
+            foreach (Path p in paths.firstpaths)
+            {
+                pathDic.Add(p.pathId, p);
+            }
         }
 
         public void DrawFirstPath()
@@ -34,17 +41,23 @@ namespace Algorithm
 
         public Vector2Int GetTarget(int pathId, int idx)
         {
-            throw new System.NotImplementedException();
+            if (pathDic.ContainsKey(pathId))
+                return pathDic[pathId].GetTarget(idx);
+            else
+            {
+                Debug.LogError($"PathManager has't id = {pathId}, Error!!!!");
+                return new Vector2Int(-1, -1);
+            }
         }
 
         public int GetPath(Vector2Int StartPos)
         {
-            throw new System.NotImplementedException();
+            return pathsDic[StartPos].GetFirstPath();
         }
 
         public int GetPathCost(int id)
         {
-            throw new System.NotImplementedException();
+            return pathDic[id].Cost;
         }
 
         public void LogCost(Vector2Int vector2)
