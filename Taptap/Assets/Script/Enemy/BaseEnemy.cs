@@ -19,6 +19,9 @@ public class BaseEnemy : MonoBehaviour, IEnemy
     protected float defense;
     protected float timeScale;
 
+    protected int money;
+    public int Money => money;
+
     protected float speed;
     protected int pathIndex;
     protected int pathNodeIndex;
@@ -155,6 +158,7 @@ public class BaseEnemy : MonoBehaviour, IEnemy
         gameObject.SetActive(true);
         this.size = enemyAttribute.size;
         this.speed = enemyAttribute.speed;
+        this.money = enemyAttribute.money;
         this.maxHP = enemyAttribute.maxHP;
         this.currentHP = maxHP;
         this.defense = 1;

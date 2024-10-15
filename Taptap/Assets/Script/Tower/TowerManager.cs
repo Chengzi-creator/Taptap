@@ -82,6 +82,7 @@ public class TowerManager : ITowerManager
         }
         towerList.Add(tower);
         towerMap[position.x , position.y] = tower;
+        MyGridManager.Instance.BuildTower(position);
         return tower;
     }
 
@@ -96,6 +97,7 @@ public class TowerManager : ITowerManager
         towerList.Remove(tower);
         towerPool[(int)tower.Type].Push(tower);
         towerMap[tower.Position.x , tower.Position.y] = null;
+        MyGridManager.Instance.DestoryTower(tower.Position);
         tower.DestroyTower();
     }
     public ITower GetTower(Vector2Int position)
