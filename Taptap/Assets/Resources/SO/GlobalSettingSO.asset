@@ -13,5 +13,17 @@ MonoBehaviour:
   m_Name: GlobalSettingSO
   m_EditorClassIdentifier: 
   refreshTime: 0
-  colorRemainTime: []
-  buffValue: []
+  colorRemainTime:
+  - 2
+  - 2
+  - 2
+  - 2
+  buffValue:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0

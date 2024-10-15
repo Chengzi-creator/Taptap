@@ -14,6 +14,7 @@ public interface IEnemyManager
         public Vector3 maxHP;
         public Vector2 size;
         public float speed;
+        public int money;
     }
 
     public IEnemy CreateEnemy(IEnemyManager.EnemyType type , int pathIndex);
