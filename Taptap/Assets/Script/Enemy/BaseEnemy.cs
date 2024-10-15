@@ -16,11 +16,13 @@ public class BaseEnemy : MonoBehaviour, IEnemy
     protected Vector3 currentHP;
     public bool IsDead => currentHP.x <= 0 && currentHP.y <= 0 && currentHP.z <= 0;
     protected float[] colorTime;
+    protected bool[] currentColor = new bool[10];
     protected float defense;
     protected float timeScale;
 
     protected int money;
-    public int Money => money;
+    // public int Money => money;
+    public int Money => currentColor[3] ? (int)(money * GlobalSetting.Instance.GlobalSettingSO.GetBuffValue(3)) : money;
 
     protected float speed;
     protected int pathIndex;
@@ -90,57 +92,45 @@ public class BaseEnemy : MonoBehaviour, IEnemy
     protected virtual void WaitCD(float deltaTime)
     {
         // 红   绿  黄  蓝  紫   青  白
-        bool[] midColor = new bool[10];
         for(int i = 0 ; i < colorTime.Length ; i ++)
         {
             if(colorTime[i] > 0)
                 colorTime[i] -= deltaTime;
             if(colorTime[i] > 0)
-                midColor[i] = true;
+                currentColor[i] = true;
         }
         Vector2Int lef , rig;
         GetOccupyGrid(out lef , out rig);
         for(int x = lef.x ; x <= rig.x ; x++)
             for(int y = lef.y ; y <= rig.y ; y++)
             {
-                midColor[MyGridManager.Instance.GetColor(x , y)] = true;
+                currentColor[MyGridManager.Instance.GetColor(x , y)] = true;
             }
-        if(midColor[3])
-        {
-
-        }
-        if(midColor[5])
-        {
-
-        }
-        if(midColor[6])
-        {
-
-        }
-        if(midColor[7])
-        {
-            
-        }
-        // if(elementTime != Vector3.zero)
-        //     elementTime -= deltaTime * Vector3.one;
-        // if(elementTime.x < 0 && elementTime.y < 0 && elementTime.z < 0)
-        //     elementTime = Vector3.zero;
-        // if(elementTime.x > 0 && elementTime.y > 0 && elementTime.z > 0)
+        // if(currentColor[3])
         // {
+//钱
+        // }
+        if(currentColor[5])
+        {
+            timeScale = GlobalSetting.Instance.GlobalSettingSO.GetBuffValue(5);
+        }
+        else
+        {
+            timeScale = 1;
+        }
 
-        // }
-        // if(elementTime.x > 0 && elementTime.y > 0)
-        // {
-        //     // gain money
-        // }
-        // if(elementTime.x > 0 && elementTime.z > 0)
-        // {
-        //     timeScale = 0.8f;
-        // }
-        // if(elementTime.y > 0 && elementTime.z > 0)
-        // {
-        //     defense = 1.3f;
-        // }
+        if(currentColor[6])
+        {
+            currentHP -= GlobalSetting.Instance.GlobalSettingSO.GetBuffValue(6) * deltaTime * Vector3.one;
+        }
+        if(currentColor[7])
+        {
+            defense = GlobalSetting.Instance.GlobalSettingSO.GetBuffValue(7);
+        }
+        else
+        {
+            defense = 1;
+        }
     }
 
     public virtual void Init(IEnemyManager.EnemyAttribute enemyAttribute , int pathIndex)
@@ -149,6 +139,7 @@ public class BaseEnemy : MonoBehaviour, IEnemy
         this.gameObject.name = "Enemy_" + this.type + "_" + this.id;
         this.type = IEnemyManager.EnemyType.A;
         this.colorTime = new float[10];
+        this.currentColor = new bool[10];
         this.ReInit(enemyAttribute , pathIndex);
     }
 
@@ -169,7 +160,7 @@ public class BaseEnemy : MonoBehaviour, IEnemy
         this.nextPosition = MyGridManager.Instance.GetTarget(pathIndex , 1);
         this.Position = beginPosition;
         this.moveScale = 0;
-        for(int i = 0 ; i < 10 ; i ++) this.colorTime[i] = 0;
+        for(int i = 0 ; i < 10 ; i ++) {this.colorTime[i] = 0 ; this.currentColor[i] = false;}
     }
 
     public virtual void OnUpDate(float deltaTime)

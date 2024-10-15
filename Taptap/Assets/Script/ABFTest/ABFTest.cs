@@ -22,8 +22,6 @@ public class ABFTest : MonoBehaviour
     {
         if(!a && Time.time > 0.1)
         {
-            //tower = TowerManager.Instance.CreateTower(ITowerManager.TowerType.B_torch, new Vector2Int(0, 0) , 0);
-            // if(tower == null) Debug.Log("tower is null");
             a = true;
         }
         if(!b && Time.time > 0.2)
@@ -42,7 +40,6 @@ public class ABFTest : MonoBehaviour
         }
         if(!d && Time.time > 0.4)
         {
-            //tower = TowerManager.Instance.CreateTower(ITowerManager.TowerType.D_spike, new Vector2Int(0, 1) , 0);
             d = true;
         }
         EnemyManager.Instance.Update(Time.deltaTime);
