@@ -1,32 +1,46 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Tilemaps;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class BuildMenu : MonoBehaviour
 {
-    [SerializeField] private GameObject SetupMasks;
-    [SerializeField] private GameObject MenuMasks;
-    [SerializeField] private Toggle _toggle;
+    [Serializable]
+    public struct  ToggeleViewPair//直接将按钮和view绑定
+    {
+        public Toggle toggle;
+        public GameObject view;
+    }
+
+    [SerializeField] public List<ToggeleViewPair> ToggeleViewPairs;//可以直接添加
     
     private void Awake()
     {
-        MenuMasks.SetActive(false);
-        SetupMasks.SetActive(false);
-        _toggle.onValueChanged.AddListener(isOn => MenuControl());
+       foreach (var pair in ToggeleViewPairs)
+       {
+           pair.view.SetActive(false);
+       }
     }
 
-    void MenuControl()
+    private void Update()
     {
-        if (_toggle.isOn)
+        foreach (var pair in ToggeleViewPairs)
         {
-            MenuMasks.SetActive(true);
-        }
-        else
-        {
-            MenuMasks.SetActive(false);
+            if (pair.toggle.isOn)
+            {
+                SetActiveView(pair.view);
+                break;
+            }
         }
     }
-    
+
+    private void SetActiveView(GameObject activeview)
+    {
+        foreach (var pair in ToggeleViewPairs)
+        {
+            pair.view.SetActive(pair.view == activeview);
+        }
+    }
 }

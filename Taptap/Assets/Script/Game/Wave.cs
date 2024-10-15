@@ -6,9 +6,10 @@ using UnityEngine;
 [System.Serializable]
 public class Wave :MonoBehaviour
 {
-    //public PrefabType enemy1;
-    public int enemyCount;
-    public int sourceCount;
-    public float timeBuild;
-    public float timeEnemy;
+    public int waveCount;
+    [SerializeField] public int enemyCount;
+    [SerializeField] public int sourceCount;
+    [SerializeField] public float timeBuild;
+    [SerializeField] public float timeEnemy;
+    [SerializeField] public GameObject _enemy;
 }

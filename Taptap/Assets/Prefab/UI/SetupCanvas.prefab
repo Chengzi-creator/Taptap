@@ -536,7 +536,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _toggle: {fileID: 2312767652489419310}
   _slider: {fileID: 6102034479956953182}
-  _audio: {fileID: 0}
+  _audio: {fileID: 3036360506070727571, guid: c1181b11c0b20c1439437832c5921784, type: 3}
 --- !u!1 &6956971712337273960
 GameObject:
   m_ObjectHideFlags: 0

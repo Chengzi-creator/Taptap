@@ -28,8 +28,8 @@ public class ABFTest : MonoBehaviour
         }
         if(!b && Time.time > 0.2)
         {
-            TowerManager.Instance.CreateTower(ITowerManager.TowerType.B_torch, new Vector2Int(1, 0) , 0);
-            // EnemyManager.Instance.CreateEnemy(EnemyManager.EnemyType.A,MyGridManager.Instance.GetPath(Vector2Int.zero));
+            // TowerManager.Instance.CreateTower(ITowerManager.TowerType.B_torch, new Vector2Int(1, 0) , 0);
+            EnemyManager.Instance.CreateEnemy(IEnemyManager.EnemyType.A,MyGridManager.Instance.GetPath(Vector2Int.zero));
             b = true;
         }
         if(!c && Time.time > 0.3)
