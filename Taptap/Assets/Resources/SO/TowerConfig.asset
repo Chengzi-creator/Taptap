@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: TowerConfig
   m_EditorClassIdentifier: 
   showTowerData:
-  - type: 3
+  - type: 0
     cost: 10
     damage: {x: 3, y: 3, z: 3}
-    elementDamage: {x: 0, y: 0, z: 0}
+    color: 0
+    bulletTime: 0
     timeInterval: 0.3
     attackRange:
     - {x: 0, y: 0}
@@ -28,15 +29,17 @@ MonoBehaviour:
     - {x: 0, y: -1}
     - {x: 1, y: -1}
     - {x: -1, y: 1}
-  - type: 4
+  - type: 1
     cost: 0
     damage: {x: 0, y: 0, z: 0}
-    elementDamage: {x: 0, y: 0, z: 0}
+    color: 0
+    bulletTime: 0
     timeInterval: 0
     attackRange: []
   - type: 2
     cost: 0
     damage: {x: 0, y: 0, z: 0}
-    elementDamage: {x: 0, y: 0, z: 0}
+    color: 0
+    bulletTime: 0
     timeInterval: 0
     attackRange: []

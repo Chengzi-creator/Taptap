@@ -22,27 +22,27 @@ public class ABFTest : MonoBehaviour
     {
         if(!a && Time.time > 0.1)
         {
-            tower = TowerManager.Instance.CreateTower(ITowerManager.TowerType.B_torch, new Vector2Int(0, 0) , 0);
+            //tower = TowerManager.Instance.CreateTower(ITowerManager.TowerType.B_torch, new Vector2Int(0, 0) , 0);
             // if(tower == null) Debug.Log("tower is null");
             a = true;
         }
         if(!b && Time.time > 0.2)
         {
-            TowerManager.Instance.CreateTower(ITowerManager.TowerType.B_torch, new Vector2Int(1, 0) , 0);
-            // EnemyManager.Instance.CreateEnemy(EnemyManager.EnemyType.A,MyGridManager.Instance.GetPath(Vector2Int.zero));
+            //TowerManager.Instance.CreateTower(ITowerManager.TowerType.B_torch, new Vector2Int(1, 0) , 0);
+            EnemyManager.Instance.CreateEnemy(IEnemyManager.EnemyType.A,MyGridManager.Instance.GetPath(Vector2Int.zero));
             b = true;
         }
         if(!c && Time.time > 0.3)
         {
 
         //     TowerManager.Instance.DestroyTower(tower);
-            TowerManager.Instance.CreateTower(ITowerManager.TowerType.B_torch, new Vector2Int(2, 0) , 0);
+           // TowerManager.Instance.CreateTower(ITowerManager.TowerType.B_torch, new Vector2Int(2, 0) , 0);
         //     Debug.Log("Destroy tower");
             c = true;
         }
         if(!d && Time.time > 0.4)
         {
-            tower = TowerManager.Instance.CreateTower(ITowerManager.TowerType.D_spike, new Vector2Int(0, 1) , 0);
+            //tower = TowerManager.Instance.CreateTower(ITowerManager.TowerType.D_spike, new Vector2Int(0, 1) , 0);
             d = true;
         }
         EnemyManager.Instance.Update(Time.deltaTime);

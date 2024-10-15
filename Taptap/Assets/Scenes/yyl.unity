@@ -506,7 +506,7 @@ MonoBehaviour:
   width: 20
   length: 20
   gridPrefab: {fileID: 3475934226170853433, guid: a1cffd5e8f56ff34daecc7c204b7b4ef, type: 3}
-  MapStartPos: {x: 0, y: 0, z: 0}
+  MapStartPos: {x: -20, y: -20, z: 0}
 --- !u!1 &506666078
 GameObject:
   m_ObjectHideFlags: 0

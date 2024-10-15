@@ -33,6 +33,7 @@ public class MyGrid : MonoBehaviour,IGrid
     public bool CanPass
     {
         get => HoldObject == null || HoldObject.Type ==GridObjectType.None|| 
+            HoldObject.Type==GridObjectType.NoBuildGround||
             HoldObject.Type == GridObjectType.Start ||
             HoldObject.Type == GridObjectType.End;
     }
@@ -96,6 +97,12 @@ public class MyGrid : MonoBehaviour,IGrid
                 break;
             case GridObjectType.Start:
                 GetComponent<SpriteRenderer>().sprite = sprites[2];
+                break;
+            case GridObjectType.End:
+                GetComponent<SpriteRenderer>().sprite = sprites[3];
+                break;
+            case GridObjectType.NoBuildGround:
+                GetComponent<SpriteRenderer>().sprite = sprites[4];
                 break;
         }
     }
