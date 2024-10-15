@@ -20,7 +20,7 @@ public class TowerConfig : ScriptableObject , ISerializationCallbackReceiver
     [System.Serializable]
     public struct ShowFormat
     {
-        public TowerManager.TowerType type;
+        public ITowerManager.TowerType type;
         public float cost;
         public Vector3 damage;
         public Color color;
@@ -36,11 +36,11 @@ public class TowerConfig : ScriptableObject , ISerializationCallbackReceiver
     {
         if(false)
         {
-            showTowerData.Clear();
-            foreach(var data in towerDataList)
-            {
-                // showTowerData.Add(new ShowFormat{type = data.Key, cost = data.Value.cost, damage = data.Value.damage, elementDamage = data.Value.elementDamage, timeInterval = data.Value.timeInterval, attackRange = data.Value.attackRange});
-            }
+            // showTowerData.Clear();
+            // foreach(var data in towerDataList)
+            // {
+            //     // showTowerData.Add(new ShowFormat{type = data.Key, cost = data.Value.cost, damage = data.Value.damage, elementDamage = data.Value.elementDamage, timeInterval = data.Value.timeInterval, attackRange = data.Value.attackRange});
+            // }
         }
     }
     public void OnAfterDeserialize()
@@ -49,7 +49,7 @@ public class TowerConfig : ScriptableObject , ISerializationCallbackReceiver
 
         for(int i = 0; i < showTowerData.Count; i++)
         {
-            towerDataList[showTowerData[i].type] = new TowerManager.TowerAttribute {
+            towerDataList[showTowerData[i].type] = new ITowerManager.TowerAttribute {
                 cost = showTowerData[i].cost,
                 damage = showTowerData[i].damage,
                 color = (int)showTowerData[i].color,
@@ -59,14 +59,14 @@ public class TowerConfig : ScriptableObject , ISerializationCallbackReceiver
         }
     }
 
-    Dictionary<TowerManager.TowerType , TowerManager.TowerAttribute> towerDataList = new Dictionary<TowerManager.TowerType, TowerManager.TowerAttribute>();
+    Dictionary<ITowerManager.TowerType , ITowerManager.TowerAttribute> towerDataList = new Dictionary<ITowerManager.TowerType, ITowerManager.TowerAttribute>();
 
-    public TowerManager.TowerAttribute GetTowerAttribute(TowerManager.TowerType type)
+    public ITowerManager.TowerAttribute GetTowerAttribute(ITowerManager.TowerType type)
     {
         if(!towerDataList.ContainsKey(type))
         {
             Debug.LogWarning("TowerConfig doesn't contain " + type + " data");
-            return new TowerManager.TowerAttribute() ;
+            return new ITowerManager.TowerAttribute() ;
         }
         return towerDataList[type];
     }

@@ -10,7 +10,7 @@ public class BaseDamageTower : BaseTower
     protected float currentTimeInterval;
     public List<IGrid> attackRange;
 
-    public override void Init(TowerManager.TowerAttribute towerAttribute, Vector2Int position, int faceDirection)
+    public override void Init(ITowerManager.TowerAttribute towerAttribute, Vector2Int position, int faceDirection)
     {
         this.attackRange = new List<IGrid>();
         base.Init(towerAttribute, position, faceDirection);
@@ -20,7 +20,7 @@ public class BaseDamageTower : BaseTower
         currentTimeInterval += deltaTime;
     }
 
-    public override void ReInit(TowerManager.TowerAttribute towerAttribute, Vector2Int position, int faceDirection)
+    public override void ReInit(ITowerManager.TowerAttribute towerAttribute, Vector2Int position, int faceDirection)
     {
         base.ReInit(towerAttribute, position, faceDirection);
         // Debug.Log("ReInit");
@@ -47,7 +47,6 @@ public class BaseDamageTower : BaseTower
             midRange += position;
             if(MyGridManager.Instance.GetIGrid(midRange) == null)
             {
-                Debug.Log(midRange + "is null");
                 continue;
             }
             this.attackRange.Add(MyGridManager.Instance.GetIGrid(midRange));

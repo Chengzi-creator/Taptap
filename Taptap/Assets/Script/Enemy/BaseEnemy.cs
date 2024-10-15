@@ -3,23 +3,23 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 
-public class BaseEnemy : IEnemy
+public class BaseEnemy : MonoBehaviour, IEnemy
 {
     private static int maxID;
     protected int id;
     public int ID => id; 
-    protected GameObject gameObject;
-    protected EnemyManager.EnemyType type;
-    public EnemyManager.EnemyType Type => type;
+    // protected GameObject gameObject;
+    protected IEnemyManager.EnemyType type;
+    public IEnemyManager.EnemyType Type => type;
 
-    public Vector3 maxHP;
+    protected Vector3 maxHP;
     protected Vector3 currentHP;
     public bool IsDead => currentHP.x <= 0 && currentHP.y <= 0 && currentHP.z <= 0;
     protected float[] colorTime;
     protected float defense;
     protected float timeScale;
 
-    public float speed;
+    protected float speed;
     protected int pathIndex;
     protected int pathNodeIndex;
     public int PathNodeIndex => pathNodeIndex;
@@ -35,22 +35,18 @@ public class BaseEnemy : IEnemy
         protected set
         {
             position = value;
-            gameObject.transform.position = MyGridManager.Instance.GetWorldPos(value);
+            transform.position = MyGridManager.Instance.GetWorldPos(value);
         }
     }
     protected float moveScale;
-    public float MoveScale => moveScale;
+    // public float MoveScale => moveScale;
+    public float DisToDestination => MyGridManager.Instance.GetPathCost(pathIndex) - pathNodeIndex - moveScale ;
 
     public virtual void BeAttacked(Vector3 damage , int colorDamage)
     {
         Debug.Log("be Attacked");
         currentHP -= damage;
-        this.colorTime[colorDamage] = 2;
-        // this.elementTime = new Vector3(
-        //     Mathf.Max(elementDamage.x, this.elementTime.x),
-        //     Mathf.Max(elementDamage.y, this.elementTime.y),
-        //     Mathf.Max(elementDamage.z, this.elementTime.z)
-        // );
+        this.colorTime[colorDamage] = GlobalSetting.Instance.GlobalSettingSO.GetColorRemainTime(colorDamage);
         SetHorn(new Vector3(currentHP.x/maxHP.x , currentHP.y/maxHP.y , currentHP.z/maxHP.z));
     }
     public virtual void Die()
@@ -90,6 +86,38 @@ public class BaseEnemy : IEnemy
 
     protected virtual void WaitCD(float deltaTime)
     {
+        // 红   绿  黄  蓝  紫   青  白
+        bool[] midColor = new bool[10];
+        for(int i = 0 ; i < colorTime.Length ; i ++)
+        {
+            if(colorTime[i] > 0)
+                colorTime[i] -= deltaTime;
+            if(colorTime[i] > 0)
+                midColor[i] = true;
+        }
+        Vector2Int lef , rig;
+        GetOccupyGrid(out lef , out rig);
+        for(int x = lef.x ; x <= rig.x ; x++)
+            for(int y = lef.y ; y <= rig.y ; y++)
+            {
+                midColor[MyGridManager.Instance.GetColor(x , y)] = true;
+            }
+        if(midColor[3])
+        {
+
+        }
+        if(midColor[5])
+        {
+
+        }
+        if(midColor[6])
+        {
+
+        }
+        if(midColor[7])
+        {
+            
+        }
         // if(elementTime != Vector3.zero)
         //     elementTime -= deltaTime * Vector3.one;
         // if(elementTime.x < 0 && elementTime.y < 0 && elementTime.z < 0)
@@ -112,17 +140,16 @@ public class BaseEnemy : IEnemy
         // }
     }
 
-    public virtual void Init(GameObject gameObject , EnemyManager.EnemyAttribute enemyAttribute , int pathIndex)
+    public virtual void Init(IEnemyManager.EnemyAttribute enemyAttribute , int pathIndex)
     {
         this.id = maxID++;
-        this.gameObject = gameObject;
         this.gameObject.name = "Enemy_" + this.type + "_" + this.id;
-        this.type = EnemyManager.EnemyType.A;
+        this.type = IEnemyManager.EnemyType.A;
         this.colorTime = new float[10];
         this.ReInit(enemyAttribute , pathIndex);
     }
 
-    public virtual void ReInit(EnemyManager.EnemyAttribute enemyAttribute , int pathIndex)
+    public virtual void ReInit(IEnemyManager.EnemyAttribute enemyAttribute , int pathIndex)
     {
         
         gameObject.SetActive(true);

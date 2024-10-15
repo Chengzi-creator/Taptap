@@ -2,18 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TowerDCatapult : BaseDamageTower
+public class TowerSpike : BaseDamageTower
 {
-    protected LinkedList<IGrid> lockedEnemy;
+    protected LinkedList<IEnemy> lockedEnemy;
     protected LinkedList<float> lockedTime;
-    public override void Init(TowerManager.TowerAttribute towerAttribute, Vector2Int position , int faceDirection)
+    public override void Init(ITowerManager.TowerAttribute towerAttribute, Vector2Int position , int faceDirection)
     {
-        this.type = TowerManager.TowerType.D_catapult;
-        this.lockedEnemy = new LinkedList<IGrid>();
+        this.type = ITowerManager.TowerType.D_spike;
+        this.lockedEnemy = new LinkedList<IEnemy>();
         this.lockedTime = new LinkedList<float>();
         base.Init(towerAttribute, position , faceDirection);
     }
-    public override void ReInit(TowerManager.TowerAttribute towerAttribute, Vector2Int position , int faceDirection)
+    public override void ReInit(ITowerManager.TowerAttribute towerAttribute, Vector2Int position , int faceDirection)
     {
         base.ReInit(towerAttribute, position , faceDirection);
         this.lockedEnemy.Clear();
@@ -26,7 +26,8 @@ public class TowerDCatapult : BaseDamageTower
         {
             if(attackRange[i].EnemysCount() > 0)
             {
-                lockedEnemy.AddLast(attackRange[i]);
+                // attackRange[i].GetKthEnemy(0).BeAttacked(damage , elementDamage);
+                lockedEnemy.AddLast(attackRange[i].GetKthEnemy(0));
                 lockedTime.AddLast(bulletTime);
                 break;
             }
@@ -43,8 +44,7 @@ public class TowerDCatapult : BaseDamageTower
         node = lockedTime.First;
         while(node != null && node.Value <= 0)
         {
-            for(int i = 0 ; i < lockedEnemy.First.Value.EnemysCount() ; i++)
-                lockedEnemy.First.Value.GetKthEnemy(i).BeAttacked(damage , TowerManager.Instance.GetColor(position));
+            lockedEnemy.First.Value.BeAttacked(damage , TowerManager.Instance.GetColor(position));
             lockedEnemy.RemoveFirst();
             lockedTime.RemoveFirst();
             node = lockedTime.First;
@@ -62,6 +62,8 @@ public class TowerDCatapult : BaseDamageTower
     public override void OnUpDate(float deltaTime)
     {
         base.OnUpDate(deltaTime);
+        deltaTime *= timeScale;
     }
 
 }
+

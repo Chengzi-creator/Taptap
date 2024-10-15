@@ -5,12 +5,12 @@ using UnityEngine;
 public class BaseBuffTower : BaseTower
 {
     protected List<Vector2Int> buffRange;
-    public override void Init(TowerManager.TowerAttribute towerAttribute, Vector2Int position, int faceDirection)
+    public override void Init(ITowerManager.TowerAttribute towerAttribute, Vector2Int position, int faceDirection)
     {
         buffRange = new List<Vector2Int>();
         base.Init(towerAttribute, position, faceDirection);
     }
-    public override void ReInit(TowerManager.TowerAttribute towerAttribute, Vector2Int position, int faceDirection)
+    public override void ReInit(ITowerManager.TowerAttribute towerAttribute, Vector2Int position, int faceDirection)
     {
         base.ReInit(towerAttribute, position, faceDirection);
         this.buffRange = towerAttribute.attackRange;
