@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class MyGrid : MonoBehaviour,IGrid
@@ -14,7 +15,7 @@ public class MyGrid : MonoBehaviour,IGrid
     public Vector2 WorldPos { get; private set; }
 
     /// <summary>
-    /// 在该格子上的物体(灯塔，障碍物，起点，终点),如果没有则为空
+    /// 在该格子上的物体(灯塔，障碍物，起点，终点，空)
     /// </summary>
     public GridObject HoldObject;
     /// <summary>
@@ -31,7 +32,7 @@ public class MyGrid : MonoBehaviour,IGrid
     /// </summary>
     public bool CanPass
     {
-        get => HoldObject == null ||
+        get => HoldObject == null || HoldObject.Type ==GridObjectType.None|| 
             HoldObject.Type == GridObjectType.Start ||
             HoldObject.Type == GridObjectType.End;
     }
@@ -54,28 +55,27 @@ public class MyGrid : MonoBehaviour,IGrid
     /// </summary>
     public int DisToEnd { get; set; }
 
-    /// <summary>
-    /// 塔
-    /// </summary>
-    public BaseTower tower;
 
     /// <summary>
     /// 可放置物体
     /// </summary>
-    public bool CanPutObj => HoldObject == null;
+    public bool CanPutObj => HoldObject == null || HoldObject.Type == GridObjectType.None;
 
+
+    public Sprite[] sprites;
+
+    public Color showEmptyColor;
     /// <summary>
     /// 初始化格点
     /// </summary>
     /// <param name="mapPos"></param>
     /// <param name="worldPos"></param>
     /// <param name="holdObject"></param>
-    public void Init(Vector2Int mapPos, Vector2 worldPos, GridObject holdObject = null)
+    public void Init(Vector2Int mapPos, Vector2 worldPos, GridObjectType type = GridObjectType.None)
     {
         MapPos = mapPos;
         WorldPos = worldPos;
-        if (holdObject != null)
-            SetHoldObject(holdObject);
+        SetHoldObject(new GridObject(type));
     }
     /// <summary>
     /// 设置格子上的物体
@@ -86,6 +86,18 @@ public class MyGrid : MonoBehaviour,IGrid
         HoldObject = gridObject;
         //HoldObject.transform.position = new Vector3(WorldPos.x, WorldPos.y, 0);
         ShowGrid();
+        switch (gridObject.Type)
+        {
+            case GridObjectType.None:
+                GetComponent<SpriteRenderer>().sprite = sprites[0];
+                break;
+            case GridObjectType.Obstacle:
+                GetComponent<SpriteRenderer>().sprite = sprites[1];
+                break;
+            case GridObjectType.Start:
+                GetComponent<SpriteRenderer>().sprite = sprites[2];
+                break;
+        }
     }
     /// <summary>
     /// 点击格子
@@ -120,21 +132,21 @@ public class MyGrid : MonoBehaviour,IGrid
     /// </summary>
     public void ShowGrid()
     {
-        if (HoldObject != null)
+        if (HoldObject != null && HoldObject.Type != GridObjectType.None)
         {
-            Color color = HoldObject.Type switch
-            {
-                GridObjectType.Start => Color.blue,
-                GridObjectType.End => Color.yellow,
-                GridObjectType.Obstacle => Color.black,
-                GridObjectType.Building => Color.gray,
-                _ => Color.red
-            };
-            GetComponent<SpriteRenderer>().color = color;
+            //Color color = HoldObject.Type switch
+            //{
+            //    GridObjectType.Start => Color.blue,
+            //    GridObjectType.End => Color.yellow,
+            //    GridObjectType.Obstacle => Color.black,
+            //    GridObjectType.Building => Color.gray,
+            //    _ => Color.red
+            //};
+            GetComponent<SpriteRenderer>().color = Color.white;
         }
         else
         {
-            GetComponent<SpriteRenderer>().color = Color.green;
+            GetComponent<SpriteRenderer>().color = showEmptyColor;
         }
     }
     /// <summary>
@@ -160,14 +172,23 @@ public class MyGrid : MonoBehaviour,IGrid
         return EnemyManager.Instance.GetKthEnemy(k, MapPos);
     }
 
-    public BaseTower GetTower()
+    public ITower GetTower()
     {
-        return tower;
+        return TowerManager.Instance.GetTower(MapPos);
     }
 
-    public void SetTower(BaseTower tower)
+    public void BuildTower()
     {
-        this.tower = tower;
+        this.HoldObject =  new GridObject(GridObjectType.Building);
     }
 
+    public void DestoryTower()
+    {
+        this.HoldObject = new GridObject(GridObjectType.None);
+    }
+
+    public void ColorChanged(int color)
+    {
+
+    }
 }

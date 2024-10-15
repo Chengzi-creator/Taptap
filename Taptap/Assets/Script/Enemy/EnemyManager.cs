@@ -93,7 +93,7 @@ public class EnemyManager : IEnemyManager
         }
         for(int i = enemyList.Count - 1 ; i >= midIndex ; i--)
         {
-            ToldOneEnemyDie(enemyList[i]);
+            //ToldOneEnemyDie(enemyList[i]);
             enemyPool[(int)enemyList[i].Type].Push(enemyList[i]);
             enemyList[i].Die();
             enemyList.RemoveAt(i);

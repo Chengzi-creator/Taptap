@@ -1,4 +1,5 @@
 using Algorithm;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -233,7 +234,7 @@ public class MyGridManager : MonoBehaviour, IGraphicManager, IGridManager
     }
 
 
-    public void ShowGrid()
+    public void ShowBuildModeGrid()
     {
         foreach (MyGrid myGrid in myGrids)
         {
@@ -241,7 +242,7 @@ public class MyGridManager : MonoBehaviour, IGraphicManager, IGridManager
         }
     }
 
-    public void CancelShowGrid()
+    public void CancelShowBuildModeGrid()
     {
         foreach (MyGrid myGrid in myGrids)
         {
@@ -337,22 +338,31 @@ public class MyGridManager : MonoBehaviour, IGraphicManager, IGridManager
         return null;
     }
 
-    public BaseTower GetTower(Vector2Int mapPos)
+    public ITower GetTower(Vector2Int mapPos)
     {
         if (IsInMap(mapPos))
         {
-            return GetGrid(mapPos).GetTower();
+            return TowerManager.Instance.GetTower(mapPos);
         }
         return null;
     }
 
-    public void SetTower(Vector2Int mapPos, BaseTower tower)
+    public void BuildTower(Vector2Int mapPos)
     {
         if (IsInMap(mapPos))
         {
-            GetGrid(mapPos).SetTower(tower);
+            GetGrid(mapPos).BuildTower();
         }
     }
+
+    public void DestoryTower(Vector2Int mapPos)
+    {
+        if (IsInMap(mapPos))
+        {
+            GetGrid(mapPos).DestoryTower();
+        }
+    }
+
 
     public bool CanPutTower(Vector2Int mapPos)
     {
@@ -385,6 +395,19 @@ public class MyGridManager : MonoBehaviour, IGraphicManager, IGridManager
     public int GetPathCost(int id)
     {
         return 3;
+    }
+
+    public int GetColor(int x, int y)
+    {
+        return TowerManager.Instance.GetColor(new Vector2Int(x,y));
+    }
+
+    public void ColorChanged(Vector2Int position)
+    {
+        if (IsInMap(position))
+        {
+            GetGrid(position).ColorChanged(GetColor(position.x, position.y));
+        }
     }
 }
 

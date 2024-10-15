@@ -25,24 +25,24 @@ public class MouseTest : MonoBehaviour
         build.onClick.AddListener(() =>
         {
             HoldObject = new GridObject(GridObjectType.Building);
-            MyGridManager.Instance.ShowGrid();
+            MyGridManager.Instance.ShowBuildModeGrid();
         });
         start.onClick.AddListener(() =>
         {
             HoldObject = new GridObject(GridObjectType.Start);
-            MyGridManager.Instance.ShowGrid();
+            MyGridManager.Instance.ShowBuildModeGrid();
 
         });
         end.onClick.AddListener(() =>
         {
             HoldObject = new GridObject(GridObjectType.End);
-            MyGridManager.Instance.ShowGrid();
+            MyGridManager.Instance.ShowBuildModeGrid();
 
         });
         obstacle.onClick.AddListener(() =>
         {
             HoldObject = new GridObject(GridObjectType.Obstacle);
-            MyGridManager.Instance.ShowGrid();
+            MyGridManager.Instance.ShowBuildModeGrid();
 
         });
 
@@ -63,7 +63,7 @@ public class MouseTest : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(1))
         {
-            MyGridManager.Instance.CancelShowGrid();
+            MyGridManager.Instance.CancelShowBuildModeGrid();
         }
     }
 

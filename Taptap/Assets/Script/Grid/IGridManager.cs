@@ -60,14 +60,21 @@ public interface IGridManager:IPathManager
     /// </summary>
     /// <param name="mapPos"></param>
     /// <returns></returns>
-    public BaseTower GetTower(Vector2Int mapPos);
+    public ITower GetTower(Vector2Int mapPos);
 
     /// <summary>
-    /// 给mapPos格子设置Tower
+    /// 在某个格子建造了Tower
     /// </summary>
     /// <param name="mapPos"></param>
     /// <param name="tower"></param>
-    public void SetTower(Vector2Int mapPos, BaseTower tower);
+    public void BuildTower(Vector2Int mapPos);
+
+    /// <summary>
+    /// 删除格子处的Tower
+    /// </summary>
+    /// <param name="mapPos"></param>
+    /// <param name="tower"></param>
+    public void DestoryTower(Vector2Int mapPos);
 
     /// <summary>
     /// mapPos的世界坐标，此处mapPos可为浮点数，计算得到对应的浮点WorldPos
@@ -83,5 +90,29 @@ public interface IGridManager:IPathManager
     /// <returns>如果计算出来不在map中返回（-1，-1）</returns>
     public Vector2Int GetMapPos(Vector2 worldPos);
 
+    /// <summary>
+    /// 显示建造模式地块颜色
+    /// </summary>
+    public void ShowBuildModeGrid();
+
+    /// <summary>
+    /// 取消显示建造模式地块颜色
+    /// </summary>
+    public void CancelShowBuildModeGrid();
+
+
+    /// <summary>
+    /// 获取对应地块颜色int值
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
+    /// <returns></returns>
+    public int GetColor(int x, int y);
+
+    /// <summary>
+    /// 提示地块颜色改变
+    /// </summary>
+    /// <param name="position"></param>
+    public void ColorChanged(Vector2Int position);
 }
 
