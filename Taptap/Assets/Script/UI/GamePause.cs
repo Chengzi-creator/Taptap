@@ -11,6 +11,7 @@ public class GamePause : MonoBehaviour
     [SerializeField] private GameObject PauseMasks;
     [SerializeField] private GameObject SetupMasks;
     [SerializeField] private GameObject MenuMasks;
+    [SerializeField] private GameObject BuildMasks;
     [SerializeField] private Button exitButton;
     [SerializeField] private Button backButton;
     [SerializeField] private Button restartButton;
@@ -24,6 +25,7 @@ public class GamePause : MonoBehaviour
         PauseMasks.SetActive(false);//先隐藏
         SetupMasks.SetActive(false);
         MenuMasks.SetActive(true);
+        BuildMasks.SetActive(true);
         exitButton.onClick.AddListener(OnexitButtonClick);//监听
         restartButton.onClick.AddListener(OnrestartButtonClick);
         backButton.onClick.AddListener(OnbackButtonClick);
@@ -41,6 +43,7 @@ public class GamePause : MonoBehaviour
             {
                 SetupMasks.SetActive(false);
                 PauseMasks.SetActive(true);
+                BuildMasks.SetActive(false);
             }
             else
             {
@@ -58,11 +61,13 @@ public class GamePause : MonoBehaviour
         {
             Time.timeScale = 0f; //暂停游戏时间
             PauseMasks.SetActive(true); //启用暂停菜单
+            BuildMasks.SetActive(false);
         }
         else
         {
             Time.timeScale = 1f; //恢复游戏时间
             PauseMasks.SetActive(false); //禁用暂停菜单
+            BuildMasks.SetActive(true);
         }
     }
     
@@ -92,6 +97,7 @@ public class GamePause : MonoBehaviour
         {
             SetupMasks.SetActive(false);
             PauseMasks.SetActive(true);
+            BuildMasks.SetActive(false);
         }
         else
         {
@@ -104,6 +110,7 @@ public class GamePause : MonoBehaviour
         //设置界面可能要在单独设置？调整音量之类的？
         PauseMasks.SetActive(false);
         SetupMasks.SetActive(true);
+        BuildMasks.SetActive(false);
     }
     
     private void ResumeGame()
@@ -111,6 +118,7 @@ public class GamePause : MonoBehaviour
         m_isPaused = false;
         Time.timeScale = 1f; //恢复游戏时间
         PauseMasks.SetActive(false); //禁用暂停菜单
+        BuildMasks.SetActive(true);
     }
     
     

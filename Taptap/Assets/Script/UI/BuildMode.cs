@@ -5,7 +5,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-    
+
 /// <summary>
 /// 对于建造模式最早的想法，是在游戏开始时开始计时，在一定时间内可以点击菜单选择塔来进行建造
 /// 建造时需要注意地块是否可以建造（障碍物或者已经有别的塔或者堵住必经路线），资源icon是否足够承担花费
@@ -13,72 +13,93 @@ using UnityEngine.UI;
 /// 出怪时间是必须时间跑完才会结束（？或者核心被彻底破坏，直接gameover）
 /// </summary>
 public class BuildMode : MonoBehaviour
-{ 
-    private TowerX towerX;
-    [SerializeField] private Button _buttonX;
-    
-    private TowerY towerY;
-    [SerializeField] private Button _buttonY;
-    
-    private TowerZ towerZ;
-    [SerializeField] private Button _buttonZ;
+{
+    [SerializeField] private Button _buttonF;
+    [SerializeField] private Button _buttonL;
+    [SerializeField] private Button _buttonT;
 
-    private bool _selectX;
-    private bool _selectY;
-    private bool _selectZ;
+    private bool _selectFlash;
+    private bool _selectLazor;
+    private bool _selectTorch;
     private MyGridManager _myGridManager;
+    private SourceText _sourceText;
+    private TowerConfig _towerConfig;
+    private ITowerManager _towerManager;
+    private float _value;
+    private int _faceDirection = 0;
     
+    private void Awake()
+    {
+        //_buttonF.onClick.AddListener(Click(_buttonF));
+    }
+
     private void Start()
     {
-        _buttonX.onClick.AddListener(SelectBuildX);
-        _buttonY.onClick.AddListener(SelectBuildY);
-        _buttonZ.onClick.AddListener(SelectBuildZ);
-        towerX = new TowerX();
-        towerY = new TowerY();
-        towerZ = new TowerZ();
         _myGridManager = gameObject.AddComponent<MyGridManager>();
+        _sourceText = gameObject.AddComponent<SourceText>();
+        _towerConfig = new TowerConfig();
+        _towerManager = GetComponent<ITowerManager>();
     }
 
     private void Update()
     {
-        if (_selectX)
+        if (_selectFlash)
         {
-            TowerXBuild();
+            TowerBuild(ITowerManager.TowerType.B_flash);
         }
-        if (_selectY)
+
+        if (_selectLazor)
         {
-            TowerYBuild();
+            TowerBuild(ITowerManager.TowerType.B_lazor);
         }
-        if (_selectX)
+
+        if (_selectTorch)
         {
-            TowerZBuild();
+            TowerBuild(ITowerManager.TowerType.B_torch);
         }
     }
 
-    private void SelectBuildX()
-    {
-        _selectX = true;
-        _selectY = false;
-        _selectZ = false;
-    }
-    private void TowerXBuild()
-    {      
-        Debug.Log("Click");
-        Vector2 worldposition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+   
+    private void TowerBuild(ITowerManager.TowerType type)
+    {   
         // 增添炮塔图片跟随鼠标的效果
+        //进入这个状态时显示地图的可建造方块
+        Vector2 worldposition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2Int gridposition = _myGridManager.GetMapPos(worldposition);
+        
+        _value = _towerConfig.GetTowerAttribute(type).cost;
+        
+        //控制旋转方向
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            _faceDirection = (_faceDirection + 1) % 4;
+        }
+        else if (Input.GetKeyDown(KeyCode.E))
+        {
+            _faceDirection = (_faceDirection - 1 + 4) % 4;
+        }
+        
+        //检测是否可以建造并建造
         if (_myGridManager.CanPutTower(gridposition))
         {
-            //可建造就是绿色
-            if (Input.GetMouseButtonDown(1))
+            if (_sourceText.Count >= _value)
             {
-                _selectX = false;
-            }
+                if (Input.GetMouseButtonDown(0))
+                {
+                    //建造
+                    _towerManager.CreateTower(type, gridposition, _faceDirection);
+                    _sourceText.IconDecrease(_value);
+                    //还要将建造的信息传回去
+                }
 
-            if (Input.GetMouseButtonDown(0))
+                if (Input.GetMouseButtonDown(0))
+                {
+                    
+                }
+            }
+            else
             {
-                _myGridManager.SetTower(gridposition, towerX);
-                _selectX = false;
+                //无法建造
             }
         }
         else
@@ -86,60 +107,9 @@ public class BuildMode : MonoBehaviour
             Debug.Log("Can not find");
         }
     }
-    
-    private void SelectBuildY()
+
+    private void Click(Button type)
     {
-        _selectY = true;
-        _selectX = false;
-        _selectZ = false;
-    }
-    private void TowerYBuild()
-    {
-        Vector2 worldposition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector2Int gridposition = _myGridManager.GetMapPos(worldposition);
-        if (_myGridManager.CanPutTower(gridposition))
-        {   
-            if (Input.GetMouseButtonDown(1))
-            {
-                _selectY = false;
-            }
-            if (Input.GetMouseButtonDown(0))
-            {
-                _myGridManager.SetTower(gridposition, towerY);
-                _selectY = false;
-            }
-        }
-        else
-        {
-            
-        }
-    }
-    
-    private void SelectBuildZ()
-    {
-        _selectZ = true;
-        _selectX = false;
-        _selectZ = false;
-    }
-    private void TowerZBuild()
-    {
-        Vector2 worldposition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector2Int gridposition = _myGridManager.GetMapPos(worldposition);
-        if (_myGridManager.CanPutTower(gridposition))
-        {   
-            if (Input.GetMouseButtonDown(1))
-            {
-                _selectZ = false;
-            }
-            if (Input.GetMouseButtonDown(0))
-            {  
-                _myGridManager.SetTower(gridposition, towerZ);
-                _selectZ = false;
-            }
-        }
-        else
-        {
-            //增添不可放置的效果
-        }
+        
     }
 }

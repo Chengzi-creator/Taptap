@@ -390,9 +390,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74ba97168cbef1247b36032a4c051eb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _buttonX: {fileID: 6167784307773640311}
-  _buttonY: {fileID: 5588856846498282098}
-  _buttonZ: {fileID: 4311967714600329489}
+  _buttonF: {fileID: 0}
+  _buttonL: {fileID: 0}
+  _buttonT: {fileID: 0}
 --- !u!1 &920466821284432711
 GameObject:
   m_ObjectHideFlags: 0
@@ -529,7 +529,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8523552517957322311}
   - component: {fileID: 7494241151800903089}
-  - component: {fileID: 3002156301590822796}
   m_Layer: 5
   m_Name: BToggle
   m_TagString: Untagged
@@ -607,21 +606,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_IsOn: 0
---- !u!114 &3002156301590822796
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 942262948931554189}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ea79b216e163c6469b533610fc0793d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SetupMasks: {fileID: 0}
-  MenuMasks: {fileID: 5616859292693932591}
-  _toggle: {fileID: 7494241151800903089}
 --- !u!1 &1049174732179796320
 GameObject:
   m_ObjectHideFlags: 0
@@ -1087,6 +1071,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6622914907342440057}
+  - component: {fileID: 3424239258274134779}
   m_Layer: 5
   m_Name: Build
   m_TagString: Untagged
@@ -1116,6 +1101,23 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &3424239258274134779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2283172601227673356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ea79b216e163c6469b533610fc0793d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SetupMasks: {fileID: 6825805576894348513, guid: 7815eaff541d8b64194beac7a06d22dd, type: 3}
+  MenuMasks: {fileID: 0}
+  _toggleR: {fileID: 0}
+  _toggleG: {fileID: 0}
+  _toggleB: {fileID: 0}
 --- !u!1 &2595344031858264734
 GameObject:
   m_ObjectHideFlags: 0
@@ -2644,7 +2646,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8316719556402718674}
   - component: {fileID: 3393191101375754059}
-  - component: {fileID: 587920483160245104}
   m_Layer: 5
   m_Name: GToggle
   m_TagString: Untagged
@@ -2722,21 +2723,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_IsOn: 0
---- !u!114 &587920483160245104
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4823716302194361294}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ea79b216e163c6469b533610fc0793d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SetupMasks: {fileID: 0}
-  MenuMasks: {fileID: 636948245040602234}
-  _toggle: {fileID: 3393191101375754059}
 --- !u!1 &4969958430060502794
 GameObject:
   m_ObjectHideFlags: 0
@@ -3579,9 +3565,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74ba97168cbef1247b36032a4c051eb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _buttonX: {fileID: 560023481453105812}
-  _buttonY: {fileID: 3304758341885951962}
-  _buttonZ: {fileID: 312955336705420017}
+  _buttonF: {fileID: 0}
+  _buttonL: {fileID: 0}
+  _buttonT: {fileID: 0}
 --- !u!1 &5616859292693932591
 GameObject:
   m_ObjectHideFlags: 0
@@ -3704,9 +3690,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74ba97168cbef1247b36032a4c051eb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _buttonX: {fileID: 0}
-  _buttonY: {fileID: 0}
-  _buttonZ: {fileID: 0}
+  _buttonF: {fileID: 0}
+  _buttonL: {fileID: 0}
+  _buttonT: {fileID: 0}
 --- !u!1 &5732293093785457771
 GameObject:
   m_ObjectHideFlags: 0
@@ -4419,7 +4405,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4242275270604662029}
   - component: {fileID: 6732137592332628004}
-  - component: {fileID: 911098328573733710}
   m_Layer: 5
   m_Name: RToggle
   m_TagString: Untagged
@@ -4497,21 +4482,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_IsOn: 0
---- !u!114 &911098328573733710
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6424790346294069489}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ea79b216e163c6469b533610fc0793d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SetupMasks: {fileID: 0}
-  MenuMasks: {fileID: 5383617180716307394}
-  _toggle: {fileID: 6732137592332628004}
 --- !u!1 &6945024670165969066
 GameObject:
   m_ObjectHideFlags: 0

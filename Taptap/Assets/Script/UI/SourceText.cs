@@ -7,8 +7,7 @@ using UnityEngine;
 public class SourceText : MonoBehaviour
 {
    [SerializeField] private TextMeshProUGUI _text;
-   private int Count = 100;
-   private float _lastTime = 10f;
+   public float Count = 100;
    
    private void Awake()
    {
@@ -20,9 +19,15 @@ public class SourceText : MonoBehaviour
       
    }
 
-   public void IconChange(int increase)
+   public void IconCrease(float increase)
    {
       Count += increase;
+      _text.text = "Icon : " + Count.ToString();
+   }
+
+   public void IconDecrease(float decrease)
+   {
+      Count -= decrease;
       _text.text = "Icon : " + Count.ToString();
    }
 }
