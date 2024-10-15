@@ -391,27 +391,27 @@ PrefabInstance:
     - target: {fileID: 1928126606909187334, guid: 49e00de03bff03c41b4cad9ee206b7c3, type: 3}
       propertyPath: _viewB
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 4903355593321794320}
     - target: {fileID: 1928126606909187334, guid: 49e00de03bff03c41b4cad9ee206b7c3, type: 3}
       propertyPath: _viewG
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 83814841138380101}
     - target: {fileID: 1928126606909187334, guid: 49e00de03bff03c41b4cad9ee206b7c3, type: 3}
       propertyPath: _viewR
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 5408374834198422257}
     - target: {fileID: 1928126606909187334, guid: 49e00de03bff03c41b4cad9ee206b7c3, type: 3}
       propertyPath: _toggleB
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 7061579025213580430}
     - target: {fileID: 1928126606909187334, guid: 49e00de03bff03c41b4cad9ee206b7c3, type: 3}
       propertyPath: _toggleG
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2803536391756435060}
     - target: {fileID: 1928126606909187334, guid: 49e00de03bff03c41b4cad9ee206b7c3, type: 3}
       propertyPath: _toggleR
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 6094068840034685211}
     - target: {fileID: 1928126606909187334, guid: 49e00de03bff03c41b4cad9ee206b7c3, type: 3}
       propertyPath: ToggeleViewPairs.Array.size
       value: 3
@@ -551,7 +551,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1896097684317139126, guid: 49e00de03bff03c41b4cad9ee206b7c3, type: 3}
   m_PrefabInstance: {fileID: 4375356657848041154}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 5408374834198422257}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
@@ -576,6 +576,11 @@ GameObject:
 --- !u!1 &4903355593321794320 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8697669534606357970, guid: 49e00de03bff03c41b4cad9ee206b7c3, type: 3}
+  m_PrefabInstance: {fileID: 4375356657848041154}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5408374834198422257 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8626095274984676403, guid: 49e00de03bff03c41b4cad9ee206b7c3, type: 3}
   m_PrefabInstance: {fileID: 4375356657848041154}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &6094068840034685211 stripped
