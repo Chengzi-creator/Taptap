@@ -6,19 +6,27 @@ namespace Algorithm
 {
     public class Path
     {
-        public Vector2 StartPos;
-        private List<Vector2> path;
+        private static int CreatePathId = 1;
+        public Vector2Int StartPos;
+        private List<Vector2Int> path;
         private int cost;
-        public Path(Vector2 startPos)
+        public int Cost => cost;
+        public int pathId;
+
+        public Path(Vector2Int startPos)
         {
-            path = new List<Vector2>();
+            //Debug.Log($"CreatePathId:{CreatePathId}");
+
+            path = new List<Vector2Int>();
             cost = 0;
             StartPos = startPos;
+            pathId = CreatePathId;
+            CreatePathId++;
         }
 
         public Path(Path path)
         {
-            this.path = new List<Vector2>();
+            this.path = new List<Vector2Int>();
             foreach(var point in path.path)
             {
                 this.path.Add(point);
@@ -27,10 +35,18 @@ namespace Algorithm
             this.StartPos = path.StartPos;
         }
 
-        public void AddPoint(Vector2 point)
+        public void AddPoint(Vector2Int point)
         {
             path.Insert(0, point);
             cost += 1;
+        }
+
+        public Vector2Int GetTarget(int idx)
+        {
+            if(idx < path.Count)
+                return path[idx];
+            else
+                return new Vector2Int(-1, -1);
         }
 
         public void DrawPath(Color c)
@@ -43,7 +59,7 @@ namespace Algorithm
             }
         }
 
-        internal void LogCost(Vector2 vector2)
+        internal void LogCost(Vector2Int vector2)
         {
             if (path.Contains(vector2))
                 Debug.Log("startPos:" + StartPos + " pos: " + vector2 + path.IndexOf(vector2));

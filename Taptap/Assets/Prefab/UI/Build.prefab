@@ -390,9 +390,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74ba97168cbef1247b36032a4c051eb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _buttonF: {fileID: 0}
-  _buttonL: {fileID: 0}
-  _buttonT: {fileID: 0}
+  _buttonF: {fileID: 6167784307773640311}
+  _buttonL: {fileID: 5588856846498282098}
+  _buttonT: {fileID: 4311967714600329489}
 --- !u!1 &920466821284432711
 GameObject:
   m_ObjectHideFlags: 0
@@ -1113,11 +1113,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ea79b216e163c6469b533610fc0793d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SetupMasks: {fileID: 6825805576894348513, guid: 7815eaff541d8b64194beac7a06d22dd, type: 3}
-  MenuMasks: {fileID: 0}
-  _toggleR: {fileID: 0}
-  _toggleG: {fileID: 0}
-  _toggleB: {fileID: 0}
+  ToggeleViewPairs:
+  - toggle: {fileID: 6732137592332628004}
+    view: {fileID: 5383617180716307394}
+  - toggle: {fileID: 3393191101375754059}
+    view: {fileID: 636948245040602234}
+  - toggle: {fileID: 7494241151800903089}
+    view: {fileID: 5616859292693932591}
 --- !u!1 &2595344031858264734
 GameObject:
   m_ObjectHideFlags: 0
@@ -3565,9 +3567,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74ba97168cbef1247b36032a4c051eb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _buttonF: {fileID: 0}
-  _buttonL: {fileID: 0}
-  _buttonT: {fileID: 0}
+  _buttonF: {fileID: 560023481453105812}
+  _buttonL: {fileID: 3304758341885951962}
+  _buttonT: {fileID: 312955336705420017}
 --- !u!1 &5616859292693932591
 GameObject:
   m_ObjectHideFlags: 0
@@ -3690,9 +3692,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74ba97168cbef1247b36032a4c051eb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _buttonF: {fileID: 0}
-  _buttonL: {fileID: 0}
-  _buttonT: {fileID: 0}
+  _buttonF: {fileID: 3342672169242100393}
+  _buttonL: {fileID: 8050753423343380298}
+  _buttonT: {fileID: 4646964717625504184}
 --- !u!1 &5732293093785457771
 GameObject:
   m_ObjectHideFlags: 0

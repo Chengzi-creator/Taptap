@@ -6,14 +6,17 @@ public class SpawnState : IGameState
 {
     private BuildMode buildMode;
     private SourceText sourceText;
+    private IEnemyManager _enemyManager; 
     private int enemyCount;
-    private int enemyRemain;
-    
-    public SpawnState(BuildMode buildMode, SourceText sourceText, int enemyCount)
+    private float waitTime;
+
+    public SpawnState(BuildMode buildMode, SourceText sourceText, int enemyCount,float waitTime)
     {
         this.buildMode = buildMode;
         this.sourceText = sourceText;
         this.enemyCount = enemyCount;
+        this.waitTime = waitTime;        
+        _enemyManager = new EnemyManager();
     }
 
     public void EnterState()
@@ -24,9 +27,9 @@ public class SpawnState : IGameState
 
     public void UpdateState()
     {
-        if (enemyRemain <= 0)
+        if (_enemyManager.AllEnemysCount() == 0)
         {
-            GameStateManager.Instance.SwitchState(new WaitState(buildMode,sourceText,5));//等五秒进入下一轮？
+            GameStateManager.Instance.SwitchState(new WaitState(buildMode,sourceText,waitTime));//等五秒进入下一轮？
         }
     }
 
@@ -41,12 +44,6 @@ public class SpawnState : IGameState
         {
             //怪物生成
             EnemyManager.Instance.CreateEnemy(IEnemyManager.EnemyType.A,MyGridManager.Instance.GetPath(Vector2Int.zero));
-            enemyRemain++;
         }
-    }
-
-    private void OnEnemyDeath()
-    {   
-        enemyRemain--;
     }
 }

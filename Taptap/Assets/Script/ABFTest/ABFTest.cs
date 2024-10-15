@@ -22,7 +22,7 @@ public class ABFTest : MonoBehaviour
     {
         if(!a && Time.time > 0.1)
         {
-            tower = TowerManager.Instance.CreateTower(ITowerManager.TowerType.B_torch, new Vector2Int(0, 0) , 0);
+            //tower = TowerManager.Instance.CreateTower(ITowerManager.TowerType.B_torch, new Vector2Int(0, 0) , 0);
             // if(tower == null) Debug.Log("tower is null");
             a = true;
         }
@@ -36,13 +36,13 @@ public class ABFTest : MonoBehaviour
         {
 
         //     TowerManager.Instance.DestroyTower(tower);
-            TowerManager.Instance.CreateTower(ITowerManager.TowerType.B_torch, new Vector2Int(2, 0) , 0);
+           // TowerManager.Instance.CreateTower(ITowerManager.TowerType.B_torch, new Vector2Int(2, 0) , 0);
         //     Debug.Log("Destroy tower");
             c = true;
         }
         if(!d && Time.time > 0.4)
         {
-            tower = TowerManager.Instance.CreateTower(ITowerManager.TowerType.D_spike, new Vector2Int(0, 1) , 0);
+            //tower = TowerManager.Instance.CreateTower(ITowerManager.TowerType.D_spike, new Vector2Int(0, 1) , 0);
             d = true;
         }
         EnemyManager.Instance.Update(Time.deltaTime);

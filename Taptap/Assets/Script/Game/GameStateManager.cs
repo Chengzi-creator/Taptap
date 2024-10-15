@@ -12,7 +12,10 @@ public class GameStateManager : MonoBehaviour
 
    private int currentRound = 1;
    public int maxRound;
+   public int enemyCount;
    public float buildTime;
+   public float waitTime;
+   private float spawnInterval;
 
    private void Awake()
    {
@@ -48,7 +51,7 @@ public class GameStateManager : MonoBehaviour
    {
       if (currentRound <= maxRound)
       {
-         SwitchState(new BuildState(FindObjectOfType<BuildMode>(), FindObjectOfType<SourceText>(), buildTime));//暂定建造时间30
+         SwitchState(new BuildState(FindObjectOfType<BuildMode>(), FindObjectOfType<SourceText>(), buildTime,enemyCount,waitTime));//暂定建造时间30
       }
       else
       {

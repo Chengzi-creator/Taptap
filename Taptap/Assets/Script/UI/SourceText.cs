@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class SourceText : MonoBehaviour
+public class SourceText : MonoBehaviour,ISource
 {
    [SerializeField] private TextMeshProUGUI _text;
    public float Count = 100;
@@ -19,7 +19,7 @@ public class SourceText : MonoBehaviour
       
    }
 
-   public void IconCrease(float increase)
+   public void IconIncrease(float increase)
    {
       Count += increase;
       _text.text = "Icon : " + Count.ToString();

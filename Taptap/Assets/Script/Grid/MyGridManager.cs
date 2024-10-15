@@ -1,9 +1,9 @@
 using Algorithm;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using UnityEngine;
+using Newtonsoft.Json;
 using Debug = UnityEngine.Debug;
 
 public class MyGridManager : MonoBehaviour, IGraphicManager, IGridManager
@@ -38,7 +38,8 @@ public class MyGridManager : MonoBehaviour, IGraphicManager, IGridManager
             Destroy(this);
         }
         //测试
-        Init();
+        LoadMapFromFile(Resources.Load<TextAsset>("Map/test2"));
+        CalculatePath();
     }
 
     #region 坐标转换
@@ -184,8 +185,24 @@ public class MyGridManager : MonoBehaviour, IGraphicManager, IGridManager
     }
     #endregion
 
-    private void Init()
+
+    public void LoadMapFromFile(TextAsset text)
     {
+        if (text == null)
+        {
+            Debug.LogError("Load Map Error");
+            return;
+        }
+        MapState mapState = JsonConvert.DeserializeObject<MapState>(text.text);
+
+        //Debug.Log("l:" + mapState.length + "w:" + mapState.width);
+
+        Init(mapState);
+    }
+    private void Init(MapState mapState)
+    {
+        width = mapState.width;
+        length = mapState.length;
         myGrids = new MyGrid[width, length];
         for (int i = 0; i < width; i++)
         {
@@ -194,12 +211,32 @@ public class MyGridManager : MonoBehaviour, IGraphicManager, IGridManager
                 Vector3 WorldPos = new Vector3(i * MyGrid.GridSize.x, j * MyGrid.GridSize.y, 0) + MapStartPos;
                 GameObject go = Instantiate(gridPrefab, WorldPos, Quaternion.identity, transform);
                 var myGrid = go.GetComponent<MyGrid>();
-                myGrid.Init(new Vector2Int(i, j), new Vector2(WorldPos.x, WorldPos.y));
+                myGrid.Init(new Vector2Int(i, j), new Vector2(WorldPos.x, WorldPos.y), 
+                    GetGridType(mapState.Map[i, j][0].type));
                 myGrids[i, j] = myGrid;
             }
         }
         myGraphic = new UndirectedGraph(this);
     }
+
+    private GridObjectType GetGridType(MapObjectType mapObjectType)
+    {
+        switch (mapObjectType)
+        {
+            case MapObjectType.Ground:
+                return GridObjectType.None;
+            case MapObjectType.Start:
+                return GridObjectType.Start;
+            case MapObjectType.End:
+                return GridObjectType.End;
+            case MapObjectType.Obstacle:
+                return GridObjectType.Obstacle;
+            case MapObjectType.NoBuildGround:
+                return GridObjectType.NoBuildGround;
+        }
+        return GridObjectType.None;
+    }
+
 
     public IGrid GetIGrid(Vector2Int mapPos)
     {
@@ -352,6 +389,21 @@ public class MyGridManager : MonoBehaviour, IGraphicManager, IGridManager
         if (IsInMap(mapPos))
         {
             GetGrid(mapPos).BuildTower();
+            myGraphic.RemovePoint(mapPos);
+        }
+    }
+
+    /// <summary>
+    /// for test 用完删
+    /// </summary>
+    /// <param name="mapPos"></param>
+    /// <param name="baseTower"></param>
+    public void SetTower(Vector2Int mapPos,BaseTower baseTower)
+    {
+        if (IsInMap(mapPos))
+        {
+            GetGrid(mapPos).BuildTower();
+            myGraphic.RemovePoint(mapPos);
         }
     }
 
@@ -360,6 +412,7 @@ public class MyGridManager : MonoBehaviour, IGraphicManager, IGridManager
         if (IsInMap(mapPos))
         {
             GetGrid(mapPos).DestoryTower();
+            myGraphic.AddPoint(mapPos, GetLinkPoints(mapPos));
         }
     }
 
@@ -375,26 +428,29 @@ public class MyGridManager : MonoBehaviour, IGraphicManager, IGridManager
         return false;
     }
 
+
+    public void CalculatePath(bool drawPath = false)
+    {
+        PathManager = myGraphic.CalculatePath();
+        if (drawPath)
+            PathManager.DrawFirstPath();
+    }
+
+
     List<Vector2Int> testPath;
     public int GetPath(Vector2Int StartPos)
     {
-        testPath = new List<Vector2Int>();
-        testPath.Add(StartPos);
-        testPath.Add(new Vector2Int(StartPos.x + 1, StartPos.y));
-        testPath.Add(new Vector2Int(StartPos.x + 2, StartPos.y));
-        return 0;
+        return PathManager.GetPath(StartPos);
     }
 
     public Vector2Int GetTarget(int pathId, int idx)
     {
-        if (idx < testPath.Count)
-            return testPath[idx];
-        return new Vector2Int(-1, -1);
+        return PathManager.GetTarget(pathId, idx);
     }
 
     public int GetPathCost(int id)
     {
-        return 3;
+        return PathManager.GetPathCost(id);
     }
 
     public int GetColor(int x, int y)
@@ -409,5 +465,7 @@ public class MyGridManager : MonoBehaviour, IGraphicManager, IGridManager
             GetGrid(position).ColorChanged(GetColor(position.x, position.y));
         }
     }
+
+
 }
 

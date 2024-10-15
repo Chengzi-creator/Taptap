@@ -9,11 +9,12 @@ namespace Algorithm
     /// </summary>
     public class Paths
     {
-        public Vector2 startPos;
+        public Vector2Int startPos;
         public List<Path> firstpaths;
         public List<Path> secondPaths;
 
-        public Paths(Vector2 startPos)
+
+        public Paths(Vector2Int startPos)
         {
             this.startPos = startPos;
             firstpaths = new List<Path>();
@@ -44,7 +45,13 @@ namespace Algorithm
             }
         }
 
-        internal void LogCost(Vector2 vector2)
+        internal int GetFirstPath()
+        {
+            var pathIdx = UnityEngine.Random.Range(0, firstpaths.Count);
+            return firstpaths[pathIdx].pathId;
+        }
+
+        internal void LogCost(Vector2Int vector2)
         {
             foreach (var path in firstpaths)
             {

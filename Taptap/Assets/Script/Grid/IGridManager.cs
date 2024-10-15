@@ -54,6 +54,11 @@ public interface IGridManager:IPathManager
     /// <returns></returns>
     public bool CanPutTower(Vector2Int mapPos);
 
+    /// <summary>
+    /// 计算路径
+    /// </summary>
+    public void CalculatePath(bool drawPath = false);
+
 
     /// <summary>
     /// 获取MapPos格子的Tower
