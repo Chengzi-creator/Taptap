@@ -25,6 +25,7 @@ public class BuildMode : MonoBehaviour
     private SourceText _sourceText;
     private TowerConfig _towerConfig;
     private ITowerManager _towerManager;
+    //private IGridManager _gridManager;
     private float _value;
     private int _faceDirection = 0;
     
@@ -66,6 +67,8 @@ public class BuildMode : MonoBehaviour
     {   
         // 增添炮塔图片跟随鼠标的效果
         //进入这个状态时显示地图的可建造方块
+        _myGridManager.ShowBuildModeGrid();
+        
         Vector2 worldposition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2Int gridposition = _myGridManager.GetMapPos(worldposition);
         
@@ -92,24 +95,31 @@ public class BuildMode : MonoBehaviour
                     _towerManager.CreateTower(type, gridposition, _faceDirection);
                     _sourceText.IconDecrease(_value);
                     //还要将建造的信息传回去
+                    _myGridManager.BuildTower(gridposition);
                 }
 
-                if (Input.GetMouseButtonDown(0))
-                {
-                    
+                if (Input.GetMouseButtonDown(1))
+                {   
+                    //退出建造函数
+                    ClickOut();
                 }
             }
             else
             {
-                //无法建造
+                //钱不够，无法建造，显示下提示?
             }
         }
         else
         {
-            Debug.Log("Can not find");
+            //显示无法建造？
         }
     }
 
+    public void DestroyTower()
+    {
+        //还不知道用什么键销毁
+    }
+    
     private void ClickF()
     {
         _selectFlash = true;
@@ -128,5 +138,12 @@ public class BuildMode : MonoBehaviour
         _selectTorch = true;
         _selectLazor = false;
         _selectFlash = false;
+    }
+
+    private void ClickOut()
+    {
+        _selectFlash = false;
+        _selectLazor = false;
+        _selectTorch = false;
     }
 }
