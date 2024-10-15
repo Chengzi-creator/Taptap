@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyManager
+public class EnemyManager : IEnemyManager
 {
     private static EnemyManager instance;
     public static EnemyManager Instance => instance;
@@ -13,17 +13,15 @@ public class EnemyManager
         {
             instance = new EnemyManager();
 
-            instance.prefabEnemyList = new Dictionary<EnemyType, GameObject>();
-            instance.EnemyClassList = new Dictionary<EnemyType, Type>();
+            instance.prefabEnemyList = new Dictionary<IEnemyManager.EnemyType, GameObject>();
             instance.enemyList = new List<BaseEnemy>();
-            instance.enemyPool = new Stack<BaseEnemy>[Enum.GetValues(typeof(EnemyType)).Length];
+            instance.enemyPool = new Stack<BaseEnemy>[Enum.GetValues(typeof(IEnemyManager.EnemyType)).Length];
             for(int i = 0; i < instance.enemyPool.Length; i++)  instance.enemyPool[i] = new Stack<BaseEnemy>();
                 instance.enemyInGrid = new List<IEnemy>[25, 25];
             for (int i = 0; i < 25; i++)
                 for (int j = 0; j < 25; j++)
                     instance.enemyInGrid[i, j] = new List<IEnemy>();
             return instance.LoadData();
-            
         }
         else
         {
@@ -38,12 +36,12 @@ public class EnemyManager
             enemyList[i].Die();
             enemyList.RemoveAt(i);
         }
+        RefreshEnemyInGrid();
     }
     private bool LoadData()
     {
         enemyConfig = Resources.Load<EnemyConfig>("SO/EnemyConfig");
-        prefabEnemyList[EnemyType.A] = Resources.Load<GameObject>("Prefab/EnemyA");
-        EnemyClassList[EnemyType.A] = typeof(EnemyA);
+        prefabEnemyList[IEnemyManager.EnemyType.A] = Resources.Load<GameObject>("Prefab/Enemy/EnemyA");
 
         if(instance.enemyConfig == null)
         {
@@ -51,75 +49,25 @@ public class EnemyManager
             return false;
         }
 
-        foreach(EnemyType type in Enum.GetValues(typeof(EnemyType)))
+        foreach(IEnemyManager.EnemyType type in Enum.GetValues(typeof(IEnemyManager.EnemyType)))
         {
             if(prefabEnemyList.ContainsKey(type) == false)
             {
                 Debug.LogWarning("Enemy Prefab " + type + " not found");
                 return false;
             }
-            if(EnemyClassList.ContainsKey(type) == false)
-            {
-                Debug.LogWarning("Enemy Class " + type + " not found");
-                return false;
-            }
         }
         return true;
     }
-    public enum EnemyType
-    {
-        A,
-        B
-    }
-    public struct EnemyAttribute
-    {
-        public Vector3 maxHP;
-        public Vector2 size;
-        public float speed;
-    }
-    private float refreshTime = 0.1f;
+    private float refreshTime = GlobalSetting.Instance.GlobalSettingSO.RefreshTime;
     private float currentRefreshTime = 0;
-    private Stack<BaseEnemy>[] enemyPool ; 
+    private Stack<BaseEnemy>[] enemyPool ;
     private EnemyConfig enemyConfig;
-    private Dictionary<EnemyType , GameObject> prefabEnemyList;
-    private Dictionary<EnemyType , Type> EnemyClassList;
+    private Dictionary<IEnemyManager.EnemyType , GameObject> prefabEnemyList;
     private List<BaseEnemy> enemyList;
-    // private HashSet<BaseEnemy> enemyList;
     private List<IEnemy>[,] enemyInGrid;
-    public IEnemy CreateEnemy(EnemyType type , int pathIndex)
-    {
-        if(enemyPool[(int)type].Count > 0)
-        {
-            BaseEnemy enemy = enemyPool[(int)type].Peek();
-            enemyPool[(int)type].Pop();
-            enemy.ReInit(enemyConfig.GetEnemyAttribute(type) , pathIndex);
-            enemyList.Add(enemy);
-            return enemy;
-        }
-        else
-        {
-            BaseEnemy enemy = (BaseEnemy)Activator.CreateInstance(EnemyClassList[type]);
-            GameObject gameObject = GameObject.Instantiate(prefabEnemyList[type]);
-            enemy.Init(gameObject , enemyConfig.GetEnemyAttribute(type) , pathIndex);
-            enemyList.Add(enemy);
-            return enemy;
-        }
-    }
 
 
-    public void Update(float deltaTime)
-    {
-        foreach(BaseEnemy enemy in enemyList)
-        {
-            enemy.OnUpDate(Time.deltaTime);
-        }
-        currentRefreshTime += deltaTime;
-        if(currentRefreshTime > refreshTime)
-        {
-            RefreshEnemyInGrid();
-            currentRefreshTime -= refreshTime;
-        }
-    }
     private void RefreshEnemyInGrid()
     {
         for (int i = 0; i < 25; i++)
@@ -145,6 +93,7 @@ public class EnemyManager
         }
         for(int i = enemyList.Count - 1 ; i >= midIndex ; i--)
         {
+            ToldOneEnemyDie(enemyList[i]);
             enemyPool[(int)enemyList[i].Type].Push(enemyList[i]);
             enemyList[i].Die();
             enemyList.RemoveAt(i);
@@ -156,9 +105,7 @@ public class EnemyManager
             return 1;
         if(b.IsDead)
             return -1;
-        if(a.PathNodeIndex != b.PathNodeIndex)
-            return b.PathNodeIndex - a.PathNodeIndex;
-        return (b.MoveScale - a.MoveScale) > 0 ? 1 : -1;
+        return (a.DisToDestination - b.DisToDestination) > 0 ? 1 : -1;
     }
     public IEnemy GetKthEnemy(int k , Vector2Int position)
     {
@@ -170,8 +117,42 @@ public class EnemyManager
     {
         return enemyInGrid[position.x , position.y].Count;
     }
+    public int AllEnemysCount()
+    {
+        return enemyList.Count;
+    }
     public List<IEnemy> GetEnemys(Vector2Int position)
     {
         return enemyInGrid[position.x , position.y];
+    }
+    public void Update(float deltaTime)
+    {
+        foreach(BaseEnemy enemy in enemyList)
+        {
+            enemy.OnUpDate(Time.deltaTime);
+        }
+        currentRefreshTime += deltaTime;
+        if(currentRefreshTime > refreshTime)
+        {
+            RefreshEnemyInGrid();
+            currentRefreshTime -= refreshTime;
+        }
+    }
+    public IEnemy CreateEnemy(IEnemyManager.EnemyType type , int pathIndex)
+    {
+        BaseEnemy enemy;
+        if(enemyPool[(int)type].Count > 0)
+        {
+            enemy = enemyPool[(int)type].Peek();
+            enemyPool[(int)type].Pop();
+            enemy.ReInit(enemyConfig.GetEnemyAttribute(type) , pathIndex);
+        }
+        else
+        {
+            enemy = GameObject.Instantiate(prefabEnemyList[type]).GetComponent<BaseEnemy>();
+            enemy.Init(enemyConfig.GetEnemyAttribute(type) , pathIndex);
+        }
+        enemyList.Add(enemy);
+        return enemy;
     }
 }

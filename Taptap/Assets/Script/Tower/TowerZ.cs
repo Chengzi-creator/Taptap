@@ -5,13 +5,13 @@ using UnityEngine;
 public class TowerZ : BaseDamageTower
 {
     protected LinkedList<float> lockedTime;
-    public override void Init(TowerManager.TowerAttribute towerAttribute, Vector2Int position , int faceDirection)
+    public override void Init(ITowerManager.TowerAttribute towerAttribute, Vector2Int position , int faceDirection)
     {
-        this.type = TowerManager.TowerType.Z;
+        this.type = ITowerManager.TowerType.Z;
         this.lockedTime = new LinkedList<float>();
         base.Init(towerAttribute, position , faceDirection);
     }
-    public override void ReInit(TowerManager.TowerAttribute towerAttribute, Vector2Int position , int faceDirection)
+    public override void ReInit(ITowerManager.TowerAttribute towerAttribute, Vector2Int position , int faceDirection)
     {
         base.ReInit(towerAttribute, position , faceDirection);
         this.lockedTime.Clear();

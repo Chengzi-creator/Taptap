@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class EnemyA : BaseEnemy
 {
-    public override void Init(GameObject gameObject , EnemyManager.EnemyAttribute enemyAttribute , int pathIndex)
+    public override void Init(IEnemyManager.EnemyAttribute enemyAttribute , int pathIndex)
     {
-        base.Init(gameObject , enemyAttribute , pathIndex);
+        base.Init(enemyAttribute , pathIndex);
     }
-    public override void ReInit(EnemyManager.EnemyAttribute enemyAttribute , int pathIndex)
+    public override void ReInit(IEnemyManager.EnemyAttribute enemyAttribute , int pathIndex)
     {
         base.ReInit(enemyAttribute , pathIndex);
     }

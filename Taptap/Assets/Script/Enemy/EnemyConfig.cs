@@ -9,7 +9,7 @@ public class EnemyConfig : ScriptableObject , ISerializationCallbackReceiver
     [System.Serializable]
     public struct ShowFormat
     {
-        public EnemyManager.EnemyType type;
+        public IEnemyManager.EnemyType type;
         public Vector3 maxHP;
         public Vector2 size;
         public float speed;
@@ -22,11 +22,11 @@ public class EnemyConfig : ScriptableObject , ISerializationCallbackReceiver
     {
         if(false)
         {
-            showEnemyData.Clear();
-            foreach(var data in enemyDataList)
-            {
-                showEnemyData.Add(new ShowFormat{type = data.Key, maxHP = data.Value.maxHP,size = data.Value.size , speed = data.Value.speed});
-            }
+            // showEnemyData.Clear();
+            // foreach(var data in enemyDataList)
+            // {
+            //     showEnemyData.Add(new ShowFormat{type = data.Key, maxHP = data.Value.maxHP,size = data.Value.size , speed = data.Value.speed});
+            // }
         }
     }
     public void OnAfterDeserialize()
@@ -35,18 +35,18 @@ public class EnemyConfig : ScriptableObject , ISerializationCallbackReceiver
 
         for(int i = 0; i < showEnemyData.Count; i++)
         {
-            enemyDataList[showEnemyData[i].type] = new EnemyManager.EnemyAttribute { maxHP = showEnemyData[i].maxHP, speed = showEnemyData[i].speed , size = showEnemyData[i].size};
+            enemyDataList[showEnemyData[i].type] = new IEnemyManager.EnemyAttribute { maxHP = showEnemyData[i].maxHP, speed = showEnemyData[i].speed , size = showEnemyData[i].size};
         }
     }
 
-    Dictionary<EnemyManager.EnemyType , EnemyManager.EnemyAttribute> enemyDataList = new Dictionary<EnemyManager.EnemyType, EnemyManager.EnemyAttribute>();
+    Dictionary<IEnemyManager.EnemyType , IEnemyManager.EnemyAttribute> enemyDataList = new Dictionary<IEnemyManager.EnemyType, IEnemyManager.EnemyAttribute>();
 
-    public EnemyManager.EnemyAttribute GetEnemyAttribute(EnemyManager.EnemyType type)
+    public IEnemyManager.EnemyAttribute GetEnemyAttribute(IEnemyManager.EnemyType type)
     {
         if(!enemyDataList.ContainsKey(type))
         {
             Debug.LogWarning("EnemyConfig doesn't contain " + type + " data");
-            return new EnemyManager.EnemyAttribute() ;
+            return new IEnemyManager.EnemyAttribute() ;
         }
         return enemyDataList[type];
     }

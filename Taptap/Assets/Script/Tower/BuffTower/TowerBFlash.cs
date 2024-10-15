@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class TowerBFlash : BaseBuffTower
 {
-    public override void Init(TowerManager.TowerAttribute towerAttribute, Vector2Int position , int faceDirection)
+    public override void Init(ITowerManager.TowerAttribute towerAttribute, Vector2Int position , int faceDirection)
     {
-        this.type = TowerManager.TowerType.B_flash;
+        this.type = ITowerManager.TowerType.B_flash;
         base.Init(towerAttribute, position , faceDirection);
     }
 }
