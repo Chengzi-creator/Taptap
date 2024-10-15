@@ -30,7 +30,9 @@ public class BuildMode : MonoBehaviour
     
     private void Awake()
     {
-        //_buttonF.onClick.AddListener(Click(_buttonF));
+        _buttonF.onClick.AddListener(ClickF);
+        _buttonT.onClick.AddListener(ClickT);
+        _buttonL.onClick.AddListener(ClickL);
     }
 
     private void Start()
@@ -108,8 +110,23 @@ public class BuildMode : MonoBehaviour
         }
     }
 
-    private void Click(Button type)
+    private void ClickF()
     {
-        
+        _selectFlash = true;
+        _selectLazor = false;
+        _selectTorch = false;
+    }
+    
+    private void ClickL()
+    {
+        _selectLazor = true;
+        _selectFlash = false;
+        _selectTorch = false;
+    }
+    private void ClickT()
+    {
+        _selectTorch = true;
+        _selectLazor = false;
+        _selectFlash = false;
     }
 }
