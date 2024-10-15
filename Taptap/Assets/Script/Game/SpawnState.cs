@@ -1,14 +1,26 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnState : IGameState
+public class SpawnState : MonoBehaviour,IGameState,IGetEnemy
 {
     private BuildMode buildMode;
     private SourceText sourceText;
-    private IEnemyManager _enemyManager; 
+    private IEnemyManager _enemyManager;
+    private IGridManager _gridManager;
     private int enemyCount;
     private float waitTime;
+
+    private void Awake()
+    {
+        _gridManager = GameObject.FindObjectOfType<MyGridManager>();
+    }
+
+    private void Start()
+    {
+        _gridManager.CalculatePath();
+    }
 
     public SpawnState(BuildMode buildMode, SourceText sourceText, int enemyCount,float waitTime)
     {
@@ -45,5 +57,10 @@ public class SpawnState : IGameState
             //怪物生成
             EnemyManager.Instance.CreateEnemy(IEnemyManager.EnemyType.A,MyGridManager.Instance.GetPath(Vector2Int.zero));
         }
+    }
+
+    public void GetEnemy(IEnemy enemy)
+    {
+        
     }
 }

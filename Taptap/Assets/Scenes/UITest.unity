@@ -153,8 +153,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxRound: 0
-  buildTime: 0
   enemyCount: 0
+  buildTime: 0
+  waitTime: 0
 --- !u!4 &778560796
 Transform:
   m_ObjectHideFlags: 0
@@ -361,7 +362,7 @@ PrefabInstance:
     - target: {fileID: 6601323769524928164, guid: 97b610f22a515e545901f0ee14a1815d, type: 3}
       propertyPath: SetupMasks
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 6825805576894348513, guid: 7815eaff541d8b64194beac7a06d22dd, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 1730350615495535924, guid: 97b610f22a515e545901f0ee14a1815d, type: 3}

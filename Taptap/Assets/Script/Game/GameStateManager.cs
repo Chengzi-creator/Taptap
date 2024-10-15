@@ -9,7 +9,7 @@ public class GameStateManager : MonoBehaviour
 {
    private IGameState currentState;
    public static GameStateManager Instance { get; private set; }
-
+   
    private int currentRound = 1;
    public int maxRound;
    public int enemyCount;
@@ -28,10 +28,16 @@ public class GameStateManager : MonoBehaviour
       {
          Destroy(gameObject);
       }
+      EnemyManager.Init();
+      TowerManager.Init();
+      EnemyManager.Instance.Update(Time.deltaTime);
+      TowerManager.Instance.Update(Time.deltaTime);
    }
 
    private void Start()
    {
+      
+      
       StartNewRound();
    }
 
