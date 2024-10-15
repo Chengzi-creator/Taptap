@@ -35,12 +35,12 @@ public interface IGrid
     /// 获取Tower
     /// </summary>
     /// <returns></returns>
-    public BaseTower GetTower();
+    public ITower GetTower();
 
     /// <summary>
     /// 设置Tower
     /// </summary>
     /// <param name="tower"></param>
-    public void SetTower(BaseTower tower);
+    public void BuildTower();
 }
 
