@@ -27,15 +27,15 @@ public class ABFTest : MonoBehaviour
         if(!b && Time.time > 0.2)
         {
             // TowerManager.Instance.CreateTower(ITowerManager.TowerType.B_torch, new Vector2Int(1, 0) , 0);
-            EnemyManager.Instance.CreateEnemy(IEnemyManager.EnemyType.A,MyGridManager.Instance.GetPath(Vector2Int.zero));
+            EnemyManager.Instance.CreateEnemy(IEnemyManager.EnemyType.A, MyGridManager.Instance.GetPath(Vector2Int.zero));
             b = true;
         }
         if(!c && Time.time > 0.3)
         {
 
-        //     TowerManager.Instance.DestroyTower(tower);
-           // TowerManager.Instance.CreateTower(ITowerManager.TowerType.B_torch, new Vector2Int(2, 0) , 0);
-        //     Debug.Log("Destroy tower");
+            //     TowerManager.Instance.DestroyTower(tower);
+            //TowerManager.Instance.CreateTower(ITowerManager.TowerType.B_torch, new Vector2Int(2, 0), 0);
+            //     Debug.Log("Destroy tower");
             c = true;
         }
         if(!d && Time.time > 0.4)

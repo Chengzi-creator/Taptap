@@ -54,6 +54,15 @@ public interface IGridManager:IPathManager
     /// <returns></returns>
     public bool CanPutTower(Vector2Int mapPos);
 
+
+    /// <summary>
+    /// 是否可以放置Tower
+    /// </summary>
+    /// <param name="towerType"></param>
+    /// <param name="mapPos"></param>
+    /// <returns></returns>
+    public bool CanPutTower(ITowerManager.TowerType towerType, Vector2Int mapPos);
+
     /// <summary>
     /// 计算路径
     /// </summary>
@@ -119,5 +128,18 @@ public interface IGridManager:IPathManager
     /// </summary>
     /// <param name="position"></param>
     public void ColorChanged(Vector2Int position);
+
+
+    /// <summary>
+    /// 加载对应关卡
+    /// </summary>
+    /// <param name="levelIdx"></param>
+    /// <returns></returns>
+    public bool LoadLevel(int levelIdx);
+
+    /// <summary>
+    /// 卸载关卡
+    /// </summary>
+    public void UnloadLevel();
 }
 

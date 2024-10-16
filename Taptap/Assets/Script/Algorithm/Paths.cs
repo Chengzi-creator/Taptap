@@ -47,6 +47,11 @@ namespace Algorithm
 
         internal int GetFirstPath()
         {
+            if(firstpaths.Count == 0)
+            {
+                Debug.LogError("firstpaths.Count == 0");
+                return -1;
+            }
             var pathIdx = UnityEngine.Random.Range(0, firstpaths.Count);
             return firstpaths[pathIdx].pathId;
         }
