@@ -4918,7 +4918,7 @@ GameObject:
   - component: {fileID: 5098062641290488005}
   - component: {fileID: 8232980264665984682}
   m_Layer: 0
-  m_Name: VFX_Attack_Ziguang
+  m_Name: VFX_Attack_Tuci
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
