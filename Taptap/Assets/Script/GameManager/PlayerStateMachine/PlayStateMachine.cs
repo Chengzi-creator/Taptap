@@ -52,7 +52,7 @@ public class PlayStateMachine
         EnemyManager.Instance.ReInit();
         TowerManager.Instance.ReInit();
         MyGridManager.Instance.LoadLevel(levelIndex);
-        MyGridManager.Instance.LoadLevelMap(levelIndex);
+        // MyGridManager.Instance.LoadLevelMap(levelIndex);
     }
 
     public void UpdateState(float deltaTime)
@@ -79,7 +79,8 @@ public class PlayStateMachine
 
     public void StartSpawnState()
     {
-        ChangeState(PlayStateType.Spawn);
+        if(currentState is BuildState)
+            ChangeState(PlayStateType.Spawn);
     }
 
     public void BuildTower(ITowerManager.TowerType towerType, Vector2Int position , int faceDirection)
@@ -104,14 +105,15 @@ public class PlayStateMachine
 
         public void BuildTower(ITowerManager.TowerType towerType, Vector2Int position , int faceDirection)
         {
+            // Debug.Log("BuildTower " + towerType + " " + position);
             int midCost = TowerManager.Instance.GetTowerAttribute(towerType).cost;
             if(PlayStateMachine.Instance.money < midCost)
                 return;
-            // if(MyGridManager.Instance.CanPutTower(position , towerType))
-            if(MyGridManager.Instance.CanPutTower(position))
+            if(MyGridManager.Instance.CanPutTower(towerType , position) == false)
                 return;
             PlayStateMachine.Instance.money -= midCost;
             TowerManager.Instance.CreateTower(towerType, position , faceDirection);
+            // Debug.Log("cost " + midCost);
         }
     }
     
@@ -149,6 +151,7 @@ public class PlayStateMachine
         public void EnemyDie(IEnemy enemy)
         {
             PlayStateMachine.Instance.money += enemy.Money;
+            Debug.Log("Enemy Die all enemy " + EnemyManager.Instance.AllEnemysCount() + " enemyIndex " + enemyIndex);
             if(EnemyManager.Instance.AllEnemysCount() == 0 && enemyIndex == enemyList.Count)
             {
                 if(PlayStateMachine.Instance.waveIndex == PlayStateMachine.Instance.levelDataSO.GetMaxWave(PlayStateMachine.Instance.levelIndex) - 1)
