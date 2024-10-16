@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
@@ -8,41 +10,40 @@ public class BuildState : IGameState
     private BuildMode buildMode;
     private SourceText sourceText;
     private ISource _source;
-    private float buildTime;
+    public float buildTime = 10f;
+    public float waitTime;
     private float timer;
-    private float waitTime;
-    public float increaseIcon = 10 ;
+    public float increaseIcon = 100 ;
     public int enemyCount;
 
-    public BuildState(BuildMode buildMode, SourceText sourceText, float buildTime,int enemyCount,float waitTime)
+    public BuildState(float buildTime,int enemyCount,float waitTime)
     {
-        this.buildMode = buildMode;
-        this.sourceText = sourceText;
         this.buildTime = buildTime;
         this.enemyCount = enemyCount;
         this.waitTime = waitTime;
-        _source = GameObject.FindObjectOfType<SourceText>();
     }
 
     public void EnterState()
     {
         timer = buildTime;
-        _source.IconIncrease(increaseIcon);
-        
-        buildMode.enabled = true;//建造模式启动
+        buildMode = GameObject.FindObjectOfType<BuildMode>();
+        sourceText = GameObject.FindObjectOfType<SourceText>();
+        sourceText.IconIncrease(increaseIcon);//金钱增加还有怪物部分
+        Debug.Log("BuildEnter");
     }
 
     public void UpdateState()
     {   
         timer -= Time.deltaTime;
+        //Debug.Log(timer);
         if (timer <= 0 || Input.GetKeyDown(KeyCode.Space))//忘记是按哪个键了
         {
-            GameStateManager.Instance.SwitchState(new SpawnState(buildMode, sourceText, enemyCount,waitTime));//先设置10了
+            GameStateManager.Instance.SwitchState(new SpawnState(enemyCount,waitTime));//先设置10了
         }
     }
 
     public void ExitState()
     {
-        buildMode.enabled = false;
+        
     }
 }

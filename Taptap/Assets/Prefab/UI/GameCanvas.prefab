@@ -440,6 +440,10 @@ PrefabInstance:
       propertyPath: ToggeleViewPairs.Array.data[2].toggle
       value: 
       objectReference: {fileID: 7061579025213580430}
+    - target: {fileID: 4059103018925069424, guid: 49e00de03bff03c41b4cad9ee206b7c3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5146205846571119314, guid: 49e00de03bff03c41b4cad9ee206b7c3, type: 3}
       propertyPath: SetupMasks
       value: 

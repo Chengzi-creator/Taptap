@@ -22,6 +22,9 @@ public class GameComplete : IGameState
 
     private void ShowVictoryScreen()
     {
-        // 显示胜利ui
+        // 显示胜利ui,尚待开发
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
     }
 }

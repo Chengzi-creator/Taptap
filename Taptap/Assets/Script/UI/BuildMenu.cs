@@ -13,7 +13,7 @@ public class BuildMenu : MonoBehaviour
         public Toggle toggle;
         public GameObject view;
     }
-
+    
     [SerializeField] public List<ToggeleViewPair> ToggeleViewPairs;//可以直接添加
     
     private void Awake()
@@ -23,24 +23,27 @@ public class BuildMenu : MonoBehaviour
            pair.view.SetActive(false);
        }
     }
-
+    
     private void Update()
+    {
+        Click();
+    }
+    
+ 
+    private void Click()
     {
         foreach (var pair in ToggeleViewPairs)
         {
             if (pair.toggle.isOn)
             {
-                SetActiveView(pair.view);
+                pair.view.SetActive(true);
                 break;
+            }
+            else
+            {
+                pair.view.SetActive(false);
             }
         }
     }
-
-    private void SetActiveView(GameObject activeview)
-    {
-        foreach (var pair in ToggeleViewPairs)
-        {
-            pair.view.SetActive(pair.view == activeview);
-        }
-    }
+    
 }

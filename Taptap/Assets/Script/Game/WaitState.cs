@@ -6,13 +6,11 @@ public class WaitState : IGameState
 {
     private BuildMode buildMode;
     private SourceText sourceText;
-    private float waitTime;
+    public float waitTime = 3f;
     private float timer;
 
-    public WaitState(BuildMode buildMode, SourceText sourceText, float waitTime)
+    public WaitState(float waitTime)
     {
-        this.buildMode = buildMode;
-        this.sourceText = sourceText;
         this.waitTime = waitTime;
     }
 

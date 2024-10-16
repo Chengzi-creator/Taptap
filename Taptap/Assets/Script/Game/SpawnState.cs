@@ -3,46 +3,46 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnState : MonoBehaviour,IGameState,IGetEnemy
-{
+public class SpawnState : IGameState,IGetEnemy
+{   
+    public static SpawnState Instance { get; private set; }
+    
     private BuildMode buildMode;
     private SourceText sourceText;
-    private IEnemyManager _enemyManager;
-    private IGridManager _gridManager;
-    private int enemyCount;
+    private EnemyManager _enemyManager;
+    private MyGridManager _gridManager;
+    public int enemyCount = 1;
     private float waitTime;
-
-    private void Awake()
+    
+    public SpawnState(int enemyCount,float waitTime)
     {
-        _gridManager = GameObject.FindObjectOfType<MyGridManager>();
-    }
-
-    private void Start()
-    {
-        _gridManager.CalculatePath();
-    }
-
-    public SpawnState(BuildMode buildMode, SourceText sourceText, int enemyCount,float waitTime)
-    {
-        this.buildMode = buildMode;
-        this.sourceText = sourceText;
         this.enemyCount = enemyCount;
         this.waitTime = waitTime;        
-        _enemyManager = new EnemyManager();
     }
 
     public void EnterState()
-    {
-        buildMode.enabled = false;//建造模式禁用
+    {   
+        if (Instance == null)
+        {
+            Instance = new SpawnState(enemyCount,waitTime);
+        }
+        else
+        {
+            
+        }
+        
+        MyGridManager.Instance.CalculatePath();
         SpawnEnemy();
+        Debug.Log("SpawnEnter");
     }
 
     public void UpdateState()
     {
-        if (_enemyManager.AllEnemysCount() == 0)
+        if (EnemyManager.Instance.AllEnemysCount() == 0)
         {
-            GameStateManager.Instance.SwitchState(new WaitState(buildMode,sourceText,waitTime));//等五秒进入下一轮？
+            GameStateManager.Instance.SwitchState(new WaitState(waitTime));
         }
+        GameStateManager.Instance.SwitchState(new WaitState(waitTime));
     }
 
     public void ExitState()
@@ -55,12 +55,13 @@ public class SpawnState : MonoBehaviour,IGameState,IGetEnemy
         for (int i = 0; i <= enemyCount; i++)
         {
             //怪物生成
-            EnemyManager.Instance.CreateEnemy(IEnemyManager.EnemyType.A,MyGridManager.Instance.GetPath(Vector2Int.zero));
+            //EnemyManager.Instance.CreateEnemy(IEnemyManager.EnemyType.A,MyGridManager.Instance.GetPath(Vector2Int.zero));
         }
     }
 
     public void GetEnemy(IEnemy enemy)
     {
-        
+        //获取敌人死亡得到的钱
+       
     }
 }

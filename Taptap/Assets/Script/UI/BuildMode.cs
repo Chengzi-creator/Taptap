@@ -17,15 +17,14 @@ public class BuildMode : MonoBehaviour
     [SerializeField] private Button _buttonF;
     [SerializeField] private Button _buttonL;
     [SerializeField] private Button _buttonT;
+    [SerializeField] private Button _buttonDestroy;
 
     private bool _selectFlash;
     private bool _selectLazor;
     private bool _selectTorch;
     private MyGridManager _myGridManager;
     private SourceText _sourceText;
-    private TowerConfig _towerConfig;
     private ITowerManager _towerManager;
-    //private IGridManager _gridManager;
     private float _value;
     private int _faceDirection = 0;
     
@@ -34,13 +33,13 @@ public class BuildMode : MonoBehaviour
         _buttonF.onClick.AddListener(ClickF);
         _buttonT.onClick.AddListener(ClickT);
         _buttonL.onClick.AddListener(ClickL);
+        _buttonDestroy.onClick.AddListener(DestroyTower);
     }
 
     private void Start()
     {
         _myGridManager = gameObject.AddComponent<MyGridManager>();
         _sourceText = gameObject.AddComponent<SourceText>();
-        _towerConfig = new TowerConfig();
         _towerManager = GetComponent<ITowerManager>();
     }
 
@@ -62,7 +61,7 @@ public class BuildMode : MonoBehaviour
         }
     }
 
-   
+    #region 点击建造
     private void TowerBuild(ITowerManager.TowerType type)
     {   
         // 增添炮塔图片跟随鼠标的效果
@@ -71,8 +70,8 @@ public class BuildMode : MonoBehaviour
         
         Vector2 worldposition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2Int gridposition = _myGridManager.GetMapPos(worldposition);
-        
-        _value = _towerConfig.GetTowerAttribute(type).cost;
+
+        _value = _towerManager.GetTowerAttribute(type).cost;
         
         //控制旋转方向
         if (Input.GetKeyDown(KeyCode.Q))
@@ -89,7 +88,7 @@ public class BuildMode : MonoBehaviour
         {
             if (_sourceText.Count >= _value)
             {
-                if (Input.GetMouseButtonDown(0))
+                if (Input.GetMouseButtonDown(0))//左键建造
                 {
                     //建造
                     _towerManager.CreateTower(type, gridposition, _faceDirection);
@@ -98,7 +97,7 @@ public class BuildMode : MonoBehaviour
                     _myGridManager.BuildTower(gridposition);
                 }
 
-                if (Input.GetMouseButtonDown(1))
+                if (Input.GetMouseButtonDown(1))//右键退出
                 {   
                     //退出建造函数
                     ClickOut();
@@ -114,12 +113,22 @@ public class BuildMode : MonoBehaviour
             //显示无法建造？
         }
     }
+    #endregion
 
+    #region 点击销毁
     public void DestroyTower()
     {
-        //还不知道用什么键销毁
+        //还不知道用什么键销毁，也是用一个button实现吧，当按了这个销毁键就会进入销毁模式
+        Vector2 worldposition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2Int gridposition = _myGridManager.GetMapPos(worldposition);
+        
+        //如果点击处有塔就在点击左键销毁？等我找找大家的函数先
+        
     }
-    
+    #endregion
+
+
+    #region 按钮点击
     private void ClickF()
     {
         _selectFlash = true;
@@ -146,4 +155,5 @@ public class BuildMode : MonoBehaviour
         _selectLazor = false;
         _selectTorch = false;
     }
+    #endregion
 }

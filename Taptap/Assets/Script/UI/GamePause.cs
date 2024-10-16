@@ -32,6 +32,7 @@ public class GamePause : MonoBehaviour
         homeButton.onClick.AddListener(OnhomeButtonClick);
         setupButton.onClick.AddListener(OnsetupButtonClick);
         menuButton.onClick.AddListener(OnmenuButtonClick);
+        
     }
     
     private void Update()
