@@ -14,25 +14,36 @@ using UnityEngine.UI;
 /// </summary>
 public class BuildMode : MonoBehaviour
 {
-    [SerializeField] private Button _buttonF;
-    [SerializeField] private Button _buttonL;
-    [SerializeField] private Button _buttonT;
+    [SerializeField] private Button _buttonBF;
+    [SerializeField] private Button _buttonBL;
+    [SerializeField] private Button _buttonBT;
+    [SerializeField] private Button _buttonDC;
+    [SerializeField] private Button _buttonDH;
+    [SerializeField] private Button _buttonDS;
     [SerializeField] private Button _buttonDestroy;
 
-    private bool _selectFlash;
-    private bool _selectLazor;
-    private bool _selectTorch;
+    private bool _selectBF;
+    private bool _selectBL;
+    private bool _selectBT;
+    private bool _selectDC;
+    private bool _selectDH;
+    private bool _selectDS;
+    private float _value;
+    private int _faceDirection = 0;
+    private Vector2 worldposition;
+    private Vector2Int gridposition;
     private MyGridManager _myGridManager;
     private SourceText _sourceText;
     private ITowerManager _towerManager;
-    private float _value;
-    private int _faceDirection = 0;
     
     private void Awake()
     {
-        _buttonF.onClick.AddListener(ClickF);
-        _buttonT.onClick.AddListener(ClickT);
-        _buttonL.onClick.AddListener(ClickL);
+        _buttonBF.onClick.AddListener(ClickBF);
+        _buttonBT.onClick.AddListener(ClickBT);
+        _buttonBL.onClick.AddListener(ClickBL);
+        _buttonDH.onClick.AddListener(ClickDH);
+        _buttonDS.onClick.AddListener(ClickDS);
+        _buttonDC.onClick.AddListener(ClickDC);
         _buttonDestroy.onClick.AddListener(DestroyTower);
     }
 
@@ -45,31 +56,42 @@ public class BuildMode : MonoBehaviour
 
     private void Update()
     {
-        if (_selectFlash)
+        if (_selectBF)
         {
-            TowerBuild(ITowerManager.TowerType.B_flash);
+            TowerBuildPosition(ITowerManager.TowerType.B_flash);
         }
-
-        if (_selectLazor)
+        if (_selectBL)
         {
-            TowerBuild(ITowerManager.TowerType.B_lazor);
+            TowerBuildPosition(ITowerManager.TowerType.B_lazor);
         }
-
-        if (_selectTorch)
+        if (_selectBT)
         {
-            TowerBuild(ITowerManager.TowerType.B_torch);
+            TowerBuildPosition(ITowerManager.TowerType.B_torch);
+        }
+        if (_selectDC)
+        {
+            TowerBuildPosition(ITowerManager.TowerType.D_catapult);
+        }
+        if (_selectDH)
+        {
+            TowerBuildPosition(ITowerManager.TowerType.D_hammer);
+        }
+        if (_selectDS)
+        {
+            TowerBuildPosition(ITowerManager.TowerType.D_spike);
         }
     }
-
+    
+    
     #region 点击建造
-    private void TowerBuild(ITowerManager.TowerType type)
+    private void TowerBuildPosition(ITowerManager.TowerType type)
     {   
         // 增添炮塔图片跟随鼠标的效果
         //进入这个状态时显示地图的可建造方块
         _myGridManager.ShowBuildModeGrid();
         
-        Vector2 worldposition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector2Int gridposition = _myGridManager.GetMapPos(worldposition);
+        worldposition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        gridposition = _myGridManager.GetMapPos(worldposition);
 
         _value = _towerManager.GetTowerAttribute(type).cost;
         
@@ -95,11 +117,12 @@ public class BuildMode : MonoBehaviour
                     _sourceText.IconDecrease(_value);
                     //还要将建造的信息传回去
                     _myGridManager.BuildTower(gridposition);
+                    ClickOut();
                 }
 
                 if (Input.GetMouseButtonDown(1))//右键退出
                 {   
-                    //退出建造函数
+                    //退出建造该塔
                     ClickOut();
                 }
             }
@@ -112,6 +135,12 @@ public class BuildMode : MonoBehaviour
         {
             //显示无法建造？
         }
+    }
+    
+    //想把鼠标位置，与放置塔的逻辑分开，否则在Update里会不断传入type
+    private void TowerBuild(ITowerManager.TowerType type)
+    {
+       
     }
     #endregion
 
@@ -129,31 +158,73 @@ public class BuildMode : MonoBehaviour
 
 
     #region 按钮点击
-    private void ClickF()
+    private void ClickBF()
     {
-        _selectFlash = true;
-        _selectLazor = false;
-        _selectTorch = false;
+        _selectBF = true;
+        _selectBL = false;
+        _selectBT = false;
+        _selectDC = false;
+        _selectDH = false;
+        _selectDS = false;
     }
     
-    private void ClickL()
+    private void ClickBL()
     {
-        _selectLazor = true;
-        _selectFlash = false;
-        _selectTorch = false;
+        _selectBL = true;
+        _selectBF = false;
+        _selectBT = false;
+        _selectDC = false;
+        _selectDH = false;
+        _selectDS = false;
     }
-    private void ClickT()
+    private void ClickBT()
     {
-        _selectTorch = true;
-        _selectLazor = false;
-        _selectFlash = false;
+        _selectBT = true;
+        _selectBL = false;
+        _selectBF = false;
+        _selectDC = false;
+        _selectDH = false;
+        _selectDS = false;
+    }
+    
+    private void ClickDC()
+    {
+        _selectBT = false;
+        _selectBL = false;
+        _selectBF = false;
+        _selectDC = true;
+        _selectDH = false;
+        _selectDS = false;
+    }
+
+    private void ClickDH()
+    {
+        _selectBT = false;
+        _selectBL = false;
+        _selectBF = false;
+        _selectDC = false;
+        _selectDH = true;
+        _selectDS = false;
+    }
+    
+    private void ClickDS()
+    {
+        _selectBF = false;
+        _selectBL = false;
+        _selectBT = false;
+        _selectDC = false;
+        _selectDH = false;
+        _selectDS = true;
     }
 
     private void ClickOut()
     {
-        _selectFlash = false;
-        _selectLazor = false;
-        _selectTorch = false;
+        _selectBF = false;
+        _selectBL = false;
+        _selectBT = false;
+        _selectDC = false;
+        _selectDH = false;
+        _selectDS = false;
     }
     #endregion
 }
