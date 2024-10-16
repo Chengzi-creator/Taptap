@@ -216,7 +216,7 @@ public class UIManager : MonoBehaviour
         _text.text = "Icon : " + Count.ToString();
     }
     
-    private void DetectBuildModeInput()
+    public void DetectBuildModeInput()
     {
         if (IsInBuildMode())
         {

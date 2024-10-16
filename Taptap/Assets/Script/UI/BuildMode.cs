@@ -56,7 +56,8 @@ public class BuildMode : MonoBehaviour
 
     private void Update()
     {
-       TowerBuildPosition();//时时检测鼠标位置
+       //TowerBuildPosition();//时时检测鼠标位置
+       UIManager.Instance?.DetectBuildModeInput();
     }
     
     
