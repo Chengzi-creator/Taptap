@@ -21,7 +21,7 @@ public class TowerConfig : ScriptableObject , ISerializationCallbackReceiver
     public struct ShowFormat
     {
         public ITowerManager.TowerType type;
-        public float cost;
+        public int cost;
         public Vector3 damage;
         public Color color;
         public float bulletTime;

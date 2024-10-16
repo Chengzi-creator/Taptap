@@ -93,10 +93,11 @@ public class EnemyManager : IEnemyManager
         }
         for(int i = enemyList.Count - 1 ; i >= midIndex ; i--)
         {
-            //ToldOneEnemyDie(enemyList[i]);
-            enemyPool[(int)enemyList[i].Type].Push(enemyList[i]);
+            BaseEnemy dieEnemy = enemyList[i];
+            enemyPool[(int)enemyList[i].Type].Push(dieEnemy);
             enemyList[i].Die();
             enemyList.RemoveAt(i);
+            PlayStateMachine.Instance.EnemyDie(dieEnemy);
         }
     }
     private int CmpEnemy(BaseEnemy a , BaseEnemy b)

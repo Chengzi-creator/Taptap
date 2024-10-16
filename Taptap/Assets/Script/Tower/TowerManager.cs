@@ -146,6 +146,18 @@ public class TowerManager : ITowerManager
     {
         return towerConfig.GetTowerAttribute(type);
     }
+    
+    public bool CanBuildTower(ITowerManager.TowerType type , Vector2Int position)
+    {
+        // prefabTowerList[type].GetComponent<BaseTower>() is BaseBuffTower
+        if(towerMap[position.x , position.y] != null)
+            return false;
+        if(prefabTowerList[type].GetComponent<BaseTower>() is BaseBuffTower)
+            return true;
+        if(GetColor(position) != 0)
+            return true;
+        return false;
+    }
 }
 
 // 红   绿  黄  蓝  紫   青  白
