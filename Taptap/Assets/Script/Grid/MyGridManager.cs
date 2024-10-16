@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using Newtonsoft.Json;
 using Debug = UnityEngine.Debug;
+using System.Net.NetworkInformation;
 
 public class MyGridManager : MonoBehaviour, IGraphicManager, IGridManager
 {
@@ -38,6 +39,9 @@ public class MyGridManager : MonoBehaviour, IGraphicManager, IGridManager
             Destroy(this);
         }
         //测试
+        LoadMapFromFile(Resources.Load<TextAsset>("Map/test2"));
+        CalculatePath();
+        UnloadLevel();
         LoadMapFromFile(Resources.Load<TextAsset>("Map/test2"));
         CalculatePath();
     }
@@ -185,19 +189,37 @@ public class MyGridManager : MonoBehaviour, IGraphicManager, IGridManager
     }
     #endregion
 
+    public bool LoadLevel(int levelIdx)
+    {
+        TextAsset text = null;
+        try
+        {
+            text = Resources.Load<TextAsset>($"Map/Level{levelIdx}");
+        }
+        catch
+        {
+            Debug.LogError($"Resource hasn't Map/Level{levelIdx}");
+        }
+        return LoadMapFromFile(text);
+    }
 
-    public void LoadMapFromFile(TextAsset text)
+    public void UnloadLevel()
+    {
+        ClearMap();
+    }
+    private bool LoadMapFromFile(TextAsset text)
     {
         if (text == null)
         {
-            Debug.LogError("Load Map Error");
-            return;
+            Debug.LogError($"Load Map Error,please make sure has map file");
+            return false;
         }
         MapState mapState = JsonConvert.DeserializeObject<MapState>(text.text);
 
         //Debug.Log("l:" + mapState.length + "w:" + mapState.width);
 
         Init(mapState);
+        return true;
     }
     private void Init(MapState mapState)
     {
@@ -211,13 +233,27 @@ public class MyGridManager : MonoBehaviour, IGraphicManager, IGridManager
                 Vector3 WorldPos = new Vector3(i * MyGrid.GridSize.x, j * MyGrid.GridSize.y, 0) + MapStartPos;
                 GameObject go = Instantiate(gridPrefab, WorldPos, Quaternion.identity, transform);
                 var myGrid = go.GetComponent<MyGrid>();
-                myGrid.Init(new Vector2Int(i, j), new Vector2(WorldPos.x, WorldPos.y), 
+                myGrid.Init(new Vector2Int(i, j), new Vector2(WorldPos.x, WorldPos.y),
                     GetGridType(mapState.Map[i, j][0].type));
                 myGrids[i, j] = myGrid;
             }
         }
         myGraphic = new UndirectedGraph(this);
+        CancelShowBuildModeGrid();
     }
+
+    private void ClearMap()
+    {
+        myGrids = null;
+        width = 0;
+        length = 0;
+        myGraphic = null;
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            Destroy(transform.GetChild(i).gameObject);
+        }
+    }
+
 
     private GridObjectType GetGridType(MapObjectType mapObjectType)
     {
@@ -393,20 +429,6 @@ public class MyGridManager : MonoBehaviour, IGraphicManager, IGridManager
         }
     }
 
-    /// <summary>
-    /// for test 用完删
-    /// </summary>
-    /// <param name="mapPos"></param>
-    /// <param name="baseTower"></param>
-    public void SetTower(Vector2Int mapPos,BaseTower baseTower)
-    {
-        if (IsInMap(mapPos))
-        {
-            GetGrid(mapPos).BuildTower();
-            myGraphic.RemovePoint(mapPos);
-        }
-    }
-
     public void DestoryTower(Vector2Int mapPos)
     {
         if (IsInMap(mapPos))
@@ -428,7 +450,17 @@ public class MyGridManager : MonoBehaviour, IGraphicManager, IGridManager
         return false;
     }
 
+    public bool CanPutTower(ITowerManager.TowerType towerType, Vector2Int mapPos)
+    {
+        if (IsInMap(mapPos))
+        {
+            MyGrid grid = GetGrid(mapPos);
 
+            return grid.CanPutObj && HasPathAfterPut(mapPos);
+            //&& TowerManager.Instance.CanBuildTower(towerType, mapPos);
+        }
+        return false;
+    }
     public void CalculatePath(bool drawPath = false)
     {
         PathManager = myGraphic.CalculatePath();
@@ -437,7 +469,6 @@ public class MyGridManager : MonoBehaviour, IGraphicManager, IGridManager
     }
 
 
-    List<Vector2Int> testPath;
     public int GetPath(Vector2Int StartPos)
     {
         return PathManager.GetPath(StartPos);
@@ -455,7 +486,7 @@ public class MyGridManager : MonoBehaviour, IGraphicManager, IGridManager
 
     public int GetColor(int x, int y)
     {
-        return TowerManager.Instance.GetColor(new Vector2Int(x,y));
+        return TowerManager.Instance.GetColor(new Vector2Int(x, y));
     }
 
     public void ColorChanged(Vector2Int position)
