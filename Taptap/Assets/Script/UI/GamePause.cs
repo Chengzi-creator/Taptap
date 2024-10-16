@@ -40,16 +40,7 @@ public class GamePause : MonoBehaviour
         //检测是否按下ESC键来切换暂停状态
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (SetupMasks.activeSelf)
-            {
-                SetupMasks.SetActive(false);
-                PauseMasks.SetActive(true);
-                BuildMasks.SetActive(false);
-            }
-            else
-            {
-                TogglePause();
-            }
+            UIManager.Instance.TogglePause();
         }
     }
     

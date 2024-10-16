@@ -56,91 +56,99 @@ public class BuildMode : MonoBehaviour
 
     private void Update()
     {
-        if (_selectBF)
-        {
-            TowerBuildPosition(ITowerManager.TowerType.B_flash);
-        }
-        if (_selectBL)
-        {
-            TowerBuildPosition(ITowerManager.TowerType.B_lazor);
-        }
-        if (_selectBT)
-        {
-            TowerBuildPosition(ITowerManager.TowerType.B_torch);
-        }
-        if (_selectDC)
-        {
-            TowerBuildPosition(ITowerManager.TowerType.D_catapult);
-        }
-        if (_selectDH)
-        {
-            TowerBuildPosition(ITowerManager.TowerType.D_hammer);
-        }
-        if (_selectDS)
-        {
-            TowerBuildPosition(ITowerManager.TowerType.D_spike);
-        }
+       TowerBuildPosition();//时时检测鼠标位置
     }
     
     
     #region 点击建造
-    private void TowerBuildPosition(ITowerManager.TowerType type)
+    private void TowerBuildPosition()
     {   
-        // 增添炮塔图片跟随鼠标的效果
-        //进入这个状态时显示地图的可建造方块
-        _myGridManager.ShowBuildModeGrid();
+        //增添炮塔图片跟随鼠标的效果，到时候旋转效果要实现的喵，尚待开发
         
+        
+        //只要点到任意一个按钮就进入这个状态，显示地图的可建造方块
+        if (HasClick())
+        {
+            _myGridManager.ShowBuildModeGrid();
+            
+            //控制该塔的旋转方向
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                _faceDirection = (_faceDirection + 1) % 4;
+            }
+            else if (Input.GetKeyDown(KeyCode.E))
+            {
+                _faceDirection = (_faceDirection - 1 + 4) % 4;
+            }
+        }
+
         worldposition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         gridposition = _myGridManager.GetMapPos(worldposition);
-
-        _value = _towerManager.GetTowerAttribute(type).cost;
-        
-        //控制旋转方向
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            _faceDirection = (_faceDirection + 1) % 4;
-        }
-        else if (Input.GetKeyDown(KeyCode.E))
-        {
-            _faceDirection = (_faceDirection - 1 + 4) % 4;
-        }
         
         //检测是否可以建造并建造
         if (_myGridManager.CanPutTower(gridposition))
         {
-            if (_sourceText.Count >= _value)
+            if (Input.GetMouseButtonDown(0)) //左键建造
             {
-                if (Input.GetMouseButtonDown(0))//左键建造
-                {
-                    //建造
-                    _towerManager.CreateTower(type, gridposition, _faceDirection);
-                    _sourceText.IconDecrease(_value);
-                    //还要将建造的信息传回去
-                    _myGridManager.BuildTower(gridposition);
-                    ClickOut();
-                }
-
-                if (Input.GetMouseButtonDown(1))//右键退出
-                {   
-                    //退出建造该塔
-                    ClickOut();
-                }
+                TowerLoad();
             }
-            else
+            if (Input.GetMouseButtonDown(1)) //右键退出
             {
-                //钱不够，无法建造，显示下提示?
+                //退出建造该塔
+                ClickOut();
             }
         }
         else
         {
-            //显示无法建造？
+            //显示无法建造？格子颜色改变？
         }
     }
     
     //想把鼠标位置，与放置塔的逻辑分开，否则在Update里会不断传入type
     private void TowerBuild(ITowerManager.TowerType type)
+    {   
+        //在按下按键的时候后面的逻辑都由TowerBuild接管？  
+        _value = _towerManager.GetTowerAttribute(type).cost;
+
+        if (_sourceText.Count >= _value)
+        {
+            _towerManager.CreateTower(type, gridposition, _faceDirection);//建造
+            _sourceText.IconDecrease(_value);
+            _myGridManager.BuildTower(gridposition); //还要将建造的信息传回去
+            ClickOut();
+        }
+        else
+        {
+            ClickOut();    
+        }
+    }
+
+    private void TowerLoad()
     {
-       
+        if (_selectBF)
+        {
+            TowerBuild(ITowerManager.TowerType.B_flash);
+        }
+        if (_selectBL)
+        {
+            TowerBuild(ITowerManager.TowerType.B_lazor);
+        }
+        if (_selectBT)
+        {
+            TowerBuild(ITowerManager.TowerType.B_torch);
+        }
+        if (_selectDC)
+        {
+            TowerBuild(ITowerManager.TowerType.D_catapult);
+        }
+        if (_selectDH)
+        {
+            TowerBuild(ITowerManager.TowerType.D_hammer);
+        }
+        if (_selectDS)
+        {
+            TowerBuild(ITowerManager.TowerType.D_spike);
+        }
     }
     #endregion
 
@@ -226,5 +234,18 @@ public class BuildMode : MonoBehaviour
         _selectDH = false;
         _selectDS = false;
     }
+
+    private bool HasClick()
+    {
+        if (_selectBT || _selectBL || _selectBT || _selectDH || _selectDC || _selectDS)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
     #endregion
 }
