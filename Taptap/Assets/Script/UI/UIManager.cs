@@ -24,11 +24,23 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject setupMasks;
     [SerializeField] private GameObject buildMasks;
     [SerializeField] private Button exitButton, restartButton, homeButton,backButton,setupButton,menuButton;
-    [SerializeField] private Button[] buildButtons;  //存储所有建造按钮
+    //[SerializeField] private Button[] buildButtons;  //存储所有建造按钮
+    [SerializeField] private Button _buttonBF;
+    [SerializeField] private Button _buttonBL;
+    [SerializeField] private Button _buttonBT;
+    [SerializeField] private Button _buttonDC;
+    [SerializeField] private Button _buttonDH;
+    [SerializeField] private Button _buttonDS;
     [SerializeField] private Button destroyButton;
     
     private bool isPaused = false;
-    private bool[] buildSelections;
+    //private bool[] buildSelections;
+    private bool _selectBF;
+    private bool _selectBL;
+    private bool _selectBT;
+    private bool _selectDC;
+    private bool _selectDH;
+    private bool _selectDS;
     private float _value;
     public float Count = 100;
     private int faceDirection = 0;
@@ -74,17 +86,25 @@ public class UIManager : MonoBehaviour
             pair.view.SetActive(false);
         }
         
-        buildSelections = new bool[buildButtons.Length];  //初始化建造选择状态
-        for (int i = 0; i < buildButtons.Length; i++)
-        {
-            int index = i;  //得到当前索引
-            buildButtons[i].onClick.AddListener(() => OnBuildButtonClick(index));
-        }
+        // buildSelections = new bool[buildButtons.Length];  //初始化建造选择状态
+        // for (int i = 0; i < buildButtons.Length; i++)
+        // {
+        //     int index = i;  //得到当前索引
+        //     buildButtons[i].onClick.AddListener(() => OnBuildButtonClick(index));
+        // }
+        
+        _buttonBF.onClick.AddListener(ClickBF);
+        _buttonBT.onClick.AddListener(ClickBT);
+        _buttonBL.onClick.AddListener(ClickBL);
+        _buttonDH.onClick.AddListener(ClickDH);
+        _buttonDS.onClick.AddListener(ClickDS);
+        _buttonDC.onClick.AddListener(ClickDC);
 
         destroyButton.onClick.AddListener(DestroyTower);
-
-        gridManager = gameObject.AddComponent<MyGridManager>();
-        sourceText = gameObject.AddComponent<SourceText>();
+        
+        gridManager = GetComponent<MyGridManager>();
+        //sourceText = gameObject.AddComponent<SourceText>();
+        sourceText = GetComponent<SourceText>();
         towerManager = GetComponent<ITowerManager>();
     }
 
@@ -106,7 +126,7 @@ public class UIManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            //PlayStateMachine.Instance.StartSpawnState();
+            PlayStateMachine.Instance.StartSpawnState();
         }
         
         //建造的输入
@@ -199,11 +219,7 @@ public class UIManager : MonoBehaviour
         Time.timeScale = 1f;
     }
 
-    // private void OnBuildButtonClick(Button clickedButton)
-    // {
-    //    //建造方法如何放进来
-    // }
-    //
+   
     public void IconIncrease(float increase)
     {
         Count += increase;
@@ -218,7 +234,7 @@ public class UIManager : MonoBehaviour
     
     public void DetectBuildModeInput()
     {
-        if (IsInBuildMode())
+        if (HasClick())
         {
             gridManager.ShowBuildModeGrid();
             RotateTower();
@@ -232,7 +248,7 @@ public class UIManager : MonoBehaviour
                 }
                 if (Input.GetMouseButtonDown(1))  //右键退出建造模式
                 {
-                    ResetBuildSelection();
+                    ClickOut();
                 }
             }
         }
@@ -258,18 +274,31 @@ public class UIManager : MonoBehaviour
 
     private void BuildSelectedTower()
     {
-        for (int i = 0; i < buildSelections.Length; i++)
+        if (_selectBF)
         {
-            if (buildSelections[i])
-            {
-                var type = (ITowerManager.TowerType)i;  //需要类型枚举顺序和按钮一致，需要调整
-                BuildTower(type);
-                //PlayStateMachine.Instance.BuildTower(type, gridPosition , faceDirection)
-                break;
-            }
+            TowerBuild(ITowerManager.TowerType.B_flash);
+        }
+        if (_selectBL)
+        {
+            TowerBuild(ITowerManager.TowerType.B_lazor);
+        }
+        if (_selectBT)
+        {
+            TowerBuild(ITowerManager.TowerType.B_torch);
+        }
+        if (_selectDC)
+        {
+            TowerBuild(ITowerManager.TowerType.D_catapult);
+        }
+        if (_selectDH)
+        {
+            TowerBuild(ITowerManager.TowerType.D_hammer);
+        }
+        if (_selectDS)
+        {
+            TowerBuild(ITowerManager.TowerType.D_spike);
         }
         
-       
     }
 
     private void BuildTower(ITowerManager.TowerType type)
@@ -279,22 +308,35 @@ public class UIManager : MonoBehaviour
         if (sourceText.Count >= cost)
         {
             towerManager.CreateTower(type, gridPosition, faceDirection);
+            PlayStateMachine.Instance.BuildTower(type, gridPosition, faceDirection);
             sourceText.IconDecrease(cost);
             gridManager.BuildTower(gridPosition);
-            ResetBuildSelection();
+            ClickOut();
         }
         else
         {
-            ResetBuildSelection();
+            ClickOut();
         }
     }
+    
+    private void TowerBuild(ITowerManager.TowerType type)
+    {   
+        //在按下按键的时候后面的逻辑都由TowerBuild接管？  
+        _value = towerManager.GetTowerAttribute(type).cost;
 
-    private void OnBuildButtonClick(int index)
-    {
-        ResetBuildSelection();
-        buildSelections[index] = true;
+        if (sourceText.Count >= _value)
+        {
+            towerManager.CreateTower(type, gridPosition, faceDirection);//建造
+            sourceText.IconDecrease(_value);
+            gridManager.BuildTower(gridPosition); //还要将建造的信息传回去
+            ClickOut();
+        }
+        else
+        {
+            ClickOut();    
+        }
     }
-
+    
     public void DestroyTower()
     {
         Vector2 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -302,22 +344,91 @@ public class UIManager : MonoBehaviour
 
         //实现具体的销毁逻辑,尚待开发
     }
+    
 
-    private void ResetBuildSelection()
+   
+    #region 按钮点击
+    private void ClickBF()
     {
-        for (int i = 0; i < buildSelections.Length; i++)
-        {
-            buildSelections[i] = false;
-        }
+        _selectBF = true;
+        _selectBL = false;
+        _selectBT = false;
+        _selectDC = false;
+        _selectDH = false;
+        _selectDS = false;
+    }
+    
+    private void ClickBL()
+    {
+        _selectBL = true;
+        _selectBF = false;
+        _selectBT = false;
+        _selectDC = false;
+        _selectDH = false;
+        _selectDS = false;
+    }
+    private void ClickBT()
+    {
+        _selectBT = true;
+        _selectBL = false;
+        _selectBF = false;
+        _selectDC = false;
+        _selectDH = false;
+        _selectDS = false;
+    }
+    
+    private void ClickDC()
+    {
+        _selectBT = false;
+        _selectBL = false;
+        _selectBF = false;
+        _selectDC = true;
+        _selectDH = false;
+        _selectDS = false;
     }
 
-    private bool IsInBuildMode()
+    private void ClickDH()
     {
-        foreach (var selected in buildSelections)
-        {
-            if (selected) return true;
-        }
-        return false;
+        _selectBT = false;
+        _selectBL = false;
+        _selectBF = false;
+        _selectDC = false;
+        _selectDH = true;
+        _selectDS = false;
     }
+    
+    private void ClickDS()
+    {
+        _selectBF = false;
+        _selectBL = false;
+        _selectBT = false;
+        _selectDC = false;
+        _selectDH = false;
+        _selectDS = true;
+    }
+
+    private void ClickOut()
+    {
+        _selectBF = false;
+        _selectBL = false;
+        _selectBT = false;
+        _selectDC = false;
+        _selectDH = false;
+        _selectDS = false;
+    }
+
+    private bool HasClick()
+    {
+        if (_selectBT || _selectBL || _selectBT || _selectDH || _selectDC || _selectDS)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
+    #endregion
 
 }

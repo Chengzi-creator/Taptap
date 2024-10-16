@@ -152,10 +152,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9b6c383e4f039e4b829e84aec6285ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxRound: 2
-  enemyCount: 0
-  buildTime: 5
-  waitTime: 3
 --- !u!4 &778560796
 Transform:
   m_ObjectHideFlags: 0
@@ -532,7 +528,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1402157189088157156, guid: 97b610f22a515e545901f0ee14a1815d, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2772659758465883076, guid: 97b610f22a515e545901f0ee14a1815d, type: 3}
       propertyPath: ToggeleViewPairs.Array.size
