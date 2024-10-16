@@ -28,7 +28,7 @@ public class MyGridManager : MonoBehaviour, IGraphicManager, IGridManager
 
     public PathManager PathManager;
 
-    private void Start()
+    private void Awake()
     {
         if (Instance == null)
         {
@@ -456,8 +456,7 @@ public class MyGridManager : MonoBehaviour, IGraphicManager, IGridManager
         {
             MyGrid grid = GetGrid(mapPos);
 
-            return grid.CanPutObj && HasPathAfterPut(mapPos);
-            //&& TowerManager.Instance.CanBuildTower(towerType, mapPos);
+            return grid.CanPutObj && HasPathAfterPut(mapPos) && TowerManager.Instance.CanBuildTower(towerType, mapPos);
         }
         return false;
     }

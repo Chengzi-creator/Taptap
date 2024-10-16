@@ -19,7 +19,7 @@ public interface ITowerManager
     }
     public struct TowerAttribute
     {
-        public float cost;
+        public int cost;
         public Vector3 damage;
         public int color;
         public float timeInterval;
@@ -31,7 +31,7 @@ public interface ITowerManager
     public void Update(float deltaTime);
     public void DestroyTower(ITower midTower);
     public ITower CreateTower(TowerType type , Vector2Int position , int faceDirection);
-
     public TowerAttribute GetTowerAttribute(TowerType type);
+    public bool CanBuildTower(TowerType type , Vector2Int position);
 
 }
