@@ -55,7 +55,7 @@ namespace Algorithm
             {
                 Vector2 world1 = MyGridManager.Instance.GetWorldPos(path[i]);
                 Vector2 world2 = MyGridManager.Instance.GetWorldPos(path[i + 1]);
-                Debug.DrawLine(world1, world2, c, 1);
+                Debug.DrawLine(world1, world2, c, 100);
             }
         }
 

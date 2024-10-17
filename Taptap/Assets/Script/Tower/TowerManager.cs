@@ -13,7 +13,7 @@ public class TowerManager : ITowerManager
         {
             instance = new TowerManager();
 
-            instance.colorMap = new int[25,25,5];
+            instance.colorMap = new int[50,50,5];
             instance.prefabTowerList = new Dictionary<ITowerManager.TowerType, GameObject>();
             instance.towerList = new HashSet<BaseTower>();
             instance.towerMap = new ITower[25,25];
@@ -45,7 +45,8 @@ public class TowerManager : ITowerManager
             if(prefabTowerList.ContainsKey(type) == false)
             {
                 Debug.LogWarning("Tower Prefab " + type + " not found");
-                return false;
+                //return false;
+                continue;
             }
         }
         return true;
@@ -138,6 +139,7 @@ public class TowerManager : ITowerManager
         {
             if((color & (1 << i)) > 0)
             {
+                Debug.Log("color para " + position + " " + i);
                 colorMap[position.x , position.y , i] ++;
             }
         }
