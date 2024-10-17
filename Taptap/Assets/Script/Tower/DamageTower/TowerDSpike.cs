@@ -53,7 +53,7 @@ public class TowerSpike : BaseDamageTower
                     if(attackedEnemy.Contains(midEnemy.ID))
                         continue;
                     attackedEnemy.Add(midEnemy.ID);
-                    midEnemy.BeAttacked(damage , TowerManager.Instance.GetColor(position));
+                    midEnemy.BeAttacked(damage* TowerManager.Instance.GetColorVector(position) , TowerManager.Instance.GetColor(position));
                     // attackRange[i].GetKthEnemy(j).BeAttacked(damage , TowerManager.Instance.GetColor(position));
                 }
             }

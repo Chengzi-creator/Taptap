@@ -45,7 +45,7 @@ public class TowerDHammer : BaseDamageTower
         node = lockedTime.First;
         while(node != null && node.Value <= 0)
         {
-            lockedEnemy.First.Value.BeAttacked(damage , TowerManager.Instance.GetColor(position));
+            lockedEnemy.First.Value.BeAttacked(damage* TowerManager.Instance.GetColorVector(position) , TowerManager.Instance.GetColor(position));
             lockedEnemy.RemoveFirst();
             lockedTime.RemoveFirst();
             node = lockedTime.First;

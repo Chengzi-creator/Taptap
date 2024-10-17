@@ -462,6 +462,7 @@ public class MyGridManager : MonoBehaviour, IGraphicManager, IGridManager
     }
     public void CalculatePath(bool drawPath = false)
     {
+        Debug.LogWarning("CalculatePath");
         PathManager = myGraphic.CalculatePath();
         if (drawPath)
             PathManager.DrawFirstPath();
@@ -470,6 +471,7 @@ public class MyGridManager : MonoBehaviour, IGraphicManager, IGridManager
 
     public int GetPath(Vector2Int StartPos)
     {
+        Debug.Log("GetPath");
         return PathManager.GetPath(StartPos);
     }
 

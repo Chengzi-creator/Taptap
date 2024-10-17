@@ -45,7 +45,7 @@ public class TowerDCatapult : BaseDamageTower
         while(node != null && node.Value <= 0)
         {
             for(int i = 0 ; i < lockedEnemy.First.Value.EnemysCount() ; i++)
-                lockedEnemy.First.Value.GetKthEnemy(i).BeAttacked(damage , TowerManager.Instance.GetColor(position));
+                lockedEnemy.First.Value.GetKthEnemy(i).BeAttacked(damage * TowerManager.Instance.GetColorVector(position) , TowerManager.Instance.GetColor(position));
             lockedEnemy.RemoveFirst();
             lockedTime.RemoveFirst();
             node = lockedTime.First;

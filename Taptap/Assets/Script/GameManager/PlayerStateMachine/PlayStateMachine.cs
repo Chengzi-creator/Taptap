@@ -20,6 +20,16 @@ public class PlayStateMachine
     private int levelIndex;
     private int waveIndex;
     private int money;
+    private int Money
+    {
+        get => money;
+        set
+        {
+            // UIManager.Instance.SetMoney(value);
+            UIManager.Instance.coinChange(value);
+            money = value;
+        }
+    }
     IPlayState currentState;
     private IPlayState[] playStateList;
 
@@ -47,7 +57,7 @@ public class PlayStateMachine
     {
         this.levelIndex = levelIndex;
         waveIndex = 0;
-        money = levelDataSO.GetBeginMoney(levelIndex);
+        Money = levelDataSO.GetBeginMoney(levelIndex);
         ChangeState(PlayStateType.Build);
         EnemyManager.Instance.ReInit();
         TowerManager.Instance.ReInit();
@@ -67,6 +77,7 @@ public class PlayStateMachine
         currentState?.ExitState();
         currentState = playStateList[(int)stateType];
         currentState.EnterState();
+        UIManager.Instance.RoundChange(PlayStateMachine.Instance.waveIndex , PlayStateMachine.Instance.levelIndex);
     }
 
     public void EnemyDie(IEnemy enemy)
@@ -80,14 +91,27 @@ public class PlayStateMachine
     public void StartSpawnState()
     {
         if(currentState is BuildState)
+        {
+            MyGridManager.Instance.CalculatePath();
             ChangeState(PlayStateType.Spawn);
+        }
     }
 
     public void BuildTower(ITowerManager.TowerType towerType, Vector2Int position , int faceDirection)
     {
+        Debug.Log("BuildTower " + towerType + " in " + position);
         if(currentState is BuildState)
         {
             (currentState as BuildState).BuildTower(towerType, position, faceDirection);
+        }
+    }
+
+    public void RemoveTower(Vector2Int position)
+    {
+        Debug.Log("RemoveTower " + position);
+        if(currentState is BuildState)
+        {
+            (currentState as BuildState).RemoveTower(position);
         }
     }
 
@@ -105,15 +129,23 @@ public class PlayStateMachine
 
         public void BuildTower(ITowerManager.TowerType towerType, Vector2Int position , int faceDirection)
         {
-            // Debug.Log("BuildTower " + towerType + " " + position);
+            Debug.Log("BuildTower " + towerType + " " + position);
             int midCost = TowerManager.Instance.GetTowerAttribute(towerType).cost;
-            if(PlayStateMachine.Instance.money < midCost)
+            if(PlayStateMachine.Instance.Money < midCost)
                 return;
             if(MyGridManager.Instance.CanPutTower(towerType , position) == false)
                 return;
-            PlayStateMachine.Instance.money -= midCost;
+            PlayStateMachine.Instance.Money -= midCost;
             TowerManager.Instance.CreateTower(towerType, position , faceDirection);
             // Debug.Log("cost " + midCost);
+        }
+        public void RemoveTower(Vector2Int position)
+        {
+            ITower tower = TowerManager.Instance.GetTower(position);
+            if(tower == null)
+                return;
+            tower = TowerManager.Instance.DestroyTower(tower);
+            PlayStateMachine.Instance.Money += tower.Cost;
         }
     }
     
@@ -150,17 +182,19 @@ public class PlayStateMachine
 
         public void EnemyDie(IEnemy enemy)
         {
-            PlayStateMachine.Instance.money += enemy.Money;
+            PlayStateMachine.Instance.Money += enemy.Money;
             Debug.Log("Enemy Die all enemy " + EnemyManager.Instance.AllEnemysCount() + " enemyIndex " + enemyIndex);
             if(EnemyManager.Instance.AllEnemysCount() == 0 && enemyIndex == enemyList.Count)
             {
                 if(PlayStateMachine.Instance.waveIndex == PlayStateMachine.Instance.levelDataSO.GetMaxWave(PlayStateMachine.Instance.levelIndex) - 1)
                 {
                     Debug.Log("Victory!!!!");
+                    UIManager.Instance.overMasksOn();
                     return;
                 }
                 PlayStateMachine.Instance.waveIndex++;
                 PlayStateMachine.Instance.ChangeState(PlayStateType.Build);
+                // UIManager.Instance.RoundChange(PlayStateMachine.Instance.waveIndex , PlayStateMachine.Instance.levelIndex);
             }
         }
     }

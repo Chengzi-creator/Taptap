@@ -6,8 +6,9 @@ public class BaseTower : MonoBehaviour , ITower
 {
     protected ITowerManager.TowerType type;
     public ITowerManager.TowerType Type => type;
-    protected float cost;
-    protected Vector3 damage;
+    protected int cost;
+    public int Cost => cost;
+    protected int damage;
     protected int color;
 
     protected float timeScale;
