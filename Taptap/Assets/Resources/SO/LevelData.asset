@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: LevelData
   m_EditorClassIdentifier: 
   levelData:
-  - beginPosition: {x: 0, y: 0}
-    beginMoney: 0
+  - beginPosition: {x: 6, y: 19}
+    beginMoney: 1000
     waveList:
     - enemyDataList:
       - type: 0

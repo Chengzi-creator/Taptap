@@ -40,6 +40,7 @@ public class BaseEnemy : MonoBehaviour, IEnemy
         protected set
         {
             position = value;
+            MyGridManager.Instance.AdjustMapPos(ref position);
             transform.position = MyGridManager.Instance.GetWorldPos(value);
         }
     }
