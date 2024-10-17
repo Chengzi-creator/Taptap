@@ -92,7 +92,7 @@ public class PlayStateMachine
     {
         if(currentState is BuildState)
         {
-            MyGridManager.Instance.CalculatePath();
+            MyGridManager.Instance.CalculatePath(true);
             ChangeState(PlayStateType.Spawn);
         }
     }
