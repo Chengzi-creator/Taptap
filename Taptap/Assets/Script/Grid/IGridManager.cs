@@ -4,6 +4,12 @@ using UnityEngine;
 
 public interface IGridManager:IPathManager
 {
+
+    /// <summary>
+    /// 初始化GridManager
+    /// </summary>
+    public void Init();
+
     /// <summary>
     /// 获取mapPos格子Grid
     /// </summary>
@@ -141,5 +147,6 @@ public interface IGridManager:IPathManager
     /// 卸载关卡
     /// </summary>
     public void UnloadLevel();
+
 }
 
