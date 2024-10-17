@@ -27,6 +27,13 @@ public class BaseBuffTower : BaseTower
             else
                 midRange = range;
             midRange += position;
+
+
+            if (MyGridManager.Instance.GetIGrid(midRange) == null)
+            {
+                continue;
+            }
+
             TowerManager.Instance.AddColor(midRange, color);
         }
     }
@@ -45,6 +52,10 @@ public class BaseBuffTower : BaseTower
             else
                 midRange = range;
             midRange += position;
+            if (MyGridManager.Instance.GetIGrid(midRange) == null)
+            {
+                continue;
+            }
             TowerManager.Instance.RemoveColor(midRange, color);
         }
         base.DestroyTower();

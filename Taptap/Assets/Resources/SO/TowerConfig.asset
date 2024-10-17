@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TowerConfig
   m_EditorClassIdentifier: 
   showTowerData:
-  - type: 0
+  - type: 1
     cost: 10
     damage: 120
     color: 0
@@ -23,7 +23,7 @@ MonoBehaviour:
     - {x: 0, y: 0}
     - {x: 1, y: 0}
     - {x: 2, y: 0}
-  - type: 4
+  - type: 5
     cost: 12
     damage: 50
     color: 0
@@ -34,7 +34,7 @@ MonoBehaviour:
     - {x: 1, y: 0}
     - {x: 1, y: 1}
     - {x: 1, y: -1}
-  - type: 5
+  - type: 6
     cost: 9
     damage: 30
     color: 0
@@ -43,7 +43,7 @@ MonoBehaviour:
     attackRange:
     - {x: 0, y: 0}
     - {x: 4, y: 0}
-  - type: 1
+  - type: 2
     cost: 20
     damage: 0
     color: 1
@@ -59,7 +59,7 @@ MonoBehaviour:
     - {x: 0, y: -1}
     - {x: 1, y: -1}
     - {x: -1, y: 1}
-  - type: 1
+  - type: 2
     cost: 20
     damage: 0
     color: 2
@@ -75,7 +75,7 @@ MonoBehaviour:
     - {x: 0, y: -1}
     - {x: 1, y: -1}
     - {x: -1, y: 1}
-  - type: 1
+  - type: 2
     cost: 20
     damage: 0
     color: 4
@@ -91,7 +91,7 @@ MonoBehaviour:
     - {x: 0, y: -1}
     - {x: 1, y: -1}
     - {x: -1, y: 1}
-  - type: 2
+  - type: 3
     cost: 8
     damage: 0
     color: 1
@@ -102,7 +102,7 @@ MonoBehaviour:
     - {x: 1, y: 0}
     - {x: 2, y: 0}
     - {x: 3, y: 0}
-  - type: 2
+  - type: 3
     cost: 8
     damage: 0
     color: 2
@@ -113,7 +113,7 @@ MonoBehaviour:
     - {x: 1, y: 0}
     - {x: 2, y: 0}
     - {x: 3, y: 0}
-  - type: 2
+  - type: 3
     cost: 8
     damage: 0
     color: 4
@@ -124,7 +124,7 @@ MonoBehaviour:
     - {x: 1, y: 0}
     - {x: 2, y: 0}
     - {x: 3, y: 0}
-  - type: 3
+  - type: 4
     cost: 3
     damage: 0
     color: 1
@@ -133,7 +133,7 @@ MonoBehaviour:
     attackRange:
     - {x: 0, y: 0}
     - {x: 1, y: 0}
-  - type: 3
+  - type: 4
     cost: 3
     damage: 0
     color: 2
@@ -142,7 +142,7 @@ MonoBehaviour:
     attackRange:
     - {x: 0, y: 0}
     - {x: 1, y: 0}
-  - type: 3
+  - type: 4
     cost: 3
     damage: 0
     color: 4
