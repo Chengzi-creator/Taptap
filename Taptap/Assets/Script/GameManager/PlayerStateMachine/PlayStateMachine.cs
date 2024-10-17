@@ -88,11 +88,18 @@ public class PlayStateMachine
         }
     }
 
+//    int cnt = 0;
     public void StartSpawnState()
     {
         if(currentState is BuildState)
         {
-            MyGridManager.Instance.CalculatePath();
+//            if (cnt > 0)
+//                return;
+//            cnt++;
+//            return;
+            Debug.Log("CalculatePath Begin");
+            MyGridManager.Instance.CalculatePath(true);
+            Debug.Log("Spawn State Start");
             ChangeState(PlayStateType.Spawn);
         }
     }
@@ -101,7 +108,7 @@ public class PlayStateMachine
     {
         if(currentState is BuildState)
         {
-        // Debug.Log("BuildTower " + towerType + " in " + position);
+        Debug.Log("BuildTower " + towerType + " in " + position);
             (currentState as BuildState).BuildTower(towerType, position, faceDirection);
         }
     }
@@ -130,14 +137,14 @@ public class PlayStateMachine
         public void BuildTower(ITowerManager.TowerType towerType, Vector2Int position , int faceDirection)
         {
             int midCost = TowerManager.Instance.GetTowerAttribute(towerType).cost;
-            Debug.Log(PlayStateMachine.Instance.Money + " midCost" + midCost);
+            //Debug.Log(PlayStateMachine.Instance.Money + " midCost" + midCost);
             if(PlayStateMachine.Instance.Money < midCost)
                 return;
             if(MyGridManager.Instance.CanPutTower(towerType , position) == false)
                 return;
             PlayStateMachine.Instance.Money -= midCost;
             TowerManager.Instance.CreateTower(towerType, position , faceDirection);
-            Debug.Log("BuildTower " + towerType + " " + position + " succeed");
+            //Debug.Log("BuildTower " + towerType + " " + position + " succeed");
             // Debug.Log("cost " + midCost);
         }
         public void RemoveTower(Vector2Int position)

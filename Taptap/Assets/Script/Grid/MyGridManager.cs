@@ -66,6 +66,19 @@ public class MyGridManager : MonoBehaviour, IGraphicManager, IGridManager
         }
     }
 
+    public void AdjustMapPos(ref Vector2 mapPos)
+    {
+        if (-0.05 < mapPos.x && mapPos.x < 0)
+            mapPos.x = 0.01f;
+        if (0.05 + width > mapPos.x && mapPos.x > width)
+            mapPos.x = width - 0.01f;
+        if (-0.05 < mapPos.y && mapPos.y < 0)
+            mapPos.y = 0.01f;
+        if (0.05 + length > mapPos.y && mapPos.y > length)
+            mapPos.y = length - 0.01f;
+
+    }
+
     public Vector2Int GetMapPos(Vector2 worldPos)
     {
         //注意起始格子的中心点在StarPos,因此加上1/2的格子大小
@@ -99,6 +112,10 @@ public class MyGridManager : MonoBehaviour, IGraphicManager, IGridManager
     {
         return mapPos.x >= 0 && mapPos.x < width && mapPos.y >= 0 && mapPos.y < length;
     }
+//    private Vector2 IsNearMap(Vector2 mapPos)
+//    {
+//        if(mapPos.x > -0.05)
+///    }
 
     private bool IsInMap(Vector2Int mapPos)
     {
@@ -471,7 +488,7 @@ public class MyGridManager : MonoBehaviour, IGraphicManager, IGridManager
 
     public int GetPath(Vector2Int StartPos)
     {
-        Debug.Log("GetPath");
+        Debug.Log($"GetPath:{StartPos}");
         return PathManager.GetPath(StartPos);
     }
 
