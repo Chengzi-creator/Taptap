@@ -236,7 +236,7 @@ public class UIManager : MonoBehaviour , IUIManager
         if (HasClick())
         {   
             //Debug.Log("Click");
-            MyGridManager.Instance.ShowBuildModeGrid();
+            MyGridManager.Instance.ShowBuildModeGrid();//这个还要不要？
             //Debug.Log("Show");
             RotateTower();
             UpdateMousePosition();
@@ -342,7 +342,7 @@ public class UIManager : MonoBehaviour , IUIManager
         _selectDC = false;
         _selectDH = false;
         _selectDS = false;
-        Debug.Log("BF");
+        //Debug.Log("BF");
     }
     
     private void ClickBL()
@@ -353,7 +353,7 @@ public class UIManager : MonoBehaviour , IUIManager
         _selectDC = false;
         _selectDH = false;
         _selectDS = false;
-        Debug.Log("BL");
+        //Debug.Log("BL");
     }
     private void ClickBT()
     {
@@ -363,7 +363,7 @@ public class UIManager : MonoBehaviour , IUIManager
         _selectDC = false;
         _selectDH = false;
         _selectDS = false;
-        Debug.Log("BT");
+        //Debug.Log("BT");
     }
     
     private void ClickDC()
@@ -374,7 +374,7 @@ public class UIManager : MonoBehaviour , IUIManager
         _selectDC = true;
         _selectDH = false;
         _selectDS = false;
-        Debug.Log("DC");
+        //Debug.Log("DC");
     }
 
     private void ClickDH()
@@ -385,7 +385,7 @@ public class UIManager : MonoBehaviour , IUIManager
         _selectDC = false;
         _selectDH = true;
         _selectDS = false;
-        Debug.Log("DH");
+        //Debug.Log("DH");
     }
     
     private void ClickDS()
@@ -396,7 +396,7 @@ public class UIManager : MonoBehaviour , IUIManager
         _selectDC = false;
         _selectDH = false;
         _selectDS = true;
-        Debug.Log("DS");
+        //Debug.Log("DS");
     }
 
     private void ClickOut()
@@ -407,7 +407,7 @@ public class UIManager : MonoBehaviour , IUIManager
         _selectDC = false;
         _selectDH = false;
         _selectDS = false;
-        Debug.Log("out");
+        //Debug.Log("out");
     }
 
     private bool HasClick()
