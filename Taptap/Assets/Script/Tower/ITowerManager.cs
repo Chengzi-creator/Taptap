@@ -7,6 +7,7 @@ public interface ITowerManager
     
     public enum TowerType
     {
+        NULL,
         D_spike,
         B_torch,
         B_flash,
