@@ -86,12 +86,12 @@ public class TowerManager : ITowerManager
         return tower;
     }
 
-    public void DestroyTower(ITower midTower)
+    public ITower DestroyTower(ITower midTower)
     {
         if(midTower == null)
         {
             Debug.LogWarning("DestroyTower is null");
-            return;
+            return null;
         }
         BaseTower tower = (BaseTower)midTower;
         towerList.Remove(tower);
@@ -99,6 +99,7 @@ public class TowerManager : ITowerManager
         towerMap[tower.Position.x , tower.Position.y] = null;
         MyGridManager.Instance.DestoryTower(tower.Position);
         tower.DestroyTower();
+        return tower;
     }
     public ITower GetTower(Vector2Int position)
     {
@@ -121,6 +122,16 @@ public class TowerManager : ITowerManager
         }
         return ans;
     }
+    public Vector3Int GetColorVector(Vector2Int position)
+    {
+        Vector3Int ans = Vector3Int.zero;
+        for(int i = 0 ; i < 3 ; i ++)
+        {
+            if(colorMap[position.x , position.y , i] > 0)
+                ans[i] = 1;
+        }
+        return ans;
+    }
     public void AddColor(Vector2Int position , int color)
     {
         for(int i = 0 ; i < 3 ; i ++)
@@ -140,6 +151,10 @@ public class TowerManager : ITowerManager
             {
                 colorMap[position.x , position.y , i] --;
             }
+        }
+        if(GetColor(position) == 0 && towerMap[position.x , position.y] != null && towerMap[position.x , position.y] is BaseDamageTower)
+        {
+            PlayStateMachine.Instance.RemoveTower(position);
         }
     }
     public ITowerManager.TowerAttribute GetTowerAttribute(ITowerManager.TowerType type)

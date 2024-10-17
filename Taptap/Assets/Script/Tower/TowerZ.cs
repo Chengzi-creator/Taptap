@@ -43,7 +43,7 @@ public class TowerZ : BaseDamageTower
             {
                 for(int j = 0 ; j < attackRange[i].EnemysCount() ; j++)
                 {
-                    attackRange[i].GetKthEnemy(j).BeAttacked(damage , TowerManager.Instance.GetColor(position));
+                    attackRange[i].GetKthEnemy(j).BeAttacked(damage* TowerManager.Instance.GetColorVector(position) , TowerManager.Instance.GetColor(position));
                 }
             }
             lockedTime.RemoveFirst();

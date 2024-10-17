@@ -22,7 +22,7 @@ public class TowerConfig : ScriptableObject , ISerializationCallbackReceiver
     {
         public ITowerManager.TowerType type;
         public int cost;
-        public Vector3 damage;
+        public int damage;
         public Color color;
         public float bulletTime;
         public float timeInterval;

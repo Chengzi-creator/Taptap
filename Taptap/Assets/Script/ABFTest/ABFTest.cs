@@ -59,7 +59,19 @@ public class ABFTest : MonoBehaviour
         }
         if(Input.GetKeyDown(KeyCode.Alpha2))
         {
-            VFXManager.Instance.CreateVFX_Attack_Tuci(new Vector2Int(1,2) , 0);
+            PlayStateMachine.Instance.RemoveTower(new Vector2Int(1,2));
         }
+        if(Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            PlayStateMachine.Instance.RemoveTower(new Vector2Int(1,3));
+        }
+        // if(Input.GetKeyDown(KeyCode.Alpha2))
+        // {
+        //     VFXManager.Instance.CreateVFX_Attack_Tuci(new Vector2Int(1,2) , 0);
+        // }
+        // if(Input.GetKeyDown(KeyCode.Alpha3))
+        // {
+        //     VFXManager.Instance.CreateVFX_Attack_Tuci(new Vector2Int(1,2) , 0);
+        // }
     }
 }
