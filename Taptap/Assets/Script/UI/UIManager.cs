@@ -99,8 +99,7 @@ public class UIManager : MonoBehaviour
         _buttonDH.onClick.AddListener(ClickDH);
         _buttonDS.onClick.AddListener(ClickDS);
         _buttonDC.onClick.AddListener(ClickDC);
-
-        destroyButton.onClick.AddListener(DestroyTower);
+        
         
         //gridManager = GetComponent<MyGridManager>();
         //sourceText = gameObject.AddComponent<SourceText>();
