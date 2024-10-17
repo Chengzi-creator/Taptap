@@ -57,5 +57,9 @@ public class ABFTest : MonoBehaviour
         {
             PlayStateMachine.Instance.BuildTower(ITowerManager.TowerType.D_spike , new Vector2Int(1,3) , 0);
         }
+        if(Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            VFXManager.Instance.CreateVFX_Attack_Tuci(new Vector2Int(1,2) , 0);
+        }
     }
 }
