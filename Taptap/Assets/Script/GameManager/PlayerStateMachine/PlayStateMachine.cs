@@ -91,7 +91,10 @@ public class PlayStateMachine
     public void StartSpawnState()
     {
         if(currentState is BuildState)
+        {
+            MyGridManager.Instance.CalculatePath();
             ChangeState(PlayStateType.Spawn);
+        }
     }
 
     public void BuildTower(ITowerManager.TowerType towerType, Vector2Int position , int faceDirection)
@@ -186,6 +189,7 @@ public class PlayStateMachine
                 if(PlayStateMachine.Instance.waveIndex == PlayStateMachine.Instance.levelDataSO.GetMaxWave(PlayStateMachine.Instance.levelIndex) - 1)
                 {
                     Debug.Log("Victory!!!!");
+                    // UIManger.Instance.
                     return;
                 }
                 PlayStateMachine.Instance.waveIndex++;
