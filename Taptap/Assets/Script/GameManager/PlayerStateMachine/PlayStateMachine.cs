@@ -47,7 +47,7 @@ public class PlayStateMachine
     {
         this.levelIndex = levelIndex;
         waveIndex = 0;
-        money = 0;
+        money = levelDataSO.GetBeginMoney(levelIndex);
         ChangeState(PlayStateType.Build);
         EnemyManager.Instance.ReInit();
         TowerManager.Instance.ReInit();

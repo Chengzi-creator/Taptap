@@ -20,6 +20,7 @@ public class LevelDataSO : ScriptableObject
     public struct LevelData
     {
         public Vector2Int beginPosition;
+        public int beginMoney;
         public List<Wave> waveList;
     }
 
@@ -37,5 +38,9 @@ public class LevelDataSO : ScriptableObject
     public Vector2Int GetBeginPosition(int levelIndex)
     {
         return levelData[levelIndex].beginPosition;
+    }
+    public int GetBeginMoney(int levelIndex)
+    {
+        return levelData[levelIndex].beginMoney;
     }
 }
