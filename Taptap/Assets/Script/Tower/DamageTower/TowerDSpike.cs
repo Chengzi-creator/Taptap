@@ -43,6 +43,7 @@ public class TowerSpike : BaseDamageTower
         node = lockedTime.First;
         while(node != null && node.Value <= 0)
         {
+            VFXManager.Instance.CreateVFX_Attack_Tuci(position , faceDirection);
             attackedEnemy.Clear();
             for(int i = 0 ; i < attackRange.Count ; i++)
             {

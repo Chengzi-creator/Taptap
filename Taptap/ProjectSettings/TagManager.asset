@@ -18,7 +18,7 @@ TagManager:
   - Enemy
   - Map
   - Tower
-  - 
+  - VFX
   - 
   - 
   - 
@@ -56,4 +56,7 @@ TagManager:
     locked: 0
   - name: Enemy
     uniqueID: 2653268387
+    locked: 0
+  - name: VFX
+    uniqueID: 1581656993
     locked: 0
