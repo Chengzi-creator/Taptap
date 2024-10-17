@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-public class MyGrid : MonoBehaviour,IGrid
+public class MyGrid : MonoBehaviour, IGrid
 {
     /// <summary>
     /// 地图坐标
@@ -15,9 +15,16 @@ public class MyGrid : MonoBehaviour,IGrid
     public Vector2 WorldPos { get; private set; }
 
     /// <summary>
-    /// 在该格子上的物体(灯塔，障碍物，起点，终点，空)
+    /// 在该格子上的物体(灯塔，障碍物，起点，终点，空。。。)
     /// </summary>
     public GridObject HoldObject;
+
+    /// <summary>
+    /// 初始地图格子上的物体，为保存被BuildTower覆盖的物体
+    /// </summary>
+    public GridObject InitObject;
+
+
     /// <summary>
     /// 光
     /// </summary>
@@ -27,13 +34,15 @@ public class MyGrid : MonoBehaviour,IGrid
     /// </summary>
     public static Vector2 GridSize = new Vector2(2, 2);
 
+
+
     /// <summary>
     /// 可通过格子
     /// </summary>
     public bool CanPass
     {
-        get => HoldObject == null || HoldObject.Type ==GridObjectType.None|| 
-            HoldObject.Type==GridObjectType.NoBuildGround||
+        get => HoldObject == null || HoldObject.Type == GridObjectType.None ||
+            HoldObject.Type == GridObjectType.NoBuildGround ||
             HoldObject.Type == GridObjectType.Start ||
             HoldObject.Type == GridObjectType.End;
     }
@@ -60,7 +69,8 @@ public class MyGrid : MonoBehaviour,IGrid
     /// <summary>
     /// 可放置物体
     /// </summary>
-    public bool CanPutObj => HoldObject == null || HoldObject.Type == GridObjectType.None;
+    public bool CanPutObj => HoldObject == null || HoldObject.Type == GridObjectType.None
+        || HoldObject.Type == GridObjectType.NoPassGround;
 
 
     public Sprite[] sprites;
@@ -76,7 +86,9 @@ public class MyGrid : MonoBehaviour,IGrid
     {
         MapPos = mapPos;
         WorldPos = worldPos;
-        SetHoldObject(new GridObject(type));
+        var gridobj = new GridObject(type);
+        SetHoldObject(gridobj);
+        InitObject = gridobj;
     }
     /// <summary>
     /// 设置格子上的物体
@@ -104,6 +116,11 @@ public class MyGrid : MonoBehaviour,IGrid
             case GridObjectType.NoBuildGround:
                 GetComponent<SpriteRenderer>().sprite = sprites[4];
                 break;
+            case GridObjectType.NoPassGround:
+                GetComponent<SpriteRenderer>().color = Color.black;
+                GetComponent<SpriteRenderer>().sprite = sprites[4];
+                break;
+
         }
     }
     /// <summary>
@@ -114,7 +131,8 @@ public class MyGrid : MonoBehaviour,IGrid
         //Todo
         if (true)
         {
-            if (HoldObject == null && MouseTest.Instance.HoldObject != null)
+            //Debug.Log($"{HoldObject.Type} CanPutObj:{CanPutObj}");
+            if (CanPutObj && MouseTest.Instance.HoldObject != null)
                 MyGridManager.Instance.SetGridHoldObject(this, MouseTest.Instance.HoldObject);
             //MyGridManager.Instance.LogCost(MapPos);
         }
@@ -141,15 +159,16 @@ public class MyGrid : MonoBehaviour,IGrid
     {
         if (HoldObject != null && HoldObject.Type != GridObjectType.None)
         {
-            //Color color = HoldObject.Type switch
-            //{
-            //    GridObjectType.Start => Color.blue,
-            //    GridObjectType.End => Color.yellow,
-            //    GridObjectType.Obstacle => Color.black,
-            //    GridObjectType.Building => Color.gray,
-            //    _ => Color.red
-            //};
-            GetComponent<SpriteRenderer>().color = Color.white;
+            Color color = HoldObject.Type switch
+            {
+                //GridObjectType.Start => Color.blue,
+                //GridObjectType.End => Color.yellow,
+                //GridObjectType.Obstacle => Color.black,
+                //GridObjectType.Building => Color.gray,
+                //GridObjectType.NoPassGround => Color.blue,
+                _ => Color.white
+            };
+            GetComponent<SpriteRenderer>().color = color;
         }
         else
         {
@@ -186,12 +205,12 @@ public class MyGrid : MonoBehaviour,IGrid
 
     public void BuildTower()
     {
-        this.HoldObject =  new GridObject(GridObjectType.Building);
+        SetHoldObject(new GridObject(GridObjectType.Building));
     }
 
     public void DestoryTower()
     {
-        this.HoldObject = new GridObject(GridObjectType.None);
+        SetHoldObject(InitObject);
     }
 
     public void ColorChanged(int color)
