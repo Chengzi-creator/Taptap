@@ -26,6 +26,7 @@ public class PlayStateMachine
         set
         {
             // UIManager.Instance.SetMoney(value);
+            UIManager.Instance.coinChange(value);
             money = value;
         }
     }
@@ -76,6 +77,7 @@ public class PlayStateMachine
         currentState?.ExitState();
         currentState = playStateList[(int)stateType];
         currentState.EnterState();
+        UIManager.Instance.RoundChange(PlayStateMachine.Instance.waveIndex , PlayStateMachine.Instance.levelIndex);
     }
 
     public void EnemyDie(IEnemy enemy)
@@ -188,6 +190,7 @@ public class PlayStateMachine
                 }
                 PlayStateMachine.Instance.waveIndex++;
                 PlayStateMachine.Instance.ChangeState(PlayStateType.Build);
+                // UIManager.Instance.RoundChange(PlayStateMachine.Instance.waveIndex , PlayStateMachine.Instance.levelIndex);
             }
         }
     }
