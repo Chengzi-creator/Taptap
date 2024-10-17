@@ -17,7 +17,7 @@ public class UIManager : MonoBehaviour , IUIManager
         public GameObject view;
     }
 
-    [SerializeField] private TextMeshProUGUI _iconText;
+    [SerializeField] private TextMeshProUGUI _coinText;
     [SerializeField] private TextMeshProUGUI _roundText;
     [SerializeField] private List<ToggleViewPair> toggleViewPairs;
     [SerializeField] private GameObject pauseMasks;
@@ -61,6 +61,7 @@ public class UIManager : MonoBehaviour , IUIManager
             {
                 instance = Instantiate(Resources.Load<GameObject>("Prefab/GameCanvas")).GetComponent<UIManager>();
                 instance.InitializeUI();
+                instance._coinText.text = "Coin:" + instance.Coin;
             }
             return instance;
         }
@@ -431,7 +432,7 @@ public class UIManager : MonoBehaviour , IUIManager
     
     public void coinChange(int coinCount)
     {
-        _iconText.text = "Coin : " + coinCount.ToString();
+        _coinText.text = "Coin : " + coinCount.ToString();
     }
 
     public void RoundChange(int level,int round)
@@ -446,6 +447,6 @@ public class UIManager : MonoBehaviour , IUIManager
 
     public void OnoverLevelButtonClick()
     {
-        
+        //LoadScene("");//进入下一关
     }
 }
