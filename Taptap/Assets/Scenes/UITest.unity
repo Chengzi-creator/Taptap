@@ -259,7 +259,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &927108665
+--- !u!1001 &897579636
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -350,14 +350,6 @@ PrefabInstance:
     - target: {fileID: 3672977448023155124, guid: 97b610f22a515e545901f0ee14a1815d, type: 3}
       propertyPath: m_Name
       value: GameCanvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 6710575680686296149, guid: 97b610f22a515e545901f0ee14a1815d, type: 3}
-      propertyPath: m_CellSize.x
-      value: 150
-      objectReference: {fileID: 0}
-    - target: {fileID: 6710575680686296149, guid: 97b610f22a515e545901f0ee14a1815d, type: 3}
-      propertyPath: m_CellSize.y
-      value: 150
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -626,4 +618,4 @@ SceneRoots:
   - {fileID: 813367778}
   - {fileID: 778560796}
   - {fileID: 1333810539}
-  - {fileID: 927108665}
+  - {fileID: 897579636}

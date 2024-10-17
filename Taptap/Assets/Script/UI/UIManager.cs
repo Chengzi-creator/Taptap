@@ -240,7 +240,6 @@ public class UIManager : MonoBehaviour , IUIManager
             //Debug.Log("Show");
             RotateTower();
             UpdateMousePosition();
-
             
             if (Input.GetMouseButtonDown(0))  //左键建造
             {
@@ -249,6 +248,7 @@ public class UIManager : MonoBehaviour , IUIManager
             if (Input.GetMouseButtonDown(1))  //右键退出建造模式
             {
                 ClickOut();
+                MyGridManager.Instance.CancelShowBuildModeGrid();
             }
             
         }
@@ -325,6 +325,7 @@ public class UIManager : MonoBehaviour , IUIManager
         PlayStateMachine.Instance.BuildTower(type, gridPosition, faceDirection);//这个也是建造吗，没问出来
         //Debug.Log(type);
         ClickOut();
+        MyGridManager.Instance.CancelShowBuildModeGrid();
     }
     
     public void TowerDestroy()
