@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01f3797e40f6cc94cbb179d5908855a6, type: 3}
   m_Name: GlobalSettingSO
   m_EditorClassIdentifier: 
-  refreshTime: 0
+  refreshTime: 0.1
   colorRemainTime:
   - 2
   - 2

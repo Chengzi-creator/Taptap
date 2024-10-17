@@ -60,10 +60,6 @@ public class TowerZ : BaseDamageTower
     {
         base.DestroyTower();
     }
-    // public override void BeAttacked(Vector3 elementDamage)
-    // {
-    //     base.BeAttacked(elementDamage);
-    // }
     public override void OnUpDate(float deltaTime)
     {
         base.OnUpDate(deltaTime);

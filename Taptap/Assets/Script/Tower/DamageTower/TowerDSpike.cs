@@ -2,22 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// aoe
 public class TowerSpike : BaseDamageTower
 {
-    protected LinkedList<IEnemy> lockedEnemy;
     protected LinkedList<float> lockedTime;
+    protected List<int> attackedEnemy;
     public override void Init(ITowerManager.TowerAttribute towerAttribute, Vector2Int position , int faceDirection)
     {
         this.type = ITowerManager.TowerType.D_spike;
-        this.lockedEnemy = new LinkedList<IEnemy>();
         this.lockedTime = new LinkedList<float>();
+        this.attackedEnemy = new List<int>();
         base.Init(towerAttribute, position , faceDirection);
     }
     public override void ReInit(ITowerManager.TowerAttribute towerAttribute, Vector2Int position , int faceDirection)
     {
         base.ReInit(towerAttribute, position , faceDirection);
-        this.lockedEnemy.Clear();
         this.lockedTime.Clear();
+        this.attackedEnemy.Clear();
     }
 
     protected override void Attack()
@@ -26,8 +27,6 @@ public class TowerSpike : BaseDamageTower
         {
             if(attackRange[i].EnemysCount() > 0)
             {
-                // attackRange[i].GetKthEnemy(0).BeAttacked(damage , elementDamage);
-                lockedEnemy.AddLast(attackRange[i].GetKthEnemy(0));
                 lockedTime.AddLast(bulletTime);
                 break;
             }
@@ -44,11 +43,23 @@ public class TowerSpike : BaseDamageTower
         node = lockedTime.First;
         while(node != null && node.Value <= 0)
         {
-            lockedEnemy.First.Value.BeAttacked(damage , TowerManager.Instance.GetColor(position));
-            lockedEnemy.RemoveFirst();
+            attackedEnemy.Clear();
+            for(int i = 0 ; i < attackRange.Count ; i++)
+            {
+                for(int j = 0 ; j < attackRange[i].EnemysCount() ; j++)
+                {
+                    IEnemy midEnemy = attackRange[i].GetKthEnemy(j);
+                    if(attackedEnemy.Contains(midEnemy.ID))
+                        continue;
+                    attackedEnemy.Add(midEnemy.ID);
+                    midEnemy.BeAttacked(damage , TowerManager.Instance.GetColor(position));
+                    // attackRange[i].GetKthEnemy(j).BeAttacked(damage , TowerManager.Instance.GetColor(position));
+                }
+            }
             lockedTime.RemoveFirst();
             node = lockedTime.First;
         }
+
     }
     protected override void WaitCD(float deltaTime)
     {
@@ -62,7 +73,6 @@ public class TowerSpike : BaseDamageTower
     public override void OnUpDate(float deltaTime)
     {
         base.OnUpDate(deltaTime);
-        deltaTime *= timeScale;
     }
 
 }

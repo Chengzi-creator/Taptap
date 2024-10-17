@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//溅射
 public class TowerDCatapult : BaseDamageTower
 {
     protected LinkedList<IGrid> lockedEnemy;
