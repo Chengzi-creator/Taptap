@@ -14,11 +14,149 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   showTowerData:
   - type: 0
-    cost: 0
-    damage: {x: 3, y: 3, z: 3}
+    cost: 10
+    damage: 120
     color: 0
+    bulletTime: 0.1
+    timeInterval: 2
+    attackRange:
+    - {x: 0, y: 0}
+    - {x: 1, y: 0}
+    - {x: 2, y: 0}
+  - type: 4
+    cost: 12
+    damage: 50
+    color: 0
+    bulletTime: 0.1
+    timeInterval: 1
+    attackRange:
+    - {x: 0, y: 0}
+    - {x: 1, y: 0}
+    - {x: 1, y: 1}
+    - {x: 1, y: -1}
+  - type: 5
+    cost: 9
+    damage: 30
+    color: 0
+    bulletTime: 0.3
+    timeInterval: 0.5
+    attackRange:
+    - {x: 0, y: 0}
+    - {x: 4, y: 0}
+  - type: 1
+    cost: 20
+    damage: 0
+    color: 1
     bulletTime: 0
-    timeInterval: 0.3
+    timeInterval: 0
+    attackRange:
+    - {x: 0, y: 0}
+    - {x: 1, y: 0}
+    - {x: 0, y: 1}
+    - {x: 1, y: 1}
+    - {x: -1, y: -1}
+    - {x: -1, y: 0}
+    - {x: 0, y: -1}
+    - {x: 1, y: -1}
+    - {x: -1, y: 1}
+  - type: 1
+    cost: 20
+    damage: 0
+    color: 2
+    bulletTime: 0
+    timeInterval: 0
+    attackRange:
+    - {x: 0, y: 0}
+    - {x: 1, y: 0}
+    - {x: 0, y: 1}
+    - {x: 1, y: 1}
+    - {x: -1, y: -1}
+    - {x: -1, y: 0}
+    - {x: 0, y: -1}
+    - {x: 1, y: -1}
+    - {x: -1, y: 1}
+  - type: 1
+    cost: 20
+    damage: 0
+    color: 4
+    bulletTime: 0
+    timeInterval: 0
+    attackRange:
+    - {x: 0, y: 0}
+    - {x: 1, y: 0}
+    - {x: 0, y: 1}
+    - {x: 1, y: 1}
+    - {x: -1, y: -1}
+    - {x: -1, y: 0}
+    - {x: 0, y: -1}
+    - {x: 1, y: -1}
+    - {x: -1, y: 1}
+  - type: 2
+    cost: 8
+    damage: 0
+    color: 1
+    bulletTime: 0
+    timeInterval: 0
+    attackRange:
+    - {x: 0, y: 0}
+    - {x: 1, y: 0}
+    - {x: 2, y: 0}
+    - {x: 3, y: 0}
+  - type: 2
+    cost: 8
+    damage: 0
+    color: 2
+    bulletTime: 0
+    timeInterval: 0
+    attackRange:
+    - {x: 0, y: 0}
+    - {x: 1, y: 0}
+    - {x: 2, y: 0}
+    - {x: 3, y: 0}
+  - type: 2
+    cost: 8
+    damage: 0
+    color: 4
+    bulletTime: 0
+    timeInterval: 0
+    attackRange:
+    - {x: 0, y: 0}
+    - {x: 1, y: 0}
+    - {x: 2, y: 0}
+    - {x: 3, y: 0}
+  - type: 3
+    cost: 3
+    damage: 0
+    color: 1
+    bulletTime: 0
+    timeInterval: 0
+    attackRange:
+    - {x: 0, y: 0}
+    - {x: 1, y: 0}
+  - type: 3
+    cost: 3
+    damage: 0
+    color: 2
+    bulletTime: 0
+    timeInterval: 0
+    attackRange:
+    - {x: 0, y: 0}
+    - {x: 1, y: 0}
+  - type: 3
+    cost: 3
+    damage: 0
+    color: 4
+    bulletTime: 0
+    timeInterval: 0
+    attackRange:
+    - {x: 0, y: 0}
+    - {x: 1, y: 0}
+  - type: 1
+    cost: 0
+    damage: 0
+    color: 7
+    bulletTime: 0
+    timeInterval: 0
     attackRange:
     - {x: 0, y: 0}
     - {x: 1, y: 0}
@@ -31,7 +169,7 @@ MonoBehaviour:
     - {x: -1, y: 1}
   - type: 1
     cost: 0
-    damage: {x: 0, y: 0, z: 0}
+    damage: 0
     color: 7
     bulletTime: 0
     timeInterval: 0
