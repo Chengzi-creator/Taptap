@@ -99,9 +99,9 @@ public class PlayStateMachine
 
     public void BuildTower(ITowerManager.TowerType towerType, Vector2Int position , int faceDirection)
     {
-        Debug.Log("BuildTower " + towerType + " in " + position);
         if(currentState is BuildState)
         {
+        // Debug.Log("BuildTower " + towerType + " in " + position);
             (currentState as BuildState).BuildTower(towerType, position, faceDirection);
         }
     }
@@ -129,14 +129,15 @@ public class PlayStateMachine
 
         public void BuildTower(ITowerManager.TowerType towerType, Vector2Int position , int faceDirection)
         {
-            Debug.Log("BuildTower " + towerType + " " + position);
             int midCost = TowerManager.Instance.GetTowerAttribute(towerType).cost;
+            Debug.Log(PlayStateMachine.Instance.Money + " midCost" + midCost);
             if(PlayStateMachine.Instance.Money < midCost)
                 return;
             if(MyGridManager.Instance.CanPutTower(towerType , position) == false)
                 return;
             PlayStateMachine.Instance.Money -= midCost;
             TowerManager.Instance.CreateTower(towerType, position , faceDirection);
+            Debug.Log("BuildTower " + towerType + " " + position + " succeed");
             // Debug.Log("cost " + midCost);
         }
         public void RemoveTower(Vector2Int position)
