@@ -9,7 +9,6 @@ using TMPro;
 public class UIManager : MonoBehaviour , IUIManager
 {
     private static UIManager instance;
-    public static UIManager Instance => instance;
     
     [Serializable] 
     public struct ToggleViewPair
@@ -24,8 +23,8 @@ public class UIManager : MonoBehaviour , IUIManager
     [SerializeField] private GameObject pauseMasks;
     [SerializeField] private GameObject setupMasks;
     [SerializeField] private GameObject buildMasks;
-    [SerializeField] private Button exitButton, restartButton, homeButton,backButton,setupButton,menuButton;
-    //[SerializeField] private Button[] buildButtons;  //存储所有建造按钮
+    [SerializeField] private GameObject overMasks;
+    [SerializeField] private Button exitButton, restartButton, homeButton,backButton,setupButton,menuButton,overhomeButton,overLevelButton;
     [SerializeField] private Button _buttonBF;
     [SerializeField] private Button _buttonBL;
     [SerializeField] private Button _buttonBT;
@@ -33,6 +32,7 @@ public class UIManager : MonoBehaviour , IUIManager
     [SerializeField] private Button _buttonDH;
     [SerializeField] private Button _buttonDS;
     [SerializeField] private Button destroyButton;
+    //[SerializeField] private Button[] buildButtons;  //存储所有建造按钮
     
     private bool isPaused = false;
     //private bool[] buildSelections;
@@ -44,7 +44,6 @@ public class UIManager : MonoBehaviour , IUIManager
     private bool _selectDS;
     private bool _selectDestroy;
     private float _value;
-    public int Coin = 100;
     private int faceDirection = 0;
     private Vector2 worldPosition;
     private Vector2Int gridPosition;
@@ -52,33 +51,33 @@ public class UIManager : MonoBehaviour , IUIManager
     private SourceText sourceText;
     private ITowerManager towerManager;
     
-    private void Awake()
+    public int Coin = 100;
+
+    public static UIManager Instance
     {
-        if (instance == null)
+        get
         {
-            instance = this;
-            DontDestroyOnLoad(gameObject);  
+            if (instance == null)
+            {
+                instance = Instantiate(Resources.Load<GameObject>("Prefab/GameCanvas")).GetComponent<UIManager>();
+                instance.InitializeUI();
+            }
+            return instance;
         }
-        else
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        InitializeUI();
-        _iconText.text = "Coin : " + Coin.ToString();
     }
-
+    
     private void InitializeUI()
     {
         pauseMasks.SetActive(false);
         setupMasks.SetActive(false);
         buildMasks.SetActive(true);
-
+        overMasks.SetActive(false);
         exitButton.onClick.AddListener(OnexitButtonClick);
         backButton.onClick.AddListener(OnbackButtonClick);
         setupButton.onClick.AddListener(OnsetupButtonClick);
         menuButton.onClick.AddListener(OnmenuButtonClick);
+        overLevelButton.onClick.AddListener(OnoverLevelButtonClick);
+        overhomeButton.onClick.AddListener((() => RestartGame("Start")));
         restartButton.onClick.AddListener(() => RestartGame("UITest"));
         homeButton.onClick.AddListener(() => RestartGame("Start"));
         destroyButton.onClick.AddListener(OndestroyButtonClick);
@@ -438,5 +437,15 @@ public class UIManager : MonoBehaviour , IUIManager
     public void RoundChange(int level,int round)
     {
         _roundText.text = "Level" + level + "      " + "Round" + round;
+    }
+
+    public void overMasksOn()
+    {
+        
+    }
+
+    public void OnoverLevelButtonClick()
+    {
+        
     }
 }
