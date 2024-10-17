@@ -18,7 +18,8 @@ public class UIManager : MonoBehaviour , IUIManager
         public GameObject view;
     }
 
-    [SerializeField] private TextMeshProUGUI _text;
+    [SerializeField] private TextMeshProUGUI _iconText;
+    [SerializeField] private TextMeshProUGUI _roundText;
     [SerializeField] private List<ToggleViewPair> toggleViewPairs;
     [SerializeField] private GameObject pauseMasks;
     [SerializeField] private GameObject setupMasks;
@@ -43,7 +44,7 @@ public class UIManager : MonoBehaviour , IUIManager
     private bool _selectDS;
     private bool _selectDestroy;
     private float _value;
-    public float Count = 100;
+    public int Coin = 100;
     private int faceDirection = 0;
     private Vector2 worldPosition;
     private Vector2Int gridPosition;
@@ -65,7 +66,7 @@ public class UIManager : MonoBehaviour , IUIManager
         }
 
         InitializeUI();
-        _text.text = "Icon : " + Count.ToString();
+        _iconText.text = "Coin : " + Coin.ToString();
     }
 
     private void InitializeUI()
@@ -218,17 +219,17 @@ public class UIManager : MonoBehaviour , IUIManager
     }
 
    
-    public void IconIncrease(float increase)
-    {
-        Count += increase;
-        _text.text = "Icon : " + Count.ToString();
-    }
-
-    public void IconDecrease(float decrease)
-    {
-        Count -= decrease;
-        _text.text = "Icon : " + Count.ToString();
-    }
+    // public void IconIncrease(float increase)
+    // {
+    //     Count += increase;
+    //     _text.text = "Icon : " + Count.ToString();
+    // }
+    //
+    // public void IconDecrease(float decrease)
+    // {
+    //     Count -= decrease;
+    //     _text.text = "Icon : " + Count.ToString();
+    // }
     
     public void DetectBuildModeInput()
     {
@@ -321,11 +322,8 @@ public class UIManager : MonoBehaviour , IUIManager
     private void TowerBuild(ITowerManager.TowerType type)
     {   
         //在按下按键的时候后面的逻辑都由TowerBuild接管？  
-        _value = TowerManager.Instance.GetTowerAttribute(type).cost;
-        
         PlayStateMachine.Instance.BuildTower(type, gridPosition, faceDirection);//这个也是建造吗，没问出来
         //Debug.Log(type);
-        IconDecrease(_value);
         ClickOut();
     }
     
@@ -432,8 +430,13 @@ public class UIManager : MonoBehaviour , IUIManager
     
     #endregion
     
-    public void IconChange(float iconCount)
+    public void coinChange(int coinCount)
     {
-        _text.text = "Icon : " + Count.ToString();
+        _iconText.text = "Coin : " + coinCount.ToString();
+    }
+
+    public void RoundChange(int level,int round)
+    {
+        _roundText.text = "Level" + level + "      " + "Round" + round;
     }
 }
