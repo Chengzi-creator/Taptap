@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 using System;
 using TMPro;
 
-public class UIManager : MonoBehaviour
+public class UIManager : MonoBehaviour , IUIManager
 {
     private static UIManager instance;
     public static UIManager Instance => instance;
@@ -41,6 +41,7 @@ public class UIManager : MonoBehaviour
     private bool _selectDC;
     private bool _selectDH;
     private bool _selectDS;
+    private bool _selectDestroy;
     private float _value;
     public float Count = 100;
     private int faceDirection = 0;
@@ -73,12 +74,13 @@ public class UIManager : MonoBehaviour
         setupMasks.SetActive(false);
         buildMasks.SetActive(true);
 
-        exitButton.onClick.AddListener(OnExitButtonClick);
+        exitButton.onClick.AddListener(OnexitButtonClick);
         backButton.onClick.AddListener(OnbackButtonClick);
         setupButton.onClick.AddListener(OnsetupButtonClick);
         menuButton.onClick.AddListener(OnmenuButtonClick);
         restartButton.onClick.AddListener(() => RestartGame("UITest"));
         homeButton.onClick.AddListener(() => RestartGame("Start"));
+        destroyButton.onClick.AddListener(OndestroyButtonClick);
         
 
         foreach (var pair in toggleViewPairs )
@@ -100,11 +102,7 @@ public class UIManager : MonoBehaviour
         _buttonDS.onClick.AddListener(ClickDS);
         _buttonDC.onClick.AddListener(ClickDC);
         
-        
-        //gridManager = GetComponent<MyGridManager>();
-        //sourceText = gameObject.AddComponent<SourceText>();
         sourceText = GetComponent<SourceText>();
-        //towerManager = GetComponent<ITowerManager>();
     }
 
     private void Update()
@@ -124,11 +122,11 @@ public class UIManager : MonoBehaviour
         }
 
         if (Input.GetKeyDown(KeyCode.Space))
-        {
+        {   
+            //进入出怪阶段
             PlayStateMachine.Instance.StartSpawnState();
         }
         
-        //建造的输入
         
         CheckToggleViews();
         
@@ -160,7 +158,7 @@ public class UIManager : MonoBehaviour
         buildMasks.SetActive(!isPaused);
     }
 
-    private void OnExitButtonClick()
+    private void OnexitButtonClick()
     {
         Application.Quit();
 #if UNITY_EDITOR
@@ -236,29 +234,41 @@ public class UIManager : MonoBehaviour
     {
         if (HasClick())
         {   
-            Debug.Log("Click");
+            //Debug.Log("Click");
             MyGridManager.Instance.ShowBuildModeGrid();
-            Debug.Log("Show");
+            //Debug.Log("Show");
             RotateTower();
             UpdateMousePosition();
 
-            if (MyGridManager.Instance.CanPutTower(gridPosition))//用不用判断？用谁的函数？
+            
+            if (Input.GetMouseButtonDown(0))  //左键建造
             {
-                if (Input.GetMouseButtonDown(0))  //左键建造
-                {
-                    BuildSelectedTower();
-                }
-                if (Input.GetMouseButtonDown(1))  //右键退出建造模式
-                {
-                    ClickOut();
-                }
+                BuildSelectedTower();
             }
+            if (Input.GetMouseButtonDown(1))  //右键退出建造模式
+            {
+                ClickOut();
+            }
+            
         }
     }
     
     private void DetectDestroyModeInput()
     {
-        
+        if (_selectDestroy)
+        {
+            UpdateMousePosition();
+            
+            if (Input.GetMouseButtonDown(0))  //左键销毁
+            {   
+                //获取当前鼠标所指地图上的塔，然后传入TowerDestroy？
+                TowerDestroy();
+            }
+            if (Input.GetMouseButtonDown(1))  //右键退出建造模式
+            {
+                _selectDestroy = false;
+            }
+        }
     }
 
     private void RotateTower()
@@ -307,39 +317,24 @@ public class UIManager : MonoBehaviour
         }
         
     }
-
-   
     
     private void TowerBuild(ITowerManager.TowerType type)
     {   
         //在按下按键的时候后面的逻辑都由TowerBuild接管？  
         _value = TowerManager.Instance.GetTowerAttribute(type).cost;
         
-        if (Count >= _value)
-        {
-            //TowerManager.Instance.CreateTower(type, gridPosition, faceDirection);//建造
-            PlayStateMachine.Instance.BuildTower(type, gridPosition, faceDirection);//这个也是建造吗，没问出来
-            Debug.Log(type);
-            IconDecrease(_value);
-            MyGridManager.Instance.BuildTower(gridPosition); //还要将建造的信息传回去
-            ClickOut();
-        }
-        else
-        {
-            ClickOut();    
-        }
+        PlayStateMachine.Instance.BuildTower(type, gridPosition, faceDirection);//这个也是建造吗，没问出来
+        //Debug.Log(type);
+        IconDecrease(_value);
+        ClickOut();
     }
     
     public void TowerDestroy()
     {
-        Vector2 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector2Int gridPos =MyGridManager.Instance.GetMapPos(worldPos);
-
         //实现具体的销毁逻辑,尚待开发
+        
     }
     
-
-   
     #region 按钮点击
     private void ClickBF()
     {
@@ -428,7 +423,17 @@ public class UIManager : MonoBehaviour
             return false;
         }
     }
+
+    private void OndestroyButtonClick()
+    {
+        ClickOut();
+        _selectDestroy = true;
+    }
     
     #endregion
-
+    
+    public void IconChange(float iconCount)
+    {
+        _text.text = "Icon : " + Count.ToString();
+    }
 }
