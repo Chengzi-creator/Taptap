@@ -9,5 +9,6 @@ public enum GridObjectType
     Start,
     End,
     NoBuildGround,
+    NoPassGround,
 }
 

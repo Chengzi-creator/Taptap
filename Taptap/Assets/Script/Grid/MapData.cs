@@ -4,7 +4,8 @@
     Start = 10,
     End = 11,
     Obstacle = 12,
-    NoBuildGround = 13
+    NoBuildGround = 13,
+    NoPassGround = 14,
 }
 
 public class MapData
