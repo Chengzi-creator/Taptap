@@ -129,7 +129,6 @@ public class PlayStateMachine
 
         public void BuildTower(ITowerManager.TowerType towerType, Vector2Int position , int faceDirection)
         {
-            Debug.Log("BuildTower " + towerType + " " + position);
             int midCost = TowerManager.Instance.GetTowerAttribute(towerType).cost;
             if(PlayStateMachine.Instance.Money < midCost)
                 return;
@@ -137,6 +136,7 @@ public class PlayStateMachine
                 return;
             PlayStateMachine.Instance.Money -= midCost;
             TowerManager.Instance.CreateTower(towerType, position , faceDirection);
+            Debug.Log("BuildTower " + towerType + " " + position + " succeed");
             // Debug.Log("cost " + midCost);
         }
         public void RemoveTower(Vector2Int position)

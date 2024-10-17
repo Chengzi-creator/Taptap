@@ -7,7 +7,8 @@ public interface IEnemyManager
     public enum EnemyType
     {
         A,
-        B
+        B,
+        C
     }
     public struct EnemyAttribute
     {

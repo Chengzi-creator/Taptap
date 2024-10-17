@@ -137,7 +137,6 @@ public class BaseEnemy : MonoBehaviour, IEnemy
     {
         this.id = maxID++;
         this.gameObject.name = "Enemy_" + this.type + "_" + this.id;
-        this.type = IEnemyManager.EnemyType.A;
         this.colorTime = new float[10];
         this.currentColor = new bool[10];
         this.ReInit(enemyAttribute , pathIndex);

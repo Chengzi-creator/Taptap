@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3907989623584904824}
   - component: {fileID: 237167804733355507}
-  - component: {fileID: 5235095016322418516}
+  - component: {fileID: 2631505314643701095}
   m_Layer: 8
-  m_Name: TowerBTorch
+  m_Name: TowerBLazor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -85,7 +85,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5235095016322418516
+--- !u!114 &2631505314643701095
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -94,6 +94,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 553648730661611927}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79a793c2f9ada784b932d68354a86dcc, type: 3}
+  m_Script: {fileID: 11500000, guid: addbe88d850e2a94f8423d33baf7492a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

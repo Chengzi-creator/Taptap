@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyA : BaseEnemy
+public class EnemyB : BaseEnemy
 {
     public override void Init(IEnemyManager.EnemyAttribute enemyAttribute , int pathIndex)
     {
-        this.type = IEnemyManager.EnemyType.A;
+        this.type = IEnemyManager.EnemyType.B;
         base.Init(enemyAttribute , pathIndex);
     }
     public override void ReInit(IEnemyManager.EnemyAttribute enemyAttribute , int pathIndex)
