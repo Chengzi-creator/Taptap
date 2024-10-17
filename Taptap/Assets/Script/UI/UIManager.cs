@@ -442,11 +442,12 @@ public class UIManager : MonoBehaviour , IUIManager
 
     public void overMasksOn()
     {
-        
+        overMasks.SetActive(true);
     }
 
     public void OnoverLevelButtonClick()
     {
         //LoadScene("");//进入下一关
+        Debug.Log("还没做好下一个场景");
     }
 }
