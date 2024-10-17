@@ -102,10 +102,10 @@ public class UIManager : MonoBehaviour
 
         destroyButton.onClick.AddListener(DestroyTower);
         
-        gridManager = GetComponent<MyGridManager>();
+        //gridManager = GetComponent<MyGridManager>();
         //sourceText = gameObject.AddComponent<SourceText>();
         sourceText = GetComponent<SourceText>();
-        towerManager = GetComponent<ITowerManager>();
+        //towerManager = GetComponent<ITowerManager>();
     }
 
     private void Update()
@@ -134,6 +134,7 @@ public class UIManager : MonoBehaviour
         CheckToggleViews();
         
         DetectBuildModeInput();
+        DetectDestroyModeInput();
     }
     
     public void CheckToggleViews()
@@ -235,12 +236,14 @@ public class UIManager : MonoBehaviour
     public void DetectBuildModeInput()
     {
         if (HasClick())
-        {
-            gridManager.ShowBuildModeGrid();
+        {   
+            Debug.Log("Click");
+            MyGridManager.Instance.ShowBuildModeGrid();
+            Debug.Log("Show");
             RotateTower();
             UpdateMousePosition();
 
-            if (gridManager.CanPutTower(gridPosition))
+            if (MyGridManager.Instance.CanPutTower(gridPosition))//用不用判断？用谁的函数？
             {
                 if (Input.GetMouseButtonDown(0))  //左键建造
                 {
@@ -252,6 +255,11 @@ public class UIManager : MonoBehaviour
                 }
             }
         }
+    }
+    
+    private void DetectDestroyModeInput()
+    {
+        
     }
 
     private void RotateTower()
@@ -269,7 +277,7 @@ public class UIManager : MonoBehaviour
     private void UpdateMousePosition()
     {
         worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        gridPosition = gridManager.GetMapPos(worldPosition);
+        gridPosition = MyGridManager.Instance.GetMapPos(worldPosition);
     }
 
     private void BuildSelectedTower()
@@ -301,34 +309,20 @@ public class UIManager : MonoBehaviour
         
     }
 
-    private void BuildTower(ITowerManager.TowerType type)
-    {
-        float cost = towerManager.GetTowerAttribute(type).cost;
-
-        if (sourceText.Count >= cost)
-        {
-            towerManager.CreateTower(type, gridPosition, faceDirection);
-            PlayStateMachine.Instance.BuildTower(type, gridPosition, faceDirection);
-            sourceText.IconDecrease(cost);
-            gridManager.BuildTower(gridPosition);
-            ClickOut();
-        }
-        else
-        {
-            ClickOut();
-        }
-    }
+   
     
     private void TowerBuild(ITowerManager.TowerType type)
     {   
         //在按下按键的时候后面的逻辑都由TowerBuild接管？  
-        _value = towerManager.GetTowerAttribute(type).cost;
-
-        if (sourceText.Count >= _value)
+        _value = TowerManager.Instance.GetTowerAttribute(type).cost;
+        
+        if (Count >= _value)
         {
-            towerManager.CreateTower(type, gridPosition, faceDirection);//建造
-            sourceText.IconDecrease(_value);
-            gridManager.BuildTower(gridPosition); //还要将建造的信息传回去
+            //TowerManager.Instance.CreateTower(type, gridPosition, faceDirection);//建造
+            PlayStateMachine.Instance.BuildTower(type, gridPosition, faceDirection);//这个也是建造吗，没问出来
+            Debug.Log(type);
+            IconDecrease(_value);
+            MyGridManager.Instance.BuildTower(gridPosition); //还要将建造的信息传回去
             ClickOut();
         }
         else
@@ -337,10 +331,10 @@ public class UIManager : MonoBehaviour
         }
     }
     
-    public void DestroyTower()
+    public void TowerDestroy()
     {
         Vector2 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector2Int gridPos = gridManager.GetMapPos(worldPos);
+        Vector2Int gridPos =MyGridManager.Instance.GetMapPos(worldPos);
 
         //实现具体的销毁逻辑,尚待开发
     }
@@ -356,6 +350,7 @@ public class UIManager : MonoBehaviour
         _selectDC = false;
         _selectDH = false;
         _selectDS = false;
+        Debug.Log("BF");
     }
     
     private void ClickBL()
@@ -366,6 +361,7 @@ public class UIManager : MonoBehaviour
         _selectDC = false;
         _selectDH = false;
         _selectDS = false;
+        Debug.Log("BL");
     }
     private void ClickBT()
     {
@@ -375,6 +371,7 @@ public class UIManager : MonoBehaviour
         _selectDC = false;
         _selectDH = false;
         _selectDS = false;
+        Debug.Log("BT");
     }
     
     private void ClickDC()
@@ -385,6 +382,7 @@ public class UIManager : MonoBehaviour
         _selectDC = true;
         _selectDH = false;
         _selectDS = false;
+        Debug.Log("DC");
     }
 
     private void ClickDH()
@@ -395,6 +393,7 @@ public class UIManager : MonoBehaviour
         _selectDC = false;
         _selectDH = true;
         _selectDS = false;
+        Debug.Log("DH");
     }
     
     private void ClickDS()
@@ -405,6 +404,7 @@ public class UIManager : MonoBehaviour
         _selectDC = false;
         _selectDH = false;
         _selectDS = true;
+        Debug.Log("DS");
     }
 
     private void ClickOut()
@@ -415,6 +415,7 @@ public class UIManager : MonoBehaviour
         _selectDC = false;
         _selectDH = false;
         _selectDS = false;
+        Debug.Log("out");
     }
 
     private bool HasClick()

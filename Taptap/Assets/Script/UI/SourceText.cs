@@ -19,6 +19,11 @@ public class SourceText : MonoBehaviour,ISource
       
    }
 
+   private void Update()
+   {
+      
+   }
+
    public void IconIncrease(float increase)
    {
       Count += increase;
