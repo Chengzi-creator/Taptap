@@ -42,7 +42,7 @@ public class MyGridManager : MonoBehaviour, IGraphicManager, IGridManager
         LoadMapFromFile(Resources.Load<TextAsset>("Map/test2"));
         CalculatePath();
         UnloadLevel();
-        LoadMapFromFile(Resources.Load<TextAsset>("Map/test2"));
+        LoadMapFromFile(Resources.Load<TextAsset>("Map/test3"));
         CalculatePath();
     }
 
@@ -269,6 +269,8 @@ public class MyGridManager : MonoBehaviour, IGraphicManager, IGridManager
                 return GridObjectType.Obstacle;
             case MapObjectType.NoBuildGround:
                 return GridObjectType.NoBuildGround;
+            case MapObjectType.NoPassGround:
+                return GridObjectType.NoPassGround;
         }
         return GridObjectType.None;
     }
