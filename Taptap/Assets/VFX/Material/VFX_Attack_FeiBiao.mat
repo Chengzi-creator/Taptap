@@ -65,7 +65,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DissloveTex:
-        m_Texture: {fileID: 2800000, guid: 09de715f46a5745438192ec35bcfcf66, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DissloveTexPlus:
@@ -77,7 +77,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DistortTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 09de715f46a5745438192ec35bcfcf66, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
@@ -85,7 +85,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 694f87bec50b44a4ba46ad5a1b627232, type: 3}
+        m_Texture: {fileID: 2800000, guid: f04fbd9777243fe429b6b7dc2edfe620, type: 3}
         m_Scale: {x: 0.5, y: 1}
         m_Offset: {x: 0.38, y: 0}
     - _MaskPlusTex:
@@ -93,7 +93,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskTex:
-        m_Texture: {fileID: 2800000, guid: 035b4c0943e4a84489f73dbc51ee1b5a, type: 3}
+        m_Texture: {fileID: 2800000, guid: 4d25bee48f9fa4847bff98ed3b32be5d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -199,7 +199,7 @@ Material:
     - _DissolveTexUVS: 0
     - _DistortAddTex: 1
     - _DistortDisTex: 0
-    - _DistortFactor: 0
+    - _DistortFactor: 0.161
     - _DistortFactorC1: 1
     - _DistortFactorC2: 3
     - _DistortMainTex: 1
@@ -211,7 +211,7 @@ Material:
     - _DistortNormalTex: 1
     - _DistortRemap: 0
     - _DistortTexAR: 1
-    - _DistortTex_Uspeed: 0.02
+    - _DistortTex_Uspeed: 1.89
     - _DistortTex_Vspeed: 0
     - _Dst: 10
     - _DstBlend: 0
@@ -311,7 +311,7 @@ Material:
     - _VTOTex_Uspeed: 0
     - _VTOTex_Vspeed: 0
     - _ZWrite: 1
-    - _Ztest: 4
+    - _Ztest: 8
     - _Zwrite: 0
     - __dirty: 1
     - _fnl_power: 1
@@ -331,7 +331,7 @@ Material:
     - _DepthColor: {r: 0, g: 0, b: 0, a: 0}
     - _Dir: {r: 0, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _MainColor: {r: 6.0628657, g: 6.0628657, b: 6.0628657, a: 1}
+    - _MainColor: {r: 1.3977201, g: 1.3977201, b: 1.3977201, a: 1}
     - _MainTexRefine: {r: 1, g: 1, b: 2, a: 0}
     - _TexCenter: {r: 0, g: 0, b: 0, a: 0}
     - _fnl_color: {r: 1, g: 1, b: 1, a: 0}
