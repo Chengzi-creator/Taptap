@@ -9,7 +9,18 @@ using System.Net.NetworkInformation;
 
 public class MyGridManager : MonoBehaviour, IGraphicManager, IGridManager
 {
-    public static MyGridManager Instance;
+    private static MyGridManager instance;
+    public static MyGridManager Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = Instantiate(Resources.Load<GameObject>("Prefab/GridManager")).GetComponent<MyGridManager>();
+            }
+            return instance;
+        }
+    }
     public int width;
     public int length;
     private MyGrid[,] myGrids;
@@ -28,22 +39,9 @@ public class MyGridManager : MonoBehaviour, IGraphicManager, IGridManager
 
     public PathManager PathManager;
 
-    private void Awake()
+    public void Init()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(this);
-        }
-        //测试
-        LoadMapFromFile(Resources.Load<TextAsset>("Map/test2"));
-        CalculatePath();
-        UnloadLevel();
-        LoadMapFromFile(Resources.Load<TextAsset>("Map/test3"));
-        CalculatePath();
+
     }
 
     #region 坐标转换
