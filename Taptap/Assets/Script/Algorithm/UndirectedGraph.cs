@@ -278,6 +278,7 @@ namespace Algorithm
                 }
             }
 
+
             Paths paths = new Paths(startPoint);
 
             foreach (Vector2Int endPoint in endPoints)
@@ -288,13 +289,15 @@ namespace Algorithm
                     Path myPath = new Path(startPoint);
                     myPath.AddPoint(endPoint);
                     paths.AddFirstPath(myPath);
+                    nowpathCount += 1;
                     GetFirstPath(end, myPath, paths);
                 }
             }
             return paths;
         }
 
-
+        int maxPath = 100;
+        int nowpathCount = 0;
         private void GetFirstPath(Point point, Path path, Paths paths)
         {
             int parentCount = point.parent.Count;
@@ -304,12 +307,17 @@ namespace Algorithm
                 return;
             }
             //Debug.Log(point.pos + " new path:" + point.parent[0].pos);
-
+            
             for (int i = 1; i < parentCount; i++)
             {
+                if(nowpathCount >= maxPath)
+                {
+                    continue;
+                }
                 //Debug.Log(point.pos + " new path:" + point.parent[i].pos);
                 Path myPath = new Path(path);
                 myPath.AddPoint(point.parent[i].pos);
+                nowpathCount++;
                 paths.AddFirstPath(myPath);
 
                 GetFirstPath(point.parent[i], myPath, paths);
@@ -328,6 +336,7 @@ namespace Algorithm
                 point.parent.Clear();
                 point.secondParent.Clear();
             }
+            nowpathCount = 0;
         }
 
         private Point GetPoint(Vector2Int pos)

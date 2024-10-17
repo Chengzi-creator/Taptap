@@ -488,7 +488,7 @@ public class MyGridManager : MonoBehaviour, IGraphicManager, IGridManager
 
     public int GetPath(Vector2Int StartPos)
     {
-        Debug.Log("GetPath");
+        Debug.Log($"GetPath:{StartPos}");
         return PathManager.GetPath(StartPos);
     }
 

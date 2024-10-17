@@ -13,6 +13,8 @@ namespace Algorithm
         public int Cost => cost;
         public int pathId;
 
+        //private 
+
         public Path(Vector2Int startPos)
         {
             //Debug.Log($"CreatePathId:{CreatePathId}");
@@ -33,6 +35,8 @@ namespace Algorithm
             }
             this.cost = path.cost;
             this.StartPos = path.StartPos;
+            pathId = CreatePathId;
+            CreatePathId++;
         }
 
         public void AddPoint(Vector2Int point)

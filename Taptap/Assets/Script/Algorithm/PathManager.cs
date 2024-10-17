@@ -19,6 +19,7 @@ namespace Algorithm
             pathsDic.Add(paths.startPos, paths);
             foreach (Path p in paths.firstpaths)
             {
+                //Debug.Log(p.pathId);
                 pathDic.Add(p.pathId, p);
             }
         }

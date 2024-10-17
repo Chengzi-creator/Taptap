@@ -132,8 +132,8 @@ public class MyGrid : MonoBehaviour, IGrid
         if (true)
         {
             //Debug.Log($"{HoldObject.Type} CanPutObj:{CanPutObj}");
-            if (CanPutObj && MouseTest.Instance.HoldObject != null)
-                MyGridManager.Instance.SetGridHoldObject(this, MouseTest.Instance.HoldObject);
+            //if (CanPutObj && MouseTest.Instance.HoldObject != null)
+            //    MyGridManager.Instance.SetGridHoldObject(this, MouseTest.Instance.HoldObject);
             //MyGridManager.Instance.LogCost(MapPos);
         }
         else
