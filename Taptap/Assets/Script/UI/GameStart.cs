@@ -36,7 +36,7 @@ public class GameStart : MonoBehaviour
     {   
         Time.timeScale = 1f;
         StartMasks.SetActive(false);
-        SceneManager.LoadScene("UITest");
+        SceneManager.LoadScene("Scenes/yyl");
         enabled = false;
     }
     

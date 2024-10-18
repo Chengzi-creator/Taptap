@@ -11,20 +11,26 @@ public class UIManager : MonoBehaviour , IUIManager
     private static UIManager instance;
     
     [Serializable] 
-    public struct ToggleViewPair
+    public struct ToggleImagePair
     {
         public Toggle toggle;
-        public GameObject view;
+        public GameObject image;
     }
 
     [SerializeField] private TextMeshProUGUI _coinText;
     [SerializeField] private TextMeshProUGUI _roundText;
-    [SerializeField] private List<ToggleViewPair> toggleViewPairs;
+    [SerializeField] private List<ToggleImagePair> toggleImagePairs;
     [SerializeField] private GameObject pauseMasks;
     [SerializeField] private GameObject setupMasks;
     [SerializeField] private GameObject buildMasks;
     [SerializeField] private GameObject overMasks;
     [SerializeField] private Button exitButton, restartButton, homeButton,backButton,setupButton,menuButton,overhomeButton,overLevelButton;
+    [SerializeField] private Button _buttonRF;
+    [SerializeField] private Button _buttonRL;
+    [SerializeField] private Button _buttonRT;
+    [SerializeField] private Button _buttonGF;
+    [SerializeField] private Button _buttonGL;
+    [SerializeField] private Button _buttonGT;
     [SerializeField] private Button _buttonBF;
     [SerializeField] private Button _buttonBL;
     [SerializeField] private Button _buttonBT;
@@ -36,6 +42,12 @@ public class UIManager : MonoBehaviour , IUIManager
     
     private bool isPaused = false;
     //private bool[] buildSelections;
+    private bool _selectRF;
+    private bool _selectRL;
+    private bool _selectRT;
+    private bool _selectGF;
+    private bool _selectGL;
+    private bool _selectGT;
     private bool _selectBF;
     private bool _selectBL;
     private bool _selectBT;
@@ -43,6 +55,7 @@ public class UIManager : MonoBehaviour , IUIManager
     private bool _selectDH;
     private bool _selectDS;
     private bool _selectDestroy;
+    //private bool[] _select;
     private float _value;
     private int faceDirection = 0;
     private Vector2 worldPosition;
@@ -84,9 +97,9 @@ public class UIManager : MonoBehaviour , IUIManager
         destroyButton.onClick.AddListener(OndestroyButtonClick);
         
 
-        foreach (var pair in toggleViewPairs )
+        foreach (var pair in toggleImagePairs)
         {
-            pair.view.SetActive(false);
+            pair.image.SetActive(false);
         }
         
         // buildSelections = new bool[buildButtons.Length];  //初始化建造选择状态
@@ -96,6 +109,12 @@ public class UIManager : MonoBehaviour , IUIManager
         //     buildButtons[i].onClick.AddListener(() => OnBuildButtonClick(index));
         // }
         
+        _buttonRF.onClick.AddListener(ClickRF);
+        _buttonRT.onClick.AddListener(ClickRT);
+        _buttonRL.onClick.AddListener(ClickRL);
+        _buttonGF.onClick.AddListener(ClickGF);
+        _buttonGT.onClick.AddListener(ClickGT);
+        _buttonGL.onClick.AddListener(ClickGL);
         _buttonBF.onClick.AddListener(ClickBF);
         _buttonBT.onClick.AddListener(ClickBT);
         _buttonBL.onClick.AddListener(ClickBL);
@@ -103,7 +122,6 @@ public class UIManager : MonoBehaviour , IUIManager
         _buttonDS.onClick.AddListener(ClickDS);
         _buttonDC.onClick.AddListener(ClickDC);
         
-        sourceText = GetComponent<SourceText>();
     }
 
     private void Update()
@@ -129,24 +147,24 @@ public class UIManager : MonoBehaviour , IUIManager
         }
         
         
-        CheckToggleViews();
+        CheckToggleImages();
         
         DetectBuildModeInput();
         DetectDestroyModeInput();
     }
     
-    public void CheckToggleViews()
+    public void CheckToggleImages()
     {
-        foreach (var pair in toggleViewPairs)
+        foreach (var pair in toggleImagePairs)
         {
             if (pair.toggle.isOn)
             {
-                pair.view.SetActive(true);
+                pair.image.SetActive(true);
                 break;
             }
             else
             {
-                pair.view.SetActive(false);
+                pair.image.SetActive(false);
             }
         }
     }
@@ -291,7 +309,31 @@ public class UIManager : MonoBehaviour , IUIManager
     }
 
     private void BuildSelectedTower()
-    {
+    {   
+        if (_selectRF)
+        {
+            TowerBuild(ITowerManager.TowerType.B_flash);
+        }
+        if (_selectRL)
+        {
+            TowerBuild(ITowerManager.TowerType.B_lazor);
+        }
+        if (_selectRT)
+        {
+            TowerBuild(ITowerManager.TowerType.B_torch);
+        }
+        if (_selectGF)
+        {
+            TowerBuild(ITowerManager.TowerType.B_flash);
+        }
+        if (_selectGL)
+        {
+            TowerBuild(ITowerManager.TowerType.B_lazor);
+        }
+        if (_selectGT)
+        {
+            TowerBuild(ITowerManager.TowerType.B_torch);//上面几种还没做出来，后续再调
+        }
         if (_selectBF)
         {
             TowerBuild(ITowerManager.TowerType.B_flash);
@@ -324,7 +366,7 @@ public class UIManager : MonoBehaviour , IUIManager
         //在按下按键的时候后面的逻辑都由TowerBuild接管？  
         PlayStateMachine.Instance.BuildTower(type, gridPosition, faceDirection);//这个也是建造吗，没问出来
         //Debug.Log(type);
-        ClickOut();
+        //这里不再ClickOut保证同一种类的塔可以连续建造
         MyGridManager.Instance.CancelShowBuildModeGrid();
     }
     
@@ -335,8 +377,116 @@ public class UIManager : MonoBehaviour , IUIManager
     }
     
     #region 按钮点击
+    private void ClickRF()
+    {   
+        _selectRF = true;
+        _selectRL = false;
+        _selectRT = false;
+        _selectGF = false;
+        _selectGL = false;
+        _selectGT = false;
+        _selectBF = false;
+        _selectBL = false;
+        _selectBT = false;
+        _selectDC = false;
+        _selectDH = false;
+        _selectDS = false;
+        //Debug.Log("out");
+    }
+    
+    private void ClickRL()
+    {   
+        _selectRF = false;
+        _selectRL = true;
+        _selectRT = false;
+        _selectGF = false;
+        _selectGL = false;
+        _selectGT = false;
+        _selectBF = false;
+        _selectBL = false;
+        _selectBT = false;
+        _selectDC = false;
+        _selectDH = false;
+        _selectDS = false;
+        //Debug.Log("out");
+    }
+    
+    private void ClickRT()
+    {   
+        _selectRF = false;
+        _selectRL = false;
+        _selectRT = true;
+        _selectGF = false;
+        _selectGL = false;
+        _selectGT = false;
+        _selectBF = false;
+        _selectBL = false;
+        _selectBT = false;
+        _selectDC = false;
+        _selectDH = false;
+        _selectDS = false;
+        //Debug.Log("out");
+    }
+    
+    private void ClickGF()
+    {   
+        _selectRF = false;
+        _selectRL = false;
+        _selectRT = false;
+        _selectGF = true;
+        _selectGL = false;
+        _selectGT = false;
+        _selectBF = false;
+        _selectBL = false;
+        _selectBT = false;
+        _selectDC = false;
+        _selectDH = false;
+        _selectDS = false;
+        //Debug.Log("out");
+    }
+    
+    private void ClickGL()
+    {   
+        _selectRF = false;
+        _selectRL = false;
+        _selectRT = false;
+        _selectGF = false;
+        _selectGL = true;
+        _selectGT = false;
+        _selectBF = false;
+        _selectBL = false;
+        _selectBT = false;
+        _selectDC = false;
+        _selectDH = false;
+        _selectDS = false;
+        //Debug.Log("out");
+    }
+    
+    private void ClickGT()
+    {   
+        _selectRF = false;
+        _selectRL = false;
+        _selectRT = false;
+        _selectGF = false;
+        _selectGL = false;
+        _selectGT = true;
+        _selectBF = false;
+        _selectBL = false;
+        _selectBT = false;
+        _selectDC = false;
+        _selectDH = false;
+        _selectDS = false;
+        //Debug.Log("out");
+    }
+    
     private void ClickBF()
-    {
+    {   
+        _selectRF = false;
+        _selectRL = false;
+        _selectRT = false;
+        _selectGF = false;
+        _selectGL = false;
+        _selectGT = false;
         _selectBF = true;
         _selectBL = false;
         _selectBT = false;
@@ -347,7 +497,13 @@ public class UIManager : MonoBehaviour , IUIManager
     }
     
     private void ClickBL()
-    {
+    {   
+        _selectRF = false;
+        _selectRL = false;
+        _selectRT = false;
+        _selectGF = false;
+        _selectGL = false;
+        _selectGT = false;
         _selectBL = true;
         _selectBF = false;
         _selectBT = false;
@@ -357,7 +513,13 @@ public class UIManager : MonoBehaviour , IUIManager
         //Debug.Log("BL");
     }
     private void ClickBT()
-    {
+    {   
+        _selectRF = false;
+        _selectRL = false;
+        _selectRT = false;
+        _selectGF = false;
+        _selectGL = false;
+        _selectGT = false;
         _selectBT = true;
         _selectBL = false;
         _selectBF = false;
@@ -368,7 +530,13 @@ public class UIManager : MonoBehaviour , IUIManager
     }
     
     private void ClickDC()
-    {
+    {   
+        _selectRF = false;
+        _selectRL = false;
+        _selectRT = false;
+        _selectGF = false;
+        _selectGL = false;
+        _selectGT = false;
         _selectBT = false;
         _selectBL = false;
         _selectBF = false;
@@ -379,7 +547,13 @@ public class UIManager : MonoBehaviour , IUIManager
     }
 
     private void ClickDH()
-    {
+    {   
+        _selectRF = false;
+        _selectRL = false;
+        _selectRT = false;
+        _selectGF = false;
+        _selectGL = false;
+        _selectGT = false;
         _selectBT = false;
         _selectBL = false;
         _selectBF = false;
@@ -390,7 +564,13 @@ public class UIManager : MonoBehaviour , IUIManager
     }
     
     private void ClickDS()
-    {
+    {   
+        _selectRF = false;
+        _selectRL = false;
+        _selectRT = false;
+        _selectGF = false;
+        _selectGL = false;
+        _selectGT = false;
         _selectBF = false;
         _selectBL = false;
         _selectBT = false;
@@ -401,7 +581,13 @@ public class UIManager : MonoBehaviour , IUIManager
     }
 
     private void ClickOut()
-    {
+    {   
+        _selectRF = false;
+        _selectRL = false;
+        _selectRT = false;
+        _selectGF = false;
+        _selectGL = false;
+        _selectGT = false;
         _selectBF = false;
         _selectBL = false;
         _selectBT = false;
@@ -413,7 +599,7 @@ public class UIManager : MonoBehaviour , IUIManager
 
     private bool HasClick()
     {
-        if (_selectBT || _selectBL || _selectBT || _selectDH || _selectDC || _selectDS)
+        if (_selectRF||_selectRL||_selectRT||_selectGF||_selectGL||_selectGT||_selectBT || _selectBL || _selectBT || _selectDH || _selectDC || _selectDS)
         {
             return true;
         }

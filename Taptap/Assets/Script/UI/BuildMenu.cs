@@ -27,7 +27,7 @@ public class BuildMenu : MonoBehaviour
     private void Update()
     {
         //Click();
-        UIManager.Instance?.CheckToggleViews();
+        UIManager.Instance?.CheckToggleImages();
     }
     
  
