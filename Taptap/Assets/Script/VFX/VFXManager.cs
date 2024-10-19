@@ -33,6 +33,7 @@ public class VFXManager
 
     public void CreateVFX_Attack_Tuci(Vector2Int position, int faceDirection)
     {
+        Debug.Log("pos:" + position + " faceDirection:" + faceDirection);
         var vfx = GameObject.Instantiate(prefab_VFX_Attack_Tuci);
         vfx.transform.position = MyGridManager.Instance.GetWorldPos(position);
         vfx.transform.eulerAngles = new Vector3(0, 0, faceDirection * 90);
