@@ -15,6 +15,7 @@ public class EnemyA : BaseEnemy
     }
     public override void BeAttacked(Vector3 damage , int colorDamage)
     {
+        Debug.LogWarning("be attacked");
         base.BeAttacked(damage , colorDamage);
     }
     public override void Die()
