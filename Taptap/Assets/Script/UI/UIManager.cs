@@ -76,7 +76,6 @@ public class UIManager : MonoBehaviour , IUIManager
     private Vector2 worldPosition;
     private Vector2Int gridPosition;
     private MyGridManager gridManager;
-    // private SourceText sourceText;
     private ITowerManager towerManager;
     
     public int Coin = 100;
