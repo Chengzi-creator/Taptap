@@ -102,23 +102,23 @@ public class MyGrid : MonoBehaviour, IGrid
         switch (gridObject.Type)
         {
             case GridObjectType.None:
-                GetComponent<SpriteRenderer>().sprite = sprites[0];
+                GetComponent<SpriteRenderer>().sprite = (MapPos.x + MapPos.y) % 2 == 0 ? sprites[0] : sprites[1];
                 break;
             case GridObjectType.Obstacle:
-                GetComponent<SpriteRenderer>().sprite = sprites[1];
-                break;
-            case GridObjectType.Start:
                 GetComponent<SpriteRenderer>().sprite = sprites[2];
                 break;
-            case GridObjectType.End:
+            case GridObjectType.Start:
                 GetComponent<SpriteRenderer>().sprite = sprites[3];
                 break;
-            case GridObjectType.NoBuildGround:
+            case GridObjectType.End:
                 GetComponent<SpriteRenderer>().sprite = sprites[4];
+                break;
+            case GridObjectType.NoBuildGround:
+                GetComponent<SpriteRenderer>().sprite = sprites[5];
                 break;
             case GridObjectType.NoPassGround:
                 GetComponent<SpriteRenderer>().color = Color.black;
-                GetComponent<SpriteRenderer>().sprite = sprites[4];
+                GetComponent<SpriteRenderer>().sprite = sprites[5];
                 break;
 
         }
