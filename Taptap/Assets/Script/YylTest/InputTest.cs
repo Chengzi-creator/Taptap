@@ -28,11 +28,11 @@ public class InputTest : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha0))
         {
-            VFXManager.Instance.CreateVFX_Attack_Tuci(new Vector2Int(0, 0), 0);
+            VFXManager.Instance.CreateVFX_Attack_Tuci(new Vector2Int(1, 0), 1);
         }
         if(Input.GetKeyDown(KeyCode.Alpha1))
         {
-            VFXManager.Instance.CreateVFX_Attack_FeiBiao(new Vector2Int(0, 0), new Vector2Int(1, 0));
+            VFXManager.Instance.CreateVFX_Attack_FeiBiao(new Vector2Int(0, 0), new Vector2Int(1, 1));
         }
     }
 }
