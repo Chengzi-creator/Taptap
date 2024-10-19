@@ -5,8 +5,8 @@ using UnityEngine;
 public class BaseDamageTower : BaseTower
 {
     
-    public float bulletTime;
-    public float timeInterval;
+    protected float bulletTime;
+    protected float timeInterval;
     protected float currentTimeInterval;
     public List<IGrid> attackRange;
 

@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // 单体
-public class TowerDHammer : BaseDamageTower
+public class TowerDDart : BaseDamageTower
 {
     protected LinkedList<IEnemy> lockedEnemy;
     protected LinkedList<float> lockedTime;
     public override void Init(ITowerManager.TowerAttribute towerAttribute, Vector2Int position , int faceDirection)
     {
-        this.type = ITowerManager.TowerType.D_hammer;
+        this.type = ITowerManager.TowerType.D_dart;
         this.lockedEnemy = new LinkedList<IEnemy>();
         this.lockedTime = new LinkedList<float>();
         base.Init(towerAttribute, position , faceDirection);
@@ -23,6 +23,7 @@ public class TowerDHammer : BaseDamageTower
 
     protected override void Attack()
     {
+        int cnt = 0;
         for(int i = 0 ; i < attackRange.Count ; i++)
         {
             if(attackRange[i].EnemysCount() > 0)
@@ -30,7 +31,9 @@ public class TowerDHammer : BaseDamageTower
                 // attackRange[i].GetKthEnemy(0).BeAttacked(damage , elementDamage);
                 lockedEnemy.AddLast(attackRange[i].GetKthEnemy(0));
                 lockedTime.AddLast(bulletTime);
-                break;
+                cnt ++;
+                if(cnt >= 2)
+                    break;
             }
         }
     }

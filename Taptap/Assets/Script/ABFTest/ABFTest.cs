@@ -49,10 +49,10 @@ public class ABFTest : MonoBehaviour
             PlayStateMachine.Instance.StartSpawnState();
             Debug.Log("Start Spawn State");
         }
-        if(Input.GetKeyDown(KeyCode.Alpha0))
-        {
-            PlayStateMachine.Instance.BuildTower(ITowerManager.TowerType.B_torch , new Vector2Int(1,2) , 0);
-        }
+        // if(Input.GetKeyDown(KeyCode.Alpha0))
+        // {
+        //     PlayStateMachine.Instance.BuildTower(ITowerManager.TowerType.B_torch , new Vector2Int(1,2) , 0);
+        // }
         if(Input.GetKeyDown(KeyCode.Alpha1))
         {
             PlayStateMachine.Instance.BuildTower(ITowerManager.TowerType.D_spike , new Vector2Int(1,3) , 0);
