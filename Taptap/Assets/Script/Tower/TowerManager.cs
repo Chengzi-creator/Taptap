@@ -31,8 +31,18 @@ public class TowerManager : ITowerManager
     private bool LoadData()
     {
         towerConfig = Resources.Load<TowerConfig>("SO/TowerConfig");
+        prefabTowerList[ITowerManager.TowerType.B_torch_R] = Resources.Load<GameObject>("Prefab/Tower/TowerBTorchR");
+        prefabTowerList[ITowerManager.TowerType.B_torch_G] = Resources.Load<GameObject>("Prefab/Tower/TowerBTorchG");
+        prefabTowerList[ITowerManager.TowerType.B_torch_B] = Resources.Load<GameObject>("Prefab/Tower/TowerBTorchB");
+        prefabTowerList[ITowerManager.TowerType.B_flash_R] = Resources.Load<GameObject>("Prefab/Tower/TowerBFlashR");
+        prefabTowerList[ITowerManager.TowerType.B_flash_G] = Resources.Load<GameObject>("Prefab/Tower/TowerBFlashG");
+        prefabTowerList[ITowerManager.TowerType.B_flash_B] = Resources.Load<GameObject>("Prefab/Tower/TowerBFlashB");
+        prefabTowerList[ITowerManager.TowerType.B_lazor_R] = Resources.Load<GameObject>("Prefab/Tower/TowerBLazorR");
+        prefabTowerList[ITowerManager.TowerType.B_lazor_G] = Resources.Load<GameObject>("Prefab/Tower/TowerBLazorG");
+        prefabTowerList[ITowerManager.TowerType.B_lazor_B] = Resources.Load<GameObject>("Prefab/Tower/TowerBLazorB");
         prefabTowerList[ITowerManager.TowerType.D_spike] = Resources.Load<GameObject>("Prefab/Tower/TowerDSpike");
-        prefabTowerList[ITowerManager.TowerType.B_torch] = Resources.Load<GameObject>("Prefab/Tower/TowerBTorch");
+        prefabTowerList[ITowerManager.TowerType.D_dart] = Resources.Load<GameObject>("Prefab/Tower/TowerDDart");
+        prefabTowerList[ITowerManager.TowerType.D_hammer] = Resources.Load<GameObject>("Prefab/Tower/TowerDHammer");
 
         if(instance.towerConfig == null)
         {

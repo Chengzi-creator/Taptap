@@ -42,6 +42,8 @@ public class EnemyManager : IEnemyManager
     {
         enemyConfig = Resources.Load<EnemyConfig>("SO/EnemyConfig");
         prefabEnemyList[IEnemyManager.EnemyType.A] = Resources.Load<GameObject>("Prefab/Enemy/EnemyA");
+        prefabEnemyList[IEnemyManager.EnemyType.B] = Resources.Load<GameObject>("Prefab/Enemy/EnemyB");
+        prefabEnemyList[IEnemyManager.EnemyType.C] = Resources.Load<GameObject>("Prefab/Enemy/EnemyC");
 
         if(instance.enemyConfig == null)
         {

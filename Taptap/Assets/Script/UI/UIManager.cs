@@ -53,20 +53,22 @@ public class UIManager : MonoBehaviour , IUIManager
     
     //[SerializeField] private Button[] buildButtons;  //存储所有建造按钮
     
+    private ITowerManager.TowerType _selectedTowerType = ITowerManager.TowerType.NULL;
+
     private bool isPaused = false;
     //private bool[] buildSelections;
-    private bool _selectRF;
-    private bool _selectRL;
-    private bool _selectRT;
-    private bool _selectGF;
-    private bool _selectGL;
-    private bool _selectGT;
-    private bool _selectBF;
-    private bool _selectBL;
-    private bool _selectBT;
-    private bool _selectDC;
-    private bool _selectDH;
-    private bool _selectDS;
+    // private bool _selectRF;
+    // private bool _selectRL;
+    // private bool _selectRT;
+    // private bool _selectGF;
+    // private bool _selectGL;
+    // private bool _selectGT;
+    // private bool _selectBF;
+    // private bool _selectBL;
+    // private bool _selectBT;
+    // private bool _selectDC;
+    // private bool _selectDH;
+    // private bool _selectDS;
     private bool _selectDestroy;
     //private bool[] _select;
     private float _value;
@@ -74,7 +76,7 @@ public class UIManager : MonoBehaviour , IUIManager
     private Vector2 worldPosition;
     private Vector2Int gridPosition;
     private MyGridManager gridManager;
-    private SourceText sourceText;
+    // private SourceText sourceText;
     private ITowerManager towerManager;
     
     public int Coin = 100;
@@ -317,54 +319,55 @@ public class UIManager : MonoBehaviour , IUIManager
 
     private void BuildSelectedTower()
     {   
-        if (_selectRF)
-        {
-            TowerBuild(ITowerManager.TowerType.B_flash);
-        }
-        if (_selectRL)
-        {
-            TowerBuild(ITowerManager.TowerType.B_lazor);
-        }
-        if (_selectRT)
-        {
-            TowerBuild(ITowerManager.TowerType.B_torch);
-        }
-        if (_selectGF)
-        {
-            TowerBuild(ITowerManager.TowerType.B_flash);
-        }
-        if (_selectGL)
-        {
-            TowerBuild(ITowerManager.TowerType.B_lazor);
-        }
-        if (_selectGT)
-        {
-            TowerBuild(ITowerManager.TowerType.B_torch);//上面几种还没做出来，后续再调
-        }
-        if (_selectBF)
-        {
-            TowerBuild(ITowerManager.TowerType.B_flash);
-        }
-        if (_selectBL)
-        {
-            TowerBuild(ITowerManager.TowerType.B_lazor);
-        }
-        if (_selectBT)
-        {
-            TowerBuild(ITowerManager.TowerType.B_torch);
-        }
-        if (_selectDC)
-        {
-            TowerBuild(ITowerManager.TowerType.D_catapult);
-        }
-        if (_selectDH)
-        {
-            TowerBuild(ITowerManager.TowerType.D_hammer);
-        }
-        if (_selectDS)
-        {
-            TowerBuild(ITowerManager.TowerType.D_spike);
-        }
+        TowerBuild(_selectedTowerType);
+        // if (_selectRF)
+        // {
+        //     TowerBuild(ITowerManager.TowerType.B_flash);
+        // }
+        // if (_selectRL)
+        // {
+        //     TowerBuild(ITowerManager.TowerType.B_lazor);
+        // }
+        // if (_selectRT)
+        // {
+        //     TowerBuild(ITowerManager.TowerType.B_torch);
+        // }
+        // if (_selectGF)
+        // {
+        //     TowerBuild(ITowerManager.TowerType.B_flash);
+        // }
+        // if (_selectGL)
+        // {
+        //     TowerBuild(ITowerManager.TowerType.B_lazor);
+        // }
+        // if (_selectGT)
+        // {
+        //     TowerBuild(ITowerManager.TowerType.B_torch);//上面几种还没做出来，后续再调
+        // }
+        // if (_selectBF)
+        // {
+        //     TowerBuild(ITowerManager.TowerType.B_flash);
+        // }
+        // if (_selectBL)
+        // {
+        //     TowerBuild(ITowerManager.TowerType.B_lazor);
+        // }
+        // if (_selectBT)
+        // {
+        //     TowerBuild(ITowerManager.TowerType.B_torch);
+        // }
+        // if (_selectDC)
+        // {
+        //     TowerBuild(ITowerManager.TowerType.D_catapult);
+        // }
+        // if (_selectDH)
+        // {
+        //     TowerBuild(ITowerManager.TowerType.D_hammer);
+        // }
+        // if (_selectDS)
+        // {
+        //     TowerBuild(ITowerManager.TowerType.D_spike);
+        // }
         
     }
     
@@ -386,227 +389,241 @@ public class UIManager : MonoBehaviour , IUIManager
     #region 按钮点击
     private void ClickRF()
     {   
-        _selectRF = true;
-        _selectRL = false;
-        _selectRT = false;
-        _selectGF = false;
-        _selectGL = false;
-        _selectGT = false;
-        _selectBF = false;
-        _selectBL = false;
-        _selectBT = false;
-        _selectDC = false;
-        _selectDH = false;
-        _selectDS = false;
+        _selectedTowerType = ITowerManager.TowerType.B_flash_R;
+        // _selectRF = true;
+        // _selectRL = false;
+        // _selectRT = false;
+        // _selectGF = false;
+        // _selectGL = false;
+        // _selectGT = false;
+        // _selectBF = false;
+        // _selectBL = false;
+        // _selectBT = false;
+        // _selectDC = false;
+        // _selectDH = false;
+        // _selectDS = false;
         //Debug.Log("out");
     }
     
     private void ClickRL()
     {   
-        _selectRF = false;
-        _selectRL = true;
-        _selectRT = false;
-        _selectGF = false;
-        _selectGL = false;
-        _selectGT = false;
-        _selectBF = false;
-        _selectBL = false;
-        _selectBT = false;
-        _selectDC = false;
-        _selectDH = false;
-        _selectDS = false;
+        _selectedTowerType = ITowerManager.TowerType.B_lazor_R;
+        // _selectRF = false;
+        // _selectRL = true;
+        // _selectRT = false;
+        // _selectGF = false;
+        // _selectGL = false;
+        // _selectGT = false;
+        // _selectBF = false;
+        // _selectBL = false;
+        // _selectBT = false;
+        // _selectDC = false;
+        // _selectDH = false;
+        // _selectDS = false;
         //Debug.Log("out");
     }
     
     private void ClickRT()
     {   
-        _selectRF = false;
-        _selectRL = false;
-        _selectRT = true;
-        _selectGF = false;
-        _selectGL = false;
-        _selectGT = false;
-        _selectBF = false;
-        _selectBL = false;
-        _selectBT = false;
-        _selectDC = false;
-        _selectDH = false;
-        _selectDS = false;
+        _selectedTowerType = ITowerManager.TowerType.B_torch_R;
+        // _selectRF = false;
+        // _selectRL = false;
+        // _selectRT = true;
+        // _selectGF = false;
+        // _selectGL = false;
+        // _selectGT = false;
+        // _selectBF = false;
+        // _selectBL = false;
+        // _selectBT = false;
+        // _selectDC = false;
+        // _selectDH = false;
+        // _selectDS = false;
         //Debug.Log("out");
     }
     
     private void ClickGF()
     {   
-        _selectRF = false;
-        _selectRL = false;
-        _selectRT = false;
-        _selectGF = true;
-        _selectGL = false;
-        _selectGT = false;
-        _selectBF = false;
-        _selectBL = false;
-        _selectBT = false;
-        _selectDC = false;
-        _selectDH = false;
-        _selectDS = false;
+        _selectedTowerType = ITowerManager.TowerType.B_flash_G;
+        // _selectRF = false;
+        // _selectRL = false;
+        // _selectRT = false;
+        // _selectGF = true;
+        // _selectGL = false;
+        // _selectGT = false;
+        // _selectBF = false;
+        // _selectBL = false;
+        // _selectBT = false;
+        // _selectDC = false;
+        // _selectDH = false;
+        // _selectDS = false;
         //Debug.Log("out");
     }
     
     private void ClickGL()
     {   
-        _selectRF = false;
-        _selectRL = false;
-        _selectRT = false;
-        _selectGF = false;
-        _selectGL = true;
-        _selectGT = false;
-        _selectBF = false;
-        _selectBL = false;
-        _selectBT = false;
-        _selectDC = false;
-        _selectDH = false;
-        _selectDS = false;
+        _selectedTowerType = ITowerManager.TowerType.B_lazor_G;
+        // _selectRF = false;
+        // _selectRL = false;
+        // _selectRT = false;
+        // _selectGF = false;
+        // _selectGL = true;
+        // _selectGT = false;
+        // _selectBF = false;
+        // _selectBL = false;
+        // _selectBT = false;
+        // _selectDC = false;
+        // _selectDH = false;
+        // _selectDS = false;
         //Debug.Log("out");
     }
     
     private void ClickGT()
     {   
-        _selectRF = false;
-        _selectRL = false;
-        _selectRT = false;
-        _selectGF = false;
-        _selectGL = false;
-        _selectGT = true;
-        _selectBF = false;
-        _selectBL = false;
-        _selectBT = false;
-        _selectDC = false;
-        _selectDH = false;
-        _selectDS = false;
+        _selectedTowerType = ITowerManager.TowerType.B_torch_G;
+        // _selectRF = false;
+        // _selectRL = false;
+        // _selectRT = false;
+        // _selectGF = false;
+        // _selectGL = false;
+        // _selectGT = true;
+        // _selectBF = false;
+        // _selectBL = false;
+        // _selectBT = false;
+        // _selectDC = false;
+        // _selectDH = false;
+        // _selectDS = false;
         //Debug.Log("out");
     }
     
     private void ClickBF()
     {   
-        _selectRF = false;
-        _selectRL = false;
-        _selectRT = false;
-        _selectGF = false;
-        _selectGL = false;
-        _selectGT = false;
-        _selectBF = true;
-        _selectBL = false;
-        _selectBT = false;
-        _selectDC = false;
-        _selectDH = false;
-        _selectDS = false;
+        _selectedTowerType = ITowerManager.TowerType.B_flash_B;
+        // _selectRF = false;
+        // _selectRL = false;
+        // _selectRT = false;
+        // _selectGF = false;
+        // _selectGL = false;
+        // _selectGT = false;
+        // _selectBF = true;
+        // _selectBL = false;
+        // _selectBT = false;
+        // _selectDC = false;
+        // _selectDH = false;
+        // _selectDS = false;
         //Debug.Log("BF");
     }
     
     private void ClickBL()
     {   
-        _selectRF = false;
-        _selectRL = false;
-        _selectRT = false;
-        _selectGF = false;
-        _selectGL = false;
-        _selectGT = false;
-        _selectBL = true;
-        _selectBF = false;
-        _selectBT = false;
-        _selectDC = false;
-        _selectDH = false;
-        _selectDS = false;
+        _selectedTowerType = ITowerManager.TowerType.B_lazor_B;
+        // _selectRF = false;
+        // _selectRL = false;
+        // _selectRT = false;
+        // _selectGF = false;
+        // _selectGL = false;
+        // _selectGT = false;
+        // _selectBL = true;
+        // _selectBF = false;
+        // _selectBT = false;
+        // _selectDC = false;
+        // _selectDH = false;
+        // _selectDS = false;
         //Debug.Log("BL");
     }
     private void ClickBT()
     {   
-        _selectRF = false;
-        _selectRL = false;
-        _selectRT = false;
-        _selectGF = false;
-        _selectGL = false;
-        _selectGT = false;
-        _selectBT = true;
-        _selectBL = false;
-        _selectBF = false;
-        _selectDC = false;
-        _selectDH = false;
-        _selectDS = false;
+        _selectedTowerType = ITowerManager.TowerType.B_torch_B;
+        // _selectRF = false;
+        // _selectRL = false;
+        // _selectRT = false;
+        // _selectGF = false;
+        // _selectGL = false;
+        // _selectGT = false;
+        // _selectBT = true;
+        // _selectBL = false;
+        // _selectBF = false;
+        // _selectDC = false;
+        // _selectDH = false;
+        // _selectDS = false;
         //Debug.Log("BT");
     }
     
     private void ClickDC()
     {   
-        _selectRF = false;
-        _selectRL = false;
-        _selectRT = false;
-        _selectGF = false;
-        _selectGL = false;
-        _selectGT = false;
-        _selectBT = false;
-        _selectBL = false;
-        _selectBF = false;
-        _selectDC = true;
-        _selectDH = false;
-        _selectDS = false;
+        _selectedTowerType = ITowerManager.TowerType.D_catapult;
+        // _selectRF = false;
+        // _selectRL = false;
+        // _selectRT = false;
+        // _selectGF = false;
+        // _selectGL = false;
+        // _selectGT = false;
+        // _selectBT = false;
+        // _selectBL = false;
+        // _selectBF = false;
+        // _selectDC = true;
+        // _selectDH = false;
+        // _selectDS = false;
         //Debug.Log("DC");
     }
 
     private void ClickDH()
     {   
-        _selectRF = false;
-        _selectRL = false;
-        _selectRT = false;
-        _selectGF = false;
-        _selectGL = false;
-        _selectGT = false;
-        _selectBT = false;
-        _selectBL = false;
-        _selectBF = false;
-        _selectDC = false;
-        _selectDH = true;
-        _selectDS = false;
+        _selectedTowerType = ITowerManager.TowerType.D_hammer;
+        // _selectRF = false;
+        // _selectRL = false;
+        // _selectRT = false;
+        // _selectGF = false;
+        // _selectGL = false;
+        // _selectGT = false;
+        // _selectBT = false;
+        // _selectBL = false;
+        // _selectBF = false;
+        // _selectDC = false;
+        // _selectDH = true;
+        // _selectDS = false;
         //Debug.Log("DH");
     }
     
     private void ClickDS()
     {   
-        _selectRF = false;
-        _selectRL = false;
-        _selectRT = false;
-        _selectGF = false;
-        _selectGL = false;
-        _selectGT = false;
-        _selectBF = false;
-        _selectBL = false;
-        _selectBT = false;
-        _selectDC = false;
-        _selectDH = false;
-        _selectDS = true;
+        _selectedTowerType = ITowerManager.TowerType.D_spike;
+        // _selectRF = false;
+        // _selectRL = false;
+        // _selectRT = false;
+        // _selectGF = false;
+        // _selectGL = false;
+        // _selectGT = false;
+        // _selectBF = false;
+        // _selectBL = false;
+        // _selectBT = false;
+        // _selectDC = false;
+        // _selectDH = false;
+        // _selectDS = true;
         //Debug.Log("DS");
     }
 
     private void ClickOut()
     {   
-        _selectRF = false;
-        _selectRL = false;
-        _selectRT = false;
-        _selectGF = false;
-        _selectGL = false;
-        _selectGT = false;
-        _selectBF = false;
-        _selectBL = false;
-        _selectBT = false;
-        _selectDC = false;
-        _selectDH = false;
-        _selectDS = false;
+        _selectedTowerType = ITowerManager.TowerType.NULL;
+        // _selectRF = false;
+        // _selectRL = false;
+        // _selectRT = false;
+        // _selectGF = false;
+        // _selectGL = false;
+        // _selectGT = false;
+        // _selectBF = false;
+        // _selectBL = false;
+        // _selectBT = false;
+        // _selectDC = false;
+        // _selectDH = false;
+        // _selectDS = false;
         //Debug.Log("out");
     }
 
     private bool HasClick()
     {
-        if (_selectRF||_selectRL||_selectRT||_selectGF||_selectGL||_selectGT||_selectBT || _selectBL || _selectBT || _selectDH || _selectDC || _selectDS)
+        // if (_selectRF||_selectRL||_selectRT||_selectGF||_selectGL||_selectGT||_selectBT || _selectBL || _selectBT || _selectDH || _selectDC || _selectDS)
+        if(_selectedTowerType != ITowerManager.TowerType.NULL)
         {
             return true;
         }
