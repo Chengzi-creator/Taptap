@@ -10,20 +10,27 @@ public class UIManager : MonoBehaviour , IUIManager
 {
     private static UIManager instance;
     
-    [Serializable] 
-    public struct ToggleImagePair
-    {
-        public Toggle toggle;
-        public GameObject image;
-    }
+    // [Serializable] 
+    // public struct ToggleImagePair
+    // {
+    //     public Toggle toggle;
+    //     public GameObject image;
+    // }
 
     [SerializeField] private TextMeshProUGUI _coinText;
     [SerializeField] private TextMeshProUGUI _roundText;
-    [SerializeField] private List<ToggleImagePair> toggleImagePairs;
+    
+    //[SerializeField] private List<ToggleImagePair> toggleImagePairs;
     [SerializeField] private GameObject pauseMasks;
     [SerializeField] private GameObject setupMasks;
     [SerializeField] private GameObject buildMasks;
     [SerializeField] private GameObject overMasks;
+    [SerializeField] private GameObject buildButtons;
+    [SerializeField] private GameObject rImages;
+    [SerializeField] private GameObject gImages;
+    [SerializeField] private GameObject bImages;
+    [SerializeField] private GameObject buildBack;
+    
     [SerializeField] private Button exitButton, restartButton, homeButton,backButton,setupButton,menuButton,overhomeButton,overLevelButton;
     [SerializeField] private Button _buttonRF;
     [SerializeField] private Button _buttonRL;
@@ -38,6 +45,12 @@ public class UIManager : MonoBehaviour , IUIManager
     [SerializeField] private Button _buttonDH;
     [SerializeField] private Button _buttonDS;
     [SerializeField] private Button destroyButton;
+    [SerializeField] private Button buildBackButton;
+    [SerializeField] private Button rButton;
+    [SerializeField] private Button gButton;
+    [SerializeField] private Button bButton;
+
+    
     //[SerializeField] private Button[] buildButtons;  //存储所有建造按钮
     
     private bool isPaused = false;
@@ -86,6 +99,11 @@ public class UIManager : MonoBehaviour , IUIManager
         setupMasks.SetActive(false);
         buildMasks.SetActive(true);
         overMasks.SetActive(false);
+        buildButtons.SetActive(true);
+        buildBack.SetActive(false);
+        rImages.SetActive(false);
+        gImages.SetActive(false);
+        bImages.SetActive(false);
         exitButton.onClick.AddListener(OnexitButtonClick);
         backButton.onClick.AddListener(OnbackButtonClick);
         setupButton.onClick.AddListener(OnsetupButtonClick);
@@ -95,13 +113,17 @@ public class UIManager : MonoBehaviour , IUIManager
         restartButton.onClick.AddListener(() => RestartGame("UITest"));
         homeButton.onClick.AddListener(() => RestartGame("Start"));
         destroyButton.onClick.AddListener(OndestroyButtonClick);
+        buildBackButton.onClick.AddListener(BuildBack);
+        rButton.onClick.AddListener(OnRButtonClick);
+        gButton.onClick.AddListener(OnGButtonClick);
+        bButton.onClick.AddListener(OnBButtonClick);
         
 
-        foreach (var pair in toggleImagePairs)
-        {
-            pair.image.SetActive(false);
-        }
-        
+        // foreach (var pair in toggleImagePairs)
+        // {
+        //     pair.image.SetActive(false);
+        // }
+        //
         // buildSelections = new bool[buildButtons.Length];  //初始化建造选择状态
         // for (int i = 0; i < buildButtons.Length; i++)
         // {
@@ -147,27 +169,12 @@ public class UIManager : MonoBehaviour , IUIManager
         }
         
         
-        CheckToggleImages();
+       
         
         DetectBuildModeInput();
         DetectDestroyModeInput();
     }
     
-    public void CheckToggleImages()
-    {
-        foreach (var pair in toggleImagePairs)
-        {
-            if (pair.toggle.isOn)
-            {
-                pair.image.SetActive(true);
-                break;
-            }
-            else
-            {
-                pair.image.SetActive(false);
-            }
-        }
-    }
     
     public void TogglePause()
     {
@@ -367,7 +374,7 @@ public class UIManager : MonoBehaviour , IUIManager
         PlayStateMachine.Instance.BuildTower(type, gridPosition, faceDirection);//这个也是建造吗，没问出来
         //Debug.Log(type);
         //这里不再ClickOut保证同一种类的塔可以连续建造
-        MyGridManager.Instance.CancelShowBuildModeGrid();
+        //MyGridManager.Instance.CancelShowBuildModeGrid();
     }
     
     public void TowerDestroy()
@@ -625,6 +632,37 @@ public class UIManager : MonoBehaviour , IUIManager
     public void RoundChange(int level,int round)
     {
         _roundText.text = "Level" + level + "      " + "Round" + round;
+    }
+
+    public void OnRButtonClick()
+    {
+        buildButtons.SetActive(false);
+        buildBack.SetActive(true);
+        rImages.SetActive(true);
+    }
+    
+    public void OnGButtonClick()
+    {
+        buildButtons.SetActive(false);
+        buildBack.SetActive(true);
+        gImages.SetActive(true);
+    }
+    
+    public void OnBButtonClick()
+    {
+        buildButtons.SetActive(false);
+        buildBack.SetActive(true);
+        bImages.SetActive(true);
+    }
+    
+    public void BuildBack()
+    {   
+        buildButtons.SetActive(true);
+        buildBack.SetActive(false);
+        rImages.SetActive(false);
+        gImages.SetActive(false);
+        bImages.SetActive(false);
+        MyGridManager.Instance.CancelShowBuildModeGrid();
     }
 
     public void overMasksOn()
