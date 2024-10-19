@@ -68,6 +68,7 @@ public class BaseEnemy : MonoBehaviour, IEnemy
         Position = ((Vector2)(nextPosition - beginPosition)) * moveScale + beginPosition;
         if(moveScale >= 1)
         {
+            Position = nextPosition;
             moveScale -= 1;
             pathNodeIndex++;
             beginPosition = nextPosition;
