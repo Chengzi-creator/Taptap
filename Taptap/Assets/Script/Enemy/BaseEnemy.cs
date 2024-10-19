@@ -52,6 +52,7 @@ public class BaseEnemy : MonoBehaviour, IEnemy
     {
         Debug.Log("be Attacked");
         currentHP -= damage;
+        Debug.LogWarning(currentHP);
         this.colorTime[colorDamage] = GlobalSetting.Instance.GlobalSettingSO.GetColorRemainTime(colorDamage);
         SetHorn(new Vector3(currentHP.x/maxHP.x , currentHP.y/maxHP.y , currentHP.z/maxHP.z));
     }
@@ -67,6 +68,7 @@ public class BaseEnemy : MonoBehaviour, IEnemy
         Position = ((Vector2)(nextPosition - beginPosition)) * moveScale + beginPosition;
         if(moveScale >= 1)
         {
+            Position = nextPosition;
             moveScale -= 1;
             pathNodeIndex++;
             beginPosition = nextPosition;
