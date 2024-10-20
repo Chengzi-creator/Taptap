@@ -111,6 +111,7 @@ public class PlayStateMachine
         Debug.Log("BuildTower " + towerType + " in " + position);
             (currentState as BuildState).BuildTower(towerType, position, faceDirection);
         }
+        // PlayStateMachine.Instance.RemoveTower(position);
     }
 
     public void RemoveTower(Vector2Int position)
