@@ -50,16 +50,16 @@ public class BaseEnemy : MonoBehaviour, IEnemy
 
     public virtual void BeAttacked(Vector3 damage , int colorDamage)
     {
-        Debug.Log("be Attacked");
+//        Debug.Log("be Attacked");
         currentHP -= damage;
-        Debug.LogWarning(currentHP);
+//        Debug.LogWarning(currentHP);
         this.colorTime[colorDamage] = GlobalSetting.Instance.GlobalSettingSO.GetColorRemainTime(colorDamage);
         SetHorn(new Vector3(currentHP.x/maxHP.x , currentHP.y/maxHP.y , currentHP.z/maxHP.z));
     }
     public virtual void Die()
     {
         gameObject.SetActive(false);
-        Debug.Log("die");
+//        Debug.Log("die");
     }
 
     protected virtual void Move(float deltaTime)

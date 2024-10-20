@@ -15,7 +15,7 @@ MonoBehaviour:
   showTowerData:
   - type: 1
     cost: 10
-    damage: 120
+    damage: 60
     color: 0
     bulletTime: 0.1
     timeInterval: 2
@@ -23,7 +23,7 @@ MonoBehaviour:
     - {x: 0, y: 0}
     - {x: 1, y: 0}
     - {x: 2, y: 0}
-  - type: 5
+  - type: 11
     cost: 12
     damage: 50
     color: 0
@@ -34,7 +34,7 @@ MonoBehaviour:
     - {x: 1, y: 0}
     - {x: 1, y: 1}
     - {x: 1, y: -1}
-  - type: 6
+  - type: 12
     cost: 9
     damage: 30
     color: 0
@@ -59,7 +59,7 @@ MonoBehaviour:
     - {x: 0, y: -1}
     - {x: 1, y: -1}
     - {x: -1, y: 1}
-  - type: 2
+  - type: 5
     cost: 20
     damage: 0
     color: 2
@@ -75,7 +75,7 @@ MonoBehaviour:
     - {x: 0, y: -1}
     - {x: 1, y: -1}
     - {x: -1, y: 1}
-  - type: 2
+  - type: 8
     cost: 20
     damage: 0
     color: 4
@@ -102,7 +102,7 @@ MonoBehaviour:
     - {x: 1, y: 0}
     - {x: 2, y: 0}
     - {x: 3, y: 0}
-  - type: 3
+  - type: 6
     cost: 8
     damage: 0
     color: 2
@@ -113,7 +113,7 @@ MonoBehaviour:
     - {x: 1, y: 0}
     - {x: 2, y: 0}
     - {x: 3, y: 0}
-  - type: 3
+  - type: 9
     cost: 8
     damage: 0
     color: 4
@@ -133,7 +133,7 @@ MonoBehaviour:
     attackRange:
     - {x: 0, y: 0}
     - {x: 1, y: 0}
-  - type: 4
+  - type: 7
     cost: 3
     damage: 0
     color: 2
@@ -142,7 +142,7 @@ MonoBehaviour:
     attackRange:
     - {x: 0, y: 0}
     - {x: 1, y: 0}
-  - type: 4
+  - type: 10
     cost: 3
     damage: 0
     color: 4
@@ -151,12 +151,12 @@ MonoBehaviour:
     attackRange:
     - {x: 0, y: 0}
     - {x: 1, y: 0}
-  - type: 0
-    cost: 0
-    damage: 0
-    color: 7
-    bulletTime: 0
-    timeInterval: 0
+  - type: 13
+    cost: 20
+    damage: 70
+    color: 0
+    bulletTime: 0.1
+    timeInterval: 1
     attackRange:
     - {x: 0, y: 0}
     - {x: 1, y: 0}
