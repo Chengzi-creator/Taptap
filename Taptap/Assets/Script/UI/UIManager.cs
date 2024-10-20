@@ -45,6 +45,7 @@ public class UIManager : MonoBehaviour , IUIManager
     [SerializeField] private Button _buttonDC;
     [SerializeField] private Button _buttonDH;
     [SerializeField] private Button _buttonDS;
+    [SerializeField] private Button _buttonDD;
     [SerializeField] private Button destroyButton;
     [SerializeField] private Button buildBackButton;
     [SerializeField] private Button rButton;
@@ -146,6 +147,7 @@ public class UIManager : MonoBehaviour , IUIManager
         _buttonDH.onClick.AddListener(ClickDH);
         _buttonDS.onClick.AddListener(ClickDS);
         _buttonDC.onClick.AddListener(ClickDC);
+        _buttonDD.onClick.AddListener(ClickDD);
         
     }
 
@@ -264,7 +266,7 @@ public class UIManager : MonoBehaviour , IUIManager
         if (HasClick())
         {   
             //Debug.Log("Click");
-            MyGridManager.Instance.ShowBuildModeGrid();//这个还要不要？
+            MyGridManager.Instance.ShowBuildModeGrid();
             //Debug.Log("Show");
             RotateTower();
             UpdateMousePosition();
@@ -311,10 +313,12 @@ public class UIManager : MonoBehaviour , IUIManager
         if (Input.GetKeyDown(KeyCode.Q))
         {
             faceDirection = (faceDirection + 1) % 4;
+            //Debug.Log(faceDirection);
         }
         else if (Input.GetKeyDown(KeyCode.E))
         {
-            faceDirection = (faceDirection - 1 + 4) % 4;
+            faceDirection = (faceDirection + 3) % 4;
+            //Debug.Log(faceDirection);
         }
     }
 
@@ -327,55 +331,6 @@ public class UIManager : MonoBehaviour , IUIManager
     private void BuildSelectedTower()
     {   
         TowerBuild(_selectedTowerType);
-        // if (_selectRF)
-        // {
-        //     TowerBuild(ITowerManager.TowerType.B_flash);
-        // }
-        // if (_selectRL)
-        // {
-        //     TowerBuild(ITowerManager.TowerType.B_lazor);
-        // }
-        // if (_selectRT)
-        // {
-        //     TowerBuild(ITowerManager.TowerType.B_torch);
-        // }
-        // if (_selectGF)
-        // {
-        //     TowerBuild(ITowerManager.TowerType.B_flash);
-        // }
-        // if (_selectGL)
-        // {
-        //     TowerBuild(ITowerManager.TowerType.B_lazor);
-        // }
-        // if (_selectGT)
-        // {
-        //     TowerBuild(ITowerManager.TowerType.B_torch);//上面几种还没做出来，后续再调
-        // }
-        // if (_selectBF)
-        // {
-        //     TowerBuild(ITowerManager.TowerType.B_flash);
-        // }
-        // if (_selectBL)
-        // {
-        //     TowerBuild(ITowerManager.TowerType.B_lazor);
-        // }
-        // if (_selectBT)
-        // {
-        //     TowerBuild(ITowerManager.TowerType.B_torch);
-        // }
-        // if (_selectDC)
-        // {
-        //     TowerBuild(ITowerManager.TowerType.D_catapult);
-        // }
-        // if (_selectDH)
-        // {
-        //     TowerBuild(ITowerManager.TowerType.D_hammer);
-        // }
-        // if (_selectDS)
-        // {
-        //     TowerBuild(ITowerManager.TowerType.D_spike);
-        // }
-        
     }
     
     private void TowerBuild(ITowerManager.TowerType type)
@@ -390,7 +345,7 @@ public class UIManager : MonoBehaviour , IUIManager
     public void TowerDestroy()
     {
         //实现具体的销毁逻辑,尚待开发
-        
+        PlayStateMachine.Instance.RemoveTower(gridPosition);
     }
     
     #region 按钮点击
@@ -608,6 +563,11 @@ public class UIManager : MonoBehaviour , IUIManager
         // _selectDS = true;
         //Debug.Log("DS");
     }
+    
+    private void ClickDD()
+    {   
+        _selectedTowerType = ITowerManager.TowerType.D_dart;
+    }
 
     private void ClickOut()
     {   
@@ -639,7 +599,7 @@ public class UIManager : MonoBehaviour , IUIManager
             return false;
         }
     }
-
+    
     private void OndestroyButtonClick()
     {
         ClickOut();
@@ -686,8 +646,9 @@ public class UIManager : MonoBehaviour , IUIManager
         rImages.SetActive(false);
         gImages.SetActive(false);
         bImages.SetActive(false);
+        ClickOut();
         MyGridManager.Instance.CancelShowBuildModeGrid();//为什么函数没调用成功
-        //Debug.Log("back");
+        Debug.Log("back");
     }
 
     public void overMasksOn()

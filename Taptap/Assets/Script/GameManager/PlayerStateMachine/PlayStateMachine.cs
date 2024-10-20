@@ -192,7 +192,7 @@ public class PlayStateMachine
         public void EnemyDie(IEnemy enemy)
         {
             PlayStateMachine.Instance.Money += enemy.Money;
-            Debug.Log("Enemy Die all enemy " + EnemyManager.Instance.AllEnemysCount() + " enemyIndex " + enemyIndex);
+//            Debug.Log("Enemy Die all enemy " + EnemyManager.Instance.AllEnemysCount() + " enemyIndex " + enemyIndex);
             if(EnemyManager.Instance.AllEnemysCount() == 0 && enemyIndex == enemyList.Count)
             {
                 if(PlayStateMachine.Instance.waveIndex == PlayStateMachine.Instance.levelDataSO.GetMaxWave(PlayStateMachine.Instance.levelIndex) - 1)
