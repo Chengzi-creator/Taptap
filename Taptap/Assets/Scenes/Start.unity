@@ -815,12 +815,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StartMasks: {fileID: 748714706}
-  ChooseLevel: {fileID: 0}
+  ChooseLevel: {fileID: 416437926}
   startButton: {fileID: 1061306577}
   exitButton: {fileID: 1028315188}
-  level0Button: {fileID: 0}
-  level1Button: {fileID: 0}
-  level2Button: {fileID: 0}
+  level0Button: {fileID: 132046147}
+  level1Button: {fileID: 1095235797}
+  level2Button: {fileID: 1244376761}
 --- !u!114 &748714708
 MonoBehaviour:
   m_ObjectHideFlags: 0
