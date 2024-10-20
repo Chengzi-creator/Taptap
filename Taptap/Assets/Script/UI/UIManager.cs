@@ -311,10 +311,12 @@ public class UIManager : MonoBehaviour , IUIManager
         if (Input.GetKeyDown(KeyCode.Q))
         {
             faceDirection = (faceDirection + 1) % 4;
+            //Debug.Log(faceDirection);
         }
         else if (Input.GetKeyDown(KeyCode.E))
         {
-            faceDirection = (faceDirection - 1 + 4) % 4;
+            faceDirection = (faceDirection + 3) % 4;
+            //Debug.Log(faceDirection);
         }
     }
 
@@ -390,7 +392,7 @@ public class UIManager : MonoBehaviour , IUIManager
     public void TowerDestroy()
     {
         //实现具体的销毁逻辑,尚待开发
-        
+        PlayStateMachine.Instance.RemoveTower(gridPosition);
     }
     
     #region 按钮点击
@@ -687,7 +689,7 @@ public class UIManager : MonoBehaviour , IUIManager
         gImages.SetActive(false);
         bImages.SetActive(false);
         MyGridManager.Instance.CancelShowBuildModeGrid();//为什么函数没调用成功
-        //Debug.Log("back");
+        Debug.Log("back");
     }
 
     public void overMasksOn()
