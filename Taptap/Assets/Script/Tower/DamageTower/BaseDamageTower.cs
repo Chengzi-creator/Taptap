@@ -41,7 +41,7 @@ public class BaseDamageTower : BaseTower
             else if(faceDirection == 2)
                 midRange = new Vector2Int(-range.x , -range.y);
             else if(faceDirection == 3)
-                midRange = new Vector2Int(range.y , range.x);
+                midRange = new Vector2Int(range.y , -range.x);
             else
                 midRange = range;
             midRange += position;

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System;
 using TMPro;
+using UnityEngine.EventSystems;
 
 public class UIManager : MonoBehaviour , IUIManager
 {
@@ -76,7 +77,7 @@ public class UIManager : MonoBehaviour , IUIManager
     private Vector2 worldPosition;
     private Vector2Int gridPosition;
     private MyGridManager gridManager;
-    // private SourceText sourceText;
+
     private ITowerManager towerManager;
     
     public int Coin = 100;
@@ -112,7 +113,7 @@ public class UIManager : MonoBehaviour , IUIManager
         menuButton.onClick.AddListener(OnmenuButtonClick);
         overLevelButton.onClick.AddListener(OnoverLevelButtonClick);
         overhomeButton.onClick.AddListener((() => RestartGame("Start")));
-        restartButton.onClick.AddListener(() => RestartGame("UITest"));
+        restartButton.onClick.AddListener(() => RestartGame("yyl"));
         homeButton.onClick.AddListener(() => RestartGame("Start"));
         destroyButton.onClick.AddListener(OndestroyButtonClick);
         buildBackButton.onClick.AddListener(BuildBack);
@@ -268,6 +269,12 @@ public class UIManager : MonoBehaviour , IUIManager
             RotateTower();
             UpdateMousePosition();
             
+            if (EventSystem.current.IsPointerOverGameObject())
+            {
+                //鼠标在 UI 上，不进行建造
+                return;
+            }
+            
             if (Input.GetMouseButtonDown(0))  //左键建造
             {
                 BuildSelectedTower();
@@ -304,10 +311,12 @@ public class UIManager : MonoBehaviour , IUIManager
         if (Input.GetKeyDown(KeyCode.Q))
         {
             faceDirection = (faceDirection + 1) % 4;
+            //Debug.Log(faceDirection);
         }
         else if (Input.GetKeyDown(KeyCode.E))
         {
-            faceDirection = (faceDirection - 1 + 4) % 4;
+            faceDirection = (faceDirection + 3) % 4;
+            //Debug.Log(faceDirection);
         }
     }
 
@@ -383,7 +392,7 @@ public class UIManager : MonoBehaviour , IUIManager
     public void TowerDestroy()
     {
         //实现具体的销毁逻辑,尚待开发
-        
+        PlayStateMachine.Instance.RemoveTower(gridPosition);
     }
     
     #region 按钮点击
@@ -679,7 +688,8 @@ public class UIManager : MonoBehaviour , IUIManager
         rImages.SetActive(false);
         gImages.SetActive(false);
         bImages.SetActive(false);
-        MyGridManager.Instance.CancelShowBuildModeGrid();
+        MyGridManager.Instance.CancelShowBuildModeGrid();//为什么函数没调用成功
+        Debug.Log("back");
     }
 
     public void overMasksOn()
