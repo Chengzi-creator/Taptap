@@ -22,11 +22,17 @@ public class VFXManager
     // private LinkedList<IVFX> vfxList;
     GameObject prefab_VFX_Attack_Tuci;
     GameObject prefab_VFX_Attack_FeiBiao;
+    GameObject prefab_VFX_Range_Flash;
+    GameObject prefab_VFX_Range_Lazor;
+    GameObject prefab_VFX_Range_Torch;
     private static void Init()
     {
         // instance.vfxList = new LinkedList<IVFX>();
         instance.prefab_VFX_Attack_Tuci = Resources.Load<GameObject>("Prefab/VFX/VFX_Attack_Ziguang_main");
         instance.prefab_VFX_Attack_FeiBiao = Resources.Load<GameObject>("Prefab/VFX/VFX_Attack_FeiBiao");
+        instance.prefab_VFX_Range_Torch = Resources.Load<GameObject>("Prefab/VFX/VFX_Range_Torch");
+        instance.prefab_VFX_Range_Flash = Resources.Load<GameObject>("Prefab/VFX/VFX_Range_Flash");
+        instance.prefab_VFX_Range_Lazor = Resources.Load<GameObject>("Prefab/VFX/VFX_Range_Lazor");
     }
 
 
@@ -47,5 +53,29 @@ public class VFXManager
         LineRenderer lineRenderer = vfx.GetComponent<LineRenderer>();
         lineRenderer.SetPosition(0, startWorldPos);
         lineRenderer.SetPosition(1, endWorldPos);
+        GameObject.Destroy(vfx, 0.5f);
+    }
+
+    public GameObject CreateVFX_Range_Flash(Vector2Int position,int faceDir)
+    {
+        var vfx = GameObject.Instantiate(prefab_VFX_Range_Flash);
+        vfx.transform.position = MyGridManager.Instance.GetWorldPos(position);
+        vfx.transform.eulerAngles = new Vector3(0, 0, faceDir * 90);
+        return vfx;
+    }
+
+    public GameObject CreateVFX_Range_Lazor(Vector2Int position,int faceDir)
+    {
+        var vfx = GameObject.Instantiate(prefab_VFX_Range_Lazor);
+        vfx.transform.position = MyGridManager.Instance.GetWorldPos(position);
+        vfx.transform.eulerAngles = new Vector3(0, 0, faceDir * 90);
+        return vfx;
+    }
+
+    public GameObject CreateVFX_Range_Torch(Vector2Int position)
+    {
+        var vfx = GameObject.Instantiate(prefab_VFX_Range_Torch);
+        vfx.transform.position = MyGridManager.Instance.GetWorldPos(position);
+        return vfx;
     }
 }
