@@ -31,7 +31,8 @@ public class TowerDDart : BaseDamageTower
                 // attackRange[i].GetKthEnemy(0).BeAttacked(damage , elementDamage);
                 lockedEnemy.AddLast(attackRange[i].GetKthEnemy(0));
                 lockedTime.AddLast(bulletTime);
-                cnt ++;
+                cnt ++;            
+                VFXManager.Instance.CreateVFX_Attack_FeiBiao(position , lockedEnemy.First.Value.Position);
                 if(cnt >= 2)
                     break;
             }
@@ -52,7 +53,7 @@ public class TowerDDart : BaseDamageTower
             lockedEnemy.RemoveFirst();
             lockedTime.RemoveFirst();
             node = lockedTime.First;
-            VFXManager.Instance.CreateVFX_Attack_FeiBiao(position , lockedEnemy.First.Value.Position);
+            // VFXManager.Instance.CreateVFX_Attack_FeiBiao(position , lockedEnemy.First.Value.Position);
         }
     }
     protected override void WaitCD(float deltaTime)
