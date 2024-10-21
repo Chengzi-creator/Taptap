@@ -52,7 +52,8 @@ public class UIManager : MonoBehaviour , IUIManager
     [SerializeField] private Button gButton;
     [SerializeField] private Button bButton;
 
-    
+    [SerializeField] private Image towerX;
+    private Image image;
     //[SerializeField] private Button[] buildButtons;  //存储所有建造按钮
     
     private ITowerManager.TowerType _selectedTowerType = ITowerManager.TowerType.NULL;
@@ -75,13 +76,14 @@ public class UIManager : MonoBehaviour , IUIManager
     //private bool[] _select;
     private float _value;
     private int faceDirection = 0;
+    private int showCount = 0;
+    public int Coin;
     private Vector2 worldPosition;
     private Vector2Int gridPosition;
     private MyGridManager gridManager;
-
     private ITowerManager towerManager;
     
-    public int Coin = 100;
+    
 
     public static UIManager Instance
     {
@@ -265,11 +267,10 @@ public class UIManager : MonoBehaviour , IUIManager
     {
         if (HasClick())
         {   
-            //Debug.Log("Click");
-            MyGridManager.Instance.ShowBuildModeGrid();
-            //Debug.Log("Show");
+            ShowModeGrid();
             RotateTower();
             UpdateMousePosition();
+            //ShowImage();
             
             if (EventSystem.current.IsPointerOverGameObject())
             {
@@ -280,11 +281,13 @@ public class UIManager : MonoBehaviour , IUIManager
             if (Input.GetMouseButtonDown(0))  //左键建造
             {
                 BuildSelectedTower();
+                //DestroyImage(image);
             }
             if (Input.GetMouseButtonDown(1))  //右键退出建造模式
             {
                 ClickOut();
                 MyGridManager.Instance.CancelShowBuildModeGrid();
+                showCount = 0;
             }
             
         }
@@ -313,12 +316,10 @@ public class UIManager : MonoBehaviour , IUIManager
         if (Input.GetKeyDown(KeyCode.Q))
         {
             faceDirection = (faceDirection + 1) % 4;
-            //Debug.Log(faceDirection);
         }
         else if (Input.GetKeyDown(KeyCode.E))
         {
             faceDirection = (faceDirection + 3) % 4;
-            //Debug.Log(faceDirection);
         }
     }
 
@@ -328,6 +329,25 @@ public class UIManager : MonoBehaviour , IUIManager
         gridPosition = MyGridManager.Instance.GetMapPos(worldPosition);
     }
 
+    private void ShowModeGrid()
+    {
+        if (showCount == 1)
+        {
+            MyGridManager.Instance.ShowBuildModeGrid();
+        }
+    }
+
+    private void ShowImage()
+    {
+        image = Instantiate(towerX);
+        image.transform.position = worldPosition;
+    }
+
+    private void DestroyImage(Image image)
+    {
+        Destroy(image.gameObject);
+    }
+    
     private void BuildSelectedTower()
     {   
         TowerBuild(_selectedTowerType);
@@ -335,11 +355,8 @@ public class UIManager : MonoBehaviour , IUIManager
     
     private void TowerBuild(ITowerManager.TowerType type)
     {   
-        //在按下按键的时候后面的逻辑都由TowerBuild接管？  
-        PlayStateMachine.Instance.BuildTower(type, gridPosition, faceDirection);//这个也是建造吗，没问出来
-        //Debug.Log(type);
-        //这里不再ClickOut保证同一种类的塔可以连续建造
-        //MyGridManager.Instance.CancelShowBuildModeGrid();
+        PlayStateMachine.Instance.BuildTower(type, gridPosition, faceDirection);
+        showCount = 0;
     }
     
     public void TowerDestroy()
@@ -352,216 +369,60 @@ public class UIManager : MonoBehaviour , IUIManager
     private void ClickRF()
     {   
         _selectedTowerType = ITowerManager.TowerType.B_flash_R;
-        // _selectRF = true;
-        // _selectRL = false;
-        // _selectRT = false;
-        // _selectGF = false;
-        // _selectGL = false;
-        // _selectGT = false;
-        // _selectBF = false;
-        // _selectBL = false;
-        // _selectBT = false;
-        // _selectDC = false;
-        // _selectDH = false;
-        // _selectDS = false;
-        //Debug.Log("out");
     }
     
     private void ClickRL()
     {   
         _selectedTowerType = ITowerManager.TowerType.B_lazor_R;
-        // _selectRF = false;
-        // _selectRL = true;
-        // _selectRT = false;
-        // _selectGF = false;
-        // _selectGL = false;
-        // _selectGT = false;
-        // _selectBF = false;
-        // _selectBL = false;
-        // _selectBT = false;
-        // _selectDC = false;
-        // _selectDH = false;
-        // _selectDS = false;
-        //Debug.Log("out");
     }
     
     private void ClickRT()
     {   
         _selectedTowerType = ITowerManager.TowerType.B_torch_R;
-        // _selectRF = false;
-        // _selectRL = false;
-        // _selectRT = true;
-        // _selectGF = false;
-        // _selectGL = false;
-        // _selectGT = false;
-        // _selectBF = false;
-        // _selectBL = false;
-        // _selectBT = false;
-        // _selectDC = false;
-        // _selectDH = false;
-        // _selectDS = false;
-        //Debug.Log("out");
     }
     
     private void ClickGF()
     {   
         _selectedTowerType = ITowerManager.TowerType.B_flash_G;
-        // _selectRF = false;
-        // _selectRL = false;
-        // _selectRT = false;
-        // _selectGF = true;
-        // _selectGL = false;
-        // _selectGT = false;
-        // _selectBF = false;
-        // _selectBL = false;
-        // _selectBT = false;
-        // _selectDC = false;
-        // _selectDH = false;
-        // _selectDS = false;
-        //Debug.Log("out");
     }
     
     private void ClickGL()
     {   
         _selectedTowerType = ITowerManager.TowerType.B_lazor_G;
-        // _selectRF = false;
-        // _selectRL = false;
-        // _selectRT = false;
-        // _selectGF = false;
-        // _selectGL = true;
-        // _selectGT = false;
-        // _selectBF = false;
-        // _selectBL = false;
-        // _selectBT = false;
-        // _selectDC = false;
-        // _selectDH = false;
-        // _selectDS = false;
-        //Debug.Log("out");
     }
     
     private void ClickGT()
     {   
         _selectedTowerType = ITowerManager.TowerType.B_torch_G;
-        // _selectRF = false;
-        // _selectRL = false;
-        // _selectRT = false;
-        // _selectGF = false;
-        // _selectGL = false;
-        // _selectGT = true;
-        // _selectBF = false;
-        // _selectBL = false;
-        // _selectBT = false;
-        // _selectDC = false;
-        // _selectDH = false;
-        // _selectDS = false;
-        //Debug.Log("out");
     }
     
     private void ClickBF()
     {   
         _selectedTowerType = ITowerManager.TowerType.B_flash_B;
-        // _selectRF = false;
-        // _selectRL = false;
-        // _selectRT = false;
-        // _selectGF = false;
-        // _selectGL = false;
-        // _selectGT = false;
-        // _selectBF = true;
-        // _selectBL = false;
-        // _selectBT = false;
-        // _selectDC = false;
-        // _selectDH = false;
-        // _selectDS = false;
-        //Debug.Log("BF");
     }
     
     private void ClickBL()
     {   
         _selectedTowerType = ITowerManager.TowerType.B_lazor_B;
-        // _selectRF = false;
-        // _selectRL = false;
-        // _selectRT = false;
-        // _selectGF = false;
-        // _selectGL = false;
-        // _selectGT = false;
-        // _selectBL = true;
-        // _selectBF = false;
-        // _selectBT = false;
-        // _selectDC = false;
-        // _selectDH = false;
-        // _selectDS = false;
-        //Debug.Log("BL");
     }
     private void ClickBT()
     {   
         _selectedTowerType = ITowerManager.TowerType.B_torch_B;
-        // _selectRF = false;
-        // _selectRL = false;
-        // _selectRT = false;
-        // _selectGF = false;
-        // _selectGL = false;
-        // _selectGT = false;
-        // _selectBT = true;
-        // _selectBL = false;
-        // _selectBF = false;
-        // _selectDC = false;
-        // _selectDH = false;
-        // _selectDS = false;
-        //Debug.Log("BT");
     }
     
     private void ClickDC()
     {   
         _selectedTowerType = ITowerManager.TowerType.D_catapult;
-        // _selectRF = false;
-        // _selectRL = false;
-        // _selectRT = false;
-        // _selectGF = false;
-        // _selectGL = false;
-        // _selectGT = false;
-        // _selectBT = false;
-        // _selectBL = false;
-        // _selectBF = false;
-        // _selectDC = true;
-        // _selectDH = false;
-        // _selectDS = false;
-        //Debug.Log("DC");
     }
 
     private void ClickDH()
     {   
         _selectedTowerType = ITowerManager.TowerType.D_hammer;
-        // _selectRF = false;
-        // _selectRL = false;
-        // _selectRT = false;
-        // _selectGF = false;
-        // _selectGL = false;
-        // _selectGT = false;
-        // _selectBT = false;
-        // _selectBL = false;
-        // _selectBF = false;
-        // _selectDC = false;
-        // _selectDH = true;
-        // _selectDS = false;
-        //Debug.Log("DH");
     }
     
     private void ClickDS()
     {   
         _selectedTowerType = ITowerManager.TowerType.D_spike;
-        // _selectRF = false;
-        // _selectRL = false;
-        // _selectRT = false;
-        // _selectGF = false;
-        // _selectGL = false;
-        // _selectGT = false;
-        // _selectBF = false;
-        // _selectBL = false;
-        // _selectBT = false;
-        // _selectDC = false;
-        // _selectDH = false;
-        // _selectDS = true;
-        //Debug.Log("DS");
     }
     
     private void ClickDD()
@@ -572,26 +433,13 @@ public class UIManager : MonoBehaviour , IUIManager
     private void ClickOut()
     {   
         _selectedTowerType = ITowerManager.TowerType.NULL;
-        // _selectRF = false;
-        // _selectRL = false;
-        // _selectRT = false;
-        // _selectGF = false;
-        // _selectGL = false;
-        // _selectGT = false;
-        // _selectBF = false;
-        // _selectBL = false;
-        // _selectBT = false;
-        // _selectDC = false;
-        // _selectDH = false;
-        // _selectDS = false;
-        //Debug.Log("out");
     }
 
     private bool HasClick()
     {
-        // if (_selectRF||_selectRL||_selectRT||_selectGF||_selectGL||_selectGT||_selectBT || _selectBL || _selectBT || _selectDH || _selectDC || _selectDS)
         if(_selectedTowerType != ITowerManager.TowerType.NULL)
         {
+            showCount++;
             return true;
         }
         else
@@ -648,6 +496,7 @@ public class UIManager : MonoBehaviour , IUIManager
         bImages.SetActive(false);
         ClickOut();
         MyGridManager.Instance.CancelShowBuildModeGrid();//为什么函数没调用成功
+        showCount = 0;
         Debug.Log("back");
     }
 
@@ -660,5 +509,10 @@ public class UIManager : MonoBehaviour , IUIManager
     {
         //LoadScene("");//进入下一关
         Debug.Log("还没做好下一个场景");
+    }
+
+    public void ShowEnemyBuff()
+    {
+        
     }
 }

@@ -227,6 +227,7 @@ MonoBehaviour:
   rButton: {fileID: 4694067466296059192}
   gButton: {fileID: 4698456032110390298}
   bButton: {fileID: 3574451889044172131}
+  towerX: {fileID: 8290062903943919331, guid: d99e37fad93f0274ca1a05dca4dcdd1e, type: 3}
   Coin: 100
 --- !u!1 &3803217759324601982
 GameObject:
@@ -1167,11 +1168,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4426364180935689948, guid: 49e00de03bff03c41b4cad9ee206b7c3, type: 3}
       propertyPath: m_Size
-      value: 0.6666667
+      value: 0.666401
       objectReference: {fileID: 0}
     - target: {fileID: 4426364180935689948, guid: 49e00de03bff03c41b4cad9ee206b7c3, type: 3}
       propertyPath: m_Value
-      value: -0.00000024414064
+      value: -0.000006225583
       objectReference: {fileID: 0}
     - target: {fileID: 4436510269842736007, guid: 49e00de03bff03c41b4cad9ee206b7c3, type: 3}
       propertyPath: m_Name
@@ -1263,7 +1264,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4856344818531937642, guid: 49e00de03bff03c41b4cad9ee206b7c3, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 62.50004
+      value: 62.500732
       objectReference: {fileID: 0}
     - target: {fileID: 4856344818531937642, guid: 49e00de03bff03c41b4cad9ee206b7c3, type: 3}
       propertyPath: m_AnchoredPosition.y
