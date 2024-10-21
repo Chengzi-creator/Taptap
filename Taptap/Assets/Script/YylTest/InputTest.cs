@@ -28,23 +28,23 @@ public class InputTest : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha0))
         {
-            VFXManager.Instance.CreateVFX_Attack_Tuci(new Vector2Int(1, 0), 1);
+            VFXManager.Instance.CreateVFX_Attack_Tuci(new Vector2Int(1, 0), 1, 0);
         }
-        if(Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            VFXManager.Instance.CreateVFX_Attack_FeiBiao(new Vector2Int(0, 0), new Vector2Int(1, 1));
+            VFXManager.Instance.CreateVFX_Attack_FeiBiao(new Vector2Int(0, 0), new Vector2Int(1, 1), 1);
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            VFXManager.Instance.CreateVFX_Range_Lazor(new Vector2Int(0, 0),1);
+            VFXManager.Instance.CreateVFX_Range_Lazor(new Vector2Int(0, 0), 1, 5);
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            VFXManager.Instance.CreateVFX_Range_Flash(new Vector2Int(0, 0), 1);
+            VFXManager.Instance.CreateVFX_Range_Flash(new Vector2Int(0, 0), 1, 6);
         }
-        if(Input.GetKeyDown(KeyCode.Alpha4))
+        if (Input.GetKeyDown(KeyCode.Alpha4))
         {
-            VFXManager.Instance.CreateVFX_Range_Torch(new Vector2Int(0, 0));
+            VFXManager.Instance.CreateVFX_Range_Torch(new Vector2Int(0, 0), 7);
         }
     }
 }
