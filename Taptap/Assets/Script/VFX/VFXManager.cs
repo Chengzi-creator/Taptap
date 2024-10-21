@@ -57,23 +57,24 @@ public class VFXManager
     private void Reduce(VFX vfx)
     {
         vfx.Reduce();
-        if(m_VFXDic.ContainsKey(vfx.vfxType) == false)
+        if (m_VFXDic.ContainsKey(vfx.vfxType) == false)
         {
             m_VFXDic.Add(vfx.vfxType, new List<VFX>());
         }
         m_VFXDic[vfx.vfxType].Add(vfx);
-    }   
+    }
 
-    public void CreateVFX_Attack_Tuci(Vector2Int position, int faceDirection)
+    public void CreateVFX_Attack_Tuci(Vector2Int position, int faceDirection, int color = 7)
     {
         //Debug.Log("pos:" + position + " faceDirection:" + faceDirection);
         var vfx = Get(VFXType.Attack_Tuci, prefab_VFX_Attack_Tuci);
         vfx.vfxObject.transform.position = MyGridManager.Instance.GetWorldPos(position);
         vfx.vfxObject.transform.eulerAngles = new Vector3(0, 0, faceDirection * 90);
+        vfx.SetColor(GetColor(color));
         DelayToInvoke.Instance.StartDelayToInvokeDo(Reduce, vfx, 0.5f);
     }
 
-    public void CreateVFX_Attack_FeiBiao(Vector2Int startPos, Vector2 endPos)
+    public void CreateVFX_Attack_FeiBiao(Vector2Int startPos, Vector2 endPos, int color = 7)
     {
         var vfx = Get(VFXType.Attack_FeiBiao, prefab_VFX_Attack_FeiBiao);
         Vector3 startWorldPos = MyGridManager.Instance.GetWorldPos(startPos);
@@ -81,30 +82,58 @@ public class VFXManager
         LineRenderer lineRenderer = vfx.vfxObject.GetComponent<LineRenderer>();
         lineRenderer.SetPosition(0, startWorldPos);
         lineRenderer.SetPosition(1, endWorldPos);
+        vfx.SetColor(GetColor(color));
         DelayToInvoke.Instance.StartDelayToInvokeDo(Reduce, vfx, 0.5f);
     }
 
-    public VFX CreateVFX_Range_Flash(Vector2Int position, int faceDir)
+    public VFX CreateVFX_Range_Flash(Vector2Int position, int faceDir, int color = 7)
     {
         VFX vfx = Get(VFXType.Range_Flash, prefab_VFX_Range_Flash);
         vfx.vfxObject.transform.position = MyGridManager.Instance.GetWorldPos(position);
         vfx.vfxObject.transform.eulerAngles = new Vector3(0, 0, faceDir * 90);
+        vfx.SetColor(GetColor(color));
         return vfx;
     }
 
-    public VFX CreateVFX_Range_Lazor(Vector2Int position, int faceDir)
+    public VFX CreateVFX_Range_Lazor(Vector2Int position, int faceDir, int color = 7)
     {
         var vfx = Get(VFXType.Range_Lazor, prefab_VFX_Range_Lazor);
         vfx.vfxObject.transform.position = MyGridManager.Instance.GetWorldPos(position);
+        vfx.SetColor(GetColor(color));
         vfx.vfxObject.transform.eulerAngles = new Vector3(0, 0, faceDir * 90);
         return vfx;
     }
 
-    public VFX CreateVFX_Range_Torch(Vector2Int position)
+    public VFX CreateVFX_Range_Torch(Vector2Int position, int color = 7)
     {
-        var vfx = Get(VFXType.Range_Torch,prefab_VFX_Range_Torch);
+        var vfx = Get(VFXType.Range_Torch, prefab_VFX_Range_Torch);
+        vfx.SetColor(GetColor(color));
         vfx.vfxObject.transform.position = MyGridManager.Instance.GetWorldPos(position);
         return vfx;
+    }
+
+    private Color GetColor(int colorIdx)
+    {
+        switch (colorIdx)
+        {
+            case 0:
+                return Color.black;
+            case 1:
+                return Color.red;
+            case 2:
+                return Color.green;
+            case 3:
+                return Color.yellow;
+            case 4:
+                return Color.blue;
+            case 5:
+                return Color.magenta;
+            case 6:
+                return Color.cyan;
+            case 7:
+                return Color.white;
+        }
+        return Color.white;
     }
 
 
