@@ -5,6 +5,7 @@ using UnityEngine;
 public class BaseBuffTower : BaseTower
 {
     protected List<Vector2Int> buffRange;
+    protected VFX rangeVFX;
     public override void Init(ITowerManager.TowerAttribute towerAttribute, Vector2Int position, int faceDirection)
     {
         buffRange = new List<Vector2Int>();
@@ -58,6 +59,7 @@ public class BaseBuffTower : BaseTower
             }
             TowerManager.Instance.RemoveColor(midRange, color);
         }
+        VFXManager.Instance.ReduceVFX(rangeVFX);
         base.DestroyTower();
     }
 }

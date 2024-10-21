@@ -150,6 +150,8 @@ public class PlayStateMachine
         }
         public void RemoveTower(Vector2Int position)
         {
+            if(position == Vector2Int.one * -1)
+                return;
             ITower tower = TowerManager.Instance.GetTower(position);
             if(tower == null)
                 return;
