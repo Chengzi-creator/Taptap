@@ -579,6 +579,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3544166084857022177}
     m_Modifications:
+    - target: {fileID: 3036360506070727571, guid: c1181b11c0b20c1439437832c5921784, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: eb74fd1ac5ddce14a84b4fbac12c43b1, type: 3}
     - target: {fileID: 3411695574847096238, guid: c1181b11c0b20c1439437832c5921784, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -662,6 +666,10 @@ PrefabInstance:
     - target: {fileID: 7281587292363939355, guid: c1181b11c0b20c1439437832c5921784, type: 3}
       propertyPath: m_Name
       value: Audio Source
+      objectReference: {fileID: 0}
+    - target: {fileID: 7281587292363939355, guid: c1181b11c0b20c1439437832c5921784, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1168,11 +1176,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4426364180935689948, guid: 49e00de03bff03c41b4cad9ee206b7c3, type: 3}
       propertyPath: m_Size
-      value: 0.666401
+      value: 0.6666666
       objectReference: {fileID: 0}
     - target: {fileID: 4426364180935689948, guid: 49e00de03bff03c41b4cad9ee206b7c3, type: 3}
       propertyPath: m_Value
-      value: -0.000006225583
+      value: -0.00000024414055
       objectReference: {fileID: 0}
     - target: {fileID: 4436510269842736007, guid: 49e00de03bff03c41b4cad9ee206b7c3, type: 3}
       propertyPath: m_Name
@@ -1264,7 +1272,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4856344818531937642, guid: 49e00de03bff03c41b4cad9ee206b7c3, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 62.500732
+      value: 62.50003
       objectReference: {fileID: 0}
     - target: {fileID: 4856344818531937642, guid: 49e00de03bff03c41b4cad9ee206b7c3, type: 3}
       propertyPath: m_AnchoredPosition.y
