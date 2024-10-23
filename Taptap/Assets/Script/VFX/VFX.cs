@@ -6,7 +6,8 @@ public enum VFXType
     Attack_FeiBiao,
     Range_Flash,
     Range_Lazor,
-    Range_Torch
+    Range_Torch,
+    Range_Single,
 }
 
 public class VFX
@@ -38,14 +39,9 @@ public class VFX
                 vfxObject.GetComponent<LineRenderer>().endColor = color;
                 break;
             case VFXType.Range_Flash:
-                mainModule = vfxObject.transform.GetChild(0).GetComponent<ParticleSystem>().main;
-                mainModule.startColor = color;
-                break;
             case VFXType.Range_Lazor:
-                mainModule = vfxObject.transform.GetChild(0).GetComponent<ParticleSystem>().main;
-                mainModule.startColor = color;
-                break;
             case VFXType.Range_Torch:
+            case VFXType.Range_Single:
                 mainModule = vfxObject.transform.GetChild(0).GetComponent<ParticleSystem>().main;
                 mainModule.startColor = color;
                 break;

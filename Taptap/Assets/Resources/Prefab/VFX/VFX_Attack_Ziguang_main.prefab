@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 7204551942772431006}
   - component: {fileID: 172629523177649851}
   - component: {fileID: 4635569177189888231}
-  - component: {fileID: 1299115165082322121}
   m_Layer: 0
   m_Name: VFX_Attack_Ziguang_main
   m_TagString: Untagged
@@ -4907,15 +4906,3 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &1299115165082322121
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3838403384684748168}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7cb24f33213564043b36cb16fa56c425, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

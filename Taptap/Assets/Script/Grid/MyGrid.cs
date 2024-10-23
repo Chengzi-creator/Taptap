@@ -98,7 +98,7 @@ public class MyGrid : MonoBehaviour, IGrid
     {
         HoldObject = gridObject;
         //HoldObject.transform.position = new Vector3(WorldPos.x, WorldPos.y, 0);
-        ShowGrid();
+        //ShowGrid();
         switch (gridObject.Type)
         {
             case GridObjectType.None:
@@ -157,7 +157,7 @@ public class MyGrid : MonoBehaviour, IGrid
     /// </summary>
     public void ShowGrid()
     {
-        if (HoldObject != null && HoldObject.Type != GridObjectType.None)
+        if (!CanPass)
         {
             Color color = HoldObject.Type switch
             {

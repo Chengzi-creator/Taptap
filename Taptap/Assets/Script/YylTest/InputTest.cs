@@ -46,5 +46,9 @@ public class InputTest : MonoBehaviour
         {
             VFXManager.Instance.CreateVFX_Range_Torch(new Vector2Int(0, 0), 7);
         }
+        if(Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            VFXManager.Instance.CreateVFX_Range_Single(new Vector2Int(0, 0), 6);
+        }
     }
 }
