@@ -82,7 +82,7 @@ public class UIManager : MonoBehaviour , IUIManager
     private Vector2Int gridPosition;
     private MyGridManager gridManager;
     private ITowerManager towerManager;
-    
+    private Button lastClickedButton = null;  // 记录上一次点击的按钮
     
 
     public static UIManager Instance
@@ -123,6 +123,9 @@ public class UIManager : MonoBehaviour , IUIManager
         rButton.onClick.AddListener(OnRButtonClick);
         gButton.onClick.AddListener(OnGButtonClick);
         bButton.onClick.AddListener(OnBButtonClick);
+        rButton.onClick.AddListener(() => OnButtonClick(rButton));
+        gButton.onClick.AddListener(() => OnButtonClick(gButton));
+        bButton.onClick.AddListener(() => OnButtonClick(bButton));
         
 
         // foreach (var pair in toggleImagePairs)
@@ -150,7 +153,19 @@ public class UIManager : MonoBehaviour , IUIManager
         _buttonDS.onClick.AddListener(ClickDS);
         _buttonDC.onClick.AddListener(ClickDC);
         _buttonDD.onClick.AddListener(ClickDD);
-        
+        _buttonRF.onClick.AddListener(() => OnButtonClick(_buttonRF));
+        _buttonRT.onClick.AddListener(() => OnButtonClick(_buttonRT));
+        _buttonRL.onClick.AddListener(() => OnButtonClick(_buttonRL));
+        _buttonGF.onClick.AddListener(() => OnButtonClick(_buttonGF));
+        _buttonGT.onClick.AddListener(() => OnButtonClick(_buttonGT));
+        _buttonGL.onClick.AddListener(() => OnButtonClick(_buttonGL));
+        _buttonBF.onClick.AddListener(() => OnButtonClick(_buttonBF));
+        _buttonBT.onClick.AddListener(() => OnButtonClick(_buttonBT));
+        _buttonBL.onClick.AddListener(() => OnButtonClick(_buttonBL));
+        _buttonDH.onClick.AddListener(() => OnButtonClick(_buttonDH));
+        _buttonDS.onClick.AddListener(() => OnButtonClick(_buttonDS));
+        _buttonDC.onClick.AddListener(() => OnButtonClick(_buttonDC));
+        _buttonDD.onClick.AddListener(() => OnButtonClick(_buttonDD));
     }
 
     private void Update()
@@ -175,8 +190,6 @@ public class UIManager : MonoBehaviour , IUIManager
             PlayStateMachine.Instance.StartSpawnState();
         }
         
-        
-       
         
         DetectBuildModeInput();
         DetectDestroyModeInput();
@@ -283,13 +296,14 @@ public class UIManager : MonoBehaviour , IUIManager
                 BuildSelectedTower();
                 //DestroyImage(image);
             }
-            if (Input.GetMouseButtonDown(1))  //右键退出建造模式
+
+            if (Input.GetMouseButtonDown(1)) //右键退出建造模式
             {
                 ClickOut();
                 MyGridManager.Instance.CancelShowBuildModeGrid();
                 showCount = 0;
+                faceDirection = 0;
             }
-            
         }
     }
     
@@ -307,6 +321,7 @@ public class UIManager : MonoBehaviour , IUIManager
             if (Input.GetMouseButtonDown(1))  //右键退出建造模式
             {
                 _selectDestroy = false;
+               
             }
         }
     }
@@ -316,10 +331,12 @@ public class UIManager : MonoBehaviour , IUIManager
         if (Input.GetKeyDown(KeyCode.Q))
         {
             faceDirection = (faceDirection + 1) % 4;
+            Debug.Log(faceDirection);
         }
         else if (Input.GetKeyDown(KeyCode.E))
         {
             faceDirection = (faceDirection + 3) % 4;
+            Debug.Log(faceDirection);
         }
     }
 
@@ -357,11 +374,11 @@ public class UIManager : MonoBehaviour , IUIManager
     {   
         PlayStateMachine.Instance.BuildTower(type, gridPosition, faceDirection);
         showCount = 0;
+        faceDirection = 0;
     }
     
     public void TowerDestroy()
     {
-        //实现具体的销毁逻辑,尚待开发
         PlayStateMachine.Instance.RemoveTower(gridPosition);
     }
     
@@ -454,18 +471,25 @@ public class UIManager : MonoBehaviour , IUIManager
         _selectDestroy = true;
     }
     
-    #endregion
+    void OnButtonClick(Button clickedButton)
+    {
+        if (lastClickedButton == null)
+        {
+            
+        }
+        else if (lastClickedButton != clickedButton)
+        {
+            faceDirection = 0;
+        }
+        else
+        {
+            
+        }
+        
+        //更新上一次点击的按钮
+        lastClickedButton = clickedButton;
+    }
     
-    public void coinChange(int coinCount)
-    {
-        _coinText.text = "Coin : " + coinCount.ToString();
-    }
-
-    public void RoundChange(int level,int round)
-    {
-        _roundText.text = "Level" + level + "      " + "Round" + round;
-    }
-
     public void OnRButtonClick()
     {
         buildButtons.SetActive(false);
@@ -486,6 +510,18 @@ public class UIManager : MonoBehaviour , IUIManager
         buildBack.SetActive(true);
         bImages.SetActive(true);
     }
+    #endregion
+    
+    public void coinChange(int coinCount)
+    {
+        _coinText.text = "Coin : " + coinCount.ToString();
+    }
+
+    public void RoundChange(int level,int round)
+    {
+        _roundText.text = "Level" + level + "      " + "Round" + round;
+    }
+
     
     public void BuildBack()
     {   
