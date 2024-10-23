@@ -28,6 +28,7 @@ public class VFXManager
     GameObject prefab_VFX_Range_Flash;
     GameObject prefab_VFX_Range_Lazor;
     GameObject prefab_VFX_Range_Torch;
+    GameObject prefab_VFX_Range_Single;
     private static void Init()
     {
         // instance.vfxList = new LinkedList<IVFX>();
@@ -36,6 +37,7 @@ public class VFXManager
         instance.prefab_VFX_Range_Torch = Resources.Load<GameObject>("Prefab/VFX/VFX_Range_Torch");
         instance.prefab_VFX_Range_Flash = Resources.Load<GameObject>("Prefab/VFX/VFX_Range_Flash");
         instance.prefab_VFX_Range_Lazor = Resources.Load<GameObject>("Prefab/VFX/VFX_Range_Lazor");
+        instance.prefab_VFX_Range_Single = Resources.Load<GameObject>("Prefab/VFX/VFX_Range_Single");
     }
 
     private VFX Get(VFXType vFXType, GameObject prefab)
@@ -107,6 +109,14 @@ public class VFXManager
     public VFX CreateVFX_Range_Torch(Vector2Int position, int color = 7)
     {
         var vfx = Get(VFXType.Range_Torch, prefab_VFX_Range_Torch);
+        vfx.SetColor(GetColor(color));
+        vfx.vfxObject.transform.position = MyGridManager.Instance.GetWorldPos(position);
+        return vfx;
+    }
+
+    public VFX CreateVFX_Range_Single(Vector2Int position, int color = 7)
+    {
+        var vfx = Get(VFXType.Range_Single, prefab_VFX_Range_Single);
         vfx.SetColor(GetColor(color));
         vfx.vfxObject.transform.position = MyGridManager.Instance.GetWorldPos(position);
         return vfx;
