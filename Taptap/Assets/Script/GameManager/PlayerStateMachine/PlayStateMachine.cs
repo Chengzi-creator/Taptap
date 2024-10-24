@@ -38,14 +38,16 @@ public class PlayStateMachine
     public enum PlayStateType
     {
         Build,
-        Spawn
+        Spawn,
+        Empty
     }
 
     private void Init()
     {
-        playStateList = new IPlayState[2];
+        playStateList = new IPlayState[3];
         playStateList[(int)PlayStateType.Build] = new BuildState();
         playStateList[(int)PlayStateType.Spawn] = new SpawnState();
+        playStateList[(int)PlayStateType.Empty] = new EmptyState();
         levelDataSO = Resources.Load<LevelDataSO>("SO/LevelData");
         if(levelDataSO == null)
         {
@@ -62,7 +64,6 @@ public class PlayStateMachine
         EnemyManager.Instance.ReInit();
         TowerManager.Instance.ReInit();
         MyGridManager.Instance.LoadLevel(levelIndex);
-        // MyGridManager.Instance.LoadLevelMap(levelIndex);
     }
 
     public void UpdateState(float deltaTime)
@@ -121,6 +122,11 @@ public class PlayStateMachine
         {
             (currentState as BuildState).RemoveTower(position);
         }
+    }
+
+    public void ExitPlayState()
+    {
+        ChangeState(PlayStateType.Empty);
     }
 
 
@@ -210,5 +216,15 @@ public class PlayStateMachine
         }
     }
 
+
+    private class EmptyState : IPlayState
+    {
+        public void EnterState()
+        {}
+        public void UpdateState(float deltaTime)
+        {}
+        public void ExitState()
+        {}
+    }
 
 }

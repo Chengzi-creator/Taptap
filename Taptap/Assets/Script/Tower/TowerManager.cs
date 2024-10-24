@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections;
 using UnityEngine;
 
 public class TowerManager : ITowerManager
@@ -14,6 +15,7 @@ public class TowerManager : ITowerManager
             instance = new TowerManager();
 
             instance.colorMap = new int[50,50,5];
+            instance.VFXMap = new VFX[50,50];
             instance.prefabTowerList = new Dictionary<ITowerManager.TowerType, GameObject>();
             instance.towerList = new HashSet<BaseTower>();
             instance.towerMap = new ITower[25,25];
@@ -68,6 +70,7 @@ public class TowerManager : ITowerManager
     private HashSet<BaseTower> towerList;
     private ITower[,] towerMap;
     private int[,,] colorMap;
+    private VFX[,] VFXMap;
     public void ReInit()
     {
         foreach(BaseTower tower in towerList)
@@ -154,7 +157,12 @@ public class TowerManager : ITowerManager
             }
         }
         MyGridManager.Instance.ColorChanged(position);
-        VFXManager.Instance.CreateVFX_Range_S
+        if(VFXMap[position.x , position.y] != null)
+        {
+            VFXManager.Instance.ReduceVFX(VFXMap[position.x , position.y]);
+            VFXMap[position.x , position.y] = null;
+        }
+        VFXMap[position.x , position.y] = VFXManager.Instance.CreateVFX_Range_Single(position , GetColor(position));
     }
     public void RemoveColor(Vector2Int position , int color)
     {
@@ -169,6 +177,12 @@ public class TowerManager : ITowerManager
         {
             PlayStateMachine.Instance.RemoveTower(position);
         }
+        if(VFXMap[position.x , position.y] != null)
+        {
+            VFXManager.Instance.ReduceVFX(VFXMap[position.x , position.y]);
+            VFXMap[position.x , position.y] = null;
+        }
+        VFXMap[position.x , position.y] = VFXManager.Instance.CreateVFX_Range_Single(position , GetColor(position));
     }
     public ITowerManager.TowerAttribute GetTowerAttribute(ITowerManager.TowerType type)
     {
