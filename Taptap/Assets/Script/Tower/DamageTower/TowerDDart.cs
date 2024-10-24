@@ -32,7 +32,7 @@ public class TowerDDart : BaseDamageTower
                 lockedEnemy.AddLast(attackRange[i].GetKthEnemy(0));
                 lockedTime.AddLast(bulletTime);
                 cnt ++;            
-                VFXManager.Instance.CreateVFX_Attack_FeiBiao(position , lockedEnemy.First.Value.Position);
+                VFXManager.Instance.CreateVFX_Attack_FeiBiao(position , lockedEnemy.First.Value.Position , TowerManager.Instance.GetColor(position));
                 if(cnt >= 2)
                     break;
             }

@@ -28,7 +28,7 @@ public class TowerSpike : BaseDamageTower
             if(attackRange[i].EnemysCount() > 0)
             {
                 lockedTime.AddLast(bulletTime);
-                VFXManager.Instance.CreateVFX_Attack_Tuci(position , faceDirection);
+                VFXManager.Instance.CreateVFX_Attack_Tuci(position , faceDirection , TowerManager.Instance.GetColor(position));
                 break;
             }
         }

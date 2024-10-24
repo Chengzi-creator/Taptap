@@ -4,6 +4,19 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    static GameManager instance;
+
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -17,4 +30,13 @@ public class GameManager : MonoBehaviour
     {
         PlayStateMachine.Instance.UpdateState(Time.deltaTime);
     }
+
+    public void EnterMainMenu()
+    {
+        PlayStateMachine.Instance.ExitPlayState();
+    }
+    // public void EnterGame()
+    // {
+    // }
+
 }
