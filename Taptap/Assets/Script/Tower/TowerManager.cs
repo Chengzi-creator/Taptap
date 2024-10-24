@@ -154,6 +154,7 @@ public class TowerManager : ITowerManager
             }
         }
         MyGridManager.Instance.ColorChanged(position);
+        VFXManager.Instance.CreateVFX_Range_S
     }
     public void RemoveColor(Vector2Int position , int color)
     {
