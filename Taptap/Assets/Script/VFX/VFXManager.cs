@@ -116,6 +116,10 @@ public class VFXManager
 
     public VFX CreateVFX_Range_Single(Vector2Int position, int color = 7)
     {
+        if (color == 0)
+        {
+            return null;
+        }
         var vfx = Get(VFXType.Range_Single, prefab_VFX_Range_Single);
         vfx.SetColor(GetColor(color));
         vfx.vfxObject.transform.position = MyGridManager.Instance.GetWorldPos(position);
