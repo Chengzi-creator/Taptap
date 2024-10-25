@@ -213,6 +213,7 @@ public class UIManager : MonoBehaviour , IUIManager
         {   
             //进入出怪阶段
             PlayStateMachine.Instance.StartSpawnState();
+            AudioControl.Instance.SwitchMusic();
         }
         
         
