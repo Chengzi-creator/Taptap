@@ -82,6 +82,7 @@ public class UIManager : MonoBehaviour , IUIManager
     // private bool _selectDH;
     // private bool _selectDS;
     private bool _selectDestroy;
+    private bool enterGame = true;
     //private bool[] _select;
     private float _value;
     private int faceDirection = 0;
@@ -190,10 +191,11 @@ public class UIManager : MonoBehaviour , IUIManager
 
     private void Update()
     {   
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            OnstartButtonClick();
-        }
+        // if (Input.GetKeyDown(KeyCode.Space))
+        // {
+        //     OnstartButtonClick();
+        //     enterGame = true;
+        // }
         
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -212,8 +214,11 @@ public class UIManager : MonoBehaviour , IUIManager
         if (Input.GetKeyDown(KeyCode.Space))
         {   
             //进入出怪阶段
-            PlayStateMachine.Instance.StartSpawnState();
-            AudioControl.Instance.SwitchMusic();
+            if (enterGame)
+            {
+                PlayStateMachine.Instance.StartSpawnState();
+                AudioControl.Instance.SwitchMusic();
+            }
         }
         
         
