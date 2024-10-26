@@ -342,9 +342,9 @@ MonoBehaviour:
   gImages: {fileID: 4355330785159294824}
   bImages: {fileID: 2129818582281628434}
   buildBack: {fileID: 7795735494322280970}
-  StartMasks: {fileID: 5569003271469104116}
   ChooseLevel: {fileID: 6078572708971043000}
   GameStartMasks: {fileID: 2693905818104373775}
+  SpawnButtons: {fileID: 5370085438236620670}
   exitButton: {fileID: 1879301745483185435}
   restartButton: {fileID: 6610848986767749623}
   homeButton: {fileID: 3893710224485742141}
@@ -627,7 +627,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3092252933103556871
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2916,11 +2916,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &5569003271469104116 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 773247604009114233, guid: 777449dd87a9106479a568681b8d7800, type: 3}
-  m_PrefabInstance: {fileID: 5184261515070792077}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6078572708971043000 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1416768892916709685, guid: 777449dd87a9106479a568681b8d7800, type: 3}

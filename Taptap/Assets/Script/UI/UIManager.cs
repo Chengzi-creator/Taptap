@@ -28,9 +28,9 @@ public class UIManager : MonoBehaviour , IUIManager
     [SerializeField] private GameObject gImages;
     [SerializeField] private GameObject bImages;
     [SerializeField] private GameObject buildBack;
-    //[SerializeField] private GameObject StartMasks;
     [SerializeField] private GameObject ChooseLevel;
     [SerializeField] private GameObject GameStartMasks;
+    [SerializeField] private GameObject SpawnButtons;
     
     [Header("PauseButton")]
     [SerializeField] private Button exitButton;
@@ -111,7 +111,7 @@ public class UIManager : MonoBehaviour , IUIManager
         Time.timeScale = 0f;
         GameStartMasks.SetActive(true);
         ChooseLevel.SetActive(false);
-    
+        SpawnButtons.SetActive(false);
         pauseMasks.SetActive(false);
         setupMasks.SetActive(false);
         buildMasks.SetActive(false);//
@@ -235,6 +235,7 @@ public class UIManager : MonoBehaviour , IUIManager
         GameStartMasks.SetActive(false);
         buildMasks.SetActive(true);
         buildButtons.SetActive(true);
+        SpawnButtons.SetActive(true);
     }
     #endregion
     
