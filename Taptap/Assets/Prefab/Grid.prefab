@@ -99,8 +99,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprites:
-  - {fileID: 818959485, guid: bc86792a8a7fa504c9431bf14289520b, type: 3}
-  - {fileID: -2067694617, guid: bc86792a8a7fa504c9431bf14289520b, type: 3}
+  - {fileID: -1536226182, guid: da90ec76c5149af429e342e86274e48e, type: 3}
+  - {fileID: -1271353322, guid: da90ec76c5149af429e342e86274e48e, type: 3}
   - {fileID: 21300000, guid: d3be30b7d1414ee4a84036f5d3e518af, type: 3}
   - {fileID: 21300000, guid: 2117c39a9199105468ff7b5b2bce297f, type: 3}
   - {fileID: 238204518, guid: 17766a7e50bb21847b87f432d89a3c4c, type: 3}
