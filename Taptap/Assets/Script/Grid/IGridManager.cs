@@ -152,6 +152,6 @@ public interface IGridManager:IPathManager
     /// 终点颜色改变
     /// </summary>
     /// <param name="hp"></param>
-    public void HPChanged(int hp);
+    public void ChangeHomeHP(int hp);
 }
 

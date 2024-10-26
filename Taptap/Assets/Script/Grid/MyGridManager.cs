@@ -525,7 +525,7 @@ public class MyGridManager : MonoBehaviour, IGraphicManager, IGridManager
         }
     }
 
-    public void HPChanged(int hp)
+    public void ChangeHomeHP(int hp)
     {
         Debug.Log("HP:" + hp);
         endGrid?.HPChange(hp);

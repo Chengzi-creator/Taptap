@@ -12,7 +12,7 @@ public class InputTest : MonoBehaviour
         set
         {
             hp = value;
-            MyGridManager.Instance.HPChanged(hp);
+            MyGridManager.Instance.ChangeHomeHP(hp);
         }
     }
     private void Start()
