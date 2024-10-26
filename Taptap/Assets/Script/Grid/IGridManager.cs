@@ -94,7 +94,7 @@ public interface IGridManager:IPathManager
     /// </summary>
     /// <param name="mapPos"></param>
     /// <param name="tower"></param>
-    public void DestoryTower(Vector2Int mapPos);
+    public void DestroyTower(Vector2Int mapPos);
 
     /// <summary>
     /// mapPos的世界坐标，此处mapPos可为浮点数，计算得到对应的浮点WorldPos

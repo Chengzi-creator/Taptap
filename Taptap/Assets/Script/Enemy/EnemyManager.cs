@@ -38,6 +38,16 @@ public class EnemyManager : IEnemyManager
         }
         RefreshEnemyInGrid();
     }
+    public void Close()
+    {
+        for(int i = enemyList.Count - 1 ; i >= 0 ; i--)
+        {
+            enemyPool[(int)enemyList[i].Type].Push(enemyList[i]);
+            enemyList[i].Die();
+            enemyList.RemoveAt(i);
+        }
+        RefreshEnemyInGrid();
+    }
     private bool LoadData()
     {
         enemyConfig = Resources.Load<EnemyConfig>("SO/EnemyConfig");

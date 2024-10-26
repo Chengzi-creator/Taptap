@@ -25,9 +25,33 @@ public class PlayStateMachine
         get => money;
         set
         {
-            // UIManager.Instance.SetMoney(value);
             UIManager.Instance.coinChange(value);
             money = value;
+        }
+    }
+    private int lastWaveHP;
+    private int lastWaveMoney;
+    private int hp;
+    public int HP
+    {
+        get => hp;
+        set
+        {
+            hp = value;
+            if(hp <= 0)
+            {
+                Debug.Log("Game Over");
+
+
+                // hp = lastWaveHP;
+                // Money = lastWaveMoney;
+                UIManager.Instance.GameOver();
+
+            }
+            else
+            {
+                ChangeHomeHP(hp);
+            }
         }
     }
     IPlayState currentState;
@@ -53,6 +77,7 @@ public class PlayStateMachine
         {
             Debug.LogWarning("LevelData not found");
         }
+        ChangeState(PlayStateType.Empty);
     }
 
     public void ReInit(int levelIndex)
@@ -60,10 +85,18 @@ public class PlayStateMachine
         this.levelIndex = levelIndex;
         waveIndex = 0;
         Money = levelDataSO.GetBeginMoney(levelIndex);
+        HP = 100;
         ChangeState(PlayStateType.Build);
         EnemyManager.Instance.ReInit();
         TowerManager.Instance.ReInit();
         MyGridManager.Instance.LoadLevel(levelIndex);
+    }
+
+    public void Close()
+    {
+        EnemyManager.Instance.Close();
+        TowerManager.Instance.Close();
+        MyGridManager.Instance.Close();
     }
 
     public void UpdateState(float deltaTime)
@@ -74,6 +107,18 @@ public class PlayStateMachine
         ColorBlockManager.Instance.OnUpdate(deltaTime);
     }
 
+    public void RestartWave()
+    {
+        hp = lastWaveHP;
+        Money = lastWaveMoney;
+        ChangeState(PlayStateType.Build);
+
+    }
+
+    private void ChangeHomeHP(int hp)
+    {
+        TowerManager.Instance.ChangeHomeHP(hp);
+    }
     private void ChangeState(PlayStateType stateType)
     {
         currentState?.ExitState();
@@ -95,10 +140,6 @@ public class PlayStateMachine
     {
         if(currentState is BuildState)
         {
-//            if (cnt > 0)
-//                return;
-//            cnt++;
-//            return;
             Debug.Log("CalculatePath Begin");
             MyGridManager.Instance.CalculatePath(true);
             Debug.Log("Spawn State Start");
@@ -136,7 +177,10 @@ public class PlayStateMachine
     private class BuildState : IPlayState
     {
         public void EnterState()
-        {}
+        {
+            PlayStateMachine.Instance.lastWaveHP = PlayStateMachine.Instance.HP;
+            PlayStateMachine.Instance.lastWaveMoney = PlayStateMachine.Instance.Money;
+        }
         public void UpdateState(float deltaTime)
         {}
         public void ExitState()
@@ -200,8 +244,10 @@ public class PlayStateMachine
 
         public void EnemyDie(IEnemy enemy)
         {
-            PlayStateMachine.Instance.Money += enemy.Money;
-//            Debug.Log("Enemy Die all enemy " + EnemyManager.Instance.AllEnemysCount() + " enemyIndex " + enemyIndex);
+            if(enemy.IsArrived == false)
+            {
+                PlayStateMachine.Instance.Money += enemy.Money;
+            }
             if(EnemyManager.Instance.AllEnemysCount() == 0 && enemyIndex == enemyList.Count)
             {
                 if(PlayStateMachine.Instance.waveIndex == PlayStateMachine.Instance.levelDataSO.GetMaxWave(PlayStateMachine.Instance.levelIndex) - 1)
@@ -212,7 +258,6 @@ public class PlayStateMachine
                 }
                 PlayStateMachine.Instance.waveIndex++;
                 PlayStateMachine.Instance.ChangeState(PlayStateType.Build);
-                // UIManager.Instance.RoundChange(PlayStateMachine.Instance.waveIndex , PlayStateMachine.Instance.levelIndex);
             }
         }
     }
