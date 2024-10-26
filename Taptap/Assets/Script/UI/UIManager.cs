@@ -11,7 +11,6 @@ public class UIManager : MonoBehaviour , IUIManager
 {
     private static UIManager instance;
     
-  
     
     [Header("Text")]
     [SerializeField] private TextMeshProUGUI _coinText;
@@ -29,7 +28,7 @@ public class UIManager : MonoBehaviour , IUIManager
     [SerializeField] private GameObject gImages;
     [SerializeField] private GameObject bImages;
     [SerializeField] private GameObject buildBack;
-    [SerializeField] private GameObject StartMasks;
+    //[SerializeField] private GameObject StartMasks;
     [SerializeField] private GameObject ChooseLevel;
     [SerializeField] private GameObject GameStartMasks;
     
@@ -110,7 +109,7 @@ public class UIManager : MonoBehaviour , IUIManager
     private void InitializeUI()
     {   
         Time.timeScale = 0f;
-        StartMasks.SetActive(true);
+        GameStartMasks.SetActive(true);
         ChooseLevel.SetActive(false);
     
         pauseMasks.SetActive(false);
@@ -611,7 +610,7 @@ public class UIManager : MonoBehaviour , IUIManager
 
     public void ShowEnemyCountAndType(int count,  params IEnemyManager.EnemyType[] types)
     {   
-        string typesText = string.Join(", ", types);  //拼接方式
+        string typesText = string.Join(", ", types); //先这样拼接吧
         
         enemyInformation.text = "EnemyCount:" + count + "\n" +
                                 "EnemyType:" + typesText;

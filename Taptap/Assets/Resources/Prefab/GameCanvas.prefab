@@ -344,7 +344,7 @@ MonoBehaviour:
   buildBack: {fileID: 7795735494322280970}
   StartMasks: {fileID: 5569003271469104116}
   ChooseLevel: {fileID: 6078572708971043000}
-  GameStartMasks: {fileID: 9064637674635847946}
+  GameStartMasks: {fileID: 2693905818104373775}
   exitButton: {fileID: 1879301745483185435}
   restartButton: {fileID: 6610848986767749623}
   homeButton: {fileID: 3893710224485742141}
@@ -2900,6 +2900,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &2693905818104373775 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7102351920026469250, guid: 777449dd87a9106479a568681b8d7800, type: 3}
+  m_PrefabInstance: {fileID: 5184261515070792077}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &5453432093893422481 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 890668163996224540, guid: 777449dd87a9106479a568681b8d7800, type: 3}
