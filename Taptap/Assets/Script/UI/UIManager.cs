@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine.EventSystems;
 
 public class UIManager : MonoBehaviour , IUIManager
@@ -75,9 +76,9 @@ public class UIManager : MonoBehaviour , IUIManager
     //[SerializeField] private Button[] buildButtons;  //存储所有建造按钮
     
     private ITowerManager.TowerType _selectedTowerType = ITowerManager.TowerType.NULL;
-
-    public bool isPaused = false;
-    private bool isSpawning = false;
+    
+    public bool isSpawning = false;
+    private bool isPaused = false;
     private bool _selectDestroy;
     private bool enterGame = true;
     //private bool[] _select;
@@ -216,9 +217,11 @@ public class UIManager : MonoBehaviour , IUIManager
             //进入出怪阶段
             SpawnEnemy();
         }
-        
-        
-        DetectBuildModeInput();
+
+        if (!isSpawning)
+        {
+            DetectBuildModeInput();
+        }
         DetectDestroyModeInput();
     }
 
@@ -327,8 +330,12 @@ public class UIManager : MonoBehaviour , IUIManager
 
      public void DetectBuildModeInput()
     {
-        if (HasClick())
-        {   
+        if (HasClick() )
+        {
+            if (_selectDestroy == true)
+            {
+                _selectDestroy = false;
+            }
             ShowModeGrid();
             RotateTower();
             UpdateMousePosition();
@@ -352,6 +359,7 @@ public class UIManager : MonoBehaviour , IUIManager
                 MyGridManager.Instance.CancelShowBuildModeGrid();
                 showCount = 0;
                 faceDirection = 0;
+                _selectDestroy = false;
             }
         }
     }
@@ -366,7 +374,14 @@ public class UIManager : MonoBehaviour , IUIManager
             {   
                 //获取当前鼠标所指地图上的塔，然后传入TowerDestroy？
                 TowerDestroy();
+            }
+
+            if (Input.GetMouseButtonDown(1))
+            {
                 _selectDestroy = false;
+                ClickOut();
+                showCount = 0;
+                faceDirection = 0;
             }
         }
     }
@@ -397,17 +412,6 @@ public class UIManager : MonoBehaviour , IUIManager
         {
             MyGridManager.Instance.ShowBuildModeGrid();
         }
-    }
-
-    private void ShowImage()
-    {
-        image = Instantiate(towerX);
-        image.transform.position = worldPosition;
-    }
-
-    private void DestroyImage(Image image)
-    {
-        Destroy(image.gameObject);
     }
     
     private void BuildSelectedTower()
@@ -632,11 +636,12 @@ public class UIManager : MonoBehaviour , IUIManager
 
     public void SpawnEnemy()
     {
-        if (enterGame)
+        if (enterGame && !isSpawning)
         {
             PlayStateMachine.Instance.StartSpawnState();
             Debug.Log("Switch");
             AudioControl.Instance.SwitchMusic();
+            isSpawning = true;
         }
     }
     #endregion
