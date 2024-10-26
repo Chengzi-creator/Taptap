@@ -11,7 +11,6 @@ public class UIManager : MonoBehaviour , IUIManager
 {
     private static UIManager instance;
     
-  
     
     [Header("Text")]
     [SerializeField] private TextMeshProUGUI _coinText;
@@ -29,9 +28,9 @@ public class UIManager : MonoBehaviour , IUIManager
     [SerializeField] private GameObject gImages;
     [SerializeField] private GameObject bImages;
     [SerializeField] private GameObject buildBack;
-    [SerializeField] private GameObject StartMasks;
     [SerializeField] private GameObject ChooseLevel;
     [SerializeField] private GameObject GameStartMasks;
+    [SerializeField] private GameObject SpawnButtons;
     
     [Header("PauseButton")]
     [SerializeField] private Button exitButton;
@@ -77,7 +76,8 @@ public class UIManager : MonoBehaviour , IUIManager
     
     private ITowerManager.TowerType _selectedTowerType = ITowerManager.TowerType.NULL;
 
-    private bool isPaused = false;
+    public bool isPaused = false;
+    private bool isSpawning = false;
     private bool _selectDestroy;
     private bool enterGame = true;
     //private bool[] _select;
@@ -110,9 +110,9 @@ public class UIManager : MonoBehaviour , IUIManager
     private void InitializeUI()
     {   
         Time.timeScale = 0f;
-        StartMasks.SetActive(true);
+        GameStartMasks.SetActive(true);
         ChooseLevel.SetActive(false);
-    
+        SpawnButtons.SetActive(false);
         pauseMasks.SetActive(false);
         setupMasks.SetActive(false);
         buildMasks.SetActive(false);//
@@ -130,6 +130,7 @@ public class UIManager : MonoBehaviour , IUIManager
         overhomeButton.onClick.AddListener(OnHomeButtonClick);
         restartButton.onClick.AddListener(OnRestartButtonClick);
         homeButton.onClick.AddListener(OnHomeButtonClick);
+        homeexitButton.onClick.AddListener(OnexitButtonClick);
         destroyButton.onClick.AddListener(OndestroyButtonClick);
         buildBackButton.onClick.AddListener(BuildBack);
         rButton.onClick.AddListener(OnRButtonClick);
@@ -226,6 +227,7 @@ public class UIManager : MonoBehaviour , IUIManager
     {   
         //Time.timeScale = 1f;
         ChooseLevel.SetActive(true);
+        Time.timeScale = 1f;
     }
     
     public void levelChoose(int index)
@@ -236,6 +238,7 @@ public class UIManager : MonoBehaviour , IUIManager
         GameStartMasks.SetActive(false);
         buildMasks.SetActive(true);
         buildButtons.SetActive(true);
+        SpawnButtons.SetActive(true);
     }
     #endregion
     
@@ -363,11 +366,7 @@ public class UIManager : MonoBehaviour , IUIManager
             {   
                 //获取当前鼠标所指地图上的塔，然后传入TowerDestroy？
                 TowerDestroy();
-            }
-            if (Input.GetMouseButtonDown(1))  //右键退出建造模式
-            {
                 _selectDestroy = false;
-               
             }
         }
     }
@@ -527,8 +526,11 @@ public class UIManager : MonoBehaviour , IUIManager
     
     private void OndestroyButtonClick()
     {
-        ClickOut();
         _selectDestroy = true;
+        ClickOut();
+        MyGridManager.Instance.CancelShowBuildModeGrid();
+        showCount = 0;
+        faceDirection = 0;
     }
     
     void OnButtonClick(Button clickedButton)
@@ -609,19 +611,31 @@ public class UIManager : MonoBehaviour , IUIManager
         
     }
 
-    public void ShowEnemyCountAndType(int count,  params IEnemyManager.EnemyType[] types)
-    {   
-        string typesText = string.Join(", ", types);  //拼接方式
-        
-        enemyInformation.text = "EnemyCount:" + count + "\n" +
-                                "EnemyType:" + typesText;
+    public void ShowEnemyCountAndTypes(params (IEnemyManager.EnemyType type, int count)[] enemyData)
+    {
+        if (enemyData.Length == 0)
+        {
+            enemyInformation.text = "None.";
+            return;
+        }
+
+        string infoText = "Enemy:\n";
+
+        foreach (var entry in enemyData)
+        {
+            infoText += $"{entry.type}: {entry.count}\n";
+        }
+
+        enemyInformation.text = infoText;
     }
+
 
     public void SpawnEnemy()
     {
         if (enterGame)
         {
             PlayStateMachine.Instance.StartSpawnState();
+            Debug.Log("Switch");
             AudioControl.Instance.SwitchMusic();
         }
     }
