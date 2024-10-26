@@ -39,9 +39,14 @@ public class MyGridManager : MonoBehaviour, IGraphicManager, IGridManager
 
     public PathManager PathManager;
 
+    /// <summary>
+    /// 终点格子
+    /// </summary>
+    private MyGrid endGrid = null;
+
     public void Init()
     {
-
+        
     }
 
     #region 坐标转换
@@ -251,6 +256,11 @@ public class MyGridManager : MonoBehaviour, IGraphicManager, IGridManager
                 myGrid.Init(new Vector2Int(i, j), new Vector2(WorldPos.x, WorldPos.y),
                     GetGridType(mapState.Map[i, j][0].type));
                 myGrids[i, j] = myGrid;
+                if(myGrid.HoldObject.Type == GridObjectType.End)
+                {
+                    ColorBlockManager.Instance.SetTarget(WorldPos);
+                    endGrid = myGrid;
+                }
             }
         }
         myGraphic = new UndirectedGraph(this);
@@ -348,43 +358,43 @@ public class MyGridManager : MonoBehaviour, IGraphicManager, IGridManager
         return hasPath;
     }
 
-    public async void SetGridHoldObject(MyGrid grid, GridObject gridObject)
-    {
-        bool hasPath = true;
-        if (gridObject.Type == GridObjectType.Start || gridObject.Type == GridObjectType.End)
-        {
-            myGraphic.AddPoint(grid.MapPos, GetLinkPoints(grid.MapPos),
-                gridObject.Type == GridObjectType.Start, gridObject.Type == GridObjectType.End);
-            grid.SetHoldObject(gridObject);
-            return;
-        }
+    //public async void SetGridHoldObject(MyGrid grid, GridObject gridObject)
+    //{
+    //    bool hasPath = true;
+    //    if (gridObject.Type == GridObjectType.Start || gridObject.Type == GridObjectType.End)
+    //    {
+    //        myGraphic.AddPoint(grid.MapPos, GetLinkPoints(grid.MapPos),
+    //            gridObject.Type == GridObjectType.Start, gridObject.Type == GridObjectType.End);
+    //        grid.SetHoldObject(gridObject);
+    //        return;
+    //    }
 
-        if (gridObject.Type == GridObjectType.Obstacle || gridObject.Type == GridObjectType.Building)
-        {
-            myGraphic.RemovePoint(grid.MapPos);
-        }
+    //    if (gridObject.Type == GridObjectType.Obstacle || gridObject.Type == GridObjectType.Building)
+    //    {
+    //        myGraphic.RemovePoint(grid.MapPos);
+    //    }
 
-        Stopwatch sw = new Stopwatch();
-        sw.Start();
-        await Task.Run(() =>
-        {
-            hasPath = myGraphic.HasPath();
-            if (!hasPath)
-            {
-                Debug.LogError("cant put obj");
-            }
-        });
-        sw.Stop();
-        Debug.Log("calculate time:" + sw.ElapsedMilliseconds + "ms");
-        if (!hasPath)
-        {
-            myGraphic.AddPoint(grid.MapPos, GetLinkPoints(grid.MapPos));
-        }
-        else
-        {
-            grid.SetHoldObject(gridObject);
-        }
-    }
+    //    Stopwatch sw = new Stopwatch();
+    //    sw.Start();
+    //    await Task.Run(() =>
+    //    {
+    //        hasPath = myGraphic.HasPath();
+    //        if (!hasPath)
+    //        {
+    //            Debug.LogError("cant put obj");
+    //        }
+    //    });
+    //    sw.Stop();
+    //    Debug.Log("calculate time:" + sw.ElapsedMilliseconds + "ms");
+    //    if (!hasPath)
+    //    {
+    //        myGraphic.AddPoint(grid.MapPos, GetLinkPoints(grid.MapPos));
+    //    }
+    //    else
+    //    {
+    //        grid.SetHoldObject(gridObject);
+    //    }
+    //}
 
     internal void LogCost(Vector2Int mapPos)
     {
@@ -515,6 +525,10 @@ public class MyGridManager : MonoBehaviour, IGraphicManager, IGridManager
         }
     }
 
-
+    public void HPChanged(int hp)
+    {
+        Debug.Log("HP:" + hp);
+        endGrid?.HPChange(hp);
+    }
 }
 

@@ -148,5 +148,10 @@ public interface IGridManager:IPathManager
     /// </summary>
     public void UnloadLevel();
 
+    /// <summary>
+    /// 终点颜色改变
+    /// </summary>
+    /// <param name="hp"></param>
+    public void HPChanged(int hp);
 }
 

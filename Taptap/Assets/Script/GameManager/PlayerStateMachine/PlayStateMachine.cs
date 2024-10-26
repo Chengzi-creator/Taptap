@@ -71,6 +71,7 @@ public class PlayStateMachine
         currentState.UpdateState(deltaTime);
         EnemyManager.Instance.Update(deltaTime);
         TowerManager.Instance.Update(deltaTime);
+        ColorBlockManager.Instance.OnUpdate(deltaTime);
     }
 
     private void ChangeState(PlayStateType stateType)
