@@ -76,7 +76,8 @@ public class UIManager : MonoBehaviour , IUIManager
     
     private ITowerManager.TowerType _selectedTowerType = ITowerManager.TowerType.NULL;
 
-    private bool isPaused = false;
+    public bool isPaused = false;
+    private bool isSpawning = false;
     private bool _selectDestroy;
     private bool enterGame = true;
     //private bool[] _select;
@@ -129,6 +130,7 @@ public class UIManager : MonoBehaviour , IUIManager
         overhomeButton.onClick.AddListener(OnHomeButtonClick);
         restartButton.onClick.AddListener(OnRestartButtonClick);
         homeButton.onClick.AddListener(OnHomeButtonClick);
+        homeexitButton.onClick.AddListener(OnexitButtonClick);
         destroyButton.onClick.AddListener(OndestroyButtonClick);
         buildBackButton.onClick.AddListener(BuildBack);
         rButton.onClick.AddListener(OnRButtonClick);
@@ -225,6 +227,7 @@ public class UIManager : MonoBehaviour , IUIManager
     {   
         //Time.timeScale = 1f;
         ChooseLevel.SetActive(true);
+        Time.timeScale = 1f;
     }
     
     public void levelChoose(int index)
@@ -622,6 +625,7 @@ public class UIManager : MonoBehaviour , IUIManager
         if (enterGame)
         {
             PlayStateMachine.Instance.StartSpawnState();
+            Debug.Log("Switch");
             AudioControl.Instance.SwitchMusic();
         }
     }
