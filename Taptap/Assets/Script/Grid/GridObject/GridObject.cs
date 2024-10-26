@@ -22,13 +22,5 @@ public class GridObject
         this.gameObject = gameObject;
     }
 
-
-    public void SetGray()
-    {
-        if (Type == GridObjectType.End)
-        {
-            
-        }
-    }
 }
 

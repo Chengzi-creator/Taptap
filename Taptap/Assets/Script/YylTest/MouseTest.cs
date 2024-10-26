@@ -94,7 +94,7 @@ public class MouseTest : MonoBehaviour
         });
         if (pathManager != null)
         {
-            pathManager.DrawFirstPath();
+            pathManager.DrawFirstPath(5);
             MyGridManager.Instance.PathManager = pathManager;
         }
     }

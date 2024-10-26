@@ -24,11 +24,11 @@ namespace Algorithm
             }
         }
 
-        public void DrawFirstPath()
+        public void DrawFirstPath(int time)
         {
             foreach (var path in paths)
             {
-                path.DrawFirstPath();
+                path.DrawFirstPath(time);
             }
         }
 
