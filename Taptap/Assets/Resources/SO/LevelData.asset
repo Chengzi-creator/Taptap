@@ -13,20 +13,14 @@ MonoBehaviour:
   m_Name: LevelData
   m_EditorClassIdentifier: 
   levelData:
-  - beginPosition: {x: 0, y: 0}
-    beginMoney: 200
+  - beginPosition: {x: 0, y: 2}
+    beginMoney: 10000
     waveList:
     - enemyDataList:
       - type: 0
         spawnTime: 0
-      - type: 0
-        spawnTime: 1
-      - type: 0
-        spawnTime: 2
     - enemyDataList:
-      - type: 1
-        spawnTime: 0
-      - type: 1
+      - type: 0
         spawnTime: 1
       - type: 1
         spawnTime: 2
