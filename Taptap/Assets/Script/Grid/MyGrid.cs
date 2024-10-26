@@ -86,9 +86,9 @@ public class MyGrid : MonoBehaviour, IGrid
     {
         MapPos = mapPos;
         WorldPos = worldPos;
-        var gridobj = new GridObject(type);
-        SetHoldObject(gridobj);
-        InitObject = gridobj;
+        var gridObj = new GridObject(type);
+        SetHoldObject(gridObj);
+        InitObject = gridObj;
     }
     /// <summary>
     /// 设置格子上的物体
@@ -208,7 +208,7 @@ public class MyGrid : MonoBehaviour, IGrid
         SetHoldObject(new GridObject(GridObjectType.Building));
     }
 
-    public void DestoryTower()
+    public void DestroyTower()
     {
         SetHoldObject(InitObject);
     }

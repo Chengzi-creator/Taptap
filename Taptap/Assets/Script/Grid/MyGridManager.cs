@@ -446,11 +446,11 @@ public class MyGridManager : MonoBehaviour, IGraphicManager, IGridManager
         }
     }
 
-    public void DestoryTower(Vector2Int mapPos)
+    public void DestroyTower(Vector2Int mapPos)
     {
         if (IsInMap(mapPos))
         {
-            GetGrid(mapPos).DestoryTower();
+            GetGrid(mapPos).DestroyTower();
             myGraphic.AddPoint(mapPos, GetLinkPoints(mapPos));
         }
     }

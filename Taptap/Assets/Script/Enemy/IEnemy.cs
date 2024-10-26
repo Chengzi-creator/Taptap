@@ -4,6 +4,7 @@ using UnityEngine;
 
 public interface IEnemy
 {
+    public bool IsArrived{get;}
     public int Money{get;}
     public int ID{get;}
     public IEnemyManager.EnemyType Type{get;}

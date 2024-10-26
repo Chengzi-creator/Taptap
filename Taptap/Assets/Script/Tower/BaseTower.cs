@@ -26,6 +26,20 @@ public class BaseTower : MonoBehaviour , ITower
     }
     protected int faceDirection;
     public int FaceDirection => faceDirection;
+    public Vector2Int FaceDirectionVector2Int
+    {
+        get
+        {
+            return faceDirection switch
+            {
+                0 => Vector2Int.right,
+                1 => Vector2Int.up,
+                2 => Vector2Int.left,
+                3 => Vector2Int.down,
+                _ => Vector2Int.zero
+            };
+        }
+    }
 
 
 
