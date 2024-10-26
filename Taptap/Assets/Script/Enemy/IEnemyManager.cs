@@ -16,6 +16,7 @@ public interface IEnemyManager
         public Vector2 size;
         public float speed;
         public int money;
+        public int damage;
     }
 
     public IEnemy CreateEnemy(IEnemyManager.EnemyType type , int pathIndex);

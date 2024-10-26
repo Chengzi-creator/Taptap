@@ -12,6 +12,9 @@ public class BaseEnemy : MonoBehaviour, IEnemy
     protected IEnemyManager.EnemyType type;
     public IEnemyManager.EnemyType Type => type;
 
+    protected bool isArrived;
+    public bool IsArrived => isArrived;
+    protected int damage;
     protected Vector3 maxHP;
     protected Vector3 currentHP;
     public bool IsDead => currentHP.x <= 0 && currentHP.y <= 0 && currentHP.z <= 0;
@@ -89,6 +92,9 @@ public class BaseEnemy : MonoBehaviour, IEnemy
     {
         Debug.Log("arrive destination");
         speed = 0;
+        PlayStateMachine.Instance.HP -= damage;
+        currentHP = Vector3.one * -1;
+        isArrived = true;
     }
 
     protected virtual void WaitCD(float deltaTime)
@@ -153,6 +159,8 @@ public class BaseEnemy : MonoBehaviour, IEnemy
         this.money = enemyAttribute.money;
         this.maxHP = enemyAttribute.maxHP;
         this.currentHP = maxHP;
+        this.damage = enemyAttribute.damage;
+        this.isArrived = false;
         this.defense = 1;
         this.timeScale = 1;
         this.pathIndex = pathIndex;
