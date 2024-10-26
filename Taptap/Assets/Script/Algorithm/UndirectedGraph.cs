@@ -296,7 +296,7 @@ namespace Algorithm
             return paths;
         }
 
-        int maxPath = 100;
+        int maxPath = 3;
         int nowpathCount = 0;
         private void GetFirstPath(Point point, Path path, Paths paths)
         {
