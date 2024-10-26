@@ -40,6 +40,11 @@ public class InputTest : MonoBehaviour
                 }
             }
         }
+        if(Input.GetKeyDown(KeyCode.C))
+        {
+            MyGridManager.Instance.CalculatePath();
+            MyGridManager.Instance.DrawPath(5);
+        }
 
         if (Input.GetKeyDown(KeyCode.Alpha0))
         {

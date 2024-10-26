@@ -30,18 +30,18 @@ namespace Algorithm
         {
             secondPaths.Add(path);
         }
-        public void DrawFirstPath()
+        public void DrawFirstPath(int time)
         {
             foreach (var path in firstpaths)
             {
-                path.DrawPath(Color.red);
+                path.DrawPath(Color.red, time);
             }
         }
         public void DrawSecondPath()
         {
             foreach (var path in secondPaths)
             {
-                path.DrawPath(Color.black);
+                path.DrawPath(Color.black,5);
             }
         }
 
