@@ -17,7 +17,18 @@ public class BaseEnemy : MonoBehaviour, IEnemy
     protected int damage;
     protected Vector3 maxHP;
     protected Vector3 currentHP;
-    public bool IsDead => currentHP.x <= 0 && currentHP.y <= 0 && currentHP.z <= 0;
+    protected Vector3 CurrentHP
+    {
+        get => currentHP;
+        set
+        {
+            currentHP = value;
+            redRender.color = new Color(1,1,1,(1-currentHP.x/maxHP.x));
+            greenRender.color = new Color(1,1,1,(1-currentHP.y/maxHP.y));
+            blueRender.color = new Color(1,1,1,(1-currentHP.z/maxHP.z));
+        }
+    }
+    public bool IsDead => CurrentHP.x <= 0 && CurrentHP.y <= 0 && CurrentHP.z <= 0;
     protected float[] colorTime;
     protected bool[] currentColor = new bool[10];
     protected float defense;
@@ -53,10 +64,10 @@ public class BaseEnemy : MonoBehaviour, IEnemy
 
     public virtual void BeAttacked(Vector3 damage , int colorDamage)
     {
-        currentHP -= damage * defense;
-        Debug.LogWarning(currentHP);
+        CurrentHP -= damage * defense;
+        Debug.LogWarning(CurrentHP);
         this.colorTime[colorDamage] = GlobalSetting.Instance.GlobalSettingSO.GetColorRemainTime(colorDamage);
-        SetHorn(new Vector3(currentHP.x/maxHP.x , currentHP.y/maxHP.y , currentHP.z/maxHP.z));
+        SetHorn(new Vector3(CurrentHP.x/maxHP.x , CurrentHP.y/maxHP.y , CurrentHP.z/maxHP.z));
     }
     public virtual void Die()
     {
@@ -85,6 +96,10 @@ public class BaseEnemy : MonoBehaviour, IEnemy
         }
     }
 
+    protected SpriteRenderer redRender;
+    protected SpriteRenderer greenRender;
+    protected SpriteRenderer blueRender;
+
     protected virtual void SetHorn(Vector3 color)
     {}
 
@@ -93,7 +108,7 @@ public class BaseEnemy : MonoBehaviour, IEnemy
         Debug.Log("arrive destination");
         speed = 0;
         PlayStateMachine.Instance.HP -= damage;
-        currentHP = Vector3.one * -1;
+        CurrentHP = Vector3.one * -1;
         isArrived = true;
     }
 
@@ -129,7 +144,7 @@ public class BaseEnemy : MonoBehaviour, IEnemy
 
         if(currentColor[6])
         {
-            currentHP -= GlobalSetting.Instance.GlobalSettingSO.GetBuffValue(6) * deltaTime * Vector3.one;
+            CurrentHP -= GlobalSetting.Instance.GlobalSettingSO.GetBuffValue(6) * deltaTime * Vector3.one;
         }
         if(currentColor[7])
         {
@@ -148,6 +163,9 @@ public class BaseEnemy : MonoBehaviour, IEnemy
         this.colorTime = new float[10];
         this.currentColor = new bool[10];
         this.ReInit(enemyAttribute , pathIndex);
+        redRender = transform.Find("red").GetComponent<SpriteRenderer>();
+        greenRender = transform.Find("green").GetComponent<SpriteRenderer>();
+        blueRender = transform.Find("blue").GetComponent<SpriteRenderer>();
     }
 
     public virtual void ReInit(IEnemyManager.EnemyAttribute enemyAttribute , int pathIndex)
@@ -158,7 +176,7 @@ public class BaseEnemy : MonoBehaviour, IEnemy
         this.speed = enemyAttribute.speed;
         this.money = enemyAttribute.money;
         this.maxHP = enemyAttribute.maxHP;
-        this.currentHP = maxHP;
+        this.CurrentHP = maxHP;
         this.damage = enemyAttribute.damage;
         this.isArrived = false;
         this.defense = 1;

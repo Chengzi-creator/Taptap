@@ -96,7 +96,8 @@ public class PlayStateMachine
     {
         EnemyManager.Instance.Close();
         TowerManager.Instance.Close();
-        MyGridManager.Instance.Close();
+        // MyGridManager.Instance.Close();
+        MyGridManager.Instance.UnloadLevel();
     }
 
     public void UpdateState(float deltaTime)
@@ -116,7 +117,8 @@ public class PlayStateMachine
 
     private void ChangeHomeHP(int hp)
     {
-        TowerManager.Instance.ChangeHomeHP(hp);
+        // TowerManager.Instance.ChangeHomeHP(hp);
+        MyGridManager.Instance.ChangeHomeHP(hp);
     }
     private void ChangeState(PlayStateType stateType)
     {
