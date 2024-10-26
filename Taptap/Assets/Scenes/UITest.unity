@@ -156,6 +156,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!82 &459638022 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 3796141293918508800, guid: 97b610f22a515e545901f0ee14a1815d, type: 3}
+  m_PrefabInstance: {fileID: 897579636}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &778560794
 GameObject:
   m_ObjectHideFlags: 0
@@ -312,6 +317,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: -0.000076293945
       objectReference: {fileID: 0}
+    - target: {fileID: 1065930881056847083, guid: 97b610f22a515e545901f0ee14a1815d, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2184572318338059880, guid: 97b610f22a515e545901f0ee14a1815d, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -424,6 +433,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 3796141293918508800, guid: 97b610f22a515e545901f0ee14a1815d, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 39d7d8b5c4bcd54499127ce0421ce75e, type: 3}
+    - target: {fileID: 3796141293918508800, guid: 97b610f22a515e545901f0ee14a1815d, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3894674383868939644, guid: 97b610f22a515e545901f0ee14a1815d, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -472,6 +489,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 7265071401630937120, guid: 97b610f22a515e545901f0ee14a1815d, type: 3}
+      propertyPath: audioSource1
+      value: 
+      objectReference: {fileID: 459638022}
     - target: {fileID: 7422402280576194986, guid: 97b610f22a515e545901f0ee14a1815d, type: 3}
       propertyPath: m_SizeDelta.y
       value: 70
@@ -491,6 +512,10 @@ PrefabInstance:
     - target: {fileID: 7922366419678673251, guid: 97b610f22a515e545901f0ee14a1815d, type: 3}
       propertyPath: m_AnchorMin.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8899304995710792328, guid: 97b610f22a515e545901f0ee14a1815d, type: 3}
+      propertyPath: m_Name
+      value: AudioBuild
       objectReference: {fileID: 0}
     - target: {fileID: 9213608731085607848, guid: 97b610f22a515e545901f0ee14a1815d, type: 3}
       propertyPath: m_AnchoredPosition.x

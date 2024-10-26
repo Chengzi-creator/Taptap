@@ -31,6 +31,9 @@ public class UIManager : MonoBehaviour , IUIManager
     [SerializeField] private GameObject gImages;
     [SerializeField] private GameObject bImages;
     [SerializeField] private GameObject buildBack;
+    [SerializeField] private GameObject StartMasks;
+    [SerializeField] private GameObject ChooseLevel;
+    [SerializeField] private GameObject GameStartMasks;
     
     [SerializeField] private Button exitButton, restartButton, homeButton,backButton,setupButton,menuButton,overhomeButton,overLevelButton;
     [SerializeField] private Button _buttonRF;
@@ -51,7 +54,13 @@ public class UIManager : MonoBehaviour , IUIManager
     [SerializeField] private Button rButton;
     [SerializeField] private Button gButton;
     [SerializeField] private Button bButton;
-
+    
+    [SerializeField] private Button startButton;
+    [SerializeField] private Button homeexitButton;
+    [SerializeField] private Button level0Button;
+    [SerializeField] private Button level1Button;
+    [SerializeField] private Button level2Button;
+    
     [SerializeField] private Image towerX;
     private Image image;
     //[SerializeField] private Button[] buildButtons;  //存储所有建造按钮
@@ -73,11 +82,13 @@ public class UIManager : MonoBehaviour , IUIManager
     // private bool _selectDH;
     // private bool _selectDS;
     private bool _selectDestroy;
+    private bool enterGame = true;
     //private bool[] _select;
     private float _value;
     private int faceDirection = 0;
     private int showCount = 0;
     public int Coin;
+    public int mIndex;
     private Vector2 worldPosition;
     private Vector2Int gridPosition;
     private MyGridManager gridManager;
@@ -100,12 +111,16 @@ public class UIManager : MonoBehaviour , IUIManager
     }
     
     private void InitializeUI()
-    {
+    {   
+        Time.timeScale = 0f;
+        StartMasks.SetActive(true);
+        ChooseLevel.SetActive(false);
+    
         pauseMasks.SetActive(false);
         setupMasks.SetActive(false);
-        buildMasks.SetActive(true);
+        buildMasks.SetActive(false);//
         overMasks.SetActive(false);
-        buildButtons.SetActive(true);
+        buildButtons.SetActive(false);//
         buildBack.SetActive(false);
         rImages.SetActive(false);
         gImages.SetActive(false);
@@ -115,9 +130,9 @@ public class UIManager : MonoBehaviour , IUIManager
         setupButton.onClick.AddListener(OnsetupButtonClick);
         menuButton.onClick.AddListener(OnmenuButtonClick);
         overLevelButton.onClick.AddListener(OnoverLevelButtonClick);
-        overhomeButton.onClick.AddListener((() => RestartGame("Start")));
-        restartButton.onClick.AddListener(() => RestartGame("yyl"));
-        homeButton.onClick.AddListener(() => RestartGame("Start"));
+        overhomeButton.onClick.AddListener(OnHomeButtonClick);
+        restartButton.onClick.AddListener(OnRestartButtonClick);
+        homeButton.onClick.AddListener(OnHomeButtonClick);
         destroyButton.onClick.AddListener(OndestroyButtonClick);
         buildBackButton.onClick.AddListener(BuildBack);
         rButton.onClick.AddListener(OnRButtonClick);
@@ -126,6 +141,12 @@ public class UIManager : MonoBehaviour , IUIManager
         rButton.onClick.AddListener(() => OnButtonClick(rButton));
         gButton.onClick.AddListener(() => OnButtonClick(gButton));
         bButton.onClick.AddListener(() => OnButtonClick(bButton));
+        
+        startButton.onClick.AddListener(OnstartButtonClick);
+        exitButton.onClick.AddListener(OnexitButtonClick);
+        level0Button.onClick.AddListener(() => levelChoose(0));
+        level1Button.onClick.AddListener(() => levelChoose(1));
+        level2Button.onClick.AddListener(() => levelChoose(2));
         
 
         // foreach (var pair in toggleImagePairs)
@@ -169,7 +190,13 @@ public class UIManager : MonoBehaviour , IUIManager
     }
 
     private void Update()
-    {
+    {   
+        // if (Input.GetKeyDown(KeyCode.Space))
+        // {
+        //     OnstartButtonClick();
+        //     enterGame = true;
+        // }
+        
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (setupMasks.activeSelf)
@@ -187,7 +214,11 @@ public class UIManager : MonoBehaviour , IUIManager
         if (Input.GetKeyDown(KeyCode.Space))
         {   
             //进入出怪阶段
-            PlayStateMachine.Instance.StartSpawnState();
+            if (enterGame)
+            {
+                PlayStateMachine.Instance.StartSpawnState();
+                AudioControl.Instance.SwitchMusic();
+            }
         }
         
         
@@ -195,6 +226,22 @@ public class UIManager : MonoBehaviour , IUIManager
         DetectDestroyModeInput();
     }
     
+    private void OnstartButtonClick()
+    {   
+        //Time.timeScale = 1f;
+        ChooseLevel.SetActive(true);
+    }
+    
+    public void levelChoose(int index)
+    {
+        mIndex = index;
+        PlayStateMachine.Instance.ReInit(index);
+        ChooseLevel.SetActive(false);
+        GameStartMasks.SetActive(false);
+        buildMasks.SetActive(true);
+        buildButtons.SetActive(true);
+    }
+
     
     public void TogglePause()
     {
@@ -202,6 +249,16 @@ public class UIManager : MonoBehaviour , IUIManager
         Time.timeScale = isPaused ? 0f : 1f;
         pauseMasks.SetActive(isPaused);
         buildMasks.SetActive(!isPaused);
+    }
+
+    public void OnHomeButtonClick()
+    {
+        PlayStateMachine.Instance.ExitPlayState();
+    }
+    
+    public void OnRestartButtonClick()
+    {
+        PlayStateMachine.Instance.ReInit(mIndex);
     }
 
     private void OnexitButtonClick()
@@ -544,7 +601,8 @@ public class UIManager : MonoBehaviour , IUIManager
     public void OnoverLevelButtonClick()
     {
         //LoadScene("");//进入下一关
-        Debug.Log("还没做好下一个场景");
+        PlayStateMachine.Instance.ReInit(++mIndex);
+        //Debug.Log("还没做好下一个场景");
     }
 
     public void ShowEnemyBuff()
