@@ -162,10 +162,10 @@ public class BaseEnemy : MonoBehaviour, IEnemy
         this.gameObject.name = "Enemy_" + this.type + "_" + this.id;
         this.colorTime = new float[10];
         this.currentColor = new bool[10];
-        this.ReInit(enemyAttribute , pathIndex);
         redRender = transform.Find("red").GetComponent<SpriteRenderer>();
         greenRender = transform.Find("green").GetComponent<SpriteRenderer>();
         blueRender = transform.Find("blue").GetComponent<SpriteRenderer>();
+        this.ReInit(enemyAttribute , pathIndex);
     }
 
     public virtual void ReInit(IEnemyManager.EnemyAttribute enemyAttribute , int pathIndex)
@@ -192,6 +192,7 @@ public class BaseEnemy : MonoBehaviour, IEnemy
 
     public virtual void OnUpDate(float deltaTime)
     {
+        // Debug.Log(deltaTime);
         deltaTime *= timeScale;
         Move(deltaTime);
         WaitCD(deltaTime);

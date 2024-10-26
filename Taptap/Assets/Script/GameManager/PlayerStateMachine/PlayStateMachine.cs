@@ -42,11 +42,9 @@ public class PlayStateMachine
             {
                 Debug.Log("Game Over");
 
-
-                // hp = lastWaveHP;
-                // Money = lastWaveMoney;
+/*
                 UIManager.Instance.GameOver();
-
+*/
             }
             else
             {
@@ -102,6 +100,7 @@ public class PlayStateMachine
 
     public void UpdateState(float deltaTime)
     {
+        // Debug.Log(deltaTime);
         currentState.UpdateState(deltaTime);
         EnemyManager.Instance.Update(deltaTime);
         TowerManager.Instance.Update(deltaTime);
@@ -180,13 +179,14 @@ public class PlayStateMachine
     {
         public void EnterState()
         {
-            PlayStateMachine.Instance.lastWaveHP = PlayStateMachine.Instance.HP;
-            PlayStateMachine.Instance.lastWaveMoney = PlayStateMachine.Instance.Money;
         }
         public void UpdateState(float deltaTime)
         {}
         public void ExitState()
-        {}
+        {
+            PlayStateMachine.Instance.lastWaveHP = PlayStateMachine.Instance.HP;
+            PlayStateMachine.Instance.lastWaveMoney = PlayStateMachine.Instance.Money;
+        }
 
         public void BuildTower(ITowerManager.TowerType towerType, Vector2Int position , int faceDirection)
         {

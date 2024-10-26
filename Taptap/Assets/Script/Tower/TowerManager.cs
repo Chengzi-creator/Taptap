@@ -80,8 +80,6 @@ public class TowerManager : ITowerManager
         {
             DestroyTower(tower);
         }
-        // HomeRender.gameObject.SetActive(true);
-        // HomeRender.transform.position = MyGridManager.Instance.GetHomePos();
     }
     public void Close()
     {
@@ -89,12 +87,7 @@ public class TowerManager : ITowerManager
         {
             DestroyTower(tower);
         }
-        // HomeRender.gameObject.SetActive(false);
     }
-    // public void ChangeHomeHP(int hp)
-    // {
-    //     HomeRender.color = ;
-    // }
     public ITower CreateTower(ITowerManager.TowerType type , Vector2Int position , int faceDirection)
     {
         BaseTower tower;
