@@ -140,6 +140,7 @@ public class EnemyManager : IEnemyManager
     }
     public void Update(float deltaTime)
     {
+        // Debug.Log(deltaTime);
         foreach(BaseEnemy enemy in enemyList)
         {
             enemy.OnUpDate(Time.deltaTime);

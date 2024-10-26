@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         PlayStateMachine.Instance.UpdateState(Time.deltaTime);
+        // Debug.Log(Time.deltaTime);
     }
 
     public void EnterMainMenu()
