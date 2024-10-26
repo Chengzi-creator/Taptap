@@ -11,16 +11,14 @@ public class UIManager : MonoBehaviour , IUIManager
 {
     private static UIManager instance;
     
-    // [Serializable] 
-    // public struct ToggleImagePair
-    // {
-    //     public Toggle toggle;
-    //     public GameObject image;
-    // }
-
+  
+    
+    [Header("Text")]
     [SerializeField] private TextMeshProUGUI _coinText;
     [SerializeField] private TextMeshProUGUI _roundText;
+    [SerializeField] private TextMeshProUGUI enemyInformation;
     
+    [Header("Image")]
     //[SerializeField] private List<ToggleImagePair> toggleImagePairs;
     [SerializeField] private GameObject pauseMasks;
     [SerializeField] private GameObject setupMasks;
@@ -35,7 +33,17 @@ public class UIManager : MonoBehaviour , IUIManager
     [SerializeField] private GameObject ChooseLevel;
     [SerializeField] private GameObject GameStartMasks;
     
-    [SerializeField] private Button exitButton, restartButton, homeButton,backButton,setupButton,menuButton,overhomeButton,overLevelButton;
+    [Header("PauseButton")]
+    [SerializeField] private Button exitButton;
+    [SerializeField] private Button restartButton;
+    [SerializeField] private Button homeButton;
+    [SerializeField] private Button backButton;
+    [SerializeField] private Button setupButton;
+    [SerializeField] private Button menuButton;
+    [SerializeField] private Button overhomeButton;
+    [SerializeField] private Button overLevelButton;
+        
+    [Header("BuildButton")]
     [SerializeField] private Button _buttonRF;
     [SerializeField] private Button _buttonRL;
     [SerializeField] private Button _buttonRT;
@@ -54,7 +62,9 @@ public class UIManager : MonoBehaviour , IUIManager
     [SerializeField] private Button rButton;
     [SerializeField] private Button gButton;
     [SerializeField] private Button bButton;
+    [SerializeField] private Button spawnButton;
     
+    [Header("HomeButton")]
     [SerializeField] private Button startButton;
     [SerializeField] private Button homeexitButton;
     [SerializeField] private Button level0Button;
@@ -68,19 +78,6 @@ public class UIManager : MonoBehaviour , IUIManager
     private ITowerManager.TowerType _selectedTowerType = ITowerManager.TowerType.NULL;
 
     private bool isPaused = false;
-    //private bool[] buildSelections;
-    // private bool _selectRF;
-    // private bool _selectRL;
-    // private bool _selectRT;
-    // private bool _selectGF;
-    // private bool _selectGL;
-    // private bool _selectGT;
-    // private bool _selectBF;
-    // private bool _selectBL;
-    // private bool _selectBT;
-    // private bool _selectDC;
-    // private bool _selectDH;
-    // private bool _selectDS;
     private bool _selectDestroy;
     private bool enterGame = true;
     //private bool[] _select;
@@ -148,6 +145,8 @@ public class UIManager : MonoBehaviour , IUIManager
         level1Button.onClick.AddListener(() => levelChoose(1));
         level2Button.onClick.AddListener(() => levelChoose(2));
         
+        spawnButton.onClick.AddListener(SpawnEnemy);
+        
 
         // foreach (var pair in toggleImagePairs)
         // {
@@ -214,18 +213,15 @@ public class UIManager : MonoBehaviour , IUIManager
         if (Input.GetKeyDown(KeyCode.Space))
         {   
             //进入出怪阶段
-            if (enterGame)
-            {
-                PlayStateMachine.Instance.StartSpawnState();
-                AudioControl.Instance.SwitchMusic();
-            }
+            SpawnEnemy();
         }
         
         
         DetectBuildModeInput();
         DetectDestroyModeInput();
     }
-    
+
+    #region 开始界面
     private void OnstartButtonClick()
     {   
         //Time.timeScale = 1f;
@@ -241,8 +237,10 @@ public class UIManager : MonoBehaviour , IUIManager
         buildMasks.SetActive(true);
         buildButtons.SetActive(true);
     }
-
+    #endregion
     
+    #region 暂停界面
+
     public void TogglePause()
     {
         isPaused = !isPaused;
@@ -320,20 +318,11 @@ public class UIManager : MonoBehaviour , IUIManager
         Time.timeScale = 1f;
     }
 
-   
-    // public void IconIncrease(float increase)
-    // {
-    //     Count += increase;
-    //     _text.text = "Icon : " + Count.ToString();
-    // }
-    //
-    // public void IconDecrease(float decrease)
-    // {
-    //     Count -= decrease;
-    //     _text.text = "Icon : " + Count.ToString();
-    // }
-    
-    public void DetectBuildModeInput()
+    #endregion
+
+    #region 建造方法
+
+     public void DetectBuildModeInput()
     {
         if (HasClick())
         {   
@@ -439,7 +428,21 @@ public class UIManager : MonoBehaviour , IUIManager
         PlayStateMachine.Instance.RemoveTower(gridPosition);
     }
     
-    #region 按钮点击
+    public void BuildBack()
+    {   
+        buildButtons.SetActive(true);
+        buildBack.SetActive(false);
+        rImages.SetActive(false);
+        gImages.SetActive(false);
+        bImages.SetActive(false);
+        ClickOut();
+        MyGridManager.Instance.CancelShowBuildModeGrid();//为什么函数没调用成功
+        showCount = 0;
+        Debug.Log("back");
+    }
+    #endregion
+    
+    #region 建造按钮点击
     private void ClickRF()
     {   
         _selectedTowerType = ITowerManager.TowerType.B_flash_R;
@@ -568,7 +571,9 @@ public class UIManager : MonoBehaviour , IUIManager
         bImages.SetActive(true);
     }
     #endregion
-    
+
+    #region 金钱轮次显示
+
     public void coinChange(int coinCount)
     {
         _coinText.text = "Coin : " + coinCount.ToString();
@@ -579,19 +584,9 @@ public class UIManager : MonoBehaviour , IUIManager
         _roundText.text = "Level" + level + "      " + "Round" + round;
     }
 
-    
-    public void BuildBack()
-    {   
-        buildButtons.SetActive(true);
-        buildBack.SetActive(false);
-        rImages.SetActive(false);
-        gImages.SetActive(false);
-        bImages.SetActive(false);
-        ClickOut();
-        MyGridManager.Instance.CancelShowBuildModeGrid();//为什么函数没调用成功
-        showCount = 0;
-        Debug.Log("back");
-    }
+    #endregion
+
+    #region 游戏结束
 
     public void overMasksOn()
     {
@@ -605,8 +600,31 @@ public class UIManager : MonoBehaviour , IUIManager
         //Debug.Log("还没做好下一个场景");
     }
 
+    #endregion
+
+    #region 出怪阶段相关设置
+
     public void ShowEnemyBuff()
     {
         
     }
+
+    public void ShowEnemyCountAndType(int count,  params IEnemyManager.EnemyType[] types)
+    {   
+        string typesText = string.Join(", ", types);  //拼接方式
+        
+        enemyInformation.text = "EnemyCount:" + count + "\n" +
+                                "EnemyType:" + typesText;
+    }
+
+    public void SpawnEnemy()
+    {
+        if (enterGame)
+        {
+            PlayStateMachine.Instance.StartSpawnState();
+            AudioControl.Instance.SwitchMusic();
+        }
+    }
+    #endregion
+   
 }

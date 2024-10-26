@@ -5,12 +5,27 @@ using UnityEngine.EventSystems;
 
 public class InputTest : MonoBehaviour
 {
-
-
+    private static int hp;
+    public static int HP
+    {
+        get => hp;
+        set
+        {
+            hp = value;
+            MyGridManager.Instance.ChangeHomeHP(hp);
+        }
+    }
+    private void Start()
+    {
+        MyGridManager.Instance.LoadLevel(0);
+        HP = 0;
+    }
 
     // Update is called once per frame
     void Update()
     {
+        ColorBlockManager.Instance.OnUpdate(Time.deltaTime);
+
         if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
         {
             var pos = MyGridManager.Instance.GetMapPos(Camera.main.ScreenToWorldPoint(Input.mousePosition));
@@ -49,6 +64,10 @@ public class InputTest : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Alpha5))
         {
             VFXManager.Instance.CreateVFX_Range_Single(new Vector2Int(0, 0), 6);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            ColorBlockManager.Instance.CreateColorBlock(new Vector2Int(0, 0), 2, 6);
         }
     }
 }

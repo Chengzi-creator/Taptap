@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -89,6 +90,10 @@ public class MyGrid : MonoBehaviour, IGrid
         var gridObj = new GridObject(type);
         SetHoldObject(gridObj);
         InitObject = gridObj;
+    }
+    private GridObject CreateGridObject(GridObjectType type)
+    {
+        return GridObjectFactory.Create(type, this.gameObject);
     }
     /// <summary>
     /// 设置格子上的物体
@@ -205,7 +210,7 @@ public class MyGrid : MonoBehaviour, IGrid
 
     public void BuildTower()
     {
-        SetHoldObject(new GridObject(GridObjectType.Building));
+        SetHoldObject(CreateGridObject(GridObjectType.Building));
     }
 
     public void DestroyTower()
@@ -216,5 +221,13 @@ public class MyGrid : MonoBehaviour, IGrid
     public void ColorChanged(int color)
     {
 
+    }
+
+    public void HPChange(int hp)
+    {
+        if (HoldObject != null)
+        {
+            (HoldObject as GridObjectEnd)?.HPChange(hp);
+        }
     }
 }

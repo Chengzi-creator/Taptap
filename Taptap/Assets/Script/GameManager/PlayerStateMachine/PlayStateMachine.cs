@@ -105,6 +105,7 @@ public class PlayStateMachine
         currentState.UpdateState(deltaTime);
         EnemyManager.Instance.Update(deltaTime);
         TowerManager.Instance.Update(deltaTime);
+        ColorBlockManager.Instance.OnUpdate(deltaTime);
     }
 
     public void RestartWave()
