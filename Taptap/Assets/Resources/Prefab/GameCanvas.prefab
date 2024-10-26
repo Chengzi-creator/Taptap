@@ -353,6 +353,7 @@ MonoBehaviour:
   menuButton: {fileID: 4018729286617783672}
   overhomeButton: {fileID: 296095974430116819}
   overLevelButton: {fileID: 7734275577048256546}
+  overRestartButton: {fileID: 0}
   _buttonRF: {fileID: 6186236743040858821}
   _buttonRL: {fileID: 1355590037461189709}
   _buttonRT: {fileID: 3468598743148571713}
@@ -378,6 +379,7 @@ MonoBehaviour:
   level1Button: {fileID: 907693910652835255}
   level2Button: {fileID: 9097351556385219329}
   towerX: {fileID: 8290062903943919331, guid: d99e37fad93f0274ca1a05dca4dcdd1e, type: 3}
+  isSpawning: 0
   Coin: 100
   mIndex: 0
 --- !u!114 &1650259115269846027
@@ -960,6 +962,20 @@ PrefabInstance:
     - target: {fileID: 2476808522828815037, guid: a13420e18193dfb4c981eefd0669729f, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5628274867672807486, guid: a13420e18193dfb4c981eefd0669729f, type: 3}
+      propertyPath: m_text
+      value: 'Restart
+
+'
+      objectReference: {fileID: 0}
+    - target: {fileID: 5628274867672807486, guid: a13420e18193dfb4c981eefd0669729f, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4281479730
+      objectReference: {fileID: 0}
+    - target: {fileID: 5628274867672807486, guid: a13420e18193dfb4c981eefd0669729f, type: 3}
+      propertyPath: m_TextStyleHashCode
+      value: -1183493901
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

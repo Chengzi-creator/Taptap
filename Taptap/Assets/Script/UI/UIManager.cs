@@ -42,6 +42,7 @@ public class UIManager : MonoBehaviour , IUIManager
     [SerializeField] private Button menuButton;
     [SerializeField] private Button overhomeButton;
     [SerializeField] private Button overLevelButton;
+    [SerializeField] private Button overRestartButton;
         
     [Header("BuildButton")]
     [SerializeField] private Button _buttonRF;
@@ -130,6 +131,7 @@ public class UIManager : MonoBehaviour , IUIManager
         overLevelButton.onClick.AddListener(OnoverLevelButtonClick);
         overhomeButton.onClick.AddListener(OnHomeButtonClick);
         restartButton.onClick.AddListener(OnRestartButtonClick);
+        overRestartButton.onClick.AddListener(OnRestartButtonClick);
         homeButton.onClick.AddListener(OnHomeButtonClick);
         homeexitButton.onClick.AddListener(OnexitButtonClick);
         destroyButton.onClick.AddListener(OndestroyButtonClick);
@@ -262,7 +264,7 @@ public class UIManager : MonoBehaviour , IUIManager
     
     public void OnRestartButtonClick()
     {
-        PlayStateMachine.Instance.ReInit(mIndex);
+        PlayStateMachine.Instance.RestartWave();
     }
 
     private void OnexitButtonClick()
@@ -597,6 +599,7 @@ public class UIManager : MonoBehaviour , IUIManager
     public void overMasksOn()
     {
         overMasks.SetActive(true);
+        Time.timeScale = 0f;
     }
 
     public void OnoverLevelButtonClick()
@@ -614,25 +617,29 @@ public class UIManager : MonoBehaviour , IUIManager
     {
         
     }
-
-    public void ShowEnemyCountAndTypes(params (IEnemyManager.EnemyType type, int count)[] enemyData)
+    
+    public void ShowEnemyCountAndTypes(List<IEnemyManager.EnemyType> types, List<int> counts)
     {
-        if (enemyData.Length == 0)
+        if (types.Count != counts.Count)
         {
-            enemyInformation.text = "None.";
+            enemyInformation.text = "Error";
             return;
         }
 
         string infoText = "Enemy:\n";
-
-        foreach (var entry in enemyData)
+        
+        for (int i = 0; i < types.Count; i++)
         {
-            infoText += $"{entry.type}: {entry.count}\n";
+            infoText += $"{types[i]}: {counts[i]}\n";
         }
 
         enemyInformation.text = infoText;
     }
 
+    public void EnemyReduce(List<IEnemyManager.EnemyType> types, List<int> counts,IEnemyManager.EnemyType type)
+    {
+        //暂时不知道咋实现
+    }
 
     public void SpawnEnemy()
     {
