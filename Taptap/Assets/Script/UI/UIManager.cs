@@ -612,13 +612,24 @@ public class UIManager : MonoBehaviour , IUIManager
         
     }
 
-    public void ShowEnemyCountAndType(int count,  params IEnemyManager.EnemyType[] types)
-    {   
-        string typesText = string.Join(", ", types); //先这样拼接吧
-        
-        enemyInformation.text = "EnemyCount:" + count + "\n" +
-                                "EnemyType:" + typesText;
+    public void ShowEnemyCountAndTypes(params (IEnemyManager.EnemyType type, int count)[] enemyData)
+    {
+        if (enemyData.Length == 0)
+        {
+            enemyInformation.text = "None.";
+            return;
+        }
+
+        string infoText = "Enemy:\n";
+
+        foreach (var entry in enemyData)
+        {
+            infoText += $"{entry.type}: {entry.count}\n";
+        }
+
+        enemyInformation.text = infoText;
     }
+
 
     public void SpawnEnemy()
     {
