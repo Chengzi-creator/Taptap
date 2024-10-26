@@ -41,10 +41,7 @@ public class PlayStateMachine
             if(hp <= 0)
             {
                 Debug.Log("Game Over");
-
-/*
-                UIManager.Instance.GameOver();
-*/
+                UIManager.Instance.overMasksOn();
             }
             else
             {
@@ -215,14 +212,32 @@ public class PlayStateMachine
     
     private class SpawnState : IPlayState
     {
+        List<IEnemyManager.EnemyType> enemyTypeList ;
+        List<int> enemyCountList ;
+
         private float totalTime;
         private int enemyIndex;
         private List<LevelDataSO.EnemyData> enemyList;
         public void EnterState()
         {
+            enemyTypeList = new List<IEnemyManager.EnemyType>();
+            enemyCountList = new List<int>();
             totalTime = 0;
             enemyIndex = 0;
             enemyList = PlayStateMachine.Instance.levelDataSO.GetWaveData(PlayStateMachine.Instance.levelIndex , PlayStateMachine.Instance.waveIndex);
+            foreach(var enemyData in enemyList)
+            {
+                if(enemyTypeList.Contains(enemyData.type))
+                {
+                    enemyCountList[enemyTypeList.IndexOf(enemyData.type)]++;
+                }
+                else
+                {
+                    enemyCountList.Add(1);
+                    enemyTypeList.Add(enemyData.type);
+                }
+            }
+            UIManager.Instance.ShowEnemyCountAndTypes(enemyTypeList , enemyCountList , 0);
         }
         public void UpdateState(float deltaTime)
         {
@@ -242,10 +257,15 @@ public class PlayStateMachine
             }
         }
         public void ExitState()
-        {}
+        {
+            UIManager.Instance.isSpawning = false;
+        }
 
         public void EnemyDie(IEnemy enemy)
         {
+            // UIManager.Instance.EnemyDie(enemy);
+            enemyCountList[enemyTypeList.IndexOf(enemy.Type)]--;
+            UIManager.Instance.ShowEnemyCountAndTypes(enemyTypeList , enemyCountList , 0);
             if(enemy.IsArrived == false)
             {
                 PlayStateMachine.Instance.Money += enemy.Money;
