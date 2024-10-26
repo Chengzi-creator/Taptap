@@ -32,8 +32,8 @@ public class TowerManager : ITowerManager
     }
     private bool LoadData()
     {
-        HomeRender = GameObject.Instantiate(Resources.Load<GameObject>("Prefab/Home")).GetComponent<SpriteRenderer>();
-        HomeRender.gameObject.SetActive(false);
+        // HomeRender = GameObject.Instantiate(Resources.Load<GameObject>("Prefab/Home")).GetComponent<SpriteRenderer>();
+        // HomeRender.gameObject.SetActive(false);
 
         towerConfig = Resources.Load<TowerConfig>("SO/TowerConfig");
         prefabTowerList[ITowerManager.TowerType.B_torch_R] = Resources.Load<GameObject>("Prefab/Tower/TowerBTorchR");
@@ -66,7 +66,7 @@ public class TowerManager : ITowerManager
         }
         return true;
     }
-    private SpriteRenderer HomeRender ;
+    // private SpriteRenderer HomeRender ;
     private Stack<BaseTower>[] towerPool ; 
     private TowerConfig towerConfig;
     private Dictionary<ITowerManager.TowerType , GameObject> prefabTowerList;
@@ -80,8 +80,6 @@ public class TowerManager : ITowerManager
         {
             DestroyTower(tower);
         }
-        HomeRender.gameObject.SetActive(true);
-        HomeRender.transform.position = MyGridManager.Instance.GetHomePos();
     }
     public void Close()
     {
@@ -89,11 +87,6 @@ public class TowerManager : ITowerManager
         {
             DestroyTower(tower);
         }
-        HomeRender.gameObject.SetActive(false);
-    }
-    public void ChangeHomeHP(int hp)
-    {
-        HomeRender.color = ;
     }
     public ITower CreateTower(ITowerManager.TowerType type , Vector2Int position , int faceDirection)
     {
