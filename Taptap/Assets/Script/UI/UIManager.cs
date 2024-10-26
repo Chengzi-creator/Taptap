@@ -366,11 +366,7 @@ public class UIManager : MonoBehaviour , IUIManager
             {   
                 //获取当前鼠标所指地图上的塔，然后传入TowerDestroy？
                 TowerDestroy();
-            }
-            if (Input.GetMouseButtonDown(1))  //右键退出建造模式
-            {
                 _selectDestroy = false;
-               
             }
         }
     }
@@ -530,8 +526,11 @@ public class UIManager : MonoBehaviour , IUIManager
     
     private void OndestroyButtonClick()
     {
-        ClickOut();
         _selectDestroy = true;
+        ClickOut();
+        MyGridManager.Instance.CancelShowBuildModeGrid();
+        showCount = 0;
+        faceDirection = 0;
     }
     
     void OnButtonClick(Button clickedButton)
