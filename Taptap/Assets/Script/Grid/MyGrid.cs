@@ -80,6 +80,23 @@ public class MyGrid : MonoBehaviour, IGrid
     public bool CanPutObj => HoldObject == null || HoldObject.Type == GridObjectType.None
         || HoldObject.Type == GridObjectType.NoPassGround;
 
+    private bool canPutTower;
+    public bool CanPutTower {
+        get => canPutTower;
+        set
+        {
+            canPutTower = value;
+            if (CanPutObj && !canPutTower)
+            {
+                //Debug.Log("CanPutObj && !canPutTower");
+                GetComponent<SpriteRenderer>().sprite = sprites[6];
+            }
+            else
+            {
+                SetSprite(HoldObject.Type);
+            }
+        } 
+    }
 
     public Sprite[] sprites;
 
@@ -111,7 +128,12 @@ public class MyGrid : MonoBehaviour, IGrid
         HoldObject = gridObject;
         //HoldObject.transform.position = new Vector3(WorldPos.x, WorldPos.y, 0);
         //ShowGrid();
-        switch (gridObject.Type)
+        SetSprite(gridObject.Type);
+    }
+
+    private void SetSprite(GridObjectType type)
+    {
+        switch (type)
         {
             case GridObjectType.None:
                 GetComponent<SpriteRenderer>().sprite = (MapPos.x + MapPos.y) % 2 == 0 ? sprites[0] : sprites[1];
@@ -124,7 +146,7 @@ public class MyGrid : MonoBehaviour, IGrid
                 break;
             case GridObjectType.End:
                 GetComponent<SpriteRenderer>().sprite = sprites[4];
-                transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().sprite = 
+                transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().sprite =
                     (MapPos.x + MapPos.y) % 2 == 0 ? sprites[0] : sprites[1];
                 break;
             case GridObjectType.NoBuildGround:
@@ -134,7 +156,6 @@ public class MyGrid : MonoBehaviour, IGrid
                 GetComponent<SpriteRenderer>().color = Color.black;
                 GetComponent<SpriteRenderer>().sprite = sprites[5];
                 break;
-
         }
     }
     /// <summary>
