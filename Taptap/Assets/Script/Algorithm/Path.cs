@@ -13,7 +13,11 @@ namespace Algorithm
         public int Cost => cost;
         public int pathId;
 
-        //private 
+
+        public static GameObject head = Resources.Load<GameObject>("Prefab/Path/Head");
+        public static GameObject tail = Resources.Load<GameObject>("Prefab/Path/Tail");
+        public static GameObject mid = Resources.Load<GameObject>("Prefab/Path/Mid");
+        public static GameObject pathsParent = GameObject.Instantiate(Resources.Load<GameObject>("Prefab/Path/PathsParent"));
 
         public Path(Vector2Int startPos)
         {
@@ -29,7 +33,7 @@ namespace Algorithm
         public Path(Path path)
         {
             this.path = new List<Vector2Int>();
-            foreach(var point in path.path)
+            foreach (var point in path.path)
             {
                 this.path.Add(point);
             }
@@ -47,20 +51,61 @@ namespace Algorithm
 
         public Vector2Int GetTarget(int idx)
         {
-            if(idx < path.Count)
+            if (idx < path.Count)
                 return path[idx];
             else
                 return new Vector2Int(-1, -1);
         }
 
-        public void DrawPath(Color c,int time)
+        private Vector2Int dir;
+        public void DrawPath(Color c, int time)
         {
-            for (int i = 0; i < path.Count - 1; i++)
+            if (path.Count < 2)
+                return;
+            dir = path[1] - path[0];
+            InstantiatePath(path[0], FaceDir(dir), head, time);
+            for (int i = 1; i < path.Count; i++)
             {
-                Vector2 world1 = MyGridManager.Instance.GetWorldPos(path[i]);
-                Vector2 world2 = MyGridManager.Instance.GetWorldPos(path[i + 1]);
-                Debug.DrawLine(world1, world2, c, time);
+                if (i < path.Count - 1 && path[i + 1] - path[i] == dir)
+                {
+                    InstantiatePath(path[i], FaceDir(dir), mid, time);
+                }
+                else if (i < path.Count - 1)
+                {
+                    InstantiatePath(path[i], FaceDir(dir), tail, time);
+                    dir = path[i + 1] - path[i];
+                    InstantiatePath(path[i], FaceDir(dir), head, time);
+                }
+                else
+                {
+                    InstantiatePath(path[i], FaceDir(dir), tail, time);
+                }
             }
+            //for(int i = 0; i < path.Count-1; i++)
+            //{
+            //    Debug.DrawLine(MyGridManager.Instance.GetWorldPos(path[i]), MyGridManager.Instance.GetWorldPos(path[i + 1]), c, time);
+            //}
+        }
+
+        private int FaceDir(Vector2Int dir)
+        {
+            if (dir == Vector2Int.right)
+                return 3;
+            if (dir == Vector2Int.up)
+                return 0;
+            if (dir == Vector2Int.left)
+                return 1;
+            return 2;
+
+        }
+
+        private void InstantiatePath(Vector2 pos, int faceDir, GameObject prefab, int time)
+        {
+            GameObject go = GameObject.Instantiate(prefab, MyGridManager.Instance.GetWorldPos(pos),
+                Quaternion.identity, pathsParent.gameObject.transform);
+            go.transform.eulerAngles = new Vector3(0, 0, faceDir * 90);
+            if (time != -1)
+                DelayToInvoke.Instance.DestoryGameObject(go, time);
         }
 
         internal void LogCost(Vector2Int vector2)

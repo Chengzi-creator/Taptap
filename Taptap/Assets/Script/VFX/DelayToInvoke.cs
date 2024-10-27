@@ -43,4 +43,9 @@ public class DelayToInvoke : MonoBehaviour
     {
         StartCoroutine(DelayToInvokeDo(func, position, faceDirection, color, delaySeconds, firstInvoke));
     }
+
+    public void DestoryGameObject(GameObject go, float time)
+    {
+        Destroy(go, time);
+    }
 }
