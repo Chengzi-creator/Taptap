@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3907989623584904824}
   - component: {fileID: 237167804733355507}
   - component: {fileID: 2330042956717508582}
+  - component: {fileID: 4347175553689509532}
   m_Layer: 8
   m_Name: TowerBTorchB
   m_TagString: Untagged
@@ -96,6 +97,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1e1abc646b40989479443b4a41476197, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4347175553689509532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 553648730661611927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 571bfa08e6ae26b4088384c8a87946fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &7772605689758551283

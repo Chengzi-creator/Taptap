@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 357636877850258587}
   - component: {fileID: 2592115228777580911}
   - component: {fileID: 4552539274492296905}
+  - component: {fileID: -3586412612342579557}
   m_Layer: 8
   m_Name: TowerDCatapult
   m_TagString: Untagged
@@ -96,6 +97,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: edd0677b05236c64b97777462f661fd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-3586412612342579557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3790972109661619154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 571bfa08e6ae26b4088384c8a87946fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &5611105452660520943

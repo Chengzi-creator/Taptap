@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 357636877850258587}
   - component: {fileID: 2592115228777580911}
   - component: {fileID: 499270069266908331}
+  - component: {fileID: 7543704467855226215}
   m_Layer: 8
   m_Name: TowerDHammer
   m_TagString: Untagged
@@ -180,5 +181,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cef606beb659ab54e9d5908834738a2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7543704467855226215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3790972109661619154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 571bfa08e6ae26b4088384c8a87946fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

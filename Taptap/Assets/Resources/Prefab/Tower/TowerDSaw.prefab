@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7743430693830536653}
   - component: {fileID: 3260832320417360631}
   - component: {fileID: 6391632772069602490}
+  - component: {fileID: 6997061040831595220}
   m_Layer: 8
   m_Name: TowerDSaw
   m_TagString: Untagged
@@ -96,6 +97,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ffbdd67de7c30b342b436dbc97f8613c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6997061040831595220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4441425359444917052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 571bfa08e6ae26b4088384c8a87946fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &8859176616275116746
