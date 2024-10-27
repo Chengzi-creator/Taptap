@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShowLazerB : MonoBehaviour , IShow
+public class ShowLazerB : IShow
 {
-    public void ShowRange()
+    public override void ShowRange()
     {
         GameObject.Find("ShowRange").SetActive(true);
     }
-    public void SetFaceDirection(int faceDirection)
+    public override void SetFaceDirection(int faceDirection)
     {
         switch(faceDirection)
         {
@@ -25,5 +25,6 @@ public class ShowLazerB : MonoBehaviour , IShow
                 this.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprite/BuffTower/bD");
                 break;
         }
+        GameObject.Find("ShowRange").transform.rotation = Quaternion.Euler(0, 0, faceDirection * 90);
     }
 }

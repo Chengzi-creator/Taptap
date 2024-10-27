@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 357636877850258587}
   - component: {fileID: 2592115228777580911}
   - component: {fileID: -7198895221267205865}
+  - component: {fileID: -2831586012154671836}
   m_Layer: 8
   m_Name: TowerDSpike
   m_TagString: Untagged
@@ -75,7 +76,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -158830687
   m_SortingLayer: 3
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 65cfd19e67aa58044844544db91a4abc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -97,6 +98,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 40b2cf3b9066ee7409375b0ab13c7504, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-2831586012154671836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3790972109661619154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4fc571598be12b4d86b594b4180ab63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &7399841469967142615

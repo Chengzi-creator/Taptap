@@ -54,8 +54,14 @@ public class EnemyManager : IEnemyManager
         prefabEnemyList[IEnemyManager.EnemyType.A] = Resources.Load<GameObject>("Prefab/Enemy/EnemyA");
         prefabEnemyList[IEnemyManager.EnemyType.B] = Resources.Load<GameObject>("Prefab/Enemy/EnemyB");
         prefabEnemyList[IEnemyManager.EnemyType.C] = Resources.Load<GameObject>("Prefab/Enemy/EnemyC");
+        prefabEnemyList[IEnemyManager.EnemyType.D] = Resources.Load<GameObject>("Prefab/Enemy/EnemyD");
+        prefabEnemyList[IEnemyManager.EnemyType.E] = Resources.Load<GameObject>("Prefab/Enemy/EnemyE");
+        prefabEnemyList[IEnemyManager.EnemyType.F] = Resources.Load<GameObject>("Prefab/Enemy/EnemyF");
+        prefabEnemyList[IEnemyManager.EnemyType.G] = Resources.Load<GameObject>("Prefab/Enemy/EnemyG");
+        prefabEnemyList[IEnemyManager.EnemyType.H] = Resources.Load<GameObject>("Prefab/Enemy/EnemyH");
+        prefabEnemyList[IEnemyManager.EnemyType.I] = Resources.Load<GameObject>("Prefab/Enemy/EnemyI");
 
-        if(instance.enemyConfig == null)
+        if (instance.enemyConfig == null)
         {
             Debug.LogWarning("EnemyConfig not found");
             return false;
