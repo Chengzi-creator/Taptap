@@ -246,6 +246,7 @@ public class MyGridManager : MonoBehaviour, IGraphicManager, IGridManager
         width = mapState.width;
         length = mapState.length;
         myGrids = new MyGrid[width, length];
+        MapStartPos = new Vector2(-width / 2 * 2, -length / 2 * 2);
         for (int i = 0; i < width; i++)
         {
             for (int j = 0; j < length; j++)
