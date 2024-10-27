@@ -10,6 +10,7 @@ public class ShowFlash : IShow
     }
     public override void SetFaceDirection(int faceDirection)
     {
+        Debug.Log("setFaceDirection");
         switch (faceDirection)
         {
             case 0:

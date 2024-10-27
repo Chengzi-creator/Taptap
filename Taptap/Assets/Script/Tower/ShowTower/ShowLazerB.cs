@@ -25,5 +25,6 @@ public class ShowLazerB : IShow
                 this.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprite/BuffTower/bD");
                 break;
         }
+        GameObject.Find("ShowRange").transform.rotation = Quaternion.Euler(0, 0, faceDirection * 90);
     }
 }

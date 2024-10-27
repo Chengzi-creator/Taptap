@@ -122,7 +122,7 @@ public class UIManager : MonoBehaviour , IUIManager
     }
         
     public bool isTeaching = false;
-    public ShowUnRotation _showUnRotation;
+    //public IShow _showUnRotation;
     private bool isPaused = false;
     private bool isValid = true;
     private bool _selectDestroy;
@@ -201,9 +201,9 @@ public class UIManager : MonoBehaviour , IUIManager
         
         spawnButton.onClick.AddListener(SpawnEnemy);
         
-        
-        _showUnRotation = GetComponent<ShowUnRotation>();
-        Debug.LogWarning("在这");
+        /*
+        _showUnRotation = GetComponent<IShow>();
+        Debug.LogWarning("在这");*/
         
         // foreach (var pair in toggleImagePairs)
         // {
@@ -496,11 +496,13 @@ public class UIManager : MonoBehaviour , IUIManager
         {
             faceDirection = (faceDirection + 1) % 4;
             Debug.Log(faceDirection);
+            tower.GetComponent<IShow>().SetFaceDirection(faceDirection);
         }
         else if (Input.GetKeyDown(KeyCode.E))
         {
             faceDirection = (faceDirection + 3) % 4;
             Debug.Log(faceDirection);
+            tower.GetComponent<IShow>().SetFaceDirection(faceDirection); 
         }
     }
 
@@ -537,7 +539,7 @@ public class UIManager : MonoBehaviour , IUIManager
     {   
         PlayStateMachine.Instance.BuildTower(type, gridPosition, faceDirection);
         showCount = 0;
-        faceDirection = 0;
+//        faceDirection = 0;
     }
     
     public void TowerDestroy()
@@ -569,17 +571,22 @@ public class UIManager : MonoBehaviour , IUIManager
         //}
         if (tower == null && !isSpawning)
         {
-            tower = GameObject.Instantiate(rF);
+            tower = GameObject.Instantiate(rF);/*
            _showUnRotation.GetComponent<ShowUnRotation>().ShowRange();
-           _showUnRotation.SetFaceDirection(faceDirection);
+           _showUnRotation.SetFaceDirection(faceDirection);*/
+            tower.GetComponent<IShow>().ShowRange();
+            tower.GetComponent<IShow>().SetFaceDirection(faceDirection);
         }
 
         if (tower != null && !isSpawning)
         {
             DestroyTowerImage();
-            tower = GameObject.Instantiate(rF);
+            tower = GameObject.Instantiate(rF);/*
             _showUnRotation.ShowRange();
-            _showUnRotation.SetFaceDirection(faceDirection);
+            _showUnRotation.SetFaceDirection(faceDirection);*/
+
+            tower.GetComponent<IShow>().ShowRange();
+            tower.GetComponent<IShow>().SetFaceDirection(faceDirection);
         }
     }
     
@@ -588,17 +595,23 @@ public class UIManager : MonoBehaviour , IUIManager
         _selectedTowerType = ITowerManager.TowerType.B_lazor_R;
         if (tower == null && !isSpawning)
         {
-            tower = GameObject.Instantiate(rL);
+            tower = GameObject.Instantiate(rL);/*
             _showUnRotation.ShowRange();
-            _showUnRotation.SetFaceDirection(faceDirection);
+            _showUnRotation.SetFaceDirection(faceDirection);*/
+
+            tower.GetComponent<IShow>().ShowRange();
+            tower.GetComponent<IShow>().SetFaceDirection(faceDirection);
         }
 
         if (tower != null && !isSpawning)
         {
             DestroyTowerImage();
-            tower = GameObject.Instantiate(rL);
+            tower = GameObject.Instantiate(rL);/*
             _showUnRotation.ShowRange();
-            _showUnRotation.SetFaceDirection(faceDirection);
+            _showUnRotation.SetFaceDirection(faceDirection);*/
+
+            tower.GetComponent<IShow>().ShowRange();
+            tower.GetComponent<IShow>().SetFaceDirection(faceDirection);
         }
     }
     
@@ -607,16 +620,22 @@ public class UIManager : MonoBehaviour , IUIManager
         _selectedTowerType = ITowerManager.TowerType.B_torch_R;
         if(tower == null && !isSpawning)
         {
-            tower = GameObject.Instantiate(rT);
+            tower = GameObject.Instantiate(rT);/*
             _showUnRotation.ShowRange();
-            _showUnRotation.SetFaceDirection(faceDirection);
+            _showUnRotation.SetFaceDirection(faceDirection);*/
+
+            tower.GetComponent<IShow>().ShowRange();
+            tower.GetComponent<IShow>().SetFaceDirection(faceDirection);
         }
         if (tower != null && !isSpawning)
         {
             DestroyTowerImage();
-            tower = GameObject.Instantiate(rT);
+            tower = GameObject.Instantiate(rT);/*
             _showUnRotation.ShowRange();
-            _showUnRotation.SetFaceDirection(faceDirection);
+            _showUnRotation.SetFaceDirection(faceDirection);*/
+
+            tower.GetComponent<IShow>().ShowRange();
+            tower.GetComponent<IShow>().SetFaceDirection(faceDirection);
         }
     }
     
@@ -625,17 +644,23 @@ public class UIManager : MonoBehaviour , IUIManager
         _selectedTowerType = ITowerManager.TowerType.B_flash_G;
         if (tower == null && !isSpawning)
         {
-            tower = GameObject.Instantiate(gF);
+            tower = GameObject.Instantiate(gF);/*
             _showUnRotation.ShowRange();
-            _showUnRotation.SetFaceDirection(faceDirection);
+            _showUnRotation.SetFaceDirection(faceDirection);*/
+
+            tower.GetComponent<IShow>().ShowRange();
+            tower.GetComponent<IShow>().SetFaceDirection(faceDirection);
         }
 
         if (tower != null && !isSpawning)
         {
             DestroyTowerImage();
-            tower = GameObject.Instantiate(gF);
+            tower = GameObject.Instantiate(gF);/*
             _showUnRotation.ShowRange();
-            _showUnRotation.SetFaceDirection(faceDirection);
+            _showUnRotation.SetFaceDirection(faceDirection);*/
+
+            tower.GetComponent<IShow>().ShowRange();
+            tower.GetComponent<IShow>().SetFaceDirection(faceDirection);
         }
     }
     
@@ -644,17 +669,22 @@ public class UIManager : MonoBehaviour , IUIManager
         _selectedTowerType = ITowerManager.TowerType.B_lazor_G;
         if (tower == null && !isSpawning)
         {
-            tower = GameObject.Instantiate(gL);
+            tower = GameObject.Instantiate(gL);/*
             _showUnRotation.ShowRange();
-            _showUnRotation.SetFaceDirection(faceDirection);
+            _showUnRotation.SetFaceDirection(faceDirection);*/
+
+            tower.GetComponent<IShow>().ShowRange();
+            tower.GetComponent<IShow>().SetFaceDirection(faceDirection);
         }
 
         if (tower != null && !isSpawning)
         {
             DestroyTowerImage();
-            tower = GameObject.Instantiate(gL);
+            tower = GameObject.Instantiate(gL);/*
             _showUnRotation.ShowRange();
-            _showUnRotation.SetFaceDirection(faceDirection);
+            _showUnRotation.SetFaceDirection(faceDirection);*/
+            tower.GetComponent<IShow>().ShowRange();
+            tower.GetComponent<IShow>().SetFaceDirection(faceDirection);
         }
     }
     
@@ -663,17 +693,21 @@ public class UIManager : MonoBehaviour , IUIManager
         _selectedTowerType = ITowerManager.TowerType.B_torch_G;
         if (tower == null && !isSpawning)
         {
-            tower = GameObject.Instantiate(gT);
+            tower = GameObject.Instantiate(gT);/*
             _showUnRotation.ShowRange();
-            _showUnRotation.SetFaceDirection(faceDirection);
+            _showUnRotation.SetFaceDirection(faceDirection);*/
+            tower.GetComponent<IShow>().ShowRange();
+            tower.GetComponent<IShow>().SetFaceDirection(faceDirection);
         }
 
         if (tower != null && !isSpawning)
         {
             DestroyTowerImage();
-            tower = GameObject.Instantiate(gT);
+            tower = GameObject.Instantiate(gT);/*
             _showUnRotation.ShowRange();
-            _showUnRotation.SetFaceDirection(faceDirection);
+            _showUnRotation.SetFaceDirection(faceDirection);*/
+            tower.GetComponent<IShow>().ShowRange();
+            tower.GetComponent<IShow>().SetFaceDirection(faceDirection);
         }
     }
     
@@ -682,17 +716,21 @@ public class UIManager : MonoBehaviour , IUIManager
         _selectedTowerType = ITowerManager.TowerType.B_flash_B;
         if (tower == null && !isSpawning)
         {
-            tower = GameObject.Instantiate(bF);
+            tower = GameObject.Instantiate(bF);/*
             _showUnRotation.ShowRange();
-            _showUnRotation.SetFaceDirection(faceDirection);
+            _showUnRotation.SetFaceDirection(faceDirection);*/
+            tower.GetComponent<IShow>().ShowRange();
+            tower.GetComponent<IShow>().SetFaceDirection(faceDirection);
         }
 
         if (tower != null && !isSpawning)
         {
             DestroyTowerImage();
-            tower = GameObject.Instantiate(bF);
+            tower = GameObject.Instantiate(bF);/*
             _showUnRotation.ShowRange();
-            _showUnRotation.SetFaceDirection(faceDirection);
+            _showUnRotation.SetFaceDirection(faceDirection);*/
+            tower.GetComponent<IShow>().ShowRange();
+            tower.GetComponent<IShow>().SetFaceDirection(faceDirection);
         }
     }
     
@@ -701,17 +739,21 @@ public class UIManager : MonoBehaviour , IUIManager
         _selectedTowerType = ITowerManager.TowerType.B_lazor_B;
         if (tower == null && !isSpawning)
         {
-            tower = GameObject.Instantiate(bL);
+            tower = GameObject.Instantiate(bL);/*
             _showUnRotation.ShowRange();
-            _showUnRotation.SetFaceDirection(faceDirection);
+            _showUnRotation.SetFaceDirection(faceDirection);*/
+            tower.GetComponent<IShow>().ShowRange();
+            tower.GetComponent<IShow>().SetFaceDirection(faceDirection);
         }
 
         if (tower != null && !isSpawning)
         {
             DestroyTowerImage();
-            tower = GameObject.Instantiate(bL);
+            tower = GameObject.Instantiate(bL);/*
             _showUnRotation.ShowRange();
-            _showUnRotation.SetFaceDirection(faceDirection);
+            _showUnRotation.SetFaceDirection(faceDirection);*/
+            tower.GetComponent<IShow>().ShowRange();
+            tower.GetComponent<IShow>().SetFaceDirection(faceDirection);
         }
     }
     private void ClickBT()
@@ -719,17 +761,21 @@ public class UIManager : MonoBehaviour , IUIManager
         _selectedTowerType = ITowerManager.TowerType.B_torch_B;
         if (tower == null && !isSpawning)
         {
-            tower = GameObject.Instantiate(bT);
+            tower = GameObject.Instantiate(bT);/*
             _showUnRotation.ShowRange();
-            _showUnRotation.SetFaceDirection(faceDirection);
+            _showUnRotation.SetFaceDirection(faceDirection);*/
+            tower.GetComponent<IShow>().ShowRange();
+            tower.GetComponent<IShow>().SetFaceDirection(faceDirection);
         }
 
         if (tower != null && !isSpawning)
         {
             DestroyTowerImage();
-            tower = GameObject.Instantiate(bT);
+            tower = GameObject.Instantiate(bT);/*
             _showUnRotation.ShowRange();
-            _showUnRotation.SetFaceDirection(faceDirection);
+            _showUnRotation.SetFaceDirection(faceDirection);*/
+            tower.GetComponent<IShow>().ShowRange();
+            tower.GetComponent<IShow>().SetFaceDirection(faceDirection);
         }
     }
     
@@ -738,17 +784,21 @@ public class UIManager : MonoBehaviour , IUIManager
         _selectedTowerType = ITowerManager.TowerType.D_catapult;
         if (tower == null && !isSpawning)
         {
-            tower = GameObject.Instantiate(dC);
+            tower = GameObject.Instantiate(dC);/*
             _showUnRotation.ShowRange();
-            _showUnRotation.SetFaceDirection(faceDirection);
+            _showUnRotation.SetFaceDirection(faceDirection);*/
+            tower.GetComponent<IShow>().ShowRange();
+            tower.GetComponent<IShow>().SetFaceDirection(faceDirection);
         }
 
         if (tower != null && !isSpawning)
         {
             DestroyTowerImage();
-            tower = GameObject.Instantiate(dC);
+            tower = GameObject.Instantiate(dC);/*
             _showUnRotation.ShowRange();
-            _showUnRotation.SetFaceDirection(faceDirection);
+            _showUnRotation.SetFaceDirection(faceDirection);*/
+            tower.GetComponent<IShow>().ShowRange();
+            tower.GetComponent<IShow>().SetFaceDirection(faceDirection);
         }
     }
 
@@ -757,16 +807,21 @@ public class UIManager : MonoBehaviour , IUIManager
         _selectedTowerType = ITowerManager.TowerType.D_hammer;
         if (tower == null && !isSpawning)
         {
-            tower = GameObject.Instantiate(dH);
+            tower = GameObject.Instantiate(dH);/*
             _showUnRotation.ShowRange();
-            _showUnRotation.SetFaceDirection(faceDirection);
+            _showUnRotation.SetFaceDirection(faceDirection);*/
+            tower.GetComponent<IShow>().ShowRange();
+            tower.GetComponent<IShow>().SetFaceDirection(faceDirection);
         }
         if (tower != null && !isSpawning)
         {
             DestroyTowerImage();
-            tower = GameObject.Instantiate(dH);
+            tower = GameObject.Instantiate(dH);/*
             _showUnRotation.ShowRange();
-            _showUnRotation.SetFaceDirection(faceDirection);
+            _showUnRotation.SetFaceDirection(faceDirection);*/
+
+            tower.GetComponent<IShow>().ShowRange();
+            tower.GetComponent<IShow>().SetFaceDirection(faceDirection);
         }
     }
     
@@ -775,17 +830,21 @@ public class UIManager : MonoBehaviour , IUIManager
         _selectedTowerType = ITowerManager.TowerType.D_spike;
         if (tower == null && !isSpawning)
         {
-            tower = GameObject.Instantiate(dS);
+            tower = GameObject.Instantiate(dS);/*
             _showUnRotation.ShowRange();
-            _showUnRotation.SetFaceDirection(faceDirection);
+            _showUnRotation.SetFaceDirection(faceDirection);*/
+            tower.GetComponent<IShow>().ShowRange();
+            tower.GetComponent<IShow>().SetFaceDirection(faceDirection);
         }
 
         if (tower != null && !isSpawning)
         {
             DestroyTowerImage();
-            tower = GameObject.Instantiate(dS);
+            tower = GameObject.Instantiate(dS);/*
             _showUnRotation.ShowRange();
-            _showUnRotation.SetFaceDirection(faceDirection);
+            _showUnRotation.SetFaceDirection(faceDirection);*/
+            tower.GetComponent<IShow>().ShowRange();
+            tower.GetComponent<IShow>().SetFaceDirection(faceDirection);
         }
     }
     
@@ -794,17 +853,21 @@ public class UIManager : MonoBehaviour , IUIManager
         _selectedTowerType = ITowerManager.TowerType.D_dart;
         if (tower == null && !isSpawning)
         {
-            tower = GameObject.Instantiate(dD);
+            tower = GameObject.Instantiate(dD);/*
             _showUnRotation.ShowRange();
-            _showUnRotation.SetFaceDirection(faceDirection);
+            _showUnRotation.SetFaceDirection(faceDirection);*/
+            tower.GetComponent<IShow>().ShowRange();
+            tower.GetComponent<IShow>().SetFaceDirection(faceDirection);
         }
 
         if (tower != null && !isSpawning)
         {
             DestroyTowerImage();
-            tower = GameObject.Instantiate(dD);
+            tower = GameObject.Instantiate(dD);/*
             _showUnRotation.ShowRange();
-            _showUnRotation.SetFaceDirection(faceDirection);
+            _showUnRotation.SetFaceDirection(faceDirection);*/
+            tower.GetComponent<IShow>().ShowRange();
+            tower.GetComponent<IShow>().SetFaceDirection(faceDirection);
         }
     }
     
@@ -813,17 +876,22 @@ public class UIManager : MonoBehaviour , IUIManager
         _selectedTowerType = ITowerManager.TowerType.D_saw;
         if (tower == null && !isSpawning)
         {
-            tower = GameObject.Instantiate(dSA);
+            tower = GameObject.Instantiate(dSA);/*
             _showUnRotation.ShowRange();
-            _showUnRotation.SetFaceDirection(faceDirection);
+            _showUnRotation.SetFaceDirection(faceDirection);*/
+            tower.GetComponent<IShow>().ShowRange();
+            tower.GetComponent<IShow>().SetFaceDirection(faceDirection);
         }
 
         if (tower != null && !isSpawning)
         {
             DestroyTowerImage();
-            tower = GameObject.Instantiate(dSA);
+            tower = GameObject.Instantiate(dSA);/*
             _showUnRotation.ShowRange();
-            _showUnRotation.SetFaceDirection(faceDirection);
+            _showUnRotation.SetFaceDirection(faceDirection);*/
+
+            tower.GetComponent<IShow>().ShowRange();
+            tower.GetComponent<IShow>().SetFaceDirection(faceDirection);
         }
     }
 

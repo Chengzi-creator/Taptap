@@ -104,6 +104,8 @@ public class PlayStateMachine
         TowerManager.Instance.Close();
         // MyGridManager.Instance.Close();
         MyGridManager.Instance.UnloadLevel();
+        ChangeState(PlayStateType.Empty);
+        return;
         Debug.Log("Close PlayStateMachine");
 
     }
@@ -278,6 +280,8 @@ public class PlayStateMachine
             UIManager.Instance.ShowEnemyCountAndTypes(PlayStateMachine.Instance.enemyTypeList , PlayStateMachine.Instance.enemyCountList);
             Debug.Log("show enemy count and types");
             Debug.Log("Total enemy count " + enemyList.Count);
+
+            MyGridManager.Instance.DrawPath(aaaa);
     
         }
 
