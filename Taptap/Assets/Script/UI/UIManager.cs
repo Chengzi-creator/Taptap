@@ -620,25 +620,41 @@ public class UIManager : MonoBehaviour , IUIManager
     
     public void ShowEnemyCountAndTypes(List<IEnemyManager.EnemyType> types, List<int> counts)
     {
+        
+    }
+
+    public void EnemyReduce(List<IEnemyManager.EnemyType> types, List<int> counts,IEnemyManager.EnemyType type)
+    {
         if (types.Count != counts.Count)
         {
             enemyInformation.text = "Error";
             return;
         }
 
-        string infoText = "Enemy:\n";
+        int index = types.IndexOf(type);
+
+        if (index != -1 && counts[index] > 0)
+        {
+            counts[index]--;
+        }
+        else if (index == -1)
+        {
+            enemyInformation.text = $"Error: Enemy type {type} none";
+            return;
+        }
+        else
+        {
+            enemyInformation.text = $"Error: No more {type}s left.";
+            return;
+        }
         
+        string infoText = "Enemy:\n";
         for (int i = 0; i < types.Count; i++)
         {
             infoText += $"{types[i]}: {counts[i]}\n";
         }
-
+        
         enemyInformation.text = infoText;
-    }
-
-    public void EnemyReduce(List<IEnemyManager.EnemyType> types, List<int> counts,IEnemyManager.EnemyType type)
-    {
-        //暂时不知道咋实现
     }
 
     public void SpawnEnemy()
@@ -648,9 +664,16 @@ public class UIManager : MonoBehaviour , IUIManager
             PlayStateMachine.Instance.StartSpawnState();
             Debug.Log("Switch");
             AudioControl.Instance.SwitchMusic();
+            ClickOut();
+            MyGridManager.Instance.CancelShowBuildModeGrid();
+            showCount = 0;
+            faceDirection = 0;
+            _selectDestroy = false;
             isSpawning = true;
         }
     }
     #endregion
+    
+    
    
 }
