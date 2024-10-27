@@ -27,7 +27,7 @@ public class TeachText : MonoBehaviour
     [Header("对话更新")]
     public int talkConut = 0; //用来存储对话次数？
 
-    [Header("对话显示")] private Queue<string> dialogueQueue; //存储对话
+    [Header("对话显示")] private Queue<string> dialogueQueue=new Queue<string>(); //存储对话
     private bool isTyping = false; //判断是否正在显示
     private Coroutine typingCoroutine;
 
@@ -47,7 +47,7 @@ public class TeachText : MonoBehaviour
 
     void Start()
     {
-        dialogueQueue = new Queue<string>();
+        //dialogueQueue = new Queue<string>();
         //nextButton.onClick.AddListener(DisplayNextSentence); //显示下一句
         //nextButton.gameObject.SetActive(false);
     }
