@@ -377,7 +377,19 @@ MonoBehaviour:
   gButton: {fileID: 4698456032110390298}
   bButton: {fileID: 3574451889044172131}
   spawnButton: {fileID: 9183748621602066977}
-  rFImage: {fileID: 8532010522125739003}
+  rF: {fileID: 553648730661611927, guid: 65738944ae62d0f47bedc3fd3ed17c9e, type: 3}
+  rT: {fileID: 553648730661611927, guid: 8451434b6da52194cb42f50bd053b6d9, type: 3}
+  rL: {fileID: 553648730661611927, guid: e5adb9516b814ca41a4a6e9c0238c6b1, type: 3}
+  gF: {fileID: 553648730661611927, guid: dacf6f5943b93b74283b3c7629326cde, type: 3}
+  gT: {fileID: 553648730661611927, guid: 543ad19bbb469134cb05642664b0c2b0, type: 3}
+  gL: {fileID: 553648730661611927, guid: 99ff0b11401b9d540a0eab47ed4f0a48, type: 3}
+  bF: {fileID: 553648730661611927, guid: 60c2f8a2d552d0849ae93f9fdde25409, type: 3}
+  bT: {fileID: 553648730661611927, guid: 21e0420dd871f35468a566adf608cf0d, type: 3}
+  bL: {fileID: 553648730661611927, guid: 3d607e33cb0c13f42a07f0cab1425518, type: 3}
+  dD: {fileID: 3790972109661619154, guid: cd164651e8818484888052f772f7667d, type: 3}
+  dH: {fileID: 3790972109661619154, guid: 441382a13855eda458f883d609e31cba, type: 3}
+  dC: {fileID: 3790972109661619154, guid: 6783333501046d8499472839088a98ef, type: 3}
+  dS: {fileID: 3790972109661619154, guid: e8de285205d3c0f4c8e5b3a16a5c1cd8, type: 3}
   startButton: {fileID: 7291698053335975195}
   homeexitButton: {fileID: 5453432093893422481}
   level0Button: {fileID: 1327095653028258488}
@@ -1674,7 +1686,7 @@ PrefabInstance:
     - target: {fileID: 2040165201560322350, guid: 49e00de03bff03c41b4cad9ee206b7c3, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: eb1ad6683b5fa154cac519f78b395031, type: 3}
+      objectReference: {fileID: 21300000, guid: cf7c2c1cb7091d64cb06204f3fefff80, type: 3}
     - target: {fileID: 2040165201560322350, guid: 49e00de03bff03c41b4cad9ee206b7c3, type: 3}
       propertyPath: m_Material
       value: 
@@ -1726,7 +1738,7 @@ PrefabInstance:
     - target: {fileID: 2392110450096446936, guid: 49e00de03bff03c41b4cad9ee206b7c3, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 4fe0f96528b1e4a429a101c96279d874, type: 3}
+      objectReference: {fileID: 21300000, guid: 6995282751a45ad46baf018544171b6f, type: 3}
     - target: {fileID: 2392110450096446936, guid: 49e00de03bff03c41b4cad9ee206b7c3, type: 3}
       propertyPath: m_Material
       value: 
@@ -1770,7 +1782,7 @@ PrefabInstance:
     - target: {fileID: 2415825872496865731, guid: 49e00de03bff03c41b4cad9ee206b7c3, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 4dcdb29903d1ded4fa353a178d642a91, type: 3}
+      objectReference: {fileID: 21300000, guid: 113471d3099f31946bd29430dc04fc6f, type: 3}
     - target: {fileID: 2415825872496865731, guid: 49e00de03bff03c41b4cad9ee206b7c3, type: 3}
       propertyPath: m_Material
       value: 
@@ -1938,7 +1950,7 @@ PrefabInstance:
     - target: {fileID: 4119630908991387105, guid: 49e00de03bff03c41b4cad9ee206b7c3, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 0aba177286712994d872de8bccb30fb1, type: 3}
+      objectReference: {fileID: 21300000, guid: 8941320c6f4ccc946be4d9cf6c22f836, type: 3}
     - target: {fileID: 4119630908991387105, guid: 49e00de03bff03c41b4cad9ee206b7c3, type: 3}
       propertyPath: m_Material
       value: 
@@ -2873,17 +2885,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &8532010522125739003 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5395217724112575801, guid: 49e00de03bff03c41b4cad9ee206b7c3, type: 3}
-  m_PrefabInstance: {fileID: 4375356657848041154}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &8594117559983224921 stripped

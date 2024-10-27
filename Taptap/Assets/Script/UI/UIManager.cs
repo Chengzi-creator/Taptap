@@ -67,7 +67,20 @@ public class UIManager : MonoBehaviour , IUIManager
     [SerializeField] private Button gButton;
     [SerializeField] private Button bButton;
     [SerializeField] private Button spawnButton;
-    [SerializeField] private Image rFImage;
+    [SerializeField] private GameObject rF;
+    [SerializeField] private GameObject rT;
+    [SerializeField] private GameObject rL;
+    [SerializeField] private GameObject gF;
+    [SerializeField] private GameObject gT;
+    [SerializeField] private GameObject gL;
+    [SerializeField] private GameObject bF;
+    [SerializeField] private GameObject bT;
+    [SerializeField] private GameObject bL;
+    [SerializeField] private GameObject dD;
+    [SerializeField] private GameObject dH;
+    [SerializeField] private GameObject dC;
+    [SerializeField] private GameObject dS;
+    //[SerializeField] private GameObject d;
     
     [Header("HomeButton")]
     [SerializeField] private Button startButton;
@@ -98,8 +111,9 @@ public class UIManager : MonoBehaviour , IUIManager
     private MyGridManager gridManager;
     private ITowerManager towerManager;
     private Button lastClickedButton = null;  // 记录上一次点击的按钮
-    
+    private GameObject tower;
 
+    
     public static UIManager Instance
     {
         get
@@ -203,11 +217,7 @@ public class UIManager : MonoBehaviour , IUIManager
         // {
         //     rFImage.color = new Color(0, 0, 0);
         // }
-        if (mIndex == 0)
-        {
-            teachText.SetActive(true);
-            isTeaching = true;
-        }
+        
     }
 
     private void Update()
@@ -257,6 +267,11 @@ public class UIManager : MonoBehaviour , IUIManager
     {
         mIndex = index;
         PlayStateMachine.Instance.ReInit(index);
+        if (mIndex == 0)
+        {
+            teachText.SetActive(true);
+            isTeaching = true;
+        }
         ChooseLevel.SetActive(false);
         GameStartMasks.SetActive(false);
         gameEvents.SetActive(true);
@@ -362,7 +377,6 @@ public class UIManager : MonoBehaviour , IUIManager
             ShowModeGrid();
             RotateTower();
             UpdateMousePosition();
-            //ShowImage();
             
             if (EventSystem.current.IsPointerOverGameObject())
             {
@@ -371,13 +385,15 @@ public class UIManager : MonoBehaviour , IUIManager
             }
             
             if (Input.GetMouseButtonDown(0))  //左键建造
-            {
+            {   
+                DestroyTowerImage();
                 BuildSelectedTower();
                 //DestroyImage(image);
             }
 
             if (Input.GetMouseButtonDown(1)) //右键退出建造模式
-            {
+            {   
+                DestroyTowerImage();
                 ClickOut();
                 MyGridManager.Instance.CancelShowBuildModeGrid();
                 showCount = 0;
@@ -392,6 +408,8 @@ public class UIManager : MonoBehaviour , IUIManager
         if (_selectDestroy)
         {
             UpdateMousePosition();
+            ClickOut();
+            DestroyTowerImage();
             
             if (Input.GetMouseButtonDown(0))  //左键销毁
             {   
@@ -427,6 +445,10 @@ public class UIManager : MonoBehaviour , IUIManager
     {
         worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         gridPosition = MyGridManager.Instance.GetMapPos(worldPosition);
+        if (tower != null)
+        {
+            tower.transform.position = worldPosition;
+        }
     }
 
     private void ShowModeGrid()
@@ -435,6 +457,12 @@ public class UIManager : MonoBehaviour , IUIManager
         {
             MyGridManager.Instance.ShowBuildModeGrid();
         }
+    }
+
+    private void DestroyTowerImage()
+    {   
+        Destroy(tower);
+        tower = null;
     }
     
     private void BuildSelectedTower()
@@ -466,6 +494,7 @@ public class UIManager : MonoBehaviour , IUIManager
         showCount = 0;
         Debug.Log("back");
     }
+    
     #endregion
     
     #region 建造按钮点击
@@ -475,65 +504,156 @@ public class UIManager : MonoBehaviour , IUIManager
         //{
             _selectedTowerType = ITowerManager.TowerType.B_flash_R;
         //}
+        if(tower == null)
+            tower = GameObject.Instantiate(rF);
+        if (tower != null)
+        {
+            DestroyTowerImage();
+            tower = GameObject.Instantiate(rF);
+        }
     }
     
     private void ClickRL()
     {   
         _selectedTowerType = ITowerManager.TowerType.B_lazor_R;
+        if(tower == null)
+            tower = GameObject.Instantiate(rL);
+        if (tower != null)
+        {
+            DestroyTowerImage();
+            tower = GameObject.Instantiate(rL);
+        }
     }
     
     private void ClickRT()
     {   
         _selectedTowerType = ITowerManager.TowerType.B_torch_R;
+        if(tower == null)
+            tower = GameObject.Instantiate(rT);
+        if (tower != null)
+        {
+            DestroyTowerImage();
+            tower = GameObject.Instantiate(rT);
+        }
     }
     
     private void ClickGF()
     {   
         _selectedTowerType = ITowerManager.TowerType.B_flash_G;
+        if(tower == null)
+            tower = GameObject.Instantiate(gF);
+        if (tower != null)
+        {
+            DestroyTowerImage();
+            tower = GameObject.Instantiate(gF);
+        }
     }
     
     private void ClickGL()
     {   
         _selectedTowerType = ITowerManager.TowerType.B_lazor_G;
+        if(tower == null)
+            tower = GameObject.Instantiate(gL);
+        if (tower != null)
+        {
+            DestroyTowerImage();
+            tower = GameObject.Instantiate(gL);
+        }
     }
     
     private void ClickGT()
     {   
         _selectedTowerType = ITowerManager.TowerType.B_torch_G;
+        if(tower == null)
+            tower = GameObject.Instantiate(gT);
+        if (tower != null)
+        {
+            DestroyTowerImage();
+            tower = GameObject.Instantiate(gT);
+        }
     }
     
     private void ClickBF()
     {   
         _selectedTowerType = ITowerManager.TowerType.B_flash_B;
+        if(tower == null)
+            tower = GameObject.Instantiate(bF);
+        if (tower != null)
+        {
+            DestroyTowerImage();
+            tower = GameObject.Instantiate(bF);
+        }
     }
     
     private void ClickBL()
     {   
         _selectedTowerType = ITowerManager.TowerType.B_lazor_B;
+        if(tower == null)
+            tower = GameObject.Instantiate(bL);
+        if (tower != null)
+        {
+            DestroyTowerImage();
+            tower = GameObject.Instantiate(bL);
+        }
     }
     private void ClickBT()
     {   
         _selectedTowerType = ITowerManager.TowerType.B_torch_B;
+        if(tower == null)
+            tower = GameObject.Instantiate(bT);
+        if (tower != null)
+        {
+            DestroyTowerImage();
+            tower = GameObject.Instantiate(bT);
+        }
     }
     
     private void ClickDC()
     {   
         _selectedTowerType = ITowerManager.TowerType.D_catapult;
+        if(tower == null)
+            tower = GameObject.Instantiate(dC);
+        if (tower != null)
+        {
+            DestroyTowerImage();
+            tower = GameObject.Instantiate(dC);
+        }
     }
 
     private void ClickDH()
     {   
         _selectedTowerType = ITowerManager.TowerType.D_hammer;
+        if (tower == null)
+            tower = GameObject.Instantiate(dH);
+        if (tower != null)
+        {
+            DestroyTowerImage();
+            tower = GameObject.Instantiate(dH);
+        }
     }
     
     private void ClickDS()
     {   
         _selectedTowerType = ITowerManager.TowerType.D_spike;
+        if(tower == null)
+            tower = GameObject.Instantiate(dS);
+        if (tower != null)
+        {
+            DestroyTowerImage();
+            tower = GameObject.Instantiate(dS);
+        }
     }
     
     private void ClickDD()
     {   
         _selectedTowerType = ITowerManager.TowerType.D_dart;
+        if(tower == null)
+            tower = GameObject.Instantiate(dD);
+        if (tower != null)
+        {
+            DestroyTowerImage();
+            tower = GameObject.Instantiate(dD);
+        }
     }
 
     private void ClickOut()
