@@ -105,7 +105,6 @@ public class BaseEnemy : MonoBehaviour, IEnemy
             else if(nextPosition.x - beginPosition.x < 0)
             {
                 transform.localScale = new Vector3(- Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
-                //transform.localScale.x = - Mathf.Abs(transform.localScale.x);
             }
         }
     }
@@ -202,6 +201,15 @@ public class BaseEnemy : MonoBehaviour, IEnemy
         this.Position = beginPosition;
         this.moveScale = 0;
         for(int i = 0 ; i < 10 ; i ++) {this.colorTime[i] = 0 ; this.currentColor[i] = false;}
+
+        if (nextPosition.x - beginPosition.x > 0)
+        {
+            transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+        }
+        else if (nextPosition.x - beginPosition.x < 0)
+        {
+            transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+        }
     }
 
     public virtual void OnUpDate(float deltaTime)
