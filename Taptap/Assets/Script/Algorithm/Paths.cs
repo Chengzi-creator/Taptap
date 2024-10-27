@@ -37,6 +37,14 @@ namespace Algorithm
                 path.DrawPath(Color.red, time);
             }
         }
+
+        public void EraseFirstPath(int time)
+        {
+            for (int i = 0;i<Path.pathsParent.transform.childCount; i++)
+            {
+                GameObject.Destroy(Path.pathsParent.transform.GetChild(i).gameObject);
+            }
+        }
         public void DrawSecondPath()
         {
             foreach (var path in secondPaths)

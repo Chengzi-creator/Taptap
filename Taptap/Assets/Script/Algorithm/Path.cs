@@ -15,8 +15,9 @@ namespace Algorithm
 
 
         public static GameObject head = Resources.Load<GameObject>("Prefab/Path/Head");
-        public static GameObject tail= Resources.Load<GameObject>("Prefab/Path/Tail");
+        public static GameObject tail = Resources.Load<GameObject>("Prefab/Path/Tail");
         public static GameObject mid = Resources.Load<GameObject>("Prefab/Path/Mid");
+        public static GameObject pathsParent = GameObject.Instantiate(Resources.Load<GameObject>("Prefab/Path/PathsParent"));
 
         public Path(Vector2Int startPos)
         {
@@ -32,7 +33,7 @@ namespace Algorithm
         public Path(Path path)
         {
             this.path = new List<Vector2Int>();
-            foreach(var point in path.path)
+            foreach (var point in path.path)
             {
                 this.path.Add(point);
             }
@@ -50,26 +51,26 @@ namespace Algorithm
 
         public Vector2Int GetTarget(int idx)
         {
-            if(idx < path.Count)
+            if (idx < path.Count)
                 return path[idx];
             else
                 return new Vector2Int(-1, -1);
         }
 
         private Vector2Int dir;
-        public void DrawPath(Color c,int time)
+        public void DrawPath(Color c, int time)
         {
-            if(path.Count < 2)
+            if (path.Count < 2)
                 return;
             dir = path[1] - path[0];
-            InstantiatePath(path[0], FaceDir(dir), head,time);
+            InstantiatePath(path[0], FaceDir(dir), head, time);
             for (int i = 1; i < path.Count; i++)
             {
                 if (i < path.Count - 1 && path[i + 1] - path[i] == dir)
                 {
                     InstantiatePath(path[i], FaceDir(dir), mid, time);
                 }
-                else if(i < path.Count - 1)
+                else if (i < path.Count - 1)
                 {
                     InstantiatePath(path[i], FaceDir(dir), tail, time);
                     dir = path[i + 1] - path[i];
@@ -92,7 +93,7 @@ namespace Algorithm
                 return 3;
             if (dir == Vector2Int.up)
                 return 0;
-            if(dir == Vector2Int.left)
+            if (dir == Vector2Int.left)
                 return 1;
             return 2;
 
@@ -100,9 +101,11 @@ namespace Algorithm
 
         private void InstantiatePath(Vector2 pos, int faceDir, GameObject prefab, int time)
         {
-            GameObject go = GameObject.Instantiate(prefab, MyGridManager.Instance.GetWorldPos(pos), Quaternion.identity);
+            GameObject go = GameObject.Instantiate(prefab, MyGridManager.Instance.GetWorldPos(pos),
+                Quaternion.identity, pathsParent.gameObject.transform);
             go.transform.eulerAngles = new Vector3(0, 0, faceDir * 90);
-            DelayToInvoke.Instance.DestoryGameObject(go, time);
+            if (time != -1)
+                DelayToInvoke.Instance.DestoryGameObject(go, time);
         }
 
         internal void LogCost(Vector2Int vector2)

@@ -539,6 +539,16 @@ public class MyGridManager : MonoBehaviour, IGraphicManager, IGridManager
             PathManager.DrawFirstPath(5);
     }
 
+    public void DrawPath()
+    {
+        PathManager?.DrawFirstPath(-1);
+    }
+
+    public void ErasePath()
+    {
+        PathManager?.EraseFirstPath(-1);
+    }
+
     public void DrawPath(int time)
     {
         PathManager?.DrawFirstPath(time);
