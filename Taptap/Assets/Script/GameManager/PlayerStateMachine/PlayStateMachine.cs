@@ -152,7 +152,7 @@ public class PlayStateMachine
     {
         if(currentState is BuildState)
         {
-            Debug.Log("CalculatePath Begin");
+            // Debug.Log("CalculatePath Begin");
             MyGridManager.Instance.CalculatePath(true);
             Debug.Log("Spawn State Start");
             ChangeState(PlayStateType.Spawn);
@@ -163,7 +163,7 @@ public class PlayStateMachine
     {
         if(currentState is BuildState)
         {
-        Debug.Log("BuildTower " + towerType + " in " + position);
+        // Debug.Log("BuildTower " + towerType + " in " + position);
             (currentState as BuildState).BuildTower(towerType, position, faceDirection);
         }
         // PlayStateMachine.Instance.RemoveTower(position);
