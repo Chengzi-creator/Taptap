@@ -98,6 +98,7 @@ public class UIManager : MonoBehaviour , IUIManager
     public bool isSpawning = false;
     public bool isTeaching = false;
     private bool isPaused = false;
+    private bool isValid = true;
     private bool _selectDestroy;
     private bool enterGame = false;
     //private bool[] _select;
@@ -300,7 +301,8 @@ public class UIManager : MonoBehaviour , IUIManager
     
     public void OnRestartButtonClick()
     {
-        PlayStateMachine.Instance.RestartWave();
+        //PlayStateMachine.Instance.RestartWave();
+        PlayStateMachine.Instance.ReInit(mIndex);
     }
 
     private void OnexitButtonClick()
@@ -446,7 +448,7 @@ public class UIManager : MonoBehaviour , IUIManager
         gridPosition = MyGridManager.Instance.GetMapPos(worldPosition);
         if (tower != null)
         {
-            tower.transform.position = worldPosition;
+            tower.transform.position = MyGridManager.Instance.GetGridMidWorldPos(worldPosition,out isValid);
         }
     }
 
