@@ -27,7 +27,7 @@ public class TeachText : MonoBehaviour
     [Header("对话更新")]
     public int talkConut = 0; //用来存储对话次数？
 
-    [Header("对话显示")] private Queue<string> dialogueQueue; //存储对话
+    [Header("对话显示")] private Queue<string> dialogueQueue=new Queue<string>(); //存储对话
     private bool isTyping = false; //判断是否正在显示
     private Coroutine typingCoroutine;
 
@@ -47,7 +47,7 @@ public class TeachText : MonoBehaviour
 
     void Start()
     {
-        dialogueQueue = new Queue<string>();
+        //dialogueQueue = new Queue<string>();
         //nextButton.onClick.AddListener(DisplayNextSentence); //显示下一句
         //nextButton.gameObject.SetActive(false);
     }
@@ -58,11 +58,11 @@ public class TeachText : MonoBehaviour
         {
             case 0:
                 StartDialogue(new List<string>
-                {      
-                    "Press 'Enter' to continue",
-                    "Hello Hello",
-                    "Introduce",
-                    "Learn to play"
+                {    
+                    "(按Enter继续)",
+                    "欢迎来到光怪梦离的世界!在本关中,你将会学到本游戏的基础操作.",
+                    "在光怪梦离的世界里,灯塔是所有建筑的立足之本,用于抵御怪物的防御塔只能建造在有光照亮的地块.",
+                    "现在,在建筑栏里选择红色的煤油灯,在地图的中心位置花费初始的光之精华建造你的第一个灯塔!"
                 });
                 break;
 

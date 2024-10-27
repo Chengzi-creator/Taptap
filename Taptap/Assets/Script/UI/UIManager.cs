@@ -292,7 +292,6 @@ public class UIManager : MonoBehaviour , IUIManager
         //     isTeaching = true;
         // }
         teachText.SetActive(true);
-        TeachText.Instance.LoadDialogue();
         isTeaching = true;
         ChooseLevel.SetActive(false);
         GameStartMasks.SetActive(false);
@@ -302,6 +301,7 @@ public class UIManager : MonoBehaviour , IUIManager
         buildButtons.SetActive(true);
         SpawnButtons.SetActive(true);
         enterGame = true;
+        TeachText.Instance.LoadDialogue();
     }
     #endregion
     
@@ -340,6 +340,7 @@ public class UIManager : MonoBehaviour , IUIManager
     {   
         PlayStateMachine.Instance.RestartWave();
         //PlayStateMachine.Instance.ReInit(mIndex);
+        overMasks.SetActive(false);
         ResumeGame();//恢复游戏
     }
 
