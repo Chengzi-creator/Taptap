@@ -58,11 +58,11 @@ public class TeachText : MonoBehaviour
         {
             case 0:
                 StartDialogue(new List<string>
-                {      
-                    "Press 'Enter' to continue",
-                    "Hello Hello",
-                    "Introduce",
-                    "Learn to play"
+                {    
+                    "(按Enter继续)",
+                    "欢迎来到光怪梦离的世界!在本关中,你将会学到本游戏的基础操作.",
+                    "在光怪梦离的世界里,灯塔是所有建筑的立足之本,用于抵御怪物的防御塔只能建造在有光照亮的地块.",
+                    "现在,在建筑栏里选择红色的煤油灯,在地图的中心位置花费初始的光之精华建造你的第一个灯塔!"
                 });
                 break;
 

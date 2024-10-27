@@ -17,10 +17,5 @@ MonoBehaviour:
     beginMoney: 10000
     waveList:
     - enemyDataList:
-      - type: 0
-        spawnTime: 0
-    - enemyDataList:
-      - type: 0
-        spawnTime: 1
       - type: 1
-        spawnTime: 2
+        spawnTime: 0
