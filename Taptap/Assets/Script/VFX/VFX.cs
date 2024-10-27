@@ -14,6 +14,7 @@ public enum VFXType
     Range_Torch,
     Range_Single,
     Monster_dead,
+    Attack_Tower_Self,
 }
 
 public class VFX
@@ -37,6 +38,7 @@ public class VFX
         switch (vfxType)
         {
             case VFXType.Attack_Tuci:
+            case VFXType.Attack_Tower_Self:
                 var mainModule = vfxObject.GetComponent<ParticleSystem>().main;
                 mainModule.startColor = color;
                 break;
