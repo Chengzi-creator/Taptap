@@ -33,6 +33,9 @@ public class VFXManager
     GameObject prefab_VFX_Range_Lazor;
     GameObject prefab_VFX_Range_Torch;
     GameObject prefab_VFX_Range_Single;
+
+    GameObject prefab_VFX_Monster_dead;
+
     private static void Init()
     {
         // instance.vfxList = new LinkedList<IVFX>();
@@ -46,6 +49,8 @@ public class VFXManager
         instance.prefab_VFX_Range_Flash = Resources.Load<GameObject>("Prefab/UseVFX/VFX_Range_Flash");
         instance.prefab_VFX_Range_Lazor = Resources.Load<GameObject>("Prefab/UseVFX/VFX_Range_Lazor");
         instance.prefab_VFX_Range_Single = Resources.Load<GameObject>("Prefab/UseVFX/VFX_Range_Single");
+
+        instance.prefab_VFX_Monster_dead = Resources.Load<GameObject>("Prefab/UseVFX/VFX_Monster_dead");
     }
 
     private VFX Get(VFXType vFXType, GameObject prefab)
@@ -189,6 +194,14 @@ public class VFXManager
         return vfx;
     }
 
+
+    public void CreateVFX_Monster_Dead(Vector2 position, int color = 7)
+    {
+        var vfx = Get(VFXType.Monster_dead, prefab_VFX_Monster_dead);
+        vfx.SetColor(GetColor(color));
+        vfx.vfxObject.transform.position = MyGridManager.Instance.GetWorldPos(position);
+        DelayToInvoke.Instance.StartDelayToInvokeDo(Reduce, vfx, 0.5f);
+    }
 
     private Color GetColor(int colorIdx)
     {

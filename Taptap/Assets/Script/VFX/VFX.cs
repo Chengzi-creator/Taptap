@@ -13,6 +13,7 @@ public enum VFXType
     Range_Lazor,
     Range_Torch,
     Range_Single,
+    Monster_dead,
 }
 
 public class VFX
@@ -50,6 +51,7 @@ public class VFX
             case VFXType.Attack_Toushiqi:
             case VFXType.Attack_Chuizi:
             case VFXType.Attack_Lianju:
+            case VFXType.Monster_dead:
                 mainModule = vfxObject.transform.GetChild(0).GetComponent<ParticleSystem>().main;
                 mainModule.startColor = color;
                 break;
