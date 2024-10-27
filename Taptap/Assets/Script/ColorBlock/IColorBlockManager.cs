@@ -2,7 +2,7 @@
 
 public interface IColorBlockManager
 {
-    public void CreateColorBlock(Vector2Int mapPos, int count, int color = 7);
+    public void CreateColorBlock(Vector2 mapPos, int count, int color = 7);
 
 }
 
