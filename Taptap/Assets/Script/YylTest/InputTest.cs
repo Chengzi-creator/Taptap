@@ -89,6 +89,7 @@ public class InputTest : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha9))
         {
             VFXManager.Instance.CreateVFX_Monster_Dead(new Vector2(0.5f, 0), 5);
+            MyGridManager.Instance.CalculateAllGridCanPutTower();
         }
     }
 }

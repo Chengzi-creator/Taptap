@@ -105,7 +105,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: d3be30b7d1414ee4a84036f5d3e518af, type: 3}
   - {fileID: 21300000, guid: 7b1f2fc1448b7a34c80ddec0465c8abb, type: 3}
   - {fileID: 877418797, guid: 20294691c1616dd4382e7423bff5126f, type: 3}
-  - {fileID: 21300000, guid: 8fe1965cadf422b45830d05f897803c9, type: 3}
+  - {fileID: 21300000, guid: 15de93a8ed14f6d4bb93942e28f5443f, type: 3}
+  - {fileID: 21300000, guid: 3cfe3e4287067be4e8fcb616074a0b75, type: 3}
   showEmptyColor: {r: 0.7571386, g: 1, b: 0.33490568, a: 1}
 --- !u!61 &4464290743822405702
 BoxCollider2D:

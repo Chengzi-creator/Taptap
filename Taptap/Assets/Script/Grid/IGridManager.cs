@@ -60,6 +60,11 @@ public interface IGridManager:IPathManager
     /// <returns></returns>
     public bool CanPutTower(Vector2Int mapPos);
 
+    /// <summary>
+    /// 计算所有格子是否可以放置Tower并改变贴图
+    /// </summary>
+    public void CalculateAllGridCanPutTower();
+
 
     /// <summary>
     /// 是否可以放置Tower
