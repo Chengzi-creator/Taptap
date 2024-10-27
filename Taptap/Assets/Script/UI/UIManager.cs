@@ -386,7 +386,6 @@ public class UIManager : MonoBehaviour , IUIManager
             
             if (Input.GetMouseButtonDown(0))  //左键建造
             {   
-                DestroyTowerImage();
                 BuildSelectedTower();
                 //DestroyImage(image);
             }
