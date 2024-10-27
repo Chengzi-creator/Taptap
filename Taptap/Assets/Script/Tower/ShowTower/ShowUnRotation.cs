@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShowUnRotation : MonoBehaviour , IShow
+public class ShowUnRotation : IShow
 {
-    public void ShowRange()
+    public override void ShowRange()
     {
         GameObject.Find("ShowRange").SetActive(true);
     }
-    public void SetFaceDirection(int faceDirection)
+    public override void SetFaceDirection(int faceDirection)
     {
         GameObject.Find("ShowRange").transform.rotation = Quaternion.Euler( 0 , 0 , faceDirection * 90 );
     }

@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShowFlash : MonoBehaviour , IShow
+public class ShowFlash : IShow
 {
-    public void ShowRange()
+    public override void ShowRange()
     {
         GameObject.Find("ShowRange").SetActive(true);
     }
-    public void SetFaceDirection(int faceDirection)
+    public override void SetFaceDirection(int faceDirection)
     {
         switch (faceDirection)
         {

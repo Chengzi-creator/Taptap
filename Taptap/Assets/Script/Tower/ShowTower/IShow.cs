@@ -3,8 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IShow
+public class IShow : MonoBehaviour
 {
-    void ShowRange();
-    void SetFaceDirection(int faceDirection);
+    public virtual void ShowRange()
+    { }
+    public virtual void SetFaceDirection(int faceDirection)
+    { }
 }

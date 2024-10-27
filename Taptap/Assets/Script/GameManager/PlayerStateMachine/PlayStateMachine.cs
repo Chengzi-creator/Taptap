@@ -104,8 +104,9 @@ public class PlayStateMachine
         TowerManager.Instance.Close();
         // MyGridManager.Instance.Close();
         MyGridManager.Instance.UnloadLevel();
-    }
+        Debug.Log("Close PlayStateMachine");
 
+    }
     public void UpdateState(float deltaTime)
     {
         // Debug.Log(deltaTime);
