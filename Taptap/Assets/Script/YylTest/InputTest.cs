@@ -82,5 +82,9 @@ public class InputTest : MonoBehaviour
         {
             VFXManager.Instance.CreateVFX_Attack_Toushiqi(new Vector2Int(0, 0), 5);
         }
+        if(Input.GetKeyDown(KeyCode.Alpha9))
+        {
+            VFXManager.Instance.CreateVFX_Attack_Lianju(new Vector2Int(0, 0), 5, 1, 6);
+        }
     }
 }
