@@ -36,6 +36,8 @@ public class VFXManager
 
     GameObject prefab_VFX_Monster_dead;
 
+
+    GameObject prefab_VFX_Attack_Tower_Self;
     private static void Init()
     {
         // instance.vfxList = new LinkedList<IVFX>();
@@ -51,6 +53,8 @@ public class VFXManager
         instance.prefab_VFX_Range_Single = Resources.Load<GameObject>("Prefab/UseVFX/VFX_Range_Single");
 
         instance.prefab_VFX_Monster_dead = Resources.Load<GameObject>("Prefab/UseVFX/VFX_Monster_dead");
+
+        instance.prefab_VFX_Attack_Tower_Self = Resources.Load<GameObject>("Prefab/UseVFX/VFX_attack_Tower_self");
     }
 
     private VFX Get(VFXType vFXType, GameObject prefab)
@@ -217,6 +221,14 @@ public class VFXManager
         vfx.SetColor(GetColor(color));
         vfx.vfxObject.transform.position = MyGridManager.Instance.GetWorldPos(position);
         DelayToInvoke.Instance.StartDelayToInvokeDo(Reduce, vfx, 0.5f);
+    }
+
+    public void CreateVFX_Attack_Tower_Self(Vector2Int position, int color = 7)
+    {
+        var vfx = Get(VFXType.Attack_Tower_Self, prefab_VFX_Attack_Tower_Self);
+        vfx.SetColor(GetColor(color));
+        vfx.vfxObject.transform.position = MyGridManager.Instance.GetWorldPos(position);
+        DelayToInvoke.Instance.StartDelayToInvokeDo(Reduce, vfx, 3f);
     }
 
     private Color GetColor(int colorIdx)
