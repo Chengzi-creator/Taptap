@@ -32,6 +32,14 @@ namespace Algorithm
             }
         }
 
+        public void EraseFirstPath(int time)
+        {
+            foreach (var path in paths)
+            {
+                path.EraseFirstPath(time);
+            }
+        }
+
         public void DrawSecondPath()
         {
             foreach (var path in paths)
