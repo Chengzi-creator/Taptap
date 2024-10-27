@@ -29,7 +29,7 @@ public class InputTest : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
         {
             var pos = MyGridManager.Instance.GetMapPos(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-            //Debug.Log("pos:" + pos);
+            //Debug.Log("pos:" + Camera.main.ScreenToWorldPoint(Input.mousePosition) + " " + MyGridManager.Instance.GetGridMidWorldPos(Camera.main.ScreenToWorldPoint(Input.mousePosition), out bool valid) + " " + valid);
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
             if (hit.collider != null)
             {
@@ -81,6 +81,14 @@ public class InputTest : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Alpha8))
         {
             VFXManager.Instance.CreateVFX_Attack_Toushiqi(new Vector2Int(0, 0), 5);
+        }
+        //if(Input.GetKeyDown(KeyCode.Alpha9))
+        //{
+        //    VFXManager.Instance.CreateVFX_Attack_Lianju(new Vector2Int(0, 0), 5, 1, 6);
+        //}
+        if (Input.GetKeyDown(KeyCode.Alpha9))
+        {
+            VFXManager.Instance.CreateVFX_Monster_Dead(new Vector2(0.5f, 0), 5);
         }
     }
 }

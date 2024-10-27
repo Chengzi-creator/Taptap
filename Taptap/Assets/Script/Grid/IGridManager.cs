@@ -111,6 +111,13 @@ public interface IGridManager:IPathManager
     public Vector2Int GetMapPos(Vector2 worldPos);
 
     /// <summary>
+    /// 获取世界坐标对应格子的中心坐标
+    /// </summary>
+    /// <param name="worldPos"></param>
+    /// <returns>不合格返回（-100，-100）</returns>
+    public Vector2 GetGridMidWorldPos(Vector2 worldPos,out bool isValid);
+
+    /// <summary>
     /// 显示建造模式地块颜色
     /// </summary>
     public void ShowBuildModeGrid();

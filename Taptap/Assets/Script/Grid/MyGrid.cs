@@ -48,6 +48,13 @@ public class MyGrid : MonoBehaviour, IGrid
             HoldObject.Type == GridObjectType.End;
     }
 
+
+    public bool ShowGreen
+    {
+        get => HoldObject == null || HoldObject.Type == GridObjectType.None ||
+            HoldObject.Type == GridObjectType.NoBuildGround;
+    }
+
     /// <summary>
     /// 是终点格子
     /// </summary>
@@ -87,7 +94,7 @@ public class MyGrid : MonoBehaviour, IGrid
     {
         MapPos = mapPos;
         WorldPos = worldPos;
-        var gridObj = new GridObject(type);
+        var gridObj = CreateGridObject(type);
         SetHoldObject(gridObj);
         InitObject = gridObj;
     }
@@ -117,6 +124,8 @@ public class MyGrid : MonoBehaviour, IGrid
                 break;
             case GridObjectType.End:
                 GetComponent<SpriteRenderer>().sprite = sprites[4];
+                transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().sprite = 
+                    (MapPos.x + MapPos.y) % 2 == 0 ? sprites[0] : sprites[1];
                 break;
             case GridObjectType.NoBuildGround:
                 GetComponent<SpriteRenderer>().sprite = sprites[5];
@@ -162,7 +171,7 @@ public class MyGrid : MonoBehaviour, IGrid
     /// </summary>
     public void ShowGrid()
     {
-        if (!CanPass)
+        if (!ShowGreen)
         {
             Color color = HoldObject.Type switch
             {
@@ -173,6 +182,10 @@ public class MyGrid : MonoBehaviour, IGrid
                 //GridObjectType.NoPassGround => Color.blue,
                 _ => Color.white
             };
+            if(HoldObject.Type == GridObjectType.End)
+            {
+                return;
+            }
             GetComponent<SpriteRenderer>().color = color;
         }
         else
@@ -185,6 +198,10 @@ public class MyGrid : MonoBehaviour, IGrid
     /// </summary>
     public void CancelShowGrid()
     {
+        if (HoldObject.Type == GridObjectType.End)
+        {
+            return;
+        }
         GetComponent<SpriteRenderer>().color = Color.white;
     }
 

@@ -35,6 +35,12 @@ public class UIManager : MonoBehaviour , IUIManager
     [SerializeField] private GameObject teachText;
     [SerializeField] private GameObject gameEvents;
     [SerializeField] private GameObject round;
+    [SerializeField] private GameObject enemyImage;
+    [SerializeField] private Image[] enemyImages;
+    [SerializeField] private Image enemyImageA;
+    [SerializeField] private Image enemyImageB;
+    [SerializeField] private Image enemyImageC;
+    
     
     [Header("PauseButton")]
     [SerializeField] private Button exitButton;
@@ -98,6 +104,7 @@ public class UIManager : MonoBehaviour , IUIManager
     public bool isSpawning = false;
     public bool isTeaching = false;
     private bool isPaused = false;
+    private bool isValid = true;
     private bool _selectDestroy;
     private bool enterGame = false;
     //private bool[] _select;
@@ -146,6 +153,7 @@ public class UIManager : MonoBehaviour , IUIManager
         gameEvents.SetActive(false);
         round.SetActive(false);
         teachText.SetActive(false);
+        enemyImage.SetActive(false);
         exitButton.onClick.AddListener(OnexitButtonClick);
         backButton.onClick.AddListener(OnbackButtonClick);
         setupButton.onClick.AddListener(OnsetupButtonClick);
@@ -227,7 +235,14 @@ public class UIManager : MonoBehaviour , IUIManager
         //     OnstartButtonClick();
         //     enterGame = true;
         // }
-        
+        if (!isSpawning)
+        {
+            enemyImage.SetActive(false);
+        }
+        else
+        {
+            enemyImage.SetActive(true);
+        }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (setupMasks.activeSelf)
@@ -272,6 +287,7 @@ public class UIManager : MonoBehaviour , IUIManager
             teachText.SetActive(true);
             isTeaching = true;
         }
+        
         ChooseLevel.SetActive(false);
         GameStartMasks.SetActive(false);
         gameEvents.SetActive(true);
@@ -300,7 +316,8 @@ public class UIManager : MonoBehaviour , IUIManager
     
     public void OnRestartButtonClick()
     {
-        PlayStateMachine.Instance.RestartWave();
+        //PlayStateMachine.Instance.RestartWave();
+        PlayStateMachine.Instance.ReInit(mIndex);
     }
 
     private void OnexitButtonClick()
@@ -446,7 +463,7 @@ public class UIManager : MonoBehaviour , IUIManager
         gridPosition = MyGridManager.Instance.GetMapPos(worldPosition);
         if (tower != null)
         {
-            tower.transform.position = worldPosition;
+            tower.transform.position = MyGridManager.Instance.GetGridMidWorldPos(worldPosition,out isValid);
         }
     }
 
@@ -503,9 +520,9 @@ public class UIManager : MonoBehaviour , IUIManager
         //{
             _selectedTowerType = ITowerManager.TowerType.B_flash_R;
         //}
-        if(tower == null)
+        if(tower == null && !isSpawning)
             tower = GameObject.Instantiate(rF);
-        if (tower != null)
+        if (tower != null && !isSpawning)
         {
             DestroyTowerImage();
             tower = GameObject.Instantiate(rF);
@@ -515,9 +532,9 @@ public class UIManager : MonoBehaviour , IUIManager
     private void ClickRL()
     {   
         _selectedTowerType = ITowerManager.TowerType.B_lazor_R;
-        if(tower == null)
+        if(tower == null && !isSpawning)
             tower = GameObject.Instantiate(rL);
-        if (tower != null)
+        if (tower != null && !isSpawning)
         {
             DestroyTowerImage();
             tower = GameObject.Instantiate(rL);
@@ -527,9 +544,9 @@ public class UIManager : MonoBehaviour , IUIManager
     private void ClickRT()
     {   
         _selectedTowerType = ITowerManager.TowerType.B_torch_R;
-        if(tower == null)
+        if(tower == null && !isSpawning)
             tower = GameObject.Instantiate(rT);
-        if (tower != null)
+        if (tower != null && !isSpawning)
         {
             DestroyTowerImage();
             tower = GameObject.Instantiate(rT);
@@ -539,9 +556,9 @@ public class UIManager : MonoBehaviour , IUIManager
     private void ClickGF()
     {   
         _selectedTowerType = ITowerManager.TowerType.B_flash_G;
-        if(tower == null)
+        if(tower == null && !isSpawning)
             tower = GameObject.Instantiate(gF);
-        if (tower != null)
+        if (tower != null && !isSpawning)
         {
             DestroyTowerImage();
             tower = GameObject.Instantiate(gF);
@@ -551,9 +568,9 @@ public class UIManager : MonoBehaviour , IUIManager
     private void ClickGL()
     {   
         _selectedTowerType = ITowerManager.TowerType.B_lazor_G;
-        if(tower == null)
+        if(tower == null && !isSpawning)
             tower = GameObject.Instantiate(gL);
-        if (tower != null)
+        if (tower != null && !isSpawning)
         {
             DestroyTowerImage();
             tower = GameObject.Instantiate(gL);
@@ -563,9 +580,9 @@ public class UIManager : MonoBehaviour , IUIManager
     private void ClickGT()
     {   
         _selectedTowerType = ITowerManager.TowerType.B_torch_G;
-        if(tower == null)
+        if(tower == null && !isSpawning)
             tower = GameObject.Instantiate(gT);
-        if (tower != null)
+        if (tower != null && !isSpawning)
         {
             DestroyTowerImage();
             tower = GameObject.Instantiate(gT);
@@ -575,9 +592,9 @@ public class UIManager : MonoBehaviour , IUIManager
     private void ClickBF()
     {   
         _selectedTowerType = ITowerManager.TowerType.B_flash_B;
-        if(tower == null)
+        if(tower == null && !isSpawning)
             tower = GameObject.Instantiate(bF);
-        if (tower != null)
+        if (tower != null && !isSpawning)
         {
             DestroyTowerImage();
             tower = GameObject.Instantiate(bF);
@@ -587,9 +604,9 @@ public class UIManager : MonoBehaviour , IUIManager
     private void ClickBL()
     {   
         _selectedTowerType = ITowerManager.TowerType.B_lazor_B;
-        if(tower == null)
+        if(tower == null && !isSpawning)
             tower = GameObject.Instantiate(bL);
-        if (tower != null)
+        if (tower != null && !isSpawning)
         {
             DestroyTowerImage();
             tower = GameObject.Instantiate(bL);
@@ -598,9 +615,9 @@ public class UIManager : MonoBehaviour , IUIManager
     private void ClickBT()
     {   
         _selectedTowerType = ITowerManager.TowerType.B_torch_B;
-        if(tower == null)
+        if(tower == null && !isSpawning)
             tower = GameObject.Instantiate(bT);
-        if (tower != null)
+        if (tower != null && !isSpawning)
         {
             DestroyTowerImage();
             tower = GameObject.Instantiate(bT);
@@ -610,9 +627,9 @@ public class UIManager : MonoBehaviour , IUIManager
     private void ClickDC()
     {   
         _selectedTowerType = ITowerManager.TowerType.D_catapult;
-        if(tower == null)
+        if(tower == null && !isSpawning)
             tower = GameObject.Instantiate(dC);
-        if (tower != null)
+        if (tower != null && !isSpawning)
         {
             DestroyTowerImage();
             tower = GameObject.Instantiate(dC);
@@ -622,9 +639,9 @@ public class UIManager : MonoBehaviour , IUIManager
     private void ClickDH()
     {   
         _selectedTowerType = ITowerManager.TowerType.D_hammer;
-        if (tower == null)
+        if (tower == null && !isSpawning)
             tower = GameObject.Instantiate(dH);
-        if (tower != null)
+        if (tower != null && !isSpawning)
         {
             DestroyTowerImage();
             tower = GameObject.Instantiate(dH);
@@ -634,9 +651,9 @@ public class UIManager : MonoBehaviour , IUIManager
     private void ClickDS()
     {   
         _selectedTowerType = ITowerManager.TowerType.D_spike;
-        if(tower == null)
+        if(tower == null && !isSpawning)
             tower = GameObject.Instantiate(dS);
-        if (tower != null)
+        if (tower != null && !isSpawning)
         {
             DestroyTowerImage();
             tower = GameObject.Instantiate(dS);
@@ -646,9 +663,9 @@ public class UIManager : MonoBehaviour , IUIManager
     private void ClickDD()
     {   
         _selectedTowerType = ITowerManager.TowerType.D_dart;
-        if(tower == null)
+        if(tower == null && !isSpawning)
             tower = GameObject.Instantiate(dD);
-        if (tower != null)
+        if (tower != null && !isSpawning)
         {
             DestroyTowerImage();
             tower = GameObject.Instantiate(dD);
@@ -758,12 +775,50 @@ public class UIManager : MonoBehaviour , IUIManager
 
     public void ShowEnemyBuff()
     {
-        
+        //还未纳入进程？
     }
     
     public void ShowEnemyCountAndTypes(List<IEnemyManager.EnemyType> types, List<int> counts)
     {
+        if (types.Count != counts.Count)
+        {
+            enemyInformation.text = "Error";
+            return;
+        }
         
+        string infoText = "Enemy:\n";
+        for (int i = 0; i < types.Count; i++)
+        {
+            infoText += $"{types[i]}: {counts[i]}\n";
+        }
+        
+        enemyInformation.text = infoText;
+        
+        for (int i = 0; i < types.Count; i++)
+        {
+            switch (types[i])
+            {
+                case IEnemyManager.EnemyType.A:
+                    enemyImages[i] = enemyImageA;
+                    SetAlpha(enemyImages[i],255);
+                    break;
+                
+                case IEnemyManager.EnemyType.B:
+                    enemyImages[i] = enemyImageB;
+                    SetAlpha(enemyImages[i],255);
+                    break;
+                
+                case IEnemyManager.EnemyType.C:
+                    enemyImages[i] = enemyImageC;
+                    SetAlpha(enemyImages[i],255);
+                    break;
+                
+                default:
+                    enemyImages[i] = null;
+                    SetAlpha(enemyImages[i],0); 
+                    return;
+            }
+        }
     }
 
     public void EnemyReduce(List<IEnemyManager.EnemyType> types, List<int> counts,IEnemyManager.EnemyType type)
@@ -782,12 +837,12 @@ public class UIManager : MonoBehaviour , IUIManager
         }
         else if (index == -1)
         {
-            enemyInformation.text = $"Error: Enemy type {type} none";
+            enemyInformation.text = $"Enemy type {type} none";
             return;
         }
         else
         {
-            enemyInformation.text = $"Error: No more {type}s left.";
+            enemyInformation.text = $"No more {type}s left.";
             return;
         }
         
@@ -800,6 +855,18 @@ public class UIManager : MonoBehaviour , IUIManager
         enemyInformation.text = infoText;
     }
 
+    private void ShowEnemyImage(List<IEnemyManager.EnemyType> types)
+    {
+        
+    }
+    
+    private void SetAlpha(Image image, float alpha)
+    {
+        Color color = image.color;
+        color.a = alpha;
+        image.color = color;
+    }
+    
     public void SpawnEnemy()
     {
         if (enterGame && !isSpawning)
@@ -815,6 +882,8 @@ public class UIManager : MonoBehaviour , IUIManager
             isSpawning = true;
         }
     }
+    
+    
     #endregion
     
     

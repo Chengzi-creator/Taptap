@@ -91,11 +91,11 @@ public class PlayStateMachine
         this.levelIndex = levelIndex;
         waveIndex = 0;
         Money = levelDataSO.GetBeginMoney(levelIndex);
-        HP = 100;
         ChangeState(PlayStateType.Build);
         EnemyManager.Instance.ReInit();
         TowerManager.Instance.ReInit();
         MyGridManager.Instance.LoadLevel(levelIndex);
+        HP = 100;
     }
 
     public void Close()
