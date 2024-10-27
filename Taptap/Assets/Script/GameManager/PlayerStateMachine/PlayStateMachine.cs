@@ -61,12 +61,18 @@ public class PlayStateMachine
         Empty
     }
 
+    
+    public List<IEnemyManager.EnemyType> enemyTypeList ;
+    public List<int> enemyCountList ;
+
     private void Init()
     {
         playStateList = new IPlayState[3];
         playStateList[(int)PlayStateType.Build] = new BuildState();
         playStateList[(int)PlayStateType.Spawn] = new SpawnState();
         playStateList[(int)PlayStateType.Empty] = new EmptyState();
+        enemyTypeList = new List<IEnemyManager.EnemyType>();
+        enemyCountList = new List<int>();
         levelDataSO = Resources.Load<LevelDataSO>("SO/LevelData");
         if(levelDataSO == null)
         {
@@ -75,10 +81,10 @@ public class PlayStateMachine
         ChangeState(PlayStateType.Empty);
     }
 
-    public void EmptyFunction()
-    {
-        Debug.Log("EmptyFunction");
-    }
+    // public void EmptyFunction()
+    // {
+    //     Debug.Log("EmptyFunction");
+    // }
 
     public void ReInit(int levelIndex)
     {
@@ -177,75 +183,18 @@ public class PlayStateMachine
         ChangeState(PlayStateType.Empty);
     }
 
-
-
-
-    private class BuildState : IPlayState
-    {
-        public void EnterState()
-        {
-        }
-        public void UpdateState(float deltaTime)
-        {}
-        public void ExitState()
-        {
-            PlayStateMachine.Instance.lastWaveHP = PlayStateMachine.Instance.HP;
-            PlayStateMachine.Instance.lastWaveMoney = PlayStateMachine.Instance.Money;
-        }
-
-        public void BuildTower(ITowerManager.TowerType towerType, Vector2Int position , int faceDirection)
-        {
-            int midCost = TowerManager.Instance.GetTowerAttribute(towerType).cost;
-            //Debug.Log(PlayStateMachine.Instance.Money + " midCost" + midCost);
-            if(PlayStateMachine.Instance.Money < midCost)
-                return;
-            if(MyGridManager.Instance.CanPutTower(towerType , position) == false)
-                return;
-            PlayStateMachine.Instance.Money -= midCost;
-            TowerManager.Instance.CreateTower(towerType, position , faceDirection);
-            //Debug.Log("BuildTower " + towerType + " " + position + " succeed");
-            // Debug.Log("cost " + midCost);
-        }
-        public void RemoveTower(Vector2Int position)
-        {
-            if(position == Vector2Int.one * -1)
-                return;
-            ITower tower = TowerManager.Instance.GetTower(position);
-            if(tower == null)
-                return;
-            tower = TowerManager.Instance.DestroyTower(tower);
-            PlayStateMachine.Instance.Money += tower.Cost;
-        }
-    }
     
     private class SpawnState : IPlayState
     {
-        List<IEnemyManager.EnemyType> enemyTypeList ;
-        List<int> enemyCountList ;
 
         private float totalTime;
         private int enemyIndex;
         private List<LevelDataSO.EnemyData> enemyList;
         public void EnterState()
         {
-            enemyTypeList = new List<IEnemyManager.EnemyType>();
-            enemyCountList = new List<int>();
             totalTime = 0;
             enemyIndex = 0;
             enemyList = PlayStateMachine.Instance.levelDataSO.GetWaveData(PlayStateMachine.Instance.levelIndex , PlayStateMachine.Instance.waveIndex);
-            foreach(var enemyData in enemyList)
-            {
-                if(enemyTypeList.Contains(enemyData.type))
-                {
-                    enemyCountList[enemyTypeList.IndexOf(enemyData.type)]++;
-                }
-                else
-                {
-                    enemyCountList.Add(1);
-                    enemyTypeList.Add(enemyData.type);
-                }
-            }
-            UIManager.Instance.ShowEnemyCountAndTypes(enemyTypeList , enemyCountList);
         }
         public void UpdateState(float deltaTime)
         {
@@ -272,8 +221,8 @@ public class PlayStateMachine
         public void EnemyDie(IEnemy enemy)
         {
             // UIManager.Instance.EnemyDie(enemy);
-            enemyCountList[enemyTypeList.IndexOf(enemy.Type)]--;
-            UIManager.Instance.EnemyReduce(enemyTypeList , enemyCountList , enemy.Type);
+            PlayStateMachine.Instance.enemyCountList[PlayStateMachine.Instance.enemyTypeList.IndexOf(enemy.Type)]--;
+            UIManager.Instance.EnemyReduce(PlayStateMachine.Instance.enemyTypeList , PlayStateMachine.Instance.enemyCountList , enemy.Type);
             // UIManager.Instance.ShowEnemyCountAndTypes(enemyTypeList , enemyCountList , 0);
             if(enemy.IsArrived == false)
             {
@@ -304,4 +253,69 @@ public class PlayStateMachine
         {}
     }
 
+    
+    private class BuildState : IPlayState
+    {
+        
+        public void EnterState()
+        {
+            List<LevelDataSO.EnemyData> enemyList = PlayStateMachine.Instance.levelDataSO.GetWaveData(PlayStateMachine.Instance.levelIndex , PlayStateMachine.Instance.waveIndex);
+            PlayStateMachine.Instance.enemyTypeList.Clear();
+            PlayStateMachine.Instance.enemyCountList.Clear();
+            foreach(var enemyData in enemyList)
+            {
+                if(PlayStateMachine.Instance.enemyTypeList.Contains(enemyData.type))
+                {
+                    PlayStateMachine.Instance.enemyCountList[PlayStateMachine.Instance.enemyTypeList.IndexOf(enemyData.type)]++;
+                }
+                else
+                {
+                    PlayStateMachine.Instance.enemyCountList.Add(1);
+                    PlayStateMachine.Instance.enemyTypeList.Add(enemyData.type);
+                }
+            }
+            UIManager.Instance.ShowEnemyCountAndTypes(PlayStateMachine.Instance.enemyTypeList , PlayStateMachine.Instance.enemyCountList);
+            Debug.Log("show enemy count and types");
+            Debug.Log("Total enemy count " + enemyList.Count);
+    
+        }
+
+
+
+        public void UpdateState(float deltaTime)
+        {}
+        public void ExitState()
+        {
+            PlayStateMachine.Instance.lastWaveHP = PlayStateMachine.Instance.HP;
+            PlayStateMachine.Instance.lastWaveMoney = PlayStateMachine.Instance.Money;
+        }
+
+        public void BuildTower(ITowerManager.TowerType towerType, Vector2Int position , int faceDirection)
+        {
+            int midCost = TowerManager.Instance.GetTowerAttribute(towerType).cost;
+            //Debug.Log(PlayStateMachine.Instance.Money + " midCost" + midCost);
+            if(PlayStateMachine.Instance.Money < midCost)
+                return;
+            if(MyGridManager.Instance.CanPutTower(towerType , position) == false)
+                return;
+            PlayStateMachine.Instance.Money -= midCost;
+            TowerManager.Instance.CreateTower(towerType, position , faceDirection);
+            //Debug.Log("BuildTower " + towerType + " " + position + " succeed");
+            // Debug.Log("cost " + midCost);
+        }
+
+        public void RemoveTower(Vector2Int position)
+        {
+            if(position == Vector2Int.one * -1)
+                return;
+            ITower tower = TowerManager.Instance.GetTower(position);
+            if(tower == null)
+                return;
+            tower = TowerManager.Instance.DestroyTower(tower);
+            PlayStateMachine.Instance.Money += tower.Cost;
+        }
+
+    }
+
 }
+

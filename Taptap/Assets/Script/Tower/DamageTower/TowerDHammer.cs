@@ -46,8 +46,11 @@ public class TowerDHammer : BaseDamageTower
         node = lockedTime.First;
         while(node != null && node.Value <= 0)
         {
-            VFXManager.Instance.CreateVFX_Attack_Chuizi(Vector2Int.RoundToInt(lockedEnemy.First.Value.Position) , TowerManager.Instance.GetColor(position));
-            lockedEnemy.First.Value.BeAttacked(damage* TowerManager.Instance.GetColorVector(position) , TowerManager.Instance.GetColor(position));
+            if(lockedEnemy.First.Value != null && lockedEnemy.First.Value.IsDead == false)
+            {
+                VFXManager.Instance.CreateVFX_Attack_Chuizi(Vector2Int.RoundToInt(lockedEnemy.First.Value.Position) , TowerManager.Instance.GetColor(position));
+                lockedEnemy.First.Value.BeAttacked(damage* TowerManager.Instance.GetColorVector(position) , TowerManager.Instance.GetColor(position));
+            }
             lockedEnemy.RemoveFirst();
             lockedTime.RemoveFirst();
             node = lockedTime.First;
