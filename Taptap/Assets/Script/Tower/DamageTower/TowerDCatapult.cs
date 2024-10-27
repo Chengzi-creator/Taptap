@@ -49,6 +49,7 @@ public class TowerDCatapult : BaseDamageTower
             lockedEnemy.RemoveFirst();
             lockedTime.RemoveFirst();
             node = lockedTime.First;
+            VFXManager.Instance.CreateVFX_Attack_Toushiqi(position , TowerManager.Instance.GetColor(position));
         }
     }
     protected override void WaitCD(float deltaTime)
