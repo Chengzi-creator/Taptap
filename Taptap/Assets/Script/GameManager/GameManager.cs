@@ -22,7 +22,9 @@ public class GameManager : MonoBehaviour
     {
         EnemyManager.Init();
         TowerManager.Init();
+        if(UIManager.Instance == null);
         // PlayStateMachine.Instance.ReInit(0);
+        PlayStateMachine.Instance.EmptyFunction();
     }
 
     // Update is called once per frame
