@@ -35,6 +35,12 @@ public class UIManager : MonoBehaviour , IUIManager
     [SerializeField] private GameObject teachText;
     [SerializeField] private GameObject gameEvents;
     [SerializeField] private GameObject round;
+    [SerializeField] private GameObject enemyImage;
+    [SerializeField] private Image[] enemyImages;
+    [SerializeField] private Image enemyImageA;
+    [SerializeField] private Image enemyImageB;
+    [SerializeField] private Image enemyImageC;
+    
     
     [Header("PauseButton")]
     [SerializeField] private Button exitButton;
@@ -147,6 +153,7 @@ public class UIManager : MonoBehaviour , IUIManager
         gameEvents.SetActive(false);
         round.SetActive(false);
         teachText.SetActive(false);
+        enemyImage.SetActive(false);
         exitButton.onClick.AddListener(OnexitButtonClick);
         backButton.onClick.AddListener(OnbackButtonClick);
         setupButton.onClick.AddListener(OnsetupButtonClick);
@@ -228,7 +235,14 @@ public class UIManager : MonoBehaviour , IUIManager
         //     OnstartButtonClick();
         //     enterGame = true;
         // }
-        
+        if (!isSpawning)
+        {
+            enemyImage.SetActive(false);
+        }
+        else
+        {
+            enemyImage.SetActive(true);
+        }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (setupMasks.activeSelf)
@@ -273,6 +287,7 @@ public class UIManager : MonoBehaviour , IUIManager
             teachText.SetActive(true);
             isTeaching = true;
         }
+        
         ChooseLevel.SetActive(false);
         GameStartMasks.SetActive(false);
         gameEvents.SetActive(true);
@@ -760,7 +775,7 @@ public class UIManager : MonoBehaviour , IUIManager
 
     public void ShowEnemyBuff()
     {
-        
+        //还未纳入进程？
     }
     
     public void ShowEnemyCountAndTypes(List<IEnemyManager.EnemyType> types, List<int> counts)
@@ -778,6 +793,32 @@ public class UIManager : MonoBehaviour , IUIManager
         }
         
         enemyInformation.text = infoText;
+        
+        for (int i = 0; i < types.Count; i++)
+        {
+            switch (types[i])
+            {
+                case IEnemyManager.EnemyType.A:
+                    enemyImages[i] = enemyImageA;
+                    SetAlpha(enemyImages[i],255);
+                    break;
+                
+                case IEnemyManager.EnemyType.B:
+                    enemyImages[i] = enemyImageB;
+                    SetAlpha(enemyImages[i],255);
+                    break;
+                
+                case IEnemyManager.EnemyType.C:
+                    enemyImages[i] = enemyImageC;
+                    SetAlpha(enemyImages[i],255);
+                    break;
+                
+                default:
+                    enemyImages[i] = null;
+                    SetAlpha(enemyImages[i],0); 
+                    return;
+            }
+        }
     }
 
     public void EnemyReduce(List<IEnemyManager.EnemyType> types, List<int> counts,IEnemyManager.EnemyType type)
@@ -814,6 +855,18 @@ public class UIManager : MonoBehaviour , IUIManager
         enemyInformation.text = infoText;
     }
 
+    private void ShowEnemyImage(List<IEnemyManager.EnemyType> types)
+    {
+        
+    }
+    
+    private void SetAlpha(Image image, float alpha)
+    {
+        Color color = image.color;
+        color.a = alpha;
+        image.color = color;
+    }
+    
     public void SpawnEnemy()
     {
         if (enterGame && !isSpawning)
@@ -829,6 +882,8 @@ public class UIManager : MonoBehaviour , IUIManager
             isSpawning = true;
         }
     }
+    
+    
     #endregion
     
     
