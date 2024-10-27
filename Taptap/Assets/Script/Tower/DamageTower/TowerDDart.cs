@@ -32,13 +32,13 @@ public class TowerDDart : BaseDamageTower
                 lockedEnemy.AddLast(attackRange[i].GetKthEnemy(0));
                 lockedTime.AddLast(bulletTime);
                 cnt++;
-                VFXManager.Instance.CreateVFX_Attack_FeiBiao(position, lockedEnemy.First.Value.Position, TowerManager.Instance.GetColor(position));
+                VFXManager.Instance.CreateVFX_Attack_FeiBiao(position, attackRange[i].GetKthEnemy(0).Position, TowerManager.Instance.GetColor(position));
                 if (cnt >= 2)
                     break;
                 lockedEnemy.AddLast(attackRange[i].GetKthEnemy(1));
                 lockedTime.AddLast(bulletTime);
                 cnt++;
-                VFXManager.Instance.CreateVFX_Attack_FeiBiao(position, lockedEnemy.First.Value.Position, TowerManager.Instance.GetColor(position));
+                VFXManager.Instance.CreateVFX_Attack_FeiBiao(position, attackRange[i].GetKthEnemy(1).Position, TowerManager.Instance.GetColor(position));
                 if (cnt >= 2)
                     break;
             }
@@ -47,7 +47,7 @@ public class TowerDDart : BaseDamageTower
                 lockedEnemy.AddLast(attackRange[i].GetKthEnemy(0));
                 lockedTime.AddLast(bulletTime);
                 cnt++;
-                VFXManager.Instance.CreateVFX_Attack_FeiBiao(position, lockedEnemy.First.Value.Position, TowerManager.Instance.GetColor(position));
+                VFXManager.Instance.CreateVFX_Attack_FeiBiao(position, attackRange[i].GetKthEnemy(0).Position, TowerManager.Instance.GetColor(position));
                 if (cnt >= 2)
                     break;
             }

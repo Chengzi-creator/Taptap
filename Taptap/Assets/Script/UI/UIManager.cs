@@ -557,7 +557,7 @@ public class UIManager : MonoBehaviour , IUIManager
         ClickOut();
         MyGridManager.Instance.CancelShowBuildModeGrid();//为什么函数没调用成功
         showCount = 0;
-        Debug.Log("back");
+        //Debug.Log("back");
     }
     
     #endregion

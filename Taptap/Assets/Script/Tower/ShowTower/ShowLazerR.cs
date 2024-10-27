@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class ShowLazerR : IShow
 {
-    public override void ShowRange()
-    {
-        GameObject.Find("ShowRange").SetActive(true);
-    }
     public override void SetFaceDirection(int faceDirection)
     {
         switch(faceDirection)

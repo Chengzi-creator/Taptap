@@ -6,7 +6,7 @@ public class ShowFlash : IShow
 {
     public override void ShowRange()
     {
-        GameObject.Find("ShowRange").SetActive(true);
+        base.ShowRange();
     }
     public override void SetFaceDirection(int faceDirection)
     {
