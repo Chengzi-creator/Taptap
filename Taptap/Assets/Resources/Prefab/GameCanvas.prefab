@@ -353,7 +353,7 @@ MonoBehaviour:
   menuButton: {fileID: 4018729286617783672}
   overhomeButton: {fileID: 296095974430116819}
   overLevelButton: {fileID: 7734275577048256546}
-  overRestartButton: {fileID: 0}
+  overRestartButton: {fileID: 4537950685281552981}
   _buttonRF: {fileID: 6186236743040858821}
   _buttonRL: {fileID: 1355590037461189709}
   _buttonRT: {fileID: 3468598743148571713}
@@ -1003,6 +1003,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2476808522828815037, guid: a13420e18193dfb4c981eefd0669729f, type: 3}
   m_PrefabInstance: {fileID: 1745495021537085816}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4537950685281552981 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2793133796786750253, guid: a13420e18193dfb4c981eefd0669729f, type: 3}
+  m_PrefabInstance: {fileID: 1745495021537085816}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &7734275577048256546 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8317186239750904154, guid: a13420e18193dfb4c981eefd0669729f, type: 3}
@@ -1994,7 +2005,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5395217724112575801, guid: 49e00de03bff03c41b4cad9ee206b7c3, type: 3}
       propertyPath: m_Color.g
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5395217724112575801, guid: 49e00de03bff03c41b4cad9ee206b7c3, type: 3}
       propertyPath: m_Material
