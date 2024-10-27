@@ -21,6 +21,7 @@ public interface ITowerManager
         D_hammer,
         D_catapult,
         D_dart,
+        D_saw,
         X,
         Y,
         Z

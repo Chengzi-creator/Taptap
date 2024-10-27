@@ -10,7 +10,7 @@ public class TowerDSaw : BaseDamageTower
     protected LinkedList<float> lockedTime;
     public override void Init(ITowerManager.TowerAttribute towerAttribute, Vector2Int position , int faceDirection)
     {
-        this.type = ITowerManager.TowerType.D_dart;
+        this.type = ITowerManager.TowerType.D_saw;
         this.lockedTime = new LinkedList<float>();
         this.lockedPosition = new LinkedList<Vector2Int>();
         this.lockedDirection = new LinkedList<Vector3Int>();
