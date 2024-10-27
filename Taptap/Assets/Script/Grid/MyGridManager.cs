@@ -107,6 +107,10 @@ public class MyGridManager : MonoBehaviour, IGraphicManager, IGridManager
         isVaild = false;
         return new Vector2(-100, -100);
     }
+    public float GetWorldDistance(float mapDis)
+    {
+        return mapDis * MyGrid.GridSize.x;
+    }
     #endregion
 
     #region 寻路使用

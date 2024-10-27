@@ -27,6 +27,7 @@ public class VFXManager
     GameObject prefab_VFX_Attack_FeiBiao;
     GameObject prefab_VFX_Attack_Chuizi;
     GameObject prefab_VFX_Attack_Toushiqi;
+    GameObject prefab_VFX_Attack_Lianju;
 
     GameObject prefab_VFX_Range_Flash;
     GameObject prefab_VFX_Range_Lazor;
@@ -39,6 +40,7 @@ public class VFXManager
         instance.prefab_VFX_Attack_FeiBiao = Resources.Load<GameObject>("Prefab/UseVFX/VFX_Attack_FeiBiao");
         instance.prefab_VFX_Attack_Chuizi = Resources.Load<GameObject>("Prefab/UseVFX/VFX_Attack_Chuizi");
         instance.prefab_VFX_Attack_Toushiqi = Resources.Load<GameObject>("Prefab/UseVFX/VFX_Attack_Toushiqi");
+        instance.prefab_VFX_Attack_Lianju = Resources.Load<GameObject>("Prefab/UseVFX/VFX_Attack_Lianju");
 
         instance.prefab_VFX_Range_Torch = Resources.Load<GameObject>("Prefab/UseVFX/VFX_Range_Torch");
         instance.prefab_VFX_Range_Flash = Resources.Load<GameObject>("Prefab/UseVFX/VFX_Range_Flash");
@@ -94,7 +96,6 @@ public class VFXManager
         DelayToInvoke.Instance.StartDelayToInvokeDo(Reduce, vfx, 0.5f);
     }
 
-
     public void CreateVFX_Attack_Chuizi(Vector2Int position, int color = 7)
     {
         var vfx = Get(VFXType.Attack_Chuizi, prefab_VFX_Attack_Chuizi);
@@ -111,6 +112,45 @@ public class VFXManager
         DelayToInvoke.Instance.StartDelayToInvokeDo(Reduce, vfx, 0.5f);
     }
 
+    public void CreateVFX_Attack_Lianju(Vector2Int position, int attackMapDistance, int faceDirection, int color = 7, bool firstInvoke = true)
+    {
+        var vfx = Get(VFXType.Attack_Lianju, prefab_VFX_Attack_Lianju);
+        float dis = MyGridManager.Instance.GetWorldDistance(attackMapDistance);
+        if (firstInvoke)
+            vfx.vfxObject.transform.position = MyGridManager.Instance.GetWorldPos(position);
+        else
+        {
+            vfx.vfxObject.transform.position = MyGridManager.Instance.GetWorldPos(position)
+                - GetFaceDirVector(faceDirection);
+        }
+        vfx.vfxObject.transform.eulerAngles = new Vector3(0, 0, faceDirection * 90);
+        vfx.SetColor(GetColor(color));
+        vfx.SetLifeTime((dis + 1) / 2f);
+        DelayToInvoke.Instance.StartDelayToInvokeDo(Reduce, vfx, (dis + 1) / 2);
+        if (firstInvoke)
+        {
+            Vector2Int endPos = GetFaceDirVector(faceDirection) * attackMapDistance;
+            DelayToInvoke.Instance.StartDelayToInvokeDo(CreateVFX_Attack_Lianju,
+            position + endPos, attackMapDistance,
+            (faceDirection + 2) % 4, color, (dis + 1) / 2, false);
+        }
+    }
+
+    private Vector2Int GetFaceDirVector(int faceDir)
+    {
+        switch (faceDir)
+        {
+            case 0:
+                return Vector2Int.right;
+            case 1:
+                return Vector2Int.up;
+            case 2:
+                return Vector2Int.left;
+            case 3:
+                return Vector2Int.down;
+        }
+        return Vector2Int.zero;
+    }
     public VFX CreateVFX_Range_Flash(Vector2Int position, int faceDir, int color = 7)
     {
         VFX vfx = Get(VFXType.Range_Flash, prefab_VFX_Range_Flash);
