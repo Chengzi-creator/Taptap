@@ -50,7 +50,6 @@ public class TeachText : MonoBehaviour
         dialogueQueue = new Queue<string>();
         //nextButton.onClick.AddListener(DisplayNextSentence); //显示下一句
         //nextButton.gameObject.SetActive(false);
-        LoadDialogue();
     }
 
     public void LoadDialogue()

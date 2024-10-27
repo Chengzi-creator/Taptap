@@ -67,6 +67,7 @@ public class UIManager : MonoBehaviour , IUIManager
     [SerializeField] private Button _buttonDH;
     [SerializeField] private Button _buttonDS;
     [SerializeField] private Button _buttonDD;
+    [SerializeField] private Button _buttonDSA;
     [SerializeField] private Button destroyButton;
     [SerializeField] private Button buildBackButton;
     [SerializeField] private Button rButton;
@@ -86,7 +87,7 @@ public class UIManager : MonoBehaviour , IUIManager
     [SerializeField] private GameObject dH;
     [SerializeField] private GameObject dC;
     [SerializeField] private GameObject dS;
-    //[SerializeField] private GameObject d;
+    [SerializeField] private GameObject dSA;
     
     [Header("HomeButton")]
     [SerializeField] private Button startButton;
@@ -96,7 +97,7 @@ public class UIManager : MonoBehaviour , IUIManager
     [SerializeField] private Button level2Button;
     
     [SerializeField] private Image towerX;
-    private Image image;
+    //private Image image;
     //[SerializeField] private Button[] buildButtons;  //存储所有建造按钮
     
     private ITowerManager.TowerType _selectedTowerType = ITowerManager.TowerType.NULL;
@@ -207,6 +208,7 @@ public class UIManager : MonoBehaviour , IUIManager
         _buttonDS.onClick.AddListener(ClickDS);
         _buttonDC.onClick.AddListener(ClickDC);
         _buttonDD.onClick.AddListener(ClickDD);
+        _buttonDSA.onClick.AddListener(ClickDSA);
         _buttonRF.onClick.AddListener(() => OnButtonClick(_buttonRF));
         _buttonRT.onClick.AddListener(() => OnButtonClick(_buttonRT));
         _buttonRL.onClick.AddListener(() => OnButtonClick(_buttonRL));
@@ -220,6 +222,7 @@ public class UIManager : MonoBehaviour , IUIManager
         _buttonDS.onClick.AddListener(() => OnButtonClick(_buttonDS));
         _buttonDC.onClick.AddListener(() => OnButtonClick(_buttonDC));
         _buttonDD.onClick.AddListener(() => OnButtonClick(_buttonDD));
+        _buttonDSA.onClick.AddListener(() => OnButtonClick(_buttonDSA));
 
         // if (mIndex == 0)
         // {
@@ -282,12 +285,15 @@ public class UIManager : MonoBehaviour , IUIManager
     {
         mIndex = index;
         PlayStateMachine.Instance.ReInit(index);
-        if (mIndex == 0)
-        {
-            teachText.SetActive(true);
-            isTeaching = true;
-        }
-        
+        // if (mIndex == 0)这是什么问题？？？？？？？？
+        // {
+        //     teachText.SetActive(true);
+        //     TeachText.Instance.LoadDialogue();
+        //     isTeaching = true;
+        // }
+        teachText.SetActive(true);
+        TeachText.Instance.LoadDialogue();
+        isTeaching = true;
         ChooseLevel.SetActive(false);
         GameStartMasks.SetActive(false);
         gameEvents.SetActive(true);
@@ -312,12 +318,29 @@ public class UIManager : MonoBehaviour , IUIManager
     public void OnHomeButtonClick()
     {
         PlayStateMachine.Instance.ExitPlayState();
+        GameStartMasks.SetActive(true);
+        ChooseLevel.SetActive(false);
+        SpawnButtons.SetActive(false);
+        pauseMasks.SetActive(false);
+        setupMasks.SetActive(false);
+        buildMasks.SetActive(false);
+        overMasks.SetActive(false);
+        buildButtons.SetActive(false);
+        buildBack.SetActive(false);
+        rImages.SetActive(false);
+        gImages.SetActive(false);
+        bImages.SetActive(false);
+        gameEvents.SetActive(false);
+        round.SetActive(false);
+        teachText.SetActive(false);
+        enemyImage.SetActive(false);
     }
     
     public void OnRestartButtonClick()
-    {
-        //PlayStateMachine.Instance.RestartWave();
-        PlayStateMachine.Instance.ReInit(mIndex);
+    {   
+        PlayStateMachine.Instance.RestartWave();
+        //PlayStateMachine.Instance.ReInit(mIndex);
+        ResumeGame();//恢复游戏
     }
 
     private void OnexitButtonClick()
@@ -669,6 +692,18 @@ public class UIManager : MonoBehaviour , IUIManager
         {
             DestroyTowerImage();
             tower = GameObject.Instantiate(dD);
+        }
+    }
+    
+    private void ClickDSA()
+    {   
+        _selectedTowerType = ITowerManager.TowerType.D_saw;
+        if(tower == null && !isSpawning)
+            tower = GameObject.Instantiate(dSA);
+        if (tower != null && !isSpawning)
+        {
+            DestroyTowerImage();
+            tower = GameObject.Instantiate(dSA);
         }
     }
 
