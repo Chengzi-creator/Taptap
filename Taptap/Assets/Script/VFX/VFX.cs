@@ -4,6 +4,9 @@ public enum VFXType
 {
     Attack_Tuci,
     Attack_FeiBiao,
+    Attack_Chuizi,
+    Attack_Toushiqi,
+
     Range_Flash,
     Range_Lazor,
     Range_Torch,
@@ -42,6 +45,8 @@ public class VFX
             case VFXType.Range_Lazor:
             case VFXType.Range_Torch:
             case VFXType.Range_Single:
+            case VFXType.Attack_Toushiqi:
+            case VFXType.Attack_Chuizi:
                 mainModule = vfxObject.transform.GetChild(0).GetComponent<ParticleSystem>().main;
                 mainModule.startColor = color;
                 break;

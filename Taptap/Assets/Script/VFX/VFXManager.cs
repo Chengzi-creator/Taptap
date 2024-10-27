@@ -25,6 +25,9 @@ public class VFXManager
     // private LinkedList<IVFX> vfxList;
     GameObject prefab_VFX_Attack_Tuci;
     GameObject prefab_VFX_Attack_FeiBiao;
+    GameObject prefab_VFX_Attack_Chuizi;
+    GameObject prefab_VFX_Attack_Toushiqi;
+
     GameObject prefab_VFX_Range_Flash;
     GameObject prefab_VFX_Range_Lazor;
     GameObject prefab_VFX_Range_Torch;
@@ -32,12 +35,15 @@ public class VFXManager
     private static void Init()
     {
         // instance.vfxList = new LinkedList<IVFX>();
-        instance.prefab_VFX_Attack_Tuci = Resources.Load<GameObject>("Prefab/VFX/VFX_Attack_Ziguang_main");
-        instance.prefab_VFX_Attack_FeiBiao = Resources.Load<GameObject>("Prefab/VFX/VFX_Attack_FeiBiao");
-        instance.prefab_VFX_Range_Torch = Resources.Load<GameObject>("Prefab/VFX/VFX_Range_Torch");
-        instance.prefab_VFX_Range_Flash = Resources.Load<GameObject>("Prefab/VFX/VFX_Range_Flash");
-        instance.prefab_VFX_Range_Lazor = Resources.Load<GameObject>("Prefab/VFX/VFX_Range_Lazor");
-        instance.prefab_VFX_Range_Single = Resources.Load<GameObject>("Prefab/VFX/VFX_Range_Single");
+        instance.prefab_VFX_Attack_Tuci = Resources.Load<GameObject>("Prefab/UseVFX/VFX_Attack_Ziguang_main");
+        instance.prefab_VFX_Attack_FeiBiao = Resources.Load<GameObject>("Prefab/UseVFX/VFX_Attack_FeiBiao");
+        instance.prefab_VFX_Attack_Chuizi = Resources.Load<GameObject>("Prefab/UseVFX/VFX_Attack_Chuizi");
+        instance.prefab_VFX_Attack_Toushiqi = Resources.Load<GameObject>("Prefab/UseVFX/VFX_Attack_Toushiqi");
+
+        instance.prefab_VFX_Range_Torch = Resources.Load<GameObject>("Prefab/UseVFX/VFX_Range_Torch");
+        instance.prefab_VFX_Range_Flash = Resources.Load<GameObject>("Prefab/UseVFX/VFX_Range_Flash");
+        instance.prefab_VFX_Range_Lazor = Resources.Load<GameObject>("Prefab/UseVFX/VFX_Range_Lazor");
+        instance.prefab_VFX_Range_Single = Resources.Load<GameObject>("Prefab/UseVFX/VFX_Range_Single");
     }
 
     private VFX Get(VFXType vFXType, GameObject prefab)
@@ -88,6 +94,23 @@ public class VFXManager
         DelayToInvoke.Instance.StartDelayToInvokeDo(Reduce, vfx, 0.5f);
     }
 
+
+    public void CreateVFX_Attack_Chuizi(Vector2Int position, int color = 7)
+    {
+        var vfx = Get(VFXType.Attack_Chuizi, prefab_VFX_Attack_Chuizi);
+        vfx.vfxObject.transform.position = MyGridManager.Instance.GetWorldPos(position) + new Vector2(0, 4);
+        vfx.SetColor(GetColor(color));
+        DelayToInvoke.Instance.StartDelayToInvokeDo(Reduce, vfx, 0.5f);
+    }
+
+    public void CreateVFX_Attack_Toushiqi(Vector2Int position, int color = 7)
+    {
+        var vfx = Get(VFXType.Attack_Toushiqi, prefab_VFX_Attack_Toushiqi);
+        vfx.vfxObject.transform.position = MyGridManager.Instance.GetWorldPos(position);
+        vfx.SetColor(GetColor(color));
+        DelayToInvoke.Instance.StartDelayToInvokeDo(Reduce, vfx, 0.5f);
+    }
+
     public VFX CreateVFX_Range_Flash(Vector2Int position, int faceDir, int color = 7)
     {
         VFX vfx = Get(VFXType.Range_Flash, prefab_VFX_Range_Flash);
@@ -125,6 +148,7 @@ public class VFXManager
         vfx.vfxObject.transform.position = MyGridManager.Instance.GetWorldPos(position);
         return vfx;
     }
+
 
     private Color GetColor(int colorIdx)
     {

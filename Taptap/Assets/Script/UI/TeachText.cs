@@ -22,7 +22,7 @@ public class TeachText : MonoBehaviour
     }
 
     [SerializeField] private TextMeshProUGUI dialogueText;
-    [SerializeField] private Button nextButton;
+    //[SerializeField] private Button nextButton;
 
     [Header("对话更新")]
     public int talkConut = 0; //用来存储对话次数？
@@ -48,8 +48,9 @@ public class TeachText : MonoBehaviour
     void Start()
     {
         dialogueQueue = new Queue<string>();
-        nextButton.onClick.AddListener(DisplayNextSentence); //显示下一句
-        nextButton.gameObject.SetActive(false);
+        //nextButton.onClick.AddListener(DisplayNextSentence); //显示下一句
+        //nextButton.gameObject.SetActive(false);
+        LoadDialogue();
     }
 
     public void LoadDialogue()
@@ -58,8 +59,11 @@ public class TeachText : MonoBehaviour
         {
             case 0:
                 StartDialogue(new List<string>
-                {
-                    
+                {      
+                    "Press 'Enter' to continue",
+                    "Hello Hello",
+                    "Introduce",
+                    "Learn to play"
                 });
                 break;
 
@@ -91,7 +95,7 @@ public class TeachText : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && !isTyping)
+        if (Input.GetKeyDown(KeyCode.Return) && !isTyping)
         {
             DisplayNextSentence();
         }
@@ -138,7 +142,7 @@ public class TeachText : MonoBehaviour
     private void EndDialogue()
     {
         dialogueText.text = "";
-        nextButton.gameObject.SetActive(false);
+        //nextButton.gameObject.SetActive(false);
         gameObject.SetActive(false);
 
         if (talkConut == 0)

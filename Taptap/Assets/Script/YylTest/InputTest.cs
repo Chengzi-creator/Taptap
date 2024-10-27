@@ -74,5 +74,13 @@ public class InputTest : MonoBehaviour
         {
             ColorBlockManager.Instance.CreateColorBlock(new Vector2Int(0, 0), 2, 6);
         }
+        if(Input.GetKeyDown(KeyCode.Alpha7))
+        {
+            VFXManager.Instance.CreateVFX_Attack_Chuizi(new Vector2Int(0, 0), 6);
+        }
+        if(Input.GetKeyDown(KeyCode.Alpha8))
+        {
+            VFXManager.Instance.CreateVFX_Attack_Toushiqi(new Vector2Int(0, 0), 5);
+        }
     }
 }
