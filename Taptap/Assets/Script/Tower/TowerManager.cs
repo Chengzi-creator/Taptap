@@ -48,6 +48,7 @@ public class TowerManager : ITowerManager
         prefabTowerList[ITowerManager.TowerType.D_spike] = Resources.Load<GameObject>("Prefab/Tower/TowerDSpike");
         prefabTowerList[ITowerManager.TowerType.D_dart] = Resources.Load<GameObject>("Prefab/Tower/TowerDDart");
         prefabTowerList[ITowerManager.TowerType.D_hammer] = Resources.Load<GameObject>("Prefab/Tower/TowerDHammer");
+        prefabTowerList[ITowerManager.TowerType.D_catapult] = Resources.Load<GameObject>("Prefab/Tower/TowerDCatapult");
 
         if(instance.towerConfig == null)
         {
@@ -166,13 +167,15 @@ public class TowerManager : ITowerManager
                 colorMap[position.x , position.y , i] ++;
             }
         }
-        MyGridManager.Instance.ColorChanged(position);
-        if(VFXMap[position.x , position.y] != null)
-        {
-            VFXManager.Instance.ReduceVFX(VFXMap[position.x , position.y]);
-            VFXMap[position.x , position.y] = null;
-        }
-        VFXMap[position.x , position.y] = VFXManager.Instance.CreateVFX_Range_Single(position , GetColor(position));
+        ColorChanged(position);
+        // // MyGridManager.Instance.ColorChanged(position);
+        // towerMap[position.x , position.y].ColorChanged();
+        // if(VFXMap[position.x , position.y] != null)
+        // {
+        //     VFXManager.Instance.ReduceVFX(VFXMap[position.x , position.y]);
+        //     VFXMap[position.x , position.y] = null;
+        // }
+        // VFXMap[position.x , position.y] = VFXManager.Instance.CreateVFX_Range_Single(position , GetColor(position));
     }
     public void RemoveColor(Vector2Int position , int color)
     {
@@ -183,9 +186,43 @@ public class TowerManager : ITowerManager
                 colorMap[position.x , position.y , i] --;
             }
         }
-        if(GetColor(position) == 0 && towerMap[position.x , position.y] != null && towerMap[position.x , position.y] is BaseDamageTower)
+
+        ColorChanged(position);
+        // if(towerMap[position.x , position.y] != null && towerMap[position.x , position.y] is BaseDamageTower)
+        // {
+        //     if(GetColor(position) == 0)
+        //     {
+        //         PlayStateMachine.Instance.RemoveTower(position);
+        //     }
+        //     else
+        //     {
+        //         (towerMap[position.x , position.y] as BaseDamageTower).ChangeColor(GetColorVector(position));
+        //     }
+        // }
+
+        // // if(GetColor(position) == 0 && towerMap[position.x , position.y] != null && towerMap[position.x , position.y] is BaseDamageTower)
+        // // {
+        // //     PlayStateMachine.Instance.RemoveTower(position);
+        // // }
+        // if(VFXMap[position.x , position.y] != null)
+        // {
+        //     VFXManager.Instance.ReduceVFX(VFXMap[position.x , position.y]);
+        //     VFXMap[position.x , position.y] = null;
+        // }
+        // VFXMap[position.x , position.y] = VFXManager.Instance.CreateVFX_Range_Single(position , GetColor(position));
+    }
+    private void ColorChanged(Vector2Int position)
+    {
+        if(towerMap[position.x , position.y] != null && towerMap[position.x , position.y] is BaseDamageTower)
         {
-            PlayStateMachine.Instance.RemoveTower(position);
+            if(GetColor(position) == 0)
+            {
+                PlayStateMachine.Instance.RemoveTower(position);
+            }
+            else
+            {
+                (towerMap[position.x , position.y] as BaseDamageTower).ChangeColor(GetColorVector(position));
+            }
         }
         if(VFXMap[position.x , position.y] != null)
         {
@@ -194,6 +231,7 @@ public class TowerManager : ITowerManager
         }
         VFXMap[position.x , position.y] = VFXManager.Instance.CreateVFX_Range_Single(position , GetColor(position));
     }
+
     public ITowerManager.TowerAttribute GetTowerAttribute(ITowerManager.TowerType type)
     {
         return towerConfig.GetTowerAttribute(type);
