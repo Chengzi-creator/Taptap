@@ -510,7 +510,7 @@ public class MyGridManager : MonoBehaviour, IGraphicManager, IGridManager
     }
     public void CalculatePath(bool drawPath = false)
     {
-        Debug.LogWarning("CalculatePath");
+        // Debug.LogWarning("CalculatePath");
         PathManager = myGraphic.CalculatePath();
         if (drawPath)
             PathManager.DrawFirstPath(5);

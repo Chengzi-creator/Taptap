@@ -8,7 +8,7 @@ public class TowerX : BaseDamageTower
     protected LinkedList<float> lockedTime;
     public override void Init(ITowerManager.TowerAttribute towerAttribute, Vector2Int position , int faceDirection)
     {
-        this.type = ITowerManager.TowerType.X;
+        // this.type = ITowerManager.TowerType.X;
         this.lockedEnemy = new LinkedList<IGrid>();
         this.lockedTime = new LinkedList<float>();
         base.Init(towerAttribute, position , faceDirection);

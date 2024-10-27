@@ -49,7 +49,7 @@ public class TowerManager : ITowerManager
         prefabTowerList[ITowerManager.TowerType.D_dart] = Resources.Load<GameObject>("Prefab/Tower/TowerDDart");
         prefabTowerList[ITowerManager.TowerType.D_hammer] = Resources.Load<GameObject>("Prefab/Tower/TowerDHammer");
         prefabTowerList[ITowerManager.TowerType.D_catapult] = Resources.Load<GameObject>("Prefab/Tower/TowerDCatapult");
-        prefabTowerList[ITowerManager.TowerType.D_catapult] = Resources.Load<GameObject>("Prefab/Tower/TowerDSaw");
+        prefabTowerList[ITowerManager.TowerType.D_saw] = Resources.Load<GameObject>("Prefab/Tower/TowerDSaw");
 
         if(instance.towerConfig == null)
         {
@@ -164,7 +164,7 @@ public class TowerManager : ITowerManager
         {
             if((color & (1 << i)) > 0)
             {
-                Debug.Log("color para " + position + " " + i);
+                // Debug.Log("color para " + position + " " + i);
                 colorMap[position.x , position.y , i] ++;
             }
         }

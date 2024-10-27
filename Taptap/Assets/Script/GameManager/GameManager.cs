@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
         TowerManager.Init();
         if(UIManager.Instance == null);
         // PlayStateMachine.Instance.ReInit(0);
-        PlayStateMachine.Instance.EmptyFunction();
+        if(PlayStateMachine.Instance == null);
     }
 
     // Update is called once per frame
