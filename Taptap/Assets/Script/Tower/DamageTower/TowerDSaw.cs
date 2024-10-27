@@ -38,6 +38,7 @@ public class TowerDSaw : BaseDamageTower
                 lockedTime.AddLast(bulletTime);
                 lockedPosition.AddLast(Position - FaceDirectionVector2Int * i);
                 lockedDirection.AddLast(new Vector3Int(-FaceDirectionVector2Int.x , -FaceDirectionVector2Int.y , 1));
+                VFXManager.Instance.CreateVFX_Attack_Lianju(Position, (faceDirection + 2) % 4, TowerManager.Instance.GetColor(position));
                 break;
             }
             if(rigGrid != null && rigGrid.EnemysCount() > 0)
@@ -45,6 +46,7 @@ public class TowerDSaw : BaseDamageTower
                 lockedTime.AddLast(bulletTime);
                 lockedPosition.AddLast(Position + FaceDirectionVector2Int * i);
                 lockedDirection.AddLast(new Vector3Int(FaceDirectionVector2Int.x , FaceDirectionVector2Int.y , 1));
+                VFXManager.Instance.CreateVFX_Attack_Lianju(Position, faceDirection, TowerManager.Instance.GetColor(position));
                 break;
             }
         }
