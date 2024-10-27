@@ -78,17 +78,25 @@ public class TowerManager : ITowerManager
     private VFX[,] VFXMap;
     public void ReInit()
     {
-        foreach(BaseTower tower in towerList)
+        while(towerList.Count > 0)
         {
-            DestroyTower(tower);
+            DestroyTower(towerList.GetEnumerator().Current);
         }
+        // foreach(BaseTower tower in towerList)
+        // {
+        //     DestroyTower(tower);
+        // }
     }
     public void Close()
     {
-        foreach(BaseTower tower in towerList)
+        while(towerList.Count > 0)
         {
-            DestroyTower(tower);
+            DestroyTower(towerList.GetEnumerator().Current);
         }
+        // foreach(BaseTower tower in towerList)
+        // {
+        //     DestroyTower(tower);
+        // }
     }
     public ITower CreateTower(ITowerManager.TowerType type , Vector2Int position , int faceDirection)
     {
@@ -109,6 +117,7 @@ public class TowerManager : ITowerManager
         towerList.Add(tower);
         towerMap[position.x , position.y] = tower;
         MyGridManager.Instance.BuildTower(position);
+        MyGridManager.Instance.CalculatePath();
         return tower;
     }
 
@@ -125,6 +134,7 @@ public class TowerManager : ITowerManager
         towerMap[tower.Position.x , tower.Position.y] = null;
         MyGridManager.Instance.DestroyTower(tower.Position);
         tower.DestroyTower();
+        MyGridManager.Instance.CalculatePath();
         return tower;
     }
     public ITower GetTower(Vector2Int position)
@@ -169,14 +179,6 @@ public class TowerManager : ITowerManager
             }
         }
         ColorChanged(position);
-        // // MyGridManager.Instance.ColorChanged(position);
-        // towerMap[position.x , position.y].ColorChanged();
-        // if(VFXMap[position.x , position.y] != null)
-        // {
-        //     VFXManager.Instance.ReduceVFX(VFXMap[position.x , position.y]);
-        //     VFXMap[position.x , position.y] = null;
-        // }
-        // VFXMap[position.x , position.y] = VFXManager.Instance.CreateVFX_Range_Single(position , GetColor(position));
     }
     public void RemoveColor(Vector2Int position , int color)
     {

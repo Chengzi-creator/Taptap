@@ -12,6 +12,7 @@ public class TowerBFlash_R : BaseBuffTower
     public override void ReInit(ITowerManager.TowerAttribute towerAttribute, Vector2Int position, int faceDirection)
     {
         base.ReInit(towerAttribute, position, faceDirection);
+        transform.rotation = Quaternion.Euler(0 , 0 , 90 * faceDirection);
         // rangeVFX = VFXManager.Instance.CreateVFX_Range_Flash(Position, this.faceDirection , color);
     }
 }

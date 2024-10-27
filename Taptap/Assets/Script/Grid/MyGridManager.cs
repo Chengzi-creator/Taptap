@@ -46,7 +46,7 @@ public class MyGridManager : MonoBehaviour, IGraphicManager, IGridManager
 
     public void Init()
     {
-        
+
     }
 
     #region 坐标转换
@@ -96,10 +96,10 @@ public class MyGridManager : MonoBehaviour, IGraphicManager, IGridManager
         return new Vector2Int(-1, -1);
     }
 
-    public Vector2 GetGridMidWorldPos(Vector2 worldPos,out bool isVaild)
+    public Vector2 GetGridMidWorldPos(Vector2 worldPos, out bool isVaild)
     {
         Vector2Int mapPos = GetMapPos(worldPos);
-        if(IsInMap(mapPos))
+        if (IsInMap(mapPos))
         {
             isVaild = true;
             return GetWorldPos(mapPos);
@@ -133,10 +133,10 @@ public class MyGridManager : MonoBehaviour, IGraphicManager, IGridManager
     {
         return mapPos.x >= 0 && mapPos.x < width && mapPos.y >= 0 && mapPos.y < length;
     }
-//    private Vector2 IsNearMap(Vector2 mapPos)
-//    {
-//        if(mapPos.x > -0.05)
-///    }
+    //    private Vector2 IsNearMap(Vector2 mapPos)
+    //    {
+    //        if(mapPos.x > -0.05)
+    ///    }
 
     private bool IsInMap(Vector2Int mapPos)
     {
@@ -277,7 +277,7 @@ public class MyGridManager : MonoBehaviour, IGraphicManager, IGridManager
                 //{
                 //    Debug.Log(myGrid.HoldObject.Type);
                 //}
-                if(myGrid.HoldObject.Type == GridObjectType.End)
+                if (myGrid.HoldObject.Type == GridObjectType.End)
                 {
                     ColorBlockManager.Instance.SetTarget(WorldPos);
                     endGrid = myGrid;
@@ -486,14 +486,37 @@ public class MyGridManager : MonoBehaviour, IGraphicManager, IGridManager
         }
     }
 
+    public void CalculateAllGridCanPutTower()
+    {
+        //Stopwatch sw = new Stopwatch();
+        //sw.Start();
+        for (int i = 0; i < width; i++)
+        {
+            for (int j = 0; j < length; j++)
+            {
+                if(!myGrids[i, j].CanPass)
+                {
+                    continue;
+                }
+                bool canPut = CanPutTower(new Vector2Int(i, j));
+                //Debug.Log("canPut:" + canPut + " " + i + " " + j + myGrids[i, j].HoldObject.Type);  
+                myGrids[i, j].CanPutTower = canPut;
+            }
+        }
+        //sw.Stop();
+        //Debug.LogWarning($" Time:{sw.ElapsedMilliseconds}ms");
+    }
 
     public bool CanPutTower(Vector2Int mapPos)
     {
         if (IsInMap(mapPos))
         {
             MyGrid grid = GetGrid(mapPos);
-
-            return grid.CanPutObj && HasPathAfterPut(mapPos);
+            if (grid.CanPutObj)
+            {
+                //Debug.Log(grid.HoldObject.Type + " " + mapPos + " " + grid.MapPos);
+                return HasPathAfterPut(mapPos);
+            }
         }
         return false;
     }

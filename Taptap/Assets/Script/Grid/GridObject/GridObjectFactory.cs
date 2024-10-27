@@ -6,6 +6,7 @@ public static class GridObjectFactory
 {
     public static GridObject Create(GridObjectType type, GameObject gameObject = null)
     {
+        //Debug.Log("Create GridObject:" + type);
         switch (type)
         {
             case GridObjectType.None:
@@ -17,7 +18,6 @@ public static class GridObjectFactory
                 return new GridObject(type);
             case GridObjectType.End:
                 return new GridObjectEnd(type, gameObject);
-
         }
         return new GridObject(type);
     }

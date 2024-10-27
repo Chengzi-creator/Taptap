@@ -8,7 +8,13 @@ public interface IEnemyManager
     {
         A,
         B,
-        C
+        C,
+        D,
+        E,
+        F,
+        G,
+        H,
+        I
     }
     public struct EnemyAttribute
     {
