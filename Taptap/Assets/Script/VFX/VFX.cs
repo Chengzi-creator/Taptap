@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public enum VFXType
 {
@@ -6,6 +7,7 @@ public enum VFXType
     Attack_FeiBiao,
     Attack_Chuizi,
     Attack_Toushiqi,
+    Attack_Lianju,
 
     Range_Flash,
     Range_Lazor,
@@ -47,6 +49,7 @@ public class VFX
             case VFXType.Range_Single:
             case VFXType.Attack_Toushiqi:
             case VFXType.Attack_Chuizi:
+            case VFXType.Attack_Lianju:
                 mainModule = vfxObject.transform.GetChild(0).GetComponent<ParticleSystem>().main;
                 mainModule.startColor = color;
                 break;
@@ -56,5 +59,16 @@ public class VFX
     public void Reduce()
     {
         vfxObject.SetActive(false);
+    }
+
+    internal void SetLifeTime(float lifeTime)
+    {
+        switch (vfxType)
+        {
+            case VFXType.Attack_Lianju:
+                var mainModule = vfxObject.transform.GetChild(0).GetComponent<ParticleSystem>().main;
+                mainModule.startLifetime = lifeTime;
+                break;
+        }
     }
 }
