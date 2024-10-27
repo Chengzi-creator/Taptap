@@ -6,7 +6,7 @@ public class ShowLazerG : IShow
 {
     public override void ShowRange()
     {
-        GameObject.Find("ShowRange").SetActive(true);
+        transform.Find("ShowRange").gameObject.SetActive(true);
     }
     public override void SetFaceDirection(int faceDirection)
     {

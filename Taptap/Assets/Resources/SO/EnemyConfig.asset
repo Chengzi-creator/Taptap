@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   showEnemyData:
   - type: 0
-    maxHP: {x: 200, y: 0, z: 0}
+    maxHP: {x: 0, y: 0, z: 200}
     size: {x: 0.9, y: 0.9}
     speed: 0.8
     damage: 0

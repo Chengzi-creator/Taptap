@@ -278,12 +278,12 @@ public class PlayStateMachine
                 }
             }
             UIManager.Instance.ShowEnemyCountAndTypes(PlayStateMachine.Instance.enemyTypeList , PlayStateMachine.Instance.enemyCountList);
-            Debug.Log("show enemy count and types");
-            Debug.Log("Total enemy count " + enemyList.Count);
+            //Debug.Log("show enemy count and types");
+            //Debug.Log("Total enemy count " + enemyList.Count);
 
             MyGridManager.Instance.CalculatePath();
             MyGridManager.Instance.DrawPath();
-            Debug.Log("drawpath");
+            //Debug.Log("drawpath");
     
         }
 
