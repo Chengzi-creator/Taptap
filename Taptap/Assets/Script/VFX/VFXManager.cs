@@ -117,9 +117,10 @@ public class VFXManager
         DelayToInvoke.Instance.StartDelayToInvokeDo(Reduce, vfx, 0.5f);
     }
 
-    public void CreateVFX_Attack_Lianju(Vector2Int position, int attackMapDistance, int faceDirection, int color = 7, bool firstInvoke = true)
+    public void CreateVFX_Attack_Lianju(Vector2Int position, int faceDirection, int color = 7, bool firstInvoke = true)
     {
         var vfx = Get(VFXType.Attack_Lianju, prefab_VFX_Attack_Lianju);
+        int attackMapDistance = GetDistance(position, faceDirection);
         float dis = MyGridManager.Instance.GetWorldDistance(attackMapDistance);
         if (firstInvoke)
             vfx.vfxObject.transform.position = MyGridManager.Instance.GetWorldPos(position);
@@ -136,9 +137,24 @@ public class VFXManager
         {
             Vector2Int endPos = GetFaceDirVector(faceDirection) * attackMapDistance;
             DelayToInvoke.Instance.StartDelayToInvokeDo(CreateVFX_Attack_Lianju,
-            position + endPos, attackMapDistance,
-            (faceDirection + 2) % 4, color, (dis + 1) / 2, false);
+            position + endPos, (faceDirection + 2) % 4, color, (dis + 1) / 2, false);
         }
+    }
+
+    private int GetDistance(Vector2Int position, int faceDir)
+    {
+        switch (faceDir)
+        {
+            case 0:
+                return MyGridManager.Instance.width - position.x - 1;
+            case 1:
+                return MyGridManager.Instance.length - position.y - 1;
+            case 2:
+                return position.x;
+            case 3:
+                return position.y;
+        }
+        return 0;
     }
 
     private Vector2Int GetFaceDirVector(int faceDir)
