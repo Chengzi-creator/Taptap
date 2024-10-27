@@ -13,14 +13,100 @@ MonoBehaviour:
   m_Name: LevelData
   m_EditorClassIdentifier: 
   levelData:
-  - beginPosition: {x: 0, y: 2}
+  - beginPosition: {x: 4, y: 1}
     beginMoney: 10000
     waveList:
     - enemyDataList:
       - type: 0
         spawnTime: 0
-    - enemyDataList:
       - type: 0
+        spawnTime: 1
+      - type: 0
+        spawnTime: 2
+      - type: 0
+        spawnTime: 3
+    - enemyDataList:
+      - type: 1
+        spawnTime: 0
+      - type: 1
         spawnTime: 1
       - type: 1
         spawnTime: 2
+    - enemyDataList:
+      - type: 1
+        spawnTime: 0
+      - type: 1
+        spawnTime: 2
+  - beginPosition: {x: 5, y: 0}
+    beginMoney: 10000
+    waveList:
+    - enemyDataList:
+      - type: 0
+        spawnTime: 0
+      - type: 0
+        spawnTime: 2
+      - type: 0
+        spawnTime: 4
+      - type: 0
+        spawnTime: 6
+    - enemyDataList:
+      - type: 0
+        spawnTime: 1
+      - type: 0
+        spawnTime: 2
+      - type: 1
+        spawnTime: 3
+      - type: 1
+        spawnTime: 4
+      - type: 1
+        spawnTime: 5
+  - beginPosition: {x: 1, y: 1}
+    beginMoney: 10000
+    waveList:
+    - enemyDataList:
+      - type: 0
+        spawnTime: 0
+      - type: 0
+        spawnTime: 3
+      - type: 0
+        spawnTime: 6
+      - type: 0
+        spawnTime: 9
+    - enemyDataList:
+      - type: 0
+        spawnTime: 0
+      - type: 0
+        spawnTime: 2
+      - type: 1
+        spawnTime: 4
+      - type: 1
+        spawnTime: 12
+      - type: 1
+        spawnTime: 15
+      - type: 1
+        spawnTime: 18
+    - enemyDataList:
+      - type: 0
+        spawnTime: 0
+      - type: 0
+        spawnTime: 2
+      - type: 1
+        spawnTime: 4
+      - type: 1
+        spawnTime: 6
+      - type: 1
+        spawnTime: 8
+      - type: 1
+        spawnTime: 10
+      - type: 1
+        spawnTime: 12
+      - type: 1
+        spawnTime: 14
+      - type: 2
+        spawnTime: 20
+      - type: 2
+        spawnTime: 23
+      - type: 2
+        spawnTime: 26
+      - type: 2
+        spawnTime: 30
