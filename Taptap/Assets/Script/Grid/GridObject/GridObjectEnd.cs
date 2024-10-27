@@ -29,7 +29,7 @@ public class GridObjectEnd : GridObject
     {
         sr.enabled = true;
         sr.color = colorList[colorIdx] / 255f;
-        Debug.Log("Color Change：" + sr.color + " " + colorList[colorIdx]);
+        //Debug.Log("Color Change：" + sr.color + " " + colorList[colorIdx]);
     }
 
     public void HPChange(int hp)

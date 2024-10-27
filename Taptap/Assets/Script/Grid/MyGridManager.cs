@@ -95,6 +95,18 @@ public class MyGridManager : MonoBehaviour, IGraphicManager, IGridManager
             return new Vector2Int(x, y);
         return new Vector2Int(-1, -1);
     }
+
+    public Vector2 GetGridMidWorldPos(Vector2 worldPos,out bool isVaild)
+    {
+        Vector2Int mapPos = GetMapPos(worldPos);
+        if(IsInMap(mapPos))
+        {
+            isVaild = true;
+            return GetWorldPos(mapPos);
+        }
+        isVaild = false;
+        return new Vector2(-100, -100);
+    }
     #endregion
 
     #region 寻路使用
@@ -257,6 +269,10 @@ public class MyGridManager : MonoBehaviour, IGraphicManager, IGridManager
                 myGrid.Init(new Vector2Int(i, j), new Vector2(WorldPos.x, WorldPos.y),
                     GetGridType(mapState.Map[i, j][0].type));
                 myGrids[i, j] = myGrid;
+                //if(mapState.Map[i, j][0].type == MapObjectType.End)
+                //{
+                //    Debug.Log(myGrid.HoldObject.Type);
+                //}
                 if(myGrid.HoldObject.Type == GridObjectType.End)
                 {
                     ColorBlockManager.Instance.SetTarget(WorldPos);
@@ -533,6 +549,8 @@ public class MyGridManager : MonoBehaviour, IGraphicManager, IGridManager
     public void ChangeHomeHP(int hp)
     {
         Debug.Log("HP:" + hp);
+        if (endGrid == null)
+            Debug.Log("end is null");
         endGrid?.HPChange(hp);
     }
 }
