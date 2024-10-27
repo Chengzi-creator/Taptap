@@ -103,6 +103,24 @@ public class UIManager : MonoBehaviour , IUIManager
     private ITowerManager.TowerType _selectedTowerType = ITowerManager.TowerType.NULL;
     
     public bool isSpawning = false;
+    public bool IsSpawning
+    {
+        get { return isSpawning; }
+        set
+        {
+            if (isSpawning != value)  // 检测值是否改变
+            {
+                isSpawning = value;
+                OnIsSpawningChanged(isSpawning);  // 当值改变时调用监听函数
+            }
+        }
+    }
+
+    private void OnIsSpawningChanged(bool _isSpawning)
+    {
+        AudioControl.Instance.SwitchMusic();
+    }
+        
     public bool isTeaching = false;
     public ShowUnRotation _showUnRotation;
     private bool isPaused = false;
@@ -185,6 +203,7 @@ public class UIManager : MonoBehaviour , IUIManager
         
         
         _showUnRotation = GetComponent<ShowUnRotation>();
+        Debug.LogWarning("在这");
         
         // foreach (var pair in toggleImagePairs)
         // {
