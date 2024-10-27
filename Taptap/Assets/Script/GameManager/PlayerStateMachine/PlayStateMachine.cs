@@ -281,7 +281,8 @@ public class PlayStateMachine
             Debug.Log("show enemy count and types");
             Debug.Log("Total enemy count " + enemyList.Count);
 
-            MyGridManager.Instance.DrawPath(aaaa);
+            MyGridManager.Instance.DrawPath();
+            Debug.Log("drawpath");
     
         }
 
@@ -293,6 +294,8 @@ public class PlayStateMachine
         {
             PlayStateMachine.Instance.lastWaveHP = PlayStateMachine.Instance.HP;
             PlayStateMachine.Instance.lastWaveMoney = PlayStateMachine.Instance.Money;
+            MyGridManager.Instance.ErasePath();
+            Debug.Log("closepath");
         }
 
         public void BuildTower(ITowerManager.TowerType towerType, Vector2Int position , int faceDirection)
