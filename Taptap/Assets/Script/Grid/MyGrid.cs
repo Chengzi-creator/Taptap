@@ -48,6 +48,13 @@ public class MyGrid : MonoBehaviour, IGrid
             HoldObject.Type == GridObjectType.End;
     }
 
+
+    public bool ShowGreen
+    {
+        get => HoldObject == null || HoldObject.Type == GridObjectType.None ||
+            HoldObject.Type == GridObjectType.NoBuildGround;
+    }
+
     /// <summary>
     /// 是终点格子
     /// </summary>
@@ -164,7 +171,7 @@ public class MyGrid : MonoBehaviour, IGrid
     /// </summary>
     public void ShowGrid()
     {
-        if (!CanPass)
+        if (!ShowGreen)
         {
             Color color = HoldObject.Type switch
             {
@@ -175,6 +182,10 @@ public class MyGrid : MonoBehaviour, IGrid
                 //GridObjectType.NoPassGround => Color.blue,
                 _ => Color.white
             };
+            if(HoldObject.Type == GridObjectType.End)
+            {
+                return;
+            }
             GetComponent<SpriteRenderer>().color = color;
         }
         else
@@ -187,6 +198,10 @@ public class MyGrid : MonoBehaviour, IGrid
     /// </summary>
     public void CancelShowGrid()
     {
+        if (HoldObject.Type == GridObjectType.End)
+        {
+            return;
+        }
         GetComponent<SpriteRenderer>().color = Color.white;
     }
 
