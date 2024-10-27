@@ -29,7 +29,7 @@ public class InputTest : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
         {
             var pos = MyGridManager.Instance.GetMapPos(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-            //Debug.Log("pos:" + pos);
+            //Debug.Log("pos:" + Camera.main.ScreenToWorldPoint(Input.mousePosition) + " " + MyGridManager.Instance.GetGridMidWorldPos(Camera.main.ScreenToWorldPoint(Input.mousePosition), out bool valid) + " " + valid);
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
             if (hit.collider != null)
             {

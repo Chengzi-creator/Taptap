@@ -87,7 +87,7 @@ public class MyGrid : MonoBehaviour, IGrid
     {
         MapPos = mapPos;
         WorldPos = worldPos;
-        var gridObj = new GridObject(type);
+        var gridObj = CreateGridObject(type);
         SetHoldObject(gridObj);
         InitObject = gridObj;
     }
@@ -117,6 +117,8 @@ public class MyGrid : MonoBehaviour, IGrid
                 break;
             case GridObjectType.End:
                 GetComponent<SpriteRenderer>().sprite = sprites[4];
+                transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().sprite = 
+                    (MapPos.x + MapPos.y) % 2 == 0 ? sprites[0] : sprites[1];
                 break;
             case GridObjectType.NoBuildGround:
                 GetComponent<SpriteRenderer>().sprite = sprites[5];
