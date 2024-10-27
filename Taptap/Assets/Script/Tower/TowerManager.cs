@@ -49,6 +49,7 @@ public class TowerManager : ITowerManager
         prefabTowerList[ITowerManager.TowerType.D_dart] = Resources.Load<GameObject>("Prefab/Tower/TowerDDart");
         prefabTowerList[ITowerManager.TowerType.D_hammer] = Resources.Load<GameObject>("Prefab/Tower/TowerDHammer");
         prefabTowerList[ITowerManager.TowerType.D_catapult] = Resources.Load<GameObject>("Prefab/Tower/TowerDCatapult");
+        prefabTowerList[ITowerManager.TowerType.D_catapult] = Resources.Load<GameObject>("Prefab/Tower/TowerDSaw");
 
         if(instance.towerConfig == null)
         {
