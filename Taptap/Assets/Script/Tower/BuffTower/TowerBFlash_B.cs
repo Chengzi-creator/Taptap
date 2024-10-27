@@ -12,6 +12,6 @@ public class TowerBFlash_B : BaseBuffTower
     public override void ReInit(ITowerManager.TowerAttribute towerAttribute, Vector2Int position, int faceDirection)
     {
         base.ReInit(towerAttribute, position, faceDirection);
-        rangeVFX = VFXManager.Instance.CreateVFX_Range_Flash(Position, this.faceDirection , color);
+        // rangeVFX = VFXManager.Instance.CreateVFX_Range_Flash(Position, this.faceDirection , color);
     }
 }
