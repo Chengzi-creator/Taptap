@@ -72,7 +72,12 @@ public class BaseEnemy : MonoBehaviour, IEnemy
     public virtual void Die()
     {
         gameObject.SetActive(false);
-//        Debug.Log("die");
+        Vector3Int blockNum = Vector3Int.RoundToInt(maxHP / 200);
+        ColorBlockManager.Instance.CreateColorBlock(Position, blockNum.x, 1);
+        ColorBlockManager.Instance.CreateColorBlock(Position, blockNum.y, 2);
+        ColorBlockManager.Instance.CreateColorBlock(Position, blockNum.z, 4);
+
+        //        Debug.Log("die");
     }
 
     protected virtual void Move(float deltaTime)
@@ -92,6 +97,14 @@ public class BaseEnemy : MonoBehaviour, IEnemy
             else
             {
                 nextPosition = MyGridManager.Instance.GetTarget(pathIndex , pathNodeIndex);
+            }
+            if(nextPosition.x - beginPosition.x > 0)
+            {
+                transform.localScale = new Vector3( Mathf.Abs(transform.localScale.x) , transform.localScale.y , transform.localScale.z);
+            }
+            else if(nextPosition.x - beginPosition.x < 0)
+            {
+                transform.localScale = new Vector3(- Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
             }
         }
     }
@@ -188,6 +201,15 @@ public class BaseEnemy : MonoBehaviour, IEnemy
         this.Position = beginPosition;
         this.moveScale = 0;
         for(int i = 0 ; i < 10 ; i ++) {this.colorTime[i] = 0 ; this.currentColor[i] = false;}
+
+        if (nextPosition.x - beginPosition.x > 0)
+        {
+            transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+        }
+        else if (nextPosition.x - beginPosition.x < 0)
+        {
+            transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+        }
     }
 
     public virtual void OnUpDate(float deltaTime)

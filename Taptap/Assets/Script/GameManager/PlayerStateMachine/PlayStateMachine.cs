@@ -91,10 +91,10 @@ public class PlayStateMachine
         this.levelIndex = levelIndex;
         waveIndex = 0;
         Money = levelDataSO.GetBeginMoney(levelIndex);
+        MyGridManager.Instance.LoadLevel(levelIndex);
         ChangeState(PlayStateType.Build);
         EnemyManager.Instance.ReInit();
         TowerManager.Instance.ReInit();
-        MyGridManager.Instance.LoadLevel(levelIndex);
         HP = 100;
     }
 
@@ -281,6 +281,7 @@ public class PlayStateMachine
             Debug.Log("show enemy count and types");
             Debug.Log("Total enemy count " + enemyList.Count);
 
+            MyGridManager.Instance.CalculatePath();
             MyGridManager.Instance.DrawPath();
             Debug.Log("drawpath");
     
@@ -310,6 +311,8 @@ public class PlayStateMachine
             TowerManager.Instance.CreateTower(towerType, position , faceDirection);
             //Debug.Log("BuildTower " + towerType + " " + position + " succeed");
             // Debug.Log("cost " + midCost);
+            MyGridManager.Instance.ErasePath();
+            MyGridManager.Instance.DrawPath();
         }
 
         public void RemoveTower(Vector2Int position)
@@ -321,6 +324,8 @@ public class PlayStateMachine
                 return;
             tower = TowerManager.Instance.DestroyTower(tower);
             PlayStateMachine.Instance.Money += tower.Cost;
+            MyGridManager.Instance.ErasePath();
+            MyGridManager.Instance.DrawPath();
         }
 
     }
