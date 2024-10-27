@@ -44,11 +44,11 @@ public class AudioControl : MonoBehaviour
     {
         if (_toggle.isOn)
         {
-            currentSource.Stop();
+            currentSource.Play();
         }
         else
         {
-            currentSource.Play();
+            currentSource.Stop();
         }
     }
 

@@ -18,7 +18,7 @@ public class UIManager : MonoBehaviour , IUIManager
     [SerializeField] private TextMeshProUGUI _roundText;
     [SerializeField] private TextMeshProUGUI enemyInformation;
     
-    [Header("Image")]
+    [Header("ImageAndText")]
     //[SerializeField] private List<ToggleImagePair> toggleImagePairs;
     [SerializeField] private GameObject pauseMasks;
     [SerializeField] private GameObject setupMasks;
@@ -32,6 +32,9 @@ public class UIManager : MonoBehaviour , IUIManager
     [SerializeField] private GameObject ChooseLevel;
     [SerializeField] private GameObject GameStartMasks;
     [SerializeField] private GameObject SpawnButtons;
+    [SerializeField] private GameObject teachText;
+    [SerializeField] private GameObject gameEvents;
+    [SerializeField] private GameObject round;
     
     [Header("PauseButton")]
     [SerializeField] private Button exitButton;
@@ -44,7 +47,7 @@ public class UIManager : MonoBehaviour , IUIManager
     [SerializeField] private Button overLevelButton;
     [SerializeField] private Button overRestartButton;
         
-    [Header("BuildButton")]
+    [Header("Build")]
     [SerializeField] private Button _buttonRF;
     [SerializeField] private Button _buttonRL;
     [SerializeField] private Button _buttonRT;
@@ -64,6 +67,7 @@ public class UIManager : MonoBehaviour , IUIManager
     [SerializeField] private Button gButton;
     [SerializeField] private Button bButton;
     [SerializeField] private Button spawnButton;
+    [SerializeField] private Image rFImage;
     
     [Header("HomeButton")]
     [SerializeField] private Button startButton;
@@ -79,9 +83,10 @@ public class UIManager : MonoBehaviour , IUIManager
     private ITowerManager.TowerType _selectedTowerType = ITowerManager.TowerType.NULL;
     
     public bool isSpawning = false;
+    public bool isTeaching = false;
     private bool isPaused = false;
     private bool _selectDestroy;
-    private bool enterGame = true;
+    private bool enterGame = false;
     //private bool[] _select;
     private float _value;
     private int faceDirection = 0;
@@ -124,6 +129,9 @@ public class UIManager : MonoBehaviour , IUIManager
         rImages.SetActive(false);
         gImages.SetActive(false);
         bImages.SetActive(false);
+        gameEvents.SetActive(false);
+        round.SetActive(false);
+        teachText.SetActive(false);
         exitButton.onClick.AddListener(OnexitButtonClick);
         backButton.onClick.AddListener(OnbackButtonClick);
         setupButton.onClick.AddListener(OnsetupButtonClick);
@@ -190,6 +198,16 @@ public class UIManager : MonoBehaviour , IUIManager
         _buttonDS.onClick.AddListener(() => OnButtonClick(_buttonDS));
         _buttonDC.onClick.AddListener(() => OnButtonClick(_buttonDC));
         _buttonDD.onClick.AddListener(() => OnButtonClick(_buttonDD));
+
+        // if (mIndex == 0)
+        // {
+        //     rFImage.color = new Color(0, 0, 0);
+        // }
+        if (mIndex == 0)
+        {
+            teachText.SetActive(true);
+            isTeaching = true;
+        }
     }
 
     private void Update()
@@ -214,7 +232,7 @@ public class UIManager : MonoBehaviour , IUIManager
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && enterGame) 
         {   
             //进入出怪阶段
             SpawnEnemy();
@@ -241,9 +259,12 @@ public class UIManager : MonoBehaviour , IUIManager
         PlayStateMachine.Instance.ReInit(index);
         ChooseLevel.SetActive(false);
         GameStartMasks.SetActive(false);
+        gameEvents.SetActive(true);
+        round.SetActive(true);
         buildMasks.SetActive(true);
         buildButtons.SetActive(true);
         SpawnButtons.SetActive(true);
+        enterGame = true;
     }
     #endregion
     
@@ -449,8 +470,11 @@ public class UIManager : MonoBehaviour , IUIManager
     
     #region 建造按钮点击
     private void ClickRF()
-    {   
-        _selectedTowerType = ITowerManager.TowerType.B_flash_R;
+    {
+        //if (mIndex != 0)
+        //{
+            _selectedTowerType = ITowerManager.TowerType.B_flash_R;
+        //}
     }
     
     private void ClickRL()
