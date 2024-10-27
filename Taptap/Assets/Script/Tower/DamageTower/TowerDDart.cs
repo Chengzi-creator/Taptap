@@ -26,14 +26,29 @@ public class TowerDDart : BaseDamageTower
         int cnt = 0;
         for(int i = 0 ; i < attackRange.Count ; i++)
         {
-            if(attackRange[i].EnemysCount() > 0)
+            if(attackRange[i].EnemysCount() >= 2)
             {
                 // attackRange[i].GetKthEnemy(0).BeAttacked(damage , elementDamage);
                 lockedEnemy.AddLast(attackRange[i].GetKthEnemy(0));
                 lockedTime.AddLast(bulletTime);
-                cnt ++;            
-                VFXManager.Instance.CreateVFX_Attack_FeiBiao(position , lockedEnemy.First.Value.Position , TowerManager.Instance.GetColor(position));
-                if(cnt >= 2)
+                cnt++;
+                VFXManager.Instance.CreateVFX_Attack_FeiBiao(position, lockedEnemy.First.Value.Position, TowerManager.Instance.GetColor(position));
+                if (cnt >= 2)
+                    break;
+                lockedEnemy.AddLast(attackRange[i].GetKthEnemy(1));
+                lockedTime.AddLast(bulletTime);
+                cnt++;
+                VFXManager.Instance.CreateVFX_Attack_FeiBiao(position, lockedEnemy.First.Value.Position, TowerManager.Instance.GetColor(position));
+                if (cnt >= 2)
+                    break;
+            }
+            else if (attackRange[i].EnemysCount() == 1)
+            {
+                lockedEnemy.AddLast(attackRange[i].GetKthEnemy(0));
+                lockedTime.AddLast(bulletTime);
+                cnt++;
+                VFXManager.Instance.CreateVFX_Attack_FeiBiao(position, lockedEnemy.First.Value.Position, TowerManager.Instance.GetColor(position));
+                if (cnt >= 2)
                     break;
             }
         }

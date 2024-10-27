@@ -104,8 +104,11 @@ public class PlayStateMachine
         TowerManager.Instance.Close();
         // MyGridManager.Instance.Close();
         MyGridManager.Instance.UnloadLevel();
-    }
+        ChangeState(PlayStateType.Empty);
+        return;
+        Debug.Log("Close PlayStateMachine");
 
+    }
     public void UpdateState(float deltaTime)
     {
         // Debug.Log(deltaTime);
@@ -277,6 +280,9 @@ public class PlayStateMachine
             UIManager.Instance.ShowEnemyCountAndTypes(PlayStateMachine.Instance.enemyTypeList , PlayStateMachine.Instance.enemyCountList);
             Debug.Log("show enemy count and types");
             Debug.Log("Total enemy count " + enemyList.Count);
+
+            MyGridManager.Instance.DrawPath();
+            Debug.Log("drawpath");
     
         }
 
@@ -288,6 +294,8 @@ public class PlayStateMachine
         {
             PlayStateMachine.Instance.lastWaveHP = PlayStateMachine.Instance.HP;
             PlayStateMachine.Instance.lastWaveMoney = PlayStateMachine.Instance.Money;
+            MyGridManager.Instance.ErasePath();
+            Debug.Log("closepath");
         }
 
         public void BuildTower(ITowerManager.TowerType towerType, Vector2Int position , int faceDirection)

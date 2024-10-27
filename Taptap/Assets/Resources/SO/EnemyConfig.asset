@@ -16,15 +16,15 @@ MonoBehaviour:
   - type: 0
     maxHP: {x: 200, y: 0, z: 0}
     size: {x: 0.9, y: 0.9}
-    speed: 0.5
+    speed: 0.8
     damage: 0
   - type: 1
-    maxHP: {x: 400, y: 0, z: 0}
+    maxHP: {x: 0, y: 0, z: 400}
     size: {x: 0.9, y: 0.9}
-    speed: 2
+    speed: 0.8
     damage: 0
   - type: 2
-    maxHP: {x: 400, y: 400, z: 200}
+    maxHP: {x: 0, y: 0, z: 400}
     size: {x: 0.9, y: 0.9}
-    speed: 0.3
+    speed: 0.8
     damage: 0
