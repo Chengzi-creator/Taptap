@@ -31,7 +31,7 @@ public class ColorBlockManager : MonoBehaviour, IColorBlockManager
         this.target = target;
     }
 
-    public void CreateColorBlock(Vector2Int mapPos, int count, int color = 7)
+    public void CreateColorBlock(Vector2 mapPos, int count, int color = 7)
     {
         Vector2 worldPos = MyGridManager.Instance.GetWorldPos(mapPos);
         for (int i = 0; i < count; i++)
