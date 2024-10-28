@@ -171,7 +171,7 @@ MonoBehaviour:
     cost: 15
     damage: 20
     color: 0
-    bulletTime: 2
+    bulletTime: 1
     timeInterval: 1
     attackRange:
     - {x: 0, y: 0}
