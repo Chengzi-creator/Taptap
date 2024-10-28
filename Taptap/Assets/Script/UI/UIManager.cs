@@ -271,17 +271,17 @@ public class UIManager : MonoBehaviour , IUIManager
 
         if (mIndex == 0)
         {   
-            rf.color = new Color(0, 0, 0);
-            rl.color = new Color(0, 0, 0);
-            bf.color = new Color(0, 0, 0);
-            bl.color = new Color(0, 0, 0);
-            gf.color = new Color(0, 0, 0);
-            gt.color = new Color(0, 0, 0);
-            gl.color = new Color(0, 0, 0);
-            dsaw.color = new Color(0, 0, 0);
-            dh.color = new Color(0, 0, 0);
-            ds.color = new Color(0, 0, 0);
-            dc.color = new Color(0, 0, 0);
+            // rf.color = new Color(0, 0, 0);
+            // rl.color = new Color(0, 0, 0);
+            // bf.color = new Color(0, 0, 0);
+            // bl.color = new Color(0, 0, 0);
+            // gf.color = new Color(0, 0, 0);
+            // gt.color = new Color(0, 0, 0);
+            // gl.color = new Color(0, 0, 0);
+            // dsaw.color = new Color(0, 0, 0);
+            // dh.color = new Color(0, 0, 0);
+            // ds.color = new Color(0, 0, 0);
+            // dc.color = new Color(0, 0, 0);
         }
         
     }

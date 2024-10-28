@@ -188,7 +188,7 @@ public class TeachText : MonoBehaviour
 
     private void EndDialogue()
     {
-        //dialogueText.text = "";
+         //dialogueText.text = "";
         //nextButton.gameObject.SetActive(false);
         //gameObject.SetActive(false);
 
