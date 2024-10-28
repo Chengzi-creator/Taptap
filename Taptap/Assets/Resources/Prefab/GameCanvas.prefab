@@ -920,12 +920,12 @@ MonoBehaviour:
   level2Button: {fileID: 9097351556385219329}
   towerX: {fileID: 8290062903943919331, guid: d99e37fad93f0274ca1a05dca4dcdd1e, type: 3}
   isSpawning: 0
-  isTeaching0: 0
-  isTeaching1: 0
-  isTeaching2: 0
-  isTeaching3: 0
-  isTeaching4: 0
-  isTeaching5: 0
+  isTeaching0: 1
+  isTeaching1: 1
+  isTeaching2: 1
+  isTeaching3: 1
+  isTeaching4: 1
+  isTeaching5: 1
   Coin: 100
   mIndex: 0
   mRound: 0
