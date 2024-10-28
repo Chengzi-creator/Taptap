@@ -114,7 +114,7 @@ public class UIManager : MonoBehaviour , IUIManager
     [SerializeField] private GameObject attackTable;
 
     
-    [Header("HomeButton")]
+    [Header("Home")]
     [SerializeField] private Button startButton;
     [SerializeField] private Button homeexitButton;
     [SerializeField] private Button levelButton0;
@@ -129,6 +129,8 @@ public class UIManager : MonoBehaviour , IUIManager
     [SerializeField] private Button levelButton9;
     [SerializeField] private Button levelButton10;
     [SerializeField] private Button levelButton11;
+    [SerializeField] private GameObject startB;
+    [SerializeField] private GameObject exitB;
     
     
     [SerializeField] private Image towerX;
@@ -220,6 +222,7 @@ public class UIManager : MonoBehaviour , IUIManager
         buildText.SetActive(false);
         destroyText.SetActive(false);
         rotateText.SetActive(false);
+        ChooseLevel.SetActive(false);
         exitButton.onClick.AddListener(OnexitButtonClick);
         backButton.onClick.AddListener(OnbackButtonClick);
         setupButton.onClick.AddListener(OnsetupButtonClick);
@@ -357,7 +360,9 @@ public class UIManager : MonoBehaviour , IUIManager
     {   
         //Time.timeScale = 1f;
         ChooseLevel.SetActive(true);
-        Time.timeScale = 1f;
+        startB.SetActive(false);
+        exitB.SetActive(false);
+       
     }
     
     public void levelChoose(int index)
@@ -383,6 +388,7 @@ public class UIManager : MonoBehaviour , IUIManager
             attackTable.SetActive(true);
         }
         
+        Time.timeScale = 1f;
         #region 禁用
 
         if (mIndex == 0)
@@ -462,6 +468,10 @@ public class UIManager : MonoBehaviour , IUIManager
         enemyImage.SetActive(false);
         ClickOut();
         _selectDestroy = false;
+        startB.SetActive(true);
+        exitB.SetActive(true);
+        enemyImage.SetActive(false);
+        TeachText.Instance.talkCount = 0;
     }
     
     public void OnRestartButtonClick()
@@ -1153,6 +1163,11 @@ public class UIManager : MonoBehaviour , IUIManager
         
         for (int i = 0,j = 0; i < types.Count; i++)
         {   
+            if (types.Count > enemyImages.Length || types.Count > enemyTexts.Length)
+            {
+                Debug.LogError("enemyImages 或 enemyTexts 数组长度不足！");
+                return;
+            }
             // Debug.Log(types[i]);
             switch (types[i])
             {   
