@@ -122,7 +122,6 @@ public class PlayStateMachine
         hp = lastWaveHP;
         Money = lastWaveMoney;
         ChangeState(PlayStateType.Build);
-
     }
 
     private void ChangeHomeHP(int hp)
@@ -226,6 +225,7 @@ public class PlayStateMachine
         public void ExitState()
         {
             UIManager.Instance.isSpawning = false;
+            EnemyManager.Instance.Close();
         }
 
         public void EnemyDie(IEnemy enemy)
