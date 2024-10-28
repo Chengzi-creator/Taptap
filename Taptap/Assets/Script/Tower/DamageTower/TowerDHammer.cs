@@ -53,8 +53,6 @@ public class TowerDHammer : BaseDamageTower
                 lockedEnemy.First.Value.BeAttacked(damage* TowerManager.Instance.GetColorVector(position) , TowerManager.Instance.GetColor(position));
             }
 
-            //VFXManager.Instance.CreateVFX_Attack_FeiBiao(position , lockedEnemy.First.Value.Position);
-            //lockedEnemy.First.Value.BeAttacked(damage* TowerManager.Instance.GetColorVector(position) , TowerManager.Instance.GetColor(position));
             lockedEnemy.RemoveFirst();
             lockedTime.RemoveFirst();
             node = lockedTime.First;
