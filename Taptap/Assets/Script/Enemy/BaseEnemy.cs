@@ -72,14 +72,12 @@ public class BaseEnemy : MonoBehaviour, IEnemy
 
     public virtual void BeAttacked(Vector3 damage , int colorDamage)
     {
-<<<<<<< Updated upstream
         CurrentHP -= damage * defense;
         // Debug.LogWarning(CurrentHP);
 //        Debug.Log("be Attacked");
 //        Debug.LogWarning(currentHP);
         //currentHP -= damage;
         this.colorTime[colorDamage] = GlobalSetting.Instance.GlobalSettingSO.GetColorRemainTime(colorDamage);
-        SetHorn(new Vector3(CurrentHP.x/maxHP.x , CurrentHP.y/maxHP.y , CurrentHP.z/maxHP.z));
     }
     public virtual void Die()
     {
@@ -131,8 +129,6 @@ public class BaseEnemy : MonoBehaviour, IEnemy
     protected SpriteRenderer greenRender;
     protected SpriteRenderer blueRender;
 
-    protected virtual void SetHorn(Vector3 color)
-    {}
 
     protected virtual void ArriveDestination()
     {
@@ -268,4 +264,11 @@ public class BaseEnemy : MonoBehaviour, IEnemy
         position1 = Vector2Int.RoundToInt(position - size/2);
         position2 = Vector2Int.RoundToInt(position + size/2);
     }
+
+    
+    protected virtual void SetHorn(Vector3 color)
+    {
+    }
+
+
 }
