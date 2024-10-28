@@ -993,6 +993,7 @@ public class UIManager : MonoBehaviour , IUIManager
         //LoadScene("");//进入下一关
         PlayStateMachine.Instance.ReInit(++mIndex);
         //Debug.Log("还没做好下一个场景");
+        overMasks.SetActive(false);
     }
 
     #endregion
