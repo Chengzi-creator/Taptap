@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2592115228777580911}
   - component: {fileID: 4501534143084380533}
   - component: {fileID: 8834412741158631114}
+  - component: {fileID: 8956814325770739354}
   m_Layer: 8
   m_Name: TowerDDart
   m_TagString: Untagged
@@ -112,6 +113,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 571bfa08e6ae26b4088384c8a87946fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &8956814325770739354
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3790972109661619154}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1f2fe98a367659b47b3b39cabd81a879, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &6972259125507060610
 GameObject:
   m_ObjectHideFlags: 0
