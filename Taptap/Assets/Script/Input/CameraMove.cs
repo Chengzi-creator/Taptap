@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,8 @@ public class CameraMove : MonoBehaviour
     public float MaxZoom = 20f; // 最大缩放值
     public Camera mainCamera;
 
+
+    public float scale;
     public Transform leftUp;
     public Transform rightDown;
     void Start()
@@ -19,10 +22,17 @@ public class CameraMove : MonoBehaviour
 
     void Update()
     {
-        HandleMovement();
-        HandleZoom();
-
+        //HandleMovement();
+        //HandleZoom();
+        HandleSize();
     }
+
+    private void HandleSize()
+    {
+        if (MyGridManager.Instance.width > 0)
+            mainCamera.orthographicSize = MyGridManager.Instance.width * scale;
+    }
+
     private void HandleMovement()
     {
         if (Input.GetKey(KeyCode.W))

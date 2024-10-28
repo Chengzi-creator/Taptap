@@ -293,7 +293,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.028120995, y: -0.9180771, z: -2}
+  m_LocalPosition: {x: 0, y: 0, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -493,14 +493,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1243914078288783157, guid: 4f9b3054145533d4b9d320ea581a386a, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -10
-      objectReference: {fileID: 0}
-    - target: {fileID: 1243914078288783157, guid: 4f9b3054145533d4b9d320ea581a386a, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 6.7
-      objectReference: {fileID: 0}
     - target: {fileID: 2134888695191956883, guid: 4f9b3054145533d4b9d320ea581a386a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -544,14 +536,6 @@ PrefabInstance:
     - target: {fileID: 2593120144222461675, guid: 4f9b3054145533d4b9d320ea581a386a, type: 3}
       propertyPath: m_Name
       value: CameraFollow
-      objectReference: {fileID: 0}
-    - target: {fileID: 6036471420456035460, guid: 4f9b3054145533d4b9d320ea581a386a, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 6036471420456035460, guid: 4f9b3054145533d4b9d320ea581a386a, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -6.7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
