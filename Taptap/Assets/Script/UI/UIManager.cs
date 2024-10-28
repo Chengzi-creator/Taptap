@@ -994,6 +994,7 @@ public class UIManager : MonoBehaviour , IUIManager
         PlayStateMachine.Instance.ReInit(++mIndex);
         //Debug.Log("还没做好下一个场景");
         overMasks.SetActive(false);
+        Time.timeScale = 1f;
     }
 
     #endregion
