@@ -1,6 +1,6 @@
 ﻿
 using System.Collections.Generic;
-using System.Numerics;
+using UnityEngine;
 
 public interface IGrid
 {
@@ -42,5 +42,10 @@ public interface IGrid
     /// </summary>
     /// <param name="tower"></param>
     public void BuildTower();
+
+
+    public Vector2Int MapPos { get;}
+    public Vector2 WorldPos { get; }
+
 }
 
