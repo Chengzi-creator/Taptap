@@ -17,6 +17,9 @@ public class UIManager : MonoBehaviour , IUIManager
     [SerializeField] private TextMeshProUGUI _coinText;
     [SerializeField] private TextMeshProUGUI _roundText;
     [SerializeField] private TextMeshProUGUI enemyInformation;
+    [SerializeField] private TextMeshProUGUI enemyA;
+    [SerializeField] private TextMeshProUGUI enemyB;
+    [SerializeField] private TextMeshProUGUI enemyC;
     
     [Header("ImageAndText")]
     //[SerializeField] private List<ToggleImagePair> toggleImagePairs;
@@ -36,7 +39,7 @@ public class UIManager : MonoBehaviour , IUIManager
     [SerializeField] private GameObject gameEvents;
     [SerializeField] private GameObject round;
     [SerializeField] private GameObject enemyImage;
-    [SerializeField] private Image[] enemyImages;
+    //[SerializeField] private Image[] enemyImages;
     [SerializeField] private Image enemyImageA;
     [SerializeField] private Image enemyImageB;
     [SerializeField] private Image enemyImageC;
@@ -125,23 +128,23 @@ public class UIManager : MonoBehaviour , IUIManager
             if (isSpawning != value)  // 检测值是否改变
             {
                 isSpawning = value;
-                OnIsSpawningChanged(isSpawning);  // 当值改变时调用监听函数
+                OnIsSpawningChanged(isSpawning);  //当值改变时调用函数
             }
         }
     }
 
-    private void OnIsSpawningChanged(bool _isSpawning)
+    private void OnIsSpawningChanged(bool isSpawning)
     {
         AudioControl.Instance.SwitchMusic();
     }
     
     
-    public bool isTeaching0 = false;
-    public bool isTeaching1 = false;
-    public bool isTeaching2 = false;
-    public bool isTeaching3 = false;
-    public bool isTeaching4 = false;
-    public bool isTeaching5 = false;
+    public bool isTeaching0 = true;
+    public bool isTeaching1 = true;
+    public bool isTeaching2 = true;
+    public bool isTeaching3 = true;
+    public bool isTeaching4 = true;
+    public bool isTeaching5 = true;
     
     private bool isPaused = false;
     private bool isValid = true;
@@ -290,9 +293,10 @@ public class UIManager : MonoBehaviour , IUIManager
         //     OnstartButtonClick();
         //     enterGame = true;
         // }
+        
         if (!isSpawning)
         {
-            enemyImage.SetActive(false);
+            //enemyImage.SetActive(false);
         }
         else
         {
@@ -318,11 +322,15 @@ public class UIManager : MonoBehaviour , IUIManager
             SpawnEnemy();
         }
 
-        if (!isSpawning)
+        if (mIndex != 1 || (mIndex == 1 && isTeaching5))
         {
-            DetectBuildModeInput();
+            if (!isSpawning)
+            {
+                DetectBuildModeInput();
+            }
+
+            DetectDestroyModeInput();
         }
-        DetectDestroyModeInput();
     }
 
     #region 开始界面
@@ -343,6 +351,12 @@ public class UIManager : MonoBehaviour , IUIManager
         //     TeachText.Instance.LoadDialogue();
         //     isTeaching = true;
         // }
+
+        if (mIndex == 1)
+        {
+            TeachText.Instance.talkCount = 6;
+            TeachText.Instance.LoadDialogue();
+        }
         teachText.SetActive(true);
         //isTeaching0 = true;
         TeachText.Instance.LoadDialogue();
@@ -352,6 +366,7 @@ public class UIManager : MonoBehaviour , IUIManager
         ChooseLevel.SetActive(false);
         GameStartMasks.SetActive(false);
         gameEvents.SetActive(true);
+        enemyImage.SetActive(true);
         round.SetActive(true);
         buildMasks.SetActive(true);
         buildButtons.SetActive(true);
@@ -488,9 +503,9 @@ public class UIManager : MonoBehaviour , IUIManager
                 
                 if (isTeaching0)
                 {
-                    if (TeachText.Instance.talkConut == 0)
+                    if (TeachText.Instance.talkCount == 0)
                     {
-                        TeachText.Instance.talkConut = 1;
+                        TeachText.Instance.talkCount = 1;
                         TeachText.Instance.LoadDialogue();
                         //isTeaching1 = true;
                     }
@@ -498,9 +513,9 @@ public class UIManager : MonoBehaviour , IUIManager
 
                 if (isTeaching0 && isTeaching1)
                 {
-                    if (TeachText.Instance.talkConut == 1)
+                    if (TeachText.Instance.talkCount == 1)
                     {
-                        TeachText.Instance.talkConut = 2;
+                        TeachText.Instance.talkCount = 2;
                         TeachText.Instance.LoadDialogue();
                         //isTeaching2 = true;
                     }
@@ -990,11 +1005,14 @@ public class UIManager : MonoBehaviour , IUIManager
 
     public void OnoverLevelButtonClick()
     {
-        //LoadScene("");//进入下一关
-        PlayStateMachine.Instance.ReInit(++mIndex);
-        //Debug.Log("还没做好下一个场景");
         overMasks.SetActive(false);
         Time.timeScale = 1f;
+        PlayStateMachine.Instance.ReInit(++mIndex);
+        if (mIndex == 1)
+        {
+            TeachText.Instance.talkCount = 6;
+            TeachText.Instance.LoadDialogue();
+        }
     }
 
     #endregion
@@ -1027,23 +1045,19 @@ public class UIManager : MonoBehaviour , IUIManager
             switch (types[i])
             {
                 case IEnemyManager.EnemyType.A:
-                    enemyImages[i] = enemyImageA;
-                    SetAlpha(enemyImages[i],255);
+                    enemyA.text = $"{counts[i]}";
                     break;
                 
                 case IEnemyManager.EnemyType.B:
-                    enemyImages[i] = enemyImageB;
-                    SetAlpha(enemyImages[i],255);
+                    enemyB.text = $"{counts[i]}";
                     break;
                 
                 case IEnemyManager.EnemyType.C:
-                    enemyImages[i] = enemyImageC;
-                    SetAlpha(enemyImages[i],255);
+                    enemyC.text = $"{counts[i]}";
                     break;
                 
                 default:
-                    enemyImages[i] = null;
-                    SetAlpha(enemyImages[i],0); 
+                  
                     return;
             }
         }
@@ -1088,12 +1102,12 @@ public class UIManager : MonoBehaviour , IUIManager
         
     }
     
-    private void SetAlpha(Image image, float alpha)
-    {
-        Color color = image.color;
-        color.a = alpha;
-        image.color = color;
-    }
+    // private void SetAlpha(Image image, float alpha)
+    // {
+    //     Color color = image.color;
+    //     color.a = alpha;
+    //     image.color = color;
+    // }
     
     public void SpawnEnemy()
     {
@@ -1109,30 +1123,31 @@ public class UIManager : MonoBehaviour , IUIManager
             _selectDestroy = false;
             isSpawning = true;
             
-            if (TeachText.Instance.talkConut == 2)
+            if (TeachText.Instance.talkCount == 2)
             {
-                TeachText.Instance.talkConut = 3;
+                TeachText.Instance.talkCount = 3;
                 TeachText.Instance.LoadDialogue();
             }
             
             if (isTeaching3)
             {
-                if (TeachText.Instance.talkConut == 3)
+                if (TeachText.Instance.talkCount == 3)
                 {
-                    TeachText.Instance.talkConut = 4;
+                    TeachText.Instance.talkCount = 4;
                     TeachText.Instance.LoadDialogue();
                 }
             }
             
             if (isTeaching4)
             {
-                if (TeachText.Instance.talkConut == 4)
+                if (TeachText.Instance.talkCount == 4)
                 {
-                    TeachText.Instance.talkConut = 5;
+                    TeachText.Instance.talkCount = 5;
                     TeachText.Instance.LoadDialogue();
                 }
             }
-           
+            
+
         }
         
     }
