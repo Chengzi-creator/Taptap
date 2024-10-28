@@ -11,7 +11,10 @@ using UnityEngine.EventSystems;
 public class UIManager : MonoBehaviour , IUIManager
 {
     private static UIManager instance;
-    
+    [Header("Audio")]
+    [SerializeField] private AudioSource audioBuildSuccess;
+    [SerializeField] private AudioSource audioBuildDelete;
+    [SerializeField] private AudioSource audioMonsterDead;
     
     [Header("Text")]
     [SerializeField] private TextMeshProUGUI _coinText;
@@ -574,6 +577,7 @@ public class UIManager : MonoBehaviour , IUIManager
                 //DestroyImage(image);
                 buildText.SetActive(false);
                 rotateText.SetActive(false);
+                audioBuildSuccess.Play();
                 if (isTeaching0)
                 {
                     if (TeachText.Instance.talkCount == 0)
@@ -625,6 +629,7 @@ public class UIManager : MonoBehaviour , IUIManager
                 //获取当前鼠标所指地图上的塔，然后传入TowerDestroy？
                 TowerDestroy();
                 destroyText.SetActive(false);
+                audioBuildDelete.Play();
             }
 
             if (Input.GetMouseButtonDown(1))
@@ -1296,7 +1301,14 @@ public class UIManager : MonoBehaviour , IUIManager
     
     
     #endregion
-    
-    
+
+    #region 音效
+
+    public void MonstereDeadAudio()
+    {
+        audioMonsterDead.Play();
+    }
+
+    #endregion
    
 }
