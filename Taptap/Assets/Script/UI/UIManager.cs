@@ -570,7 +570,7 @@ public class UIManager : MonoBehaviour , IUIManager
         if (tower != null)
         {
             tower.transform.position = MyGridManager.Instance.GetGridMidWorldPos(worldPosition,out isValid);
-            Debug.Log(tower.transform.position);
+            // Debug.Log(tower.transform.position);
         }
     }
 

@@ -105,7 +105,6 @@ public class PlayStateMachine
         // MyGridManager.Instance.Close();
         MyGridManager.Instance.UnloadLevel();
         ChangeState(PlayStateType.Empty);
-        return;
         Debug.Log("Close PlayStateMachine");
 
     }
@@ -225,8 +224,8 @@ public class PlayStateMachine
         {
             // UIManager.Instance.EnemyDie(enemy);
             PlayStateMachine.Instance.enemyCountList[PlayStateMachine.Instance.enemyTypeList.IndexOf(enemy.Type)]--;
-            UIManager.Instance.EnemyReduce(PlayStateMachine.Instance.enemyTypeList , PlayStateMachine.Instance.enemyCountList , enemy.Type);
-            // UIManager.Instance.ShowEnemyCountAndTypes(enemyTypeList , enemyCountList , 0);
+            // UIManager.Instance.EnemyReduce(PlayStateMachine.Instance.enemyTypeList , PlayStateMachine.Instance.enemyCountList , enemy.Type);
+            UIManager.Instance.ShowEnemyCountAndTypes(PlayStateMachine.Instance.enemyTypeList , PlayStateMachine.Instance.enemyCountList);
             if(enemy.IsArrived == false)
             {
                 PlayStateMachine.Instance.Money += enemy.Money;
@@ -283,6 +282,7 @@ public class PlayStateMachine
 
             MyGridManager.Instance.CalculatePath();
             MyGridManager.Instance.DrawPath();
+            MyGridManager.Instance.CalculateAllGridCanPutTower();
             //Debug.Log("drawpath");
     
         }
@@ -296,6 +296,7 @@ public class PlayStateMachine
             PlayStateMachine.Instance.lastWaveHP = PlayStateMachine.Instance.HP;
             PlayStateMachine.Instance.lastWaveMoney = PlayStateMachine.Instance.Money;
             MyGridManager.Instance.ErasePath();
+            MyGridManager.Instance.CalculateAllGridCanPutTower();
             Debug.Log("closepath");
         }
 
@@ -313,6 +314,7 @@ public class PlayStateMachine
             // Debug.Log("cost " + midCost);
             MyGridManager.Instance.ErasePath();
             MyGridManager.Instance.DrawPath();
+            MyGridManager.Instance.CalculateAllGridCanPutTower();
         }
 
         public void RemoveTower(Vector2Int position)
@@ -326,6 +328,7 @@ public class PlayStateMachine
             PlayStateMachine.Instance.Money += tower.Cost;
             MyGridManager.Instance.ErasePath();
             MyGridManager.Instance.DrawPath();
+            MyGridManager.Instance.CalculateAllGridCanPutTower();
         }
 
     }
