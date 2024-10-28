@@ -96,6 +96,7 @@ GameObject:
   - component: {fileID: 3260832320417360631}
   - component: {fileID: 6391632772069602490}
   - component: {fileID: 6997061040831595220}
+  - component: {fileID: 490953934623227401}
   m_Layer: 8
   m_Name: TowerDSaw
   m_TagString: Untagged
@@ -196,6 +197,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 571bfa08e6ae26b4088384c8a87946fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &490953934623227401
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4441425359444917052}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6e3538116598745449607ef2dd1ed9c2, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8859176616275116746
 GameObject:
   m_ObjectHideFlags: 0
@@ -269,7 +291,7 @@ SpriteRenderer:
   m_SortingLayerID: -158830687
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 33822d41f09c4424cace0bbd96c89799, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 63b61e60e7325d74ab3a23e80c623ef3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
