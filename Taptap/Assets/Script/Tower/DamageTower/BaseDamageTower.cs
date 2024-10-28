@@ -28,14 +28,11 @@ public class BaseDamageTower : BaseTower
     public override void ReInit(ITowerManager.TowerAttribute towerAttribute, Vector2Int position, int faceDirection)
     {
         base.ReInit(towerAttribute, position, faceDirection);
-        // Debug.Log("ReInit");
         this.damage = towerAttribute.damage;
-        // this.elementDamage = towerAttribute.elementDamage;
         this.color = TowerManager.Instance.GetColor(position);
         ChangeColor(TowerManager.Instance.GetColorVector(position));
 
         this.bulletTime = towerAttribute.bulletTime;
-        // this.currentBulletTime = 0;
         this.timeInterval = towerAttribute.timeInterval;
         this.currentTimeInterval = 0;
         this.attackRange.Clear();
