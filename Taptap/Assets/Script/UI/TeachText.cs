@@ -29,7 +29,7 @@ public class TeachText : MonoBehaviour
     //[SerializeField] private Button nextButton;
 
     [Header("对话更新")]
-    public int talkConut = 0; //用来存储对话次数？
+    public int talkCount = 0; //用来存储对话次数？
 
     [Header("对话显示")] private Queue<string> dialogueQueue=new Queue<string>(); //存储对话
     private bool isTyping = false; //判断是否正在显示
@@ -58,7 +58,7 @@ public class TeachText : MonoBehaviour
 
     public void LoadDialogue()
     {
-        switch (talkConut)
+        switch (talkCount)
         {
             case 0:
                 StartDialogue(new List<string>
@@ -107,7 +107,20 @@ public class TeachText : MonoBehaviour
                     "你完成本关的教程了！"
                 });
                 break;
-
+            
+            case 6:
+                StartDialogue(new List<string>
+                {
+                    "灯塔与灯塔之间会产生奇妙的反应，不同三原色的灯塔叠加时，颜色重叠的部分会变为新的颜色！",
+                    "在地图的高墙上建造灯塔，使地图中出现区别于红、蓝、绿的其他颜色。",
+                    "在叠色地块上放置防御塔时，防御塔会根据颜色不同产生不同的效果。紫色地块上防御塔的攻击会使敌人减速，黄色地块上防御塔的攻击会使敌人死亡时掉落额外的光之精华，青色地块上防御塔的攻击会使敌人持续失去生命，白色地块则会使敌人受到大量额外伤害。",
+                    "同时，叠色色块上的防御塔攻击也会对敌人造成合成其叠色的原色伤害。如红色与绿色合成的黄色格上的防御塔，攻击时将会造成红色与绿色伤害。红、蓝、绿色合成的白色地块上的防御塔，则会对敌人造成三种颜色的伤害。",
+                    "观察下一波怪物的颜色，选择合适的对策吧！",
+                    "有些叠色地块被浪费了？不用担心，当怪物走到叠色地块上时，也会受到同样的特殊效果，如走到紫色地块上的怪物同样会被减速。"
+                });
+                break;
+            
+           
             default:
                 //Debug.Log("没有更多的对话。");
                 break;
@@ -166,6 +179,11 @@ public class TeachText : MonoBehaviour
         }
 
         isTyping = false;
+        
+        if (dialogueQueue.Count == 0)
+        {
+            EndDialogue();
+        }
     }
 
     private void EndDialogue()
@@ -174,30 +192,36 @@ public class TeachText : MonoBehaviour
         //nextButton.gameObject.SetActive(false);
         //gameObject.SetActive(false);
 
-        if (talkConut == 0)
+        if (talkCount == 0)
         {
             UIManager.Instance.isTeaching0 = true;//建造红色煤油
         }
 
-        if (talkConut == 1)
+        if (talkCount == 1)
         {   
             Debug.Log("isTeaching1");
             UIManager.Instance.isTeaching1 = true;//建造水晶
         }
 
-        if (talkConut == 2)
+        if (talkCount == 2)
         {
             UIManager.Instance.isTeaching2 = true;//出怪
         }
         
-        if (talkConut == 3)
+        if (talkCount == 3)
         {
             UIManager.Instance.isTeaching3 = true;//拆除加第二轮出怪
         }
         
-        if (talkConut == 4)
+        if (talkCount == 4)
         {
             UIManager.Instance.isTeaching4 = true;//拆除加第二轮出怪
         }
+        
+        if (talkCount == 6)
+        {
+            UIManager.Instance.isTeaching5 = true;//第二关文本显示不可出怪
+        }
+        
     }
 }
