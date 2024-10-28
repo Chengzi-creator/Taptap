@@ -482,7 +482,8 @@ public class MyGridManager : MonoBehaviour, IGraphicManager, IGridManager
         if (IsInMap(mapPos))
         {
             GetGrid(mapPos).DestroyTower();
-            myGraphic.AddPoint(mapPos, GetLinkPoints(mapPos));
+            if(GetGrid(mapPos).CanPass)
+                myGraphic.AddPoint(mapPos, GetLinkPoints(mapPos));
         }
     }
 
