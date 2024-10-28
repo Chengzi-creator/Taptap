@@ -98,17 +98,16 @@ public class PlayStateMachine
         HP = 100;
     }
 
-    public void Close()
-    {
-        EnemyManager.Instance.Close();
-        TowerManager.Instance.Close();
-        // MyGridManager.Instance.Close();
-        MyGridManager.Instance.UnloadLevel();
-        ChangeState(PlayStateType.Empty);
-        return;
-        Debug.Log("Close PlayStateMachine");
+    // public void Close()
+    // {
+    //     EnemyManager.Instance.Close();
+    //     TowerManager.Instance.Close();
+    //     // MyGridManager.Instance.Close();
+    //     MyGridManager.Instance.UnloadLevel();
+    //     ChangeState(PlayStateType.Empty);
+    //     Debug.Log("Close PlayStateMachine");
 
-    }
+    // }
     public void UpdateState(float deltaTime)
     {
         // Debug.Log(deltaTime);
@@ -123,7 +122,6 @@ public class PlayStateMachine
         hp = lastWaveHP;
         Money = lastWaveMoney;
         ChangeState(PlayStateType.Build);
-
     }
 
     private void ChangeHomeHP(int hp)
@@ -183,7 +181,15 @@ public class PlayStateMachine
 
     public void ExitPlayState()
     {
+        // return ;
+        EnemyManager.Instance.Close();
+        Debug.Log("exit play state");
+        TowerManager.Instance.Close();
+        // MyGridManager.Instance.Close();
+        MyGridManager.Instance.UnloadLevel();
         ChangeState(PlayStateType.Empty);
+        Debug.Log("Close PlayStateMachine");
+        return ;
     }
 
     
@@ -219,14 +225,15 @@ public class PlayStateMachine
         public void ExitState()
         {
             UIManager.Instance.isSpawning = false;
+            EnemyManager.Instance.Close();
         }
 
         public void EnemyDie(IEnemy enemy)
         {
             // UIManager.Instance.EnemyDie(enemy);
             PlayStateMachine.Instance.enemyCountList[PlayStateMachine.Instance.enemyTypeList.IndexOf(enemy.Type)]--;
-            UIManager.Instance.EnemyReduce(PlayStateMachine.Instance.enemyTypeList , PlayStateMachine.Instance.enemyCountList , enemy.Type);
-            // UIManager.Instance.ShowEnemyCountAndTypes(enemyTypeList , enemyCountList , 0);
+            // UIManager.Instance.EnemyReduce(PlayStateMachine.Instance.enemyTypeList , PlayStateMachine.Instance.enemyCountList , enemy.Type);
+            UIManager.Instance.ShowEnemyCountAndTypes(PlayStateMachine.Instance.enemyTypeList , PlayStateMachine.Instance.enemyCountList);
             if(enemy.IsArrived == false)
             {
                 PlayStateMachine.Instance.Money += enemy.Money;
@@ -283,6 +290,7 @@ public class PlayStateMachine
 
             MyGridManager.Instance.CalculatePath();
             MyGridManager.Instance.DrawPath();
+            MyGridManager.Instance.CalculateAllGridCanPutTower();
             //Debug.Log("drawpath");
     
         }
@@ -296,7 +304,8 @@ public class PlayStateMachine
             PlayStateMachine.Instance.lastWaveHP = PlayStateMachine.Instance.HP;
             PlayStateMachine.Instance.lastWaveMoney = PlayStateMachine.Instance.Money;
             MyGridManager.Instance.ErasePath();
-            Debug.Log("closepath");
+            MyGridManager.Instance.CalculateAllGridCanPutTower();
+            // Debug.Log("closepath");
         }
 
         public void BuildTower(ITowerManager.TowerType towerType, Vector2Int position , int faceDirection)
@@ -313,6 +322,7 @@ public class PlayStateMachine
             // Debug.Log("cost " + midCost);
             MyGridManager.Instance.ErasePath();
             MyGridManager.Instance.DrawPath();
+            MyGridManager.Instance.CalculateAllGridCanPutTower();
         }
 
         public void RemoveTower(Vector2Int position)
@@ -326,6 +336,7 @@ public class PlayStateMachine
             PlayStateMachine.Instance.Money += tower.Cost;
             MyGridManager.Instance.ErasePath();
             MyGridManager.Instance.DrawPath();
+            MyGridManager.Instance.CalculateAllGridCanPutTower();
         }
 
     }

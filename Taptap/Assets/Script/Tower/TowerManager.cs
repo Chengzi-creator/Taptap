@@ -78,25 +78,34 @@ public class TowerManager : ITowerManager
     private VFX[,] VFXMap;
     public void ReInit()
     {
+
+        // int midCnt = 0;
+        // while(towerList.Count > 0)
+        // {
+        //     midCnt ++;
+        //     if(midCnt > 10)
+        //     {
+        //         Debug.LogError("TowerManager ReInit Error");
+        //         break;
+        //     }
+        //     DestroyTower(towerList.GetEnumerator().Current);
+        //     Debug.Log("towerList.Count " + towerList.Count);
+        // }
         while(towerList.Count > 0)
         {
-            DestroyTower(towerList.GetEnumerator().Current);
+            var mid = towerList.GetEnumerator();
+            mid.MoveNext();
+            DestroyTower(mid.Current);
         }
-        // foreach(BaseTower tower in towerList)
-        // {
-        //     DestroyTower(tower);
-        // }
     }
     public void Close()
     {
         while(towerList.Count > 0)
         {
-            DestroyTower(towerList.GetEnumerator().Current);
+            var mid = towerList.GetEnumerator();
+            mid.MoveNext();
+            DestroyTower(mid.Current);
         }
-        // foreach(BaseTower tower in towerList)
-        // {
-        //     DestroyTower(tower);
-        // }
     }
     public ITower CreateTower(ITowerManager.TowerType type , Vector2Int position , int faceDirection)
     {
@@ -123,11 +132,16 @@ public class TowerManager : ITowerManager
 
     public ITower DestroyTower(ITower midTower)
     {
+        // Debug.Log("destroy_towerList.Count " + towerList.Count);
         if(midTower == null)
         {
             Debug.LogWarning("DestroyTower is null");
             return null;
         }
+        // else
+        // {
+        //     Debug.Log("DestroyTower " + midTower.Position);
+        // }
         BaseTower tower = (BaseTower)midTower;
         towerList.Remove(tower);
         towerPool[(int)tower.Type].Push(tower);

@@ -14,6 +14,10 @@ public class BaseEnemy : MonoBehaviour, IEnemy
 
     protected bool isArrived;
     public bool IsArrived => isArrived;
+    public bool IsClosed
+    {
+        set => isArrived = value;
+    }
     protected int damage;
     protected Vector3 maxHP;
     protected Vector3 currentHP;
@@ -73,9 +77,12 @@ public class BaseEnemy : MonoBehaviour, IEnemy
     {
         gameObject.SetActive(false);
         Vector3Int blockNum = Vector3Int.RoundToInt(maxHP / 200);
-        ColorBlockManager.Instance.CreateColorBlock(Position, blockNum.x, 1);
-        ColorBlockManager.Instance.CreateColorBlock(Position, blockNum.y, 2);
-        ColorBlockManager.Instance.CreateColorBlock(Position, blockNum.z, 4);
+        if(IsArrived == false)
+        {
+            ColorBlockManager.Instance.CreateColorBlock(Position, blockNum.x, 1);
+            ColorBlockManager.Instance.CreateColorBlock(Position, blockNum.y, 2);
+            ColorBlockManager.Instance.CreateColorBlock(Position, blockNum.z, 4);
+        }
 
         //        Debug.Log("die");
     }
@@ -120,9 +127,9 @@ public class BaseEnemy : MonoBehaviour, IEnemy
     {
         Debug.Log("arrive destination");
         speed = 0;
+        isArrived = true;
         PlayStateMachine.Instance.HP -= damage;
         CurrentHP = Vector3.one * -1;
-        isArrived = true;
     }
 
     protected virtual void WaitCD(float deltaTime)
