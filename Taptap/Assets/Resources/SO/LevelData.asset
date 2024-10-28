@@ -63,7 +63,7 @@ MonoBehaviour:
       - type: 1
         spawnTime: 5
   - beginPosition: {x: 1, y: 1}
-    beginMoney: 25
+    beginMoney: 100
     waveList:
     - enemyDataList:
       - type: 7
