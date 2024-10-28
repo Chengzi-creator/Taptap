@@ -31,8 +31,14 @@ MonoBehaviour:
       - type: 3
         spawnTime: 1
     - enemyDataList:
-      - type: 3
+      - type: 7
         spawnTime: 0
+      - type: 7
+        spawnTime: 1
+      - type: 7
+        spawnTime: 2
+      - type: 7
+        spawnTime: 3
   - beginPosition: {x: 5, y: 0}
     beginMoney: 10000
     waveList:
@@ -104,3 +110,79 @@ MonoBehaviour:
         spawnTime: 32
       - type: 6
         spawnTime: 36
+    - enemyDataList:
+      - type: 4
+        spawnTime: 0
+      - type: 4
+        spawnTime: 2
+      - type: 4
+        spawnTime: 4
+      - type: 4
+        spawnTime: 6
+      - type: 4
+        spawnTime: 8
+      - type: 5
+        spawnTime: 12
+      - type: 5
+        spawnTime: 15
+      - type: 5
+        spawnTime: 18
+      - type: 2
+        spawnTime: 23
+      - type: 2
+        spawnTime: 27
+      - type: 6
+        spawnTime: 30
+      - type: 6
+        spawnTime: 32
+      - type: 6
+        spawnTime: 34
+      - type: 6
+        spawnTime: 36
+      - type: 6
+        spawnTime: 38
+      - type: 2
+        spawnTime: 40
+      - type: 1
+        spawnTime: 45
+    - enemyDataList:
+      - type: 6
+        spawnTime: 0
+      - type: 6
+        spawnTime: 2
+      - type: 6
+        spawnTime: 4
+      - type: 6
+        spawnTime: 6
+      - type: 6
+        spawnTime: 8
+      - type: 3
+        spawnTime: 10
+      - type: 4
+        spawnTime: 13
+      - type: 3
+        spawnTime: 16
+      - type: 4
+        spawnTime: 19
+      - type: 3
+        spawnTime: 22
+      - type: 5
+        spawnTime: 25
+      - type: 5
+        spawnTime: 28
+      - type: 1
+        spawnTime: 31
+      - type: 5
+        spawnTime: 34
+      - type: 5
+        spawnTime: 37
+      - type: 2
+        spawnTime: 38
+      - type: 2
+        spawnTime: 42
+      - type: 1
+        spawnTime: 47
+      - type: 1
+        spawnTime: 52
+      - type: 2
+        spawnTime: 54
