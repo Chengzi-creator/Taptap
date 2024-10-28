@@ -470,6 +470,8 @@ public class UIManager : MonoBehaviour , IUIManager
         _selectDestroy = false;
         startB.SetActive(true);
         exitB.SetActive(true);
+        enemyImage.SetActive(false);
+        TeachText.Instance.talkCount = 0;
     }
     
     public void OnRestartButtonClick()
@@ -1161,6 +1163,11 @@ public class UIManager : MonoBehaviour , IUIManager
         
         for (int i = 0,j = 0; i < types.Count; i++)
         {   
+            if (types.Count > enemyImages.Length || types.Count > enemyTexts.Length)
+            {
+                Debug.LogError("enemyImages 或 enemyTexts 数组长度不足！");
+                return;
+            }
             // Debug.Log(types[i]);
             switch (types[i])
             {   
