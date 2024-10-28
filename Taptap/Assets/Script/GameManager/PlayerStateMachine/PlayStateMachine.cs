@@ -184,11 +184,13 @@ public class PlayStateMachine
     {
         // return ;
         EnemyManager.Instance.Close();
+        Debug.Log("exit play state");
         TowerManager.Instance.Close();
         // MyGridManager.Instance.Close();
         MyGridManager.Instance.UnloadLevel();
         ChangeState(PlayStateType.Empty);
         Debug.Log("Close PlayStateMachine");
+        return ;
     }
 
     
@@ -303,7 +305,7 @@ public class PlayStateMachine
             PlayStateMachine.Instance.lastWaveMoney = PlayStateMachine.Instance.Money;
             MyGridManager.Instance.ErasePath();
             MyGridManager.Instance.CalculateAllGridCanPutTower();
-            Debug.Log("closepath");
+            // Debug.Log("closepath");
         }
 
         public void BuildTower(ITowerManager.TowerType towerType, Vector2Int position , int faceDirection)

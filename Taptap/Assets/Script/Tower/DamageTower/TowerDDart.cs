@@ -21,33 +21,24 @@ public class TowerDDart : BaseDamageTower
         this.lockedTime.Clear();
     }
 
+    List<IEnemy> attackedEnemy;
     protected override void Attack()
     {
+        attackedEnemy = new List<IEnemy>();
         int cnt = 0;
         for(int i = 0 ; i < attackRange.Count ; i++)
         {
-            if(attackRange[i].EnemysCount() >= 2)
+            for(int j = 0 ; j < attackRange[i].EnemysCount() ; j ++)
             {
-                // attackRange[i].GetKthEnemy(0).BeAttacked(damage , elementDamage);
-                lockedEnemy.AddLast(attackRange[i].GetKthEnemy(0));
+                IEnemy midEnemy = attackRange[i].GetKthEnemy(j);
+                if(attackedEnemy.Contains(midEnemy))
+                    continue;
+
+                attackedEnemy.Add(midEnemy);
+                lockedEnemy.AddLast(midEnemy);
                 lockedTime.AddLast(bulletTime);
                 cnt++;
-                VFXManager.Instance.CreateVFX_Attack_FeiBiao(position, attackRange[i].GetKthEnemy(0).Position, TowerManager.Instance.GetColor(position));
-                if (cnt >= 2)
-                    break;
-                lockedEnemy.AddLast(attackRange[i].GetKthEnemy(1));
-                lockedTime.AddLast(bulletTime);
-                cnt++;
-                VFXManager.Instance.CreateVFX_Attack_FeiBiao(position, attackRange[i].GetKthEnemy(1).Position, TowerManager.Instance.GetColor(position));
-                if (cnt >= 2)
-                    break;
-            }
-            else if (attackRange[i].EnemysCount() == 1)
-            {
-                lockedEnemy.AddLast(attackRange[i].GetKthEnemy(0));
-                lockedTime.AddLast(bulletTime);
-                cnt++;
-                VFXManager.Instance.CreateVFX_Attack_FeiBiao(position, attackRange[i].GetKthEnemy(0).Position, TowerManager.Instance.GetColor(position));
+                VFXManager.Instance.CreateVFX_Attack_FeiBiao(position, midEnemy.Position, TowerManager.Instance.GetColor(position));
                 if (cnt >= 2)
                     break;
             }
