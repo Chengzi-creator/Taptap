@@ -138,7 +138,7 @@ public class PlayStateMachine
         currentState.EnterState();
         if(stateType != PlayStateType.Empty)
         {
-            UIManager.Instance.RoundChange(PlayStateMachine.Instance.waveIndex , PlayStateMachine.Instance.levelIndex);
+            UIManager.Instance.RoundChange(PlayStateMachine.Instance.levelIndex , PlayStateMachine.Instance.waveIndex);
         }
     }
 

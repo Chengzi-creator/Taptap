@@ -315,6 +315,10 @@ public class UIManager : MonoBehaviour , IUIManager
         // }
         teachText.SetActive(true);
         isTeaching = true;
+        TeachText.Instance.LoadDialogue();
+        
+        ResumeGame();
+        overMasks.SetActive(false);
         ChooseLevel.SetActive(false);
         GameStartMasks.SetActive(false);
         gameEvents.SetActive(true);
@@ -323,7 +327,6 @@ public class UIManager : MonoBehaviour , IUIManager
         buildButtons.SetActive(true);
         SpawnButtons.SetActive(true);
         enterGame = true;
-        TeachText.Instance.LoadDialogue();
     }
     #endregion
     
@@ -1054,20 +1057,20 @@ public class UIManager : MonoBehaviour , IUIManager
 
         int index = types.IndexOf(type);
 
-        if (index != -1 && counts[index] > 0)
-        {
-            counts[index]--;
-        }
-        else if (index == -1)
-        {
-            enemyInformation.text = $"Enemy type {type} none";
-            return;
-        }
-        else
-        {
-            enemyInformation.text = $"No more {type}s left.";
-            return;
-        }
+        // if (index != -1 && counts[index] > 0)
+        // {
+        //     counts[index]--;
+        // }
+        // else if (index == -1)
+        // {
+        //     enemyInformation.text = $"Enemy type {type} none";
+        //     return;
+        // }
+        // else
+        // {
+        //     enemyInformation.text = $"No more {type}s left.";
+        //     return;
+        // }
         
         string infoText = "Enemy:\n";
         for (int i = 0; i < types.Count; i++)
