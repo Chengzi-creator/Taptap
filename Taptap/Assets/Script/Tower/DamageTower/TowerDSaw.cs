@@ -70,21 +70,30 @@ public class TowerDSaw : BaseDamageTower
         node = lockedTime.First;
         while(node != null && node.Value <= 0)
         {
-            Debug.Log(lockedTime.Count + " " + lockedDirection.Count + " " + lockedPosition.Count);
-            if (lockedTime.First == null)
-                Debug.Log("lockedTimePosition is null");
-            if (lockedPosition.First == null)
-                Debug.Log("lockedPosition is null");
-            if (lockedDirection.First == null)
-                Debug.Log("lockedDirction is null");
+            if (lockedTime.Count == 0)
+                break;
+//            Debug.Log(lockedTime.Count + " " + lockedDirection.Count + " " + lockedPosition.Count);
+//            if (lockedTime.First == null)
+//                Debug.Log("lockedTimePosition is null");
+//            if (lockedPosition.First == null)
+//                Debug.Log("lockedPosition is null");
+//            if (lockedDirection.First == null)
+//                Debug.Log("lockedDirction is null");
             Vector2Int position = lockedPosition.First.Value;
             Vector3Int direction = lockedDirection.First.Value;
             lockedPosition.RemoveFirst();
             lockedDirection.RemoveFirst();
             lockedTime.RemoveFirst();
+//            Debug.Log(position);
 
             IGrid midGrid = MyGridManager.Instance.GetIGrid(position);
-            midGrid.GetEnemys().ForEach(enemy => enemy.BeAttacked(damage* TowerManager.Instance.GetColorVector(position) , TowerManager.Instance.GetColor(position)));
+//            midGrid.GetEnemys().ForEach(enemy => enemy.BeAttacked(damage* TowerManager.Instance.GetColorVector(position) , TowerManager.Instance.GetColor(position)));
+            foreach(IEnemy midEnemy in midGrid.GetEnemys())
+            {
+                midEnemy.BeAttacked(damage * TowerManager.Instance.GetColorVector(Position), TowerManager.Instance.GetColor(Position));
+            }
+                Debug.Log(Position);
+//                VFXManager.Instance.CreateVFX_Attack_Toushiqi(position , 1);
             
             Vector2Int nextPosition = position + new Vector2Int(direction.x, direction.y);
             if(MyGridManager.Instance.GetIGrid(nextPosition) == null)
