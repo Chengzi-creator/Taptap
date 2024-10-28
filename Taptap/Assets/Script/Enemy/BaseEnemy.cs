@@ -40,7 +40,7 @@ public class BaseEnemy : MonoBehaviour, IEnemy
 
     protected int money;
     // public int Money => money;
-    public int Money => currentColor[3] ? (int)(money * GlobalSetting.Instance.GlobalSettingSO.GetBuffValue(3)) : money;
+    public int Money => currentColor[3] ? (int)(money + GlobalSetting.Instance.GlobalSettingSO.GetBuffValue(3)) : money;
 
     protected float speed;
     protected int pathIndex;
