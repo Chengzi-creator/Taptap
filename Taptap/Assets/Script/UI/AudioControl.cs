@@ -23,8 +23,9 @@ public class AudioControl : MonoBehaviour
     
     [SerializeField] private Toggle _toggle;
     [SerializeField] private Slider _slider;
-    [SerializeField] private AudioSource audioSource1;
-    [SerializeField] private AudioSource audioSource2; 
+    [SerializeField] private AudioSource audioSourceBuild;
+    [SerializeField] private AudioSource audioSourceAttack; 
+    [SerializeField] private AudioSource audioSourceTheme; 
     private AudioSource currentSource; //正在播放的音频
     private AudioSource nextSource; //准备播放的音频
     private AudioClip newClip;
@@ -34,8 +35,8 @@ public class AudioControl : MonoBehaviour
     {
         _toggle.onValueChanged.AddListener(isOn => ControlAudio());
         _slider.onValueChanged.AddListener(value =>Volume(value));
-        currentSource = audioSource1;
-        nextSource = audioSource2;
+        currentSource = audioSourceTheme;
+        nextSource = audioSourceBuild;
         
         currentSource.Play();
     }
@@ -64,17 +65,44 @@ public class AudioControl : MonoBehaviour
     
     private void SetNextClip()
     {
-        if (currentSource == audioSource1)
+        if (currentSource == audioSourceBuild)
         {
-            newClip = audioSource2.clip;
+            newClip = audioSourceAttack.clip;
         }
         else
         {
-            newClip = audioSource1.clip;
+            newClip = audioSourceBuild.clip;
         }
     }
-
+    
     public void SwitchMusic(float fadeDuration = 1f)
+    {
+        if (isSwitching) return;
+        
+        SetNextClip();
+        
+        //切换前设置新音频源的Clip，并同步播放进度
+        nextSource.clip = newClip;
+        nextSource.time = currentSource.time; //保持同步的播放进度
+        nextSource.volume = 0f; //设置音量为0，准备淡入
+
+        nextSource.Play(); //开始播放新音频
+        StartCoroutine(FadeMusic(fadeDuration)); //开启协程处理淡入淡出
+    }
+    
+    private void SetTBNextClip()
+    {
+        if (currentSource == audioSourceBuild)
+        {
+            newClip = audioSourceAttack.clip;
+        }
+        else
+        {
+            newClip = audioSourceBuild.clip;
+        }
+    }
+    
+    public void SwitchTBMusic(float fadeDuration = 1f)
     {
         if (isSwitching) return;
         
