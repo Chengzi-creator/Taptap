@@ -11,10 +11,6 @@ using UnityEngine.EventSystems;
 public class UIManager : MonoBehaviour , IUIManager
 {
     private static UIManager instance;
-
-    [Header("Audio")] 
-    [SerializeField] private AudioSource _audioSourceBuild;
-    [SerializeField] private AudioSource _audioSourceBuildSuccess;
     
     
     [Header("Text")]
@@ -197,7 +193,7 @@ public class UIManager : MonoBehaviour , IUIManager
             {
                 instance = Instantiate(Resources.Load<GameObject>("Prefab/GameCanvas")).GetComponent<UIManager>();
                 instance.InitializeUI();
-                instance._coinText.text = "     " + instance.Coin;
+                instance._coinText.text = "       " + instance.Coin;
             }
             return instance;
         }
