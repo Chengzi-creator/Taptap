@@ -16,10 +16,7 @@ public class UIManager : MonoBehaviour , IUIManager
     [Header("Text")]
     [SerializeField] private TextMeshProUGUI _coinText;
     [SerializeField] private TextMeshProUGUI _roundText;
-    [SerializeField] private TextMeshProUGUI enemyInformation;
-    [SerializeField] private TextMeshProUGUI enemyA;
-    [SerializeField] private TextMeshProUGUI enemyB;
-    [SerializeField] private TextMeshProUGUI enemyC;
+    [SerializeField] private TextMeshProUGUI[] enemyTexts;
     
     [Header("ImageAndText")]
     //[SerializeField] private List<ToggleImagePair> toggleImagePairs;
@@ -43,6 +40,13 @@ public class UIManager : MonoBehaviour , IUIManager
     [SerializeField] private Image enemyImageA;
     [SerializeField] private Image enemyImageB;
     [SerializeField] private Image enemyImageC;
+    [SerializeField] private Image enemyImageD;
+    [SerializeField] private Image enemyImageE;
+    [SerializeField] private Image enemyImageF;
+    [SerializeField] private Image enemyImageG;
+    [SerializeField] private Image enemyImageH;
+    [SerializeField] private Image[] enemyImages;
+    
     [SerializeField] private Image rf;
     [SerializeField] private Image rt;
     [SerializeField] private Image rl;
@@ -1026,10 +1030,15 @@ public class UIManager : MonoBehaviour , IUIManager
     }
     
     public void ShowEnemyCountAndTypes(List<IEnemyManager.EnemyType> types, List<int> counts)
-    {
+    {   
+        if (types == null || counts == null || types.Count != counts.Count)
+        {
+            Debug.LogError("传入的列表为空或长度不一致！");
+            return;
+        }
+        
         if (types.Count != counts.Count)
         {
-            enemyInformation.text = "Error";
             return;
         }
         
@@ -1039,76 +1048,85 @@ public class UIManager : MonoBehaviour , IUIManager
             infoText += $"{types[i]}: {counts[i]}\n";
         }
         
-        enemyInformation.text = infoText;
         
-        for (int i = 0; i < types.Count; i++)
-        {
+        for (int i = 0,j = 0; i < types.Count; i++)
+        {   
+            Debug.Log(types[i]);
             switch (types[i])
-            {
+            {   
+                
                 case IEnemyManager.EnemyType.A:
-                    enemyA.text = $"{counts[i]}";
+                    enemyImages[j].sprite = enemyImageA.sprite;
+                    enemyImages[j].color = new Color(255, 255, 255, 255);
+                    enemyTexts[j++].text = $"{counts[i]}";
                     break;
                 
                 case IEnemyManager.EnemyType.B:
-                    enemyB.text = $"{counts[i]}";
+                    enemyImages[j].sprite = enemyImageB.sprite;
+                    enemyImages[j].color = new Color(255, 255, 255, 255);
+                    enemyTexts[j++].text = $"{counts[i]}";
                     break;
                 
                 case IEnemyManager.EnemyType.C:
-                    enemyC.text = $"{counts[i]}";
+                    enemyImages[j].sprite = enemyImageC.sprite;
+                    enemyImages[j].color = new Color(255, 255, 255, 255);
+                    enemyTexts[j++].text = $"{counts[i]}";
                     break;
                 
+                case IEnemyManager.EnemyType.D:
+                    enemyImages[j].sprite = enemyImageD.sprite;
+                    enemyImages[j].color = new Color(255, 255, 255, 255);
+                    enemyTexts[j++].text = $"{counts[i]}";
+                    break;
+                
+                case IEnemyManager.EnemyType.E:
+                    enemyImages[j].sprite = enemyImageE.sprite;
+                    enemyImages[j].color = new Color(255, 255, 255, 255);
+                    enemyTexts[j++].text = $"{counts[i]}";
+                    break;
+                
+                case IEnemyManager.EnemyType.F:
+                    enemyImages[j].sprite = enemyImageF.sprite;
+                    enemyImages[j].color = new Color(255, 255, 255, 255);
+                    enemyTexts[j++].text = $"{counts[i]}";
+                    break;
+                
+                case IEnemyManager.EnemyType.G:
+                    enemyImages[j].sprite = enemyImageG.sprite;
+                    enemyImages[j].color = new Color(255, 255, 255, 255);
+                    enemyTexts[j++].text = $"{counts[i]}";
+                    break;
+                
+                case IEnemyManager.EnemyType.H:
+                    enemyImages[j].sprite = enemyImageH.sprite;
+                    enemyImages[j].color = new Color(255, 255, 255, 255);
+                    enemyTexts[j++].text = $"{counts[i]}";
+                    break;
+                
+                // case IEnemyManager.EnemyType.I:
+                //     enemyImages[j].sprite = enemyImageI.sprite;
+                //     enemyImages[j].color = new Color(255, 255, 255, 255);
+                //     enemyTexts[j++].text = $"{counts[i]}";
+                //     break;
+                
                 default:
-                  
                     return;
+            }
+
+            for (; j < enemyImages.Length; j++)
+            {
+                enemyImages[j].sprite = null;
+                enemyTexts[j].text = "";
+                enemyImages[j].color = new Color(255, 255, 255, 0); //隐藏图片
             }
         }
     }
 
-    public void EnemyReduce(List<IEnemyManager.EnemyType> types, List<int> counts,IEnemyManager.EnemyType type)
-    {
-        if (types.Count != counts.Count)
-        {
-            enemyInformation.text = "Error";
-            return;
-        }
-
-        int index = types.IndexOf(type);
-
-        // if (index != -1 && counts[index] > 0)
-        // {
-        //     counts[index]--;
-        // }
-        // else if (index == -1)
-        // {
-        //     enemyInformation.text = $"Enemy type {type} none";
-        //     return;
-        // }
-        // else
-        // {
-        //     enemyInformation.text = $"No more {type}s left.";
-        //     return;
-        // }
-        
-        string infoText = "Enemy:\n";
-        for (int i = 0; i < types.Count; i++)
-        {
-            infoText += $"{types[i]}: {counts[i]}\n";
-        }
-        
-        enemyInformation.text = infoText;
-    }
-
+   
     private void ShowEnemyImage(List<IEnemyManager.EnemyType> types)
     {
         
     }
-    
-    // private void SetAlpha(Image image, float alpha)
-    // {
-    //     Color color = image.color;
-    //     color.a = alpha;
-    //     image.color = color;
-    // }
     
     public void SpawnEnemy()
     {
