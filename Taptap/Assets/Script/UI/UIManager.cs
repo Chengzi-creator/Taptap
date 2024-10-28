@@ -388,7 +388,7 @@ public class UIManager : MonoBehaviour , IUIManager
     public void OnHomeButtonClick()
     {
         PlayStateMachine.Instance.ExitPlayState();
-        PlayStateMachine.Instance.Close();
+        // PlayStateMachine.Instance.Close();
         GameStartMasks.SetActive(true);
         ChooseLevel.SetActive(false);
         SpawnButtons.SetActive(false);
@@ -585,7 +585,7 @@ public class UIManager : MonoBehaviour , IUIManager
         if (tower != null)
         {
             tower.transform.position = MyGridManager.Instance.GetGridMidWorldPos(worldPosition,out isValid);
-            Debug.Log(tower.transform.position);
+            // Debug.Log(tower.transform.position);
         }
     }
 
@@ -1007,6 +1007,7 @@ public class UIManager : MonoBehaviour , IUIManager
     {
         overMasks.SetActive(false);
         Time.timeScale = 1f;
+        PlayStateMachine.Instance.ExitPlayState();
         PlayStateMachine.Instance.ReInit(++mIndex);
         if (mIndex == 1)
         {

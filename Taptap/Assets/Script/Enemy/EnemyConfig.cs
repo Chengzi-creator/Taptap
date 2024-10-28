@@ -14,6 +14,7 @@ public class EnemyConfig : ScriptableObject , ISerializationCallbackReceiver
         public Vector2 size;
         public float speed;
         public int damage;
+        public int money;
     }
 
     [Header("Enemy Config")]
@@ -36,7 +37,7 @@ public class EnemyConfig : ScriptableObject , ISerializationCallbackReceiver
 
         for(int i = 0; i < showEnemyData.Count; i++)
         {
-            enemyDataList[showEnemyData[i].type] = new IEnemyManager.EnemyAttribute { maxHP = showEnemyData[i].maxHP, speed = showEnemyData[i].speed , damage = showEnemyData[i].damage ,size = showEnemyData[i].size};
+            enemyDataList[showEnemyData[i].type] = new IEnemyManager.EnemyAttribute { maxHP = showEnemyData[i].maxHP, speed = showEnemyData[i].speed , damage = showEnemyData[i].damage ,size = showEnemyData[i].size , money = showEnemyData[i].money};
         }
     }
 
