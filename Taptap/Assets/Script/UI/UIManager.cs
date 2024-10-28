@@ -388,32 +388,31 @@ public class UIManager : MonoBehaviour , IUIManager
 
         if (mIndex == 0)
         {   
-            Debug.Log("ChangeColor");
-            rf.color = new Color(56, 56, 56);
-            rl.color = new Color(56, 56, 56);
-            bf.color = new Color(56, 56, 56);
-            bt.color = new Color(56, 56, 56);
-            bl.color = new Color(56, 56, 56);
-            gf.color = new Color(56, 56, 56);
-            gl.color = new Color(56, 56, 56);
-            dsaw.color = new Color(56, 56, 56);
-            dh.color = new Color(56, 56, 56);
-            ds.color = new Color(56, 56, 56);
-            dc.color = new Color(56, 56, 56);
+            rf.color = Color.gray;
+            rl.color = Color.gray;
+            bf.color = Color.gray;
+            bt.color = Color.gray;
+            bl.color = Color.gray;
+            gf.color = Color.gray;
+            gl.color = Color.gray;
+            dsaw.color = Color.gray;
+            dh.color = Color.gray;
+            ds.color = Color.gray;
+            dc.color = Color.gray;
         }
         else
         {
-            rf.color = new Color(255, 255, 255);
-            rl.color = new Color(255, 255, 255);
-            bf.color = new Color(255, 255, 255);
-            bt.color = new Color(255, 255, 255);
-            bl.color = new Color(255, 255, 255);
-            gf.color = new Color(255, 255, 255);
-            gl.color = new Color(255, 255, 255);
-            dsaw.color = new Color(255, 255, 255);
-            dh.color = new Color(255, 255, 255);
-            ds.color = new Color(255, 255, 255);
-            dc.color = new Color(255, 255, 255);
+            rf.color = Color.white;
+            rl.color = Color.white;
+            bf.color = Color.white;
+            bt.color = Color.white;
+            bl.color = Color.white;
+            gf.color = Color.white;
+            gl.color = Color.white;
+            dsaw.color = Color.white;
+            dh.color = Color.white;
+            ds.color = Color.white;
+            dc.color = Color.white;
         }
         
         #endregion
@@ -1095,34 +1094,32 @@ public class UIManager : MonoBehaviour , IUIManager
 
         if (mIndex == 0)
         {   
-            rf.color = new Color(56, 56, 56);
-            rl.color = new Color(56, 56, 56);
-            bf.color = new Color(56, 56, 56);
-            bt.color = new Color(56, 56, 56);
-            bl.color = new Color(56, 56, 56);
-            gf.color = new Color(56, 56, 56);
-            gl.color = new Color(56, 56, 56);
-            dsaw.color = new Color(56, 56, 56);
-            dh.color = new Color(56, 56, 56);
-            ds.color = new Color(56, 56, 56);
-            dc.color = new Color(56, 56, 56);
+            rf.color = Color.gray;
+            rl.color = Color.gray;
+            bf.color = Color.gray;
+            bt.color = Color.gray;
+            bl.color = Color.gray;
+            gf.color = Color.gray;
+            gl.color = Color.gray;
+            dsaw.color = Color.gray;
+            dh.color = Color.gray;
+            ds.color = Color.gray;
+            dc.color = Color.gray;
         }
         else
         {
-            rf.color = new Color(255, 255, 255);
-            rl.color = new Color(255, 255, 255);
-            bf.color = new Color(255, 255, 255);
-            bt.color = new Color(255, 255, 255);
-            bl.color = new Color(255, 255, 255);
-            gf.color = new Color(255, 255, 255);
-            gl.color = new Color(255, 255, 255);
-            dsaw.color = new Color(255, 255, 255);
-            dh.color = new Color(255, 255, 255);
-            ds.color = new Color(255, 255, 255);
-            dc.color = new Color(255, 255, 255);
-            
+            rf.color = Color.white;
+            rl.color = Color.white;
+            bf.color = Color.white;
+            bt.color = Color.white;
+            bl.color = Color.white;
+            gf.color = Color.white;
+            gl.color = Color.white;
+            dsaw.color = Color.white;
+            dh.color = Color.white;
+            ds.color = Color.white;
+            dc.color = Color.white;
         }
-        
         #endregion
     }
 
