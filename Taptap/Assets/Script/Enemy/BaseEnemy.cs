@@ -72,7 +72,6 @@ public class BaseEnemy : MonoBehaviour, IEnemy
 
     public virtual void BeAttacked(Vector3 damage , int colorDamage)
     {
-<<<<<<< Updated upstream
         CurrentHP -= damage * defense;
         // Debug.LogWarning(CurrentHP);
 //        Debug.Log("be Attacked");
