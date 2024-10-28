@@ -16,40 +16,48 @@ MonoBehaviour:
   - type: 0
     maxHP: {x: 0, y: 0, z: 200}
     size: {x: 0.9, y: 0.9}
-    speed: 0.8
+    speed: 0.7
     damage: 100
+    money: 3
   - type: 7
     maxHP: {x: 200, y: 0, z: 0}
     size: {x: 0.9, y: 0.9}
-    speed: 0.8
+    speed: 0.7
     damage: 100
+    money: 3
   - type: 4
     maxHP: {x: 400, y: 0, z: 0}
     size: {x: 0.9, y: 0.9}
-    speed: 0.8
+    speed: 0.55
     damage: 100
+    money: 5
   - type: 3
     maxHP: {x: 0, y: 400, z: 0}
     size: {x: 0.9, y: 0.9}
-    speed: 0.8
+    speed: 0.55
     damage: 100
+    money: 5
   - type: 6
     maxHP: {x: 200, y: 400, z: 0}
     size: {x: 0.9, y: 0.9}
-    speed: 0.8
+    speed: 1
     damage: 100
+    money: 8
   - type: 5
     maxHP: {x: 0, y: 200, z: 400}
     size: {x: 0.9, y: 0.9}
-    speed: 0.8
+    speed: 1
     damage: 100
+    money: 8
   - type: 2
     maxHP: {x: 400, y: 400, z: 200}
     size: {x: 0.9, y: 0.9}
-    speed: 0.5
+    speed: 0.55
     damage: 100
+    money: 12
   - type: 1
     maxHP: {x: 200, y: 200, z: 400}
     size: {x: 0.9, y: 0.9}
     speed: 0.8
     damage: 100
+    money: 15
