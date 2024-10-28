@@ -129,7 +129,7 @@ public class UIManager : MonoBehaviour , IUIManager
     [SerializeField] private Button levelButton9;
     [SerializeField] private Button levelButton10;
     [SerializeField] private Button levelButton11;
-    [SerializeField] private Button levelButton12;
+    
     
     [SerializeField] private Image towerX;
     //private Image image;
@@ -255,7 +255,6 @@ public class UIManager : MonoBehaviour , IUIManager
         levelButton9.onClick.AddListener(() => levelChoose(9));
         levelButton10.onClick.AddListener(() => levelChoose(10));
         levelButton11.onClick.AddListener(() => levelChoose(11));
-        levelButton12.onClick.AddListener(() => levelChoose(12));
         
         /*
         _showUnRotation = GetComponent<IShow>();
@@ -1213,7 +1212,7 @@ public class UIManager : MonoBehaviour , IUIManager
                 //     break;
                 
                 default:
-                    return;
+                    continue;
             }
 
             for (; j < enemyImages.Length; j++)
