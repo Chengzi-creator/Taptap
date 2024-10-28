@@ -710,7 +710,7 @@ public class UIManager : MonoBehaviour , IUIManager
             {
                 DestroyTowerImage();
                 tower = GameObject.Instantiate(rT); 
-                Debug.Log("生成");
+                // Debug.Log("生成");
                 /*
                 _showUnRotation.ShowRange();
                 _showUnRotation.SetFaceDirection(faceDirection);*/
@@ -899,7 +899,7 @@ public class UIManager : MonoBehaviour , IUIManager
         if (isTeaching1)
         {
             _selectedTowerType = ITowerManager.TowerType.D_dart;
-            Debug.Log("HelloDD");
+            // Debug.Log("HelloDD");
             if (!isSpawning)
             {
                 DestroyTowerImage();
@@ -1072,7 +1072,7 @@ public class UIManager : MonoBehaviour , IUIManager
         
         for (int i = 0,j = 0; i < types.Count; i++)
         {   
-            Debug.Log(types[i]);
+            // Debug.Log(types[i]);
             switch (types[i])
             {   
                 

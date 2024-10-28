@@ -201,6 +201,7 @@ public class PlayStateMachine
         private List<LevelDataSO.EnemyData> enemyList;
         public void EnterState()
         {
+            UIManager.Instance.isSpawning = true;
             totalTime = 0;
             enemyIndex = 0;
             enemyList = PlayStateMachine.Instance.levelDataSO.GetWaveData(PlayStateMachine.Instance.levelIndex , PlayStateMachine.Instance.waveIndex);
@@ -224,7 +225,7 @@ public class PlayStateMachine
         }
         public void ExitState()
         {
-            UIManager.Instance.isSpawning = false;
+            // UIManager.Instance.isSpawning = false;
             EnemyManager.Instance.Close();
             ColorBlockManager.Instance.ReduceAllColorBlock();
         }
@@ -270,6 +271,7 @@ public class PlayStateMachine
         
         public void EnterState()
         {
+            UIManager.Instance.isSpawning = false;
             List<LevelDataSO.EnemyData> enemyList = PlayStateMachine.Instance.levelDataSO.GetWaveData(PlayStateMachine.Instance.levelIndex , PlayStateMachine.Instance.waveIndex);
             PlayStateMachine.Instance.enemyTypeList.Clear();
             PlayStateMachine.Instance.enemyCountList.Clear();

@@ -60,3 +60,6 @@ TagManager:
   - name: VFX
     uniqueID: 1581656993
     locked: 0
+  - name: colorIcon
+    uniqueID: 2191688445
+    locked: 0

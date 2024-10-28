@@ -30,7 +30,8 @@ public class TowerDHammer : BaseDamageTower
                 // attackRange[i].GetKthEnemy(0).BeAttacked(damage , elementDamage);
                 lockedEnemy.AddLast(attackRange[i].GetKthEnemy(0));
                 lockedTime.AddLast(bulletTime);
-                // VFXManager.Instance.CreateVFX_Attack_FeiBiao(position , lockedEnemy.First.Value.Position , TowerManager.Instance.GetColor(position));
+                
+                VFXManager.Instance.CreateVFX_Attack_Tower_Self(position , TowerManager.Instance.GetColor(position));
                 break;
             }
         }

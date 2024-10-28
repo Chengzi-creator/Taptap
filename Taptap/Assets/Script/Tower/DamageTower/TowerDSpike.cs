@@ -19,6 +19,21 @@ public class TowerSpike : BaseDamageTower
         base.ReInit(towerAttribute, position , faceDirection);
         this.lockedTime.Clear();
         this.attackedEnemy.Clear();
+        switch (faceDirection)
+        {
+            case 0:
+                transform.rotation = Quaternion.Euler(0, 0, 0);
+                break;
+            case 1:
+                transform.rotation = Quaternion.Euler(0, 0, 90);
+                break;
+            case 2:
+                transform.rotation = Quaternion.Euler(0, 0, 180);
+                break;
+            case 3:
+                transform.rotation = Quaternion.Euler(0, 0, 270);
+                break;
+        }
     }
 
     protected override void Attack()
@@ -28,7 +43,8 @@ public class TowerSpike : BaseDamageTower
             if(attackRange[i].EnemysCount() > 0)
             {
                 lockedTime.AddLast(bulletTime);
-                VFXManager.Instance.CreateVFX_Attack_Tuci(position , faceDirection , TowerManager.Instance.GetColor(position));
+                VFXManager.Instance.CreateVFX_Attack_Tuci(position , faceDirection , TowerManager.Instance.GetColor(position));        
+                VFXManager.Instance.CreateVFX_Attack_Tower_Self(position , TowerManager.Instance.GetColor(position));
                 break;
             }
         }
