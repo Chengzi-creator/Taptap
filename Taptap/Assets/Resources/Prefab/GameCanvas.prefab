@@ -2094,7 +2094,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e18f084cbb3b98442854b76afd651ce0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 634f9e4ebd6f35f4894faa85ad23389f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6284,7 +6284,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1720570949052812514, guid: 49e00de03bff03c41b4cad9ee206b7c3, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 25
+      value: -8.5
       objectReference: {fileID: 0}
     - target: {fileID: 1720570949052812514, guid: 49e00de03bff03c41b4cad9ee206b7c3, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -6416,7 +6416,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2138586551952995679, guid: 49e00de03bff03c41b4cad9ee206b7c3, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 100
+      value: 66.9
       objectReference: {fileID: 0}
     - target: {fileID: 2138586551952995679, guid: 49e00de03bff03c41b4cad9ee206b7c3, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -6460,7 +6460,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2255022446313772584, guid: 49e00de03bff03c41b4cad9ee206b7c3, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 325
+      value: 291.9
       objectReference: {fileID: 0}
     - target: {fileID: 2255022446313772584, guid: 49e00de03bff03c41b4cad9ee206b7c3, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -6920,7 +6920,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3908157646546586452, guid: 49e00de03bff03c41b4cad9ee206b7c3, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 175
+      value: 141.9
       objectReference: {fileID: 0}
     - target: {fileID: 3908157646546586452, guid: 49e00de03bff03c41b4cad9ee206b7c3, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -7326,7 +7326,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5379973332263090947, guid: 49e00de03bff03c41b4cad9ee206b7c3, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 250
+      value: 216.9
       objectReference: {fileID: 0}
     - target: {fileID: 5379973332263090947, guid: 49e00de03bff03c41b4cad9ee206b7c3, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -10264,7 +10264,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8104868068796411858, guid: 8d2f6e95200c9a64daa96c66869f6de6, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8428660341556907619, guid: 8d2f6e95200c9a64daa96c66869f6de6, type: 3}
       propertyPath: m_fontAsset
