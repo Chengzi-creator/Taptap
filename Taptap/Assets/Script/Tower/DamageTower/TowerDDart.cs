@@ -42,7 +42,12 @@ public class TowerDDart : BaseDamageTower
                 if (cnt >= 2)
                     break;
             }
+            if (cnt >= 2)
+                break;
         }
+        if(cnt > 0)
+            VFXManager.Instance.CreateVFX_Attack_Tower_Self(position , TowerManager.Instance.GetColor(position));
+        
     }
     protected override void BulletFly(float deltaTime)
     {
