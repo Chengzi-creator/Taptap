@@ -52,7 +52,7 @@ public class MyGrid : MonoBehaviour, IGrid
     public bool ShowGreen
     {
         get => HoldObject == null || HoldObject.Type == GridObjectType.None ||
-            HoldObject.Type == GridObjectType.NoBuildGround;
+            HoldObject.Type == GridObjectType.NoPassGround;
     }
 
     /// <summary>
@@ -153,8 +153,7 @@ public class MyGrid : MonoBehaviour, IGrid
                 GetComponent<SpriteRenderer>().sprite = sprites[5];
                 break;
             case GridObjectType.NoPassGround:
-                GetComponent<SpriteRenderer>().color = Color.black;
-                GetComponent<SpriteRenderer>().sprite = sprites[5];
+                GetComponent<SpriteRenderer>().sprite = sprites[7];
                 break;
         }
     }
@@ -192,7 +191,7 @@ public class MyGrid : MonoBehaviour, IGrid
     /// </summary>
     public void ShowGrid()
     {
-        if (!ShowGreen)
+        if (!ShowGreen || !canPutTower)
         {
             Color color = HoldObject.Type switch
             {
@@ -200,7 +199,7 @@ public class MyGrid : MonoBehaviour, IGrid
                 //GridObjectType.End => Color.yellow,
                 //GridObjectType.Obstacle => Color.black,
                 //GridObjectType.Building => Color.gray,
-                //GridObjectType.NoPassGround => Color.blue,
+                //GridObjectType.NoBuildGround => Color.blue,
                 _ => Color.white
             };
             if(HoldObject.Type == GridObjectType.End)

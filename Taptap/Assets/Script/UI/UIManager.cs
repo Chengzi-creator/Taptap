@@ -16,10 +16,7 @@ public class UIManager : MonoBehaviour , IUIManager
     [Header("Text")]
     [SerializeField] private TextMeshProUGUI _coinText;
     [SerializeField] private TextMeshProUGUI _roundText;
-    [SerializeField] private TextMeshProUGUI enemyInformation;
-    [SerializeField] private TextMeshProUGUI enemyA;
-    [SerializeField] private TextMeshProUGUI enemyB;
-    [SerializeField] private TextMeshProUGUI enemyC;
+    [SerializeField] private TextMeshProUGUI[] enemyTexts;
     
     [Header("ImageAndText")]
     //[SerializeField] private List<ToggleImagePair> toggleImagePairs;
@@ -43,6 +40,13 @@ public class UIManager : MonoBehaviour , IUIManager
     [SerializeField] private Image enemyImageA;
     [SerializeField] private Image enemyImageB;
     [SerializeField] private Image enemyImageC;
+    [SerializeField] private Image enemyImageD;
+    [SerializeField] private Image enemyImageE;
+    [SerializeField] private Image enemyImageF;
+    [SerializeField] private Image enemyImageG;
+    [SerializeField] private Image enemyImageH;
+    [SerializeField] private Image[] enemyImages;
+    
     [SerializeField] private Image rf;
     [SerializeField] private Image rt;
     [SerializeField] private Image rl;
@@ -109,9 +113,19 @@ public class UIManager : MonoBehaviour , IUIManager
     [Header("HomeButton")]
     [SerializeField] private Button startButton;
     [SerializeField] private Button homeexitButton;
-    [SerializeField] private Button level0Button;
-    [SerializeField] private Button level1Button;
-    [SerializeField] private Button level2Button;
+    [SerializeField] private Button levelButton0;
+    [SerializeField] private Button levelButton1;
+    [SerializeField] private Button levelButton2;
+    [SerializeField] private Button levelButton3;
+    [SerializeField] private Button levelButton4;
+    [SerializeField] private Button levelButton5;
+    [SerializeField] private Button levelButton6;
+    [SerializeField] private Button levelButton7;
+    [SerializeField] private Button levelButton8;
+    [SerializeField] private Button levelButton9;
+    [SerializeField] private Button levelButton10;
+    [SerializeField] private Button levelButton11;
+    [SerializeField] private Button levelButton12;
     
     [SerializeField] private Image towerX;
     //private Image image;
@@ -119,16 +133,17 @@ public class UIManager : MonoBehaviour , IUIManager
     
     private ITowerManager.TowerType _selectedTowerType = ITowerManager.TowerType.NULL;
     
-    public bool isSpawning = false;
-    public bool IsSpawning
+    public bool IsSpawning = false;
+    public bool isSpawning
     {
-        get { return isSpawning; }
+        get { return IsSpawning; }
         set
         {
-            if (isSpawning != value)  // 检测值是否改变
+            if (IsSpawning != value)  // 检测值是否改变
             {
-                isSpawning = value;
-                OnIsSpawningChanged(isSpawning);  //当值改变时调用函数
+                IsSpawning = value;
+                OnIsSpawningChanged(IsSpawning);  //当值改变时调用函数
+                Debug.Log("ChangeAudio");
             }
         }
     }
@@ -218,11 +233,21 @@ public class UIManager : MonoBehaviour , IUIManager
         
         startButton.onClick.AddListener(OnstartButtonClick);
         exitButton.onClick.AddListener(OnexitButtonClick);
-        level0Button.onClick.AddListener(() => levelChoose(0));
-        level1Button.onClick.AddListener(() => levelChoose(1));
-        level2Button.onClick.AddListener(() => levelChoose(2));
-        
         spawnButton.onClick.AddListener(SpawnEnemy);
+        
+        levelButton0.onClick.AddListener(() => levelChoose(0));
+        levelButton1.onClick.AddListener(() => levelChoose(1));
+        levelButton2.onClick.AddListener(() => levelChoose(2));
+        levelButton3.onClick.AddListener(() => levelChoose(3));
+        levelButton4.onClick.AddListener(() => levelChoose(4));
+        levelButton5.onClick.AddListener(() => levelChoose(5));
+        levelButton6.onClick.AddListener(() => levelChoose(6));
+        levelButton7.onClick.AddListener(() => levelChoose(7));
+        levelButton8.onClick.AddListener(() => levelChoose(8));
+        levelButton9.onClick.AddListener(() => levelChoose(9));
+        levelButton10.onClick.AddListener(() => levelChoose(10));
+        levelButton11.onClick.AddListener(() => levelChoose(11));
+        levelButton12.onClick.AddListener(() => levelChoose(12));
         
         /*
         _showUnRotation = GetComponent<IShow>();
@@ -506,7 +531,7 @@ public class UIManager : MonoBehaviour , IUIManager
                     if (TeachText.Instance.talkCount == 0)
                     {
                         TeachText.Instance.talkCount = 1;
-                        TeachText.Instance.LoadDialogue();
+                        //TeachText.Instance.LoadDialogue();
                         //isTeaching1 = true;
                     }
                 }
@@ -516,7 +541,7 @@ public class UIManager : MonoBehaviour , IUIManager
                     if (TeachText.Instance.talkCount == 1)
                     {
                         TeachText.Instance.talkCount = 2;
-                        TeachText.Instance.LoadDialogue();
+                        //TeachText.Instance.LoadDialogue();
                         //isTeaching2 = true;
                     }
                 }
@@ -1012,7 +1037,7 @@ public class UIManager : MonoBehaviour , IUIManager
         if (mIndex == 1)
         {
             TeachText.Instance.talkCount = 6;
-            TeachText.Instance.LoadDialogue();
+            //TeachText.Instance.LoadDialogue();
         }
     }
 
@@ -1026,10 +1051,15 @@ public class UIManager : MonoBehaviour , IUIManager
     }
     
     public void ShowEnemyCountAndTypes(List<IEnemyManager.EnemyType> types, List<int> counts)
-    {
+    {   
+        if (types == null || counts == null || types.Count != counts.Count)
+        {
+            Debug.LogError("传入的列表为空或长度不一致！");
+            return;
+        }
+        
         if (types.Count != counts.Count)
         {
-            enemyInformation.text = "Error";
             return;
         }
         
@@ -1039,76 +1069,85 @@ public class UIManager : MonoBehaviour , IUIManager
             infoText += $"{types[i]}: {counts[i]}\n";
         }
         
-        enemyInformation.text = infoText;
         
-        for (int i = 0; i < types.Count; i++)
-        {
+        for (int i = 0,j = 0; i < types.Count; i++)
+        {   
+            Debug.Log(types[i]);
             switch (types[i])
-            {
+            {   
+                
                 case IEnemyManager.EnemyType.A:
-                    enemyA.text = $"{counts[i]}";
+                    enemyImages[j].sprite = enemyImageA.sprite;
+                    enemyImages[j].color = new Color(255, 255, 255, 255);
+                    enemyTexts[j++].text = $"{counts[i]}";
                     break;
                 
                 case IEnemyManager.EnemyType.B:
-                    enemyB.text = $"{counts[i]}";
+                    enemyImages[j].sprite = enemyImageB.sprite;
+                    enemyImages[j].color = new Color(255, 255, 255, 255);
+                    enemyTexts[j++].text = $"{counts[i]}";
                     break;
                 
                 case IEnemyManager.EnemyType.C:
-                    enemyC.text = $"{counts[i]}";
+                    enemyImages[j].sprite = enemyImageC.sprite;
+                    enemyImages[j].color = new Color(255, 255, 255, 255);
+                    enemyTexts[j++].text = $"{counts[i]}";
                     break;
                 
+                case IEnemyManager.EnemyType.D:
+                    enemyImages[j].sprite = enemyImageD.sprite;
+                    enemyImages[j].color = new Color(255, 255, 255, 255);
+                    enemyTexts[j++].text = $"{counts[i]}";
+                    break;
+                
+                case IEnemyManager.EnemyType.E:
+                    enemyImages[j].sprite = enemyImageE.sprite;
+                    enemyImages[j].color = new Color(255, 255, 255, 255);
+                    enemyTexts[j++].text = $"{counts[i]}";
+                    break;
+                
+                case IEnemyManager.EnemyType.F:
+                    enemyImages[j].sprite = enemyImageF.sprite;
+                    enemyImages[j].color = new Color(255, 255, 255, 255);
+                    enemyTexts[j++].text = $"{counts[i]}";
+                    break;
+                
+                case IEnemyManager.EnemyType.G:
+                    enemyImages[j].sprite = enemyImageG.sprite;
+                    enemyImages[j].color = new Color(255, 255, 255, 255);
+                    enemyTexts[j++].text = $"{counts[i]}";
+                    break;
+                
+                case IEnemyManager.EnemyType.H:
+                    enemyImages[j].sprite = enemyImageH.sprite;
+                    enemyImages[j].color = new Color(255, 255, 255, 255);
+                    enemyTexts[j++].text = $"{counts[i]}";
+                    break;
+                
+                // case IEnemyManager.EnemyType.I:
+                //     enemyImages[j].sprite = enemyImageI.sprite;
+                //     enemyImages[j].color = new Color(255, 255, 255, 255);
+                //     enemyTexts[j++].text = $"{counts[i]}";
+                //     break;
+                
                 default:
-                  
                     return;
+            }
+
+            for (; j < enemyImages.Length; j++)
+            {
+                enemyImages[j].sprite = null;
+                enemyTexts[j].text = "";
+                enemyImages[j].color = new Color(255, 255, 255, 0); //隐藏图片
             }
         }
     }
 
-    public void EnemyReduce(List<IEnemyManager.EnemyType> types, List<int> counts,IEnemyManager.EnemyType type)
-    {
-        if (types.Count != counts.Count)
-        {
-            enemyInformation.text = "Error";
-            return;
-        }
-
-        int index = types.IndexOf(type);
-
-        // if (index != -1 && counts[index] > 0)
-        // {
-        //     counts[index]--;
-        // }
-        // else if (index == -1)
-        // {
-        //     enemyInformation.text = $"Enemy type {type} none";
-        //     return;
-        // }
-        // else
-        // {
-        //     enemyInformation.text = $"No more {type}s left.";
-        //     return;
-        // }
-        
-        string infoText = "Enemy:\n";
-        for (int i = 0; i < types.Count; i++)
-        {
-            infoText += $"{types[i]}: {counts[i]}\n";
-        }
-        
-        enemyInformation.text = infoText;
-    }
-
+   
     private void ShowEnemyImage(List<IEnemyManager.EnemyType> types)
     {
         
     }
-    
-    // private void SetAlpha(Image image, float alpha)
-    // {
-    //     Color color = image.color;
-    //     color.a = alpha;
-    //     image.color = color;
-    // }
     
     public void SpawnEnemy()
     {
@@ -1127,7 +1166,7 @@ public class UIManager : MonoBehaviour , IUIManager
             if (TeachText.Instance.talkCount == 2)
             {
                 TeachText.Instance.talkCount = 3;
-                TeachText.Instance.LoadDialogue();
+                //TeachText.Instance.LoadDialogue();
             }
             
             if (isTeaching3)
@@ -1135,7 +1174,7 @@ public class UIManager : MonoBehaviour , IUIManager
                 if (TeachText.Instance.talkCount == 3)
                 {
                     TeachText.Instance.talkCount = 4;
-                    TeachText.Instance.LoadDialogue();
+                    //TeachText.Instance.LoadDialogue();
                 }
             }
             
@@ -1144,7 +1183,7 @@ public class UIManager : MonoBehaviour , IUIManager
                 if (TeachText.Instance.talkCount == 4)
                 {
                     TeachText.Instance.talkCount = 5;
-                    TeachText.Instance.LoadDialogue();
+                    //TeachText.Instance.LoadDialogue();
                 }
             }
             

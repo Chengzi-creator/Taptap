@@ -226,6 +226,7 @@ public class PlayStateMachine
         {
             UIManager.Instance.isSpawning = false;
             EnemyManager.Instance.Close();
+            ColorBlockManager.Instance.ReduceAllColorBlock();
         }
 
         public void EnemyDie(IEnemy enemy)

@@ -70,6 +70,9 @@ public class BaseEnemy : MonoBehaviour, IEnemy
     {
         CurrentHP -= damage * defense;
         Debug.LogWarning(CurrentHP);
+//        Debug.Log("be Attacked");
+//        Debug.LogWarning(currentHP);
+        //currentHP -= damage;
         this.colorTime[colorDamage] = GlobalSetting.Instance.GlobalSettingSO.GetColorRemainTime(colorDamage);
         SetHorn(new Vector3(CurrentHP.x/maxHP.x , CurrentHP.y/maxHP.y , CurrentHP.z/maxHP.z));
     }

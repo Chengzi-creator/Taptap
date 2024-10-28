@@ -51,7 +51,17 @@ public class ColorBlockManager : MonoBehaviour, IColorBlockManager
         colorBlockActive.Add(colorBlock);
     }
 
-    private ColorBlock Get()
+    public void ReduceAllColorBlock()
+    {
+        for (int i = 0; i < colorBlockActive.Count; i++)
+        {
+            colorBlockPool.Add(colorBlockActive[i]);
+            colorBlockActive[i].gameObject.SetActive(false);
+        }
+        colorBlockActive.Clear();
+    }
+
+        private ColorBlock Get()
     {
         ColorBlock colorBlock;
         if (colorBlockPool.Count == 0)
