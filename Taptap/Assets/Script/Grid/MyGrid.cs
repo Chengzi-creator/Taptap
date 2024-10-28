@@ -191,7 +191,7 @@ public class MyGrid : MonoBehaviour, IGrid
     /// </summary>
     public void ShowGrid()
     {
-        if (!ShowGreen)
+        if (!ShowGreen || !canPutTower)
         {
             Color color = HoldObject.Type switch
             {
@@ -199,7 +199,7 @@ public class MyGrid : MonoBehaviour, IGrid
                 //GridObjectType.End => Color.yellow,
                 //GridObjectType.Obstacle => Color.black,
                 //GridObjectType.Building => Color.gray,
-                GridObjectType.NoBuildGround => Color.blue,
+                //GridObjectType.NoBuildGround => Color.blue,
                 _ => Color.white
             };
             if(HoldObject.Type == GridObjectType.End)
