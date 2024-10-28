@@ -17,6 +17,9 @@ public class UIManager : MonoBehaviour , IUIManager
     [SerializeField] private TextMeshProUGUI _coinText;
     [SerializeField] private TextMeshProUGUI _roundText;
     [SerializeField] private TextMeshProUGUI[] enemyTexts;
+    [SerializeField] private GameObject buildText;
+    [SerializeField] private GameObject destroyText;
+    [SerializeField] private GameObject rotateText;
     
     [Header("ImageAndText")]
     //[SerializeField] private List<ToggleImagePair> toggleImagePairs;
@@ -61,8 +64,7 @@ public class UIManager : MonoBehaviour , IUIManager
     [SerializeField] private Image ds;
     [SerializeField] private Image dc;
     [SerializeField] private Image dsaw;
-    
-    
+   
     [Header("PauseButton")]
     [SerializeField] private Button exitButton;
     [SerializeField] private Button restartButton;
@@ -109,6 +111,8 @@ public class UIManager : MonoBehaviour , IUIManager
     [SerializeField] private GameObject dC;
     [SerializeField] private GameObject dS;
     [SerializeField] private GameObject dSA;
+    [SerializeField] private GameObject attackTable;
+
     
     [Header("HomeButton")]
     [SerializeField] private Button startButton;
@@ -212,6 +216,10 @@ public class UIManager : MonoBehaviour , IUIManager
         round.SetActive(false);
         teachText.SetActive(false);
         enemyImage.SetActive(false);
+        attackTable.SetActive(false);
+        buildText.SetActive(false);
+        destroyText.SetActive(false);
+        rotateText.SetActive(false);
         exitButton.onClick.AddListener(OnexitButtonClick);
         backButton.onClick.AddListener(OnbackButtonClick);
         setupButton.onClick.AddListener(OnsetupButtonClick);
@@ -294,20 +302,7 @@ public class UIManager : MonoBehaviour , IUIManager
         _buttonDD.onClick.AddListener(() => OnButtonClick(_buttonDD));
         _buttonDSA.onClick.AddListener(() => OnButtonClick(_buttonDSA));
 
-        if (mIndex == 0)
-        {   
-            // rf.color = new Color(0, 0, 0);
-            // rl.color = new Color(0, 0, 0);
-            // bf.color = new Color(0, 0, 0);
-            // bl.color = new Color(0, 0, 0);
-            // gf.color = new Color(0, 0, 0);
-            // gt.color = new Color(0, 0, 0);
-            // gl.color = new Color(0, 0, 0);
-            // dsaw.color = new Color(0, 0, 0);
-            // dh.color = new Color(0, 0, 0);
-            // ds.color = new Color(0, 0, 0);
-            // dc.color = new Color(0, 0, 0);
-        }
+        
         
     }
 
@@ -370,21 +365,58 @@ public class UIManager : MonoBehaviour , IUIManager
     {
         mIndex = index;
         PlayStateMachine.Instance.ReInit(index);
-        // if (mIndex == 0)这是什么问题？？？？？？？？
-        // {
-        //     teachText.SetActive(true);
-        //     TeachText.Instance.LoadDialogue();
-        //     isTeaching = true;
-        // }
 
-        if (mIndex == 1)
+        if (mIndex == 0 || mIndex == 1)
         {
-            TeachText.Instance.talkCount = 6;
+            if (mIndex == 1)
+            {
+                TeachText.Instance.talkCount = 6;
+                TeachText.Instance.LoadDialogue();
+            }
+
+            teachText.SetActive(true);
+            //isTeaching0 = true;
             TeachText.Instance.LoadDialogue();
         }
-        teachText.SetActive(true);
-        //isTeaching0 = true;
-        TeachText.Instance.LoadDialogue();
+        else
+        {
+            teachText.SetActive(false);
+            attackTable.SetActive(true);
+        }
+        
+        #region 禁用
+
+        if (mIndex == 0)
+        {   
+            Debug.Log("ChangeColor");
+            rf.color = new Color(56, 56, 56);
+            rl.color = new Color(56, 56, 56);
+            bf.color = new Color(56, 56, 56);
+            bt.color = new Color(56, 56, 56);
+            bl.color = new Color(56, 56, 56);
+            gf.color = new Color(56, 56, 56);
+            gl.color = new Color(56, 56, 56);
+            dsaw.color = new Color(56, 56, 56);
+            dh.color = new Color(56, 56, 56);
+            ds.color = new Color(56, 56, 56);
+            dc.color = new Color(56, 56, 56);
+        }
+        else
+        {
+            rf.color = new Color(255, 255, 255);
+            rl.color = new Color(255, 255, 255);
+            bf.color = new Color(255, 255, 255);
+            bt.color = new Color(255, 255, 255);
+            bl.color = new Color(255, 255, 255);
+            gf.color = new Color(255, 255, 255);
+            gl.color = new Color(255, 255, 255);
+            dsaw.color = new Color(255, 255, 255);
+            dh.color = new Color(255, 255, 255);
+            ds.color = new Color(255, 255, 255);
+            dc.color = new Color(255, 255, 255);
+        }
+        
+        #endregion
         
         ResumeGame();
         overMasks.SetActive(false);
@@ -430,11 +462,15 @@ public class UIManager : MonoBehaviour , IUIManager
         round.SetActive(false);
         teachText.SetActive(false);
         enemyImage.SetActive(false);
+        ClickOut();
+        _selectDestroy = false;
     }
     
     public void OnRestartButtonClick()
     {   
         PlayStateMachine.Instance.RestartWave();
+        ClickOut();
+        _selectDestroy = false;
         //PlayStateMachine.Instance.ReInit(mIndex);
         overMasks.SetActive(false);
         ResumeGame();//恢复游戏
@@ -514,6 +550,9 @@ public class UIManager : MonoBehaviour , IUIManager
             ShowModeGrid();
             RotateTower();
             UpdateMousePosition();
+            buildText.SetActive(true);
+            destroyText.SetActive(false);
+            rotateText.SetActive(true);
             
             if (EventSystem.current.IsPointerOverGameObject())
             {
@@ -525,7 +564,8 @@ public class UIManager : MonoBehaviour , IUIManager
             {   
                 BuildSelectedTower();
                 //DestroyImage(image);
-                
+                buildText.SetActive(false);
+                rotateText.SetActive(false);
                 if (isTeaching0)
                 {
                     if (TeachText.Instance.talkCount == 0)
@@ -545,10 +585,6 @@ public class UIManager : MonoBehaviour , IUIManager
                         //isTeaching2 = true;
                     }
                 }
-
-               
-
-
             }
 
             if (Input.GetMouseButtonDown(1)) //右键退出建造模式
@@ -559,6 +595,8 @@ public class UIManager : MonoBehaviour , IUIManager
                 showCount = 0;
                 faceDirection = 0;
                 _selectDestroy = false;
+                buildText.SetActive(false);
+                rotateText.SetActive(false);
             }
         }
     }
@@ -570,11 +608,15 @@ public class UIManager : MonoBehaviour , IUIManager
             UpdateMousePosition();
             ClickOut();
             DestroyTowerImage();
+            buildText.SetActive(false);
+            rotateText.SetActive(false);
+            destroyText.SetActive(true);
             
             if (Input.GetMouseButtonDown(0))  //左键销毁
             {   
                 //获取当前鼠标所指地图上的塔，然后传入TowerDestroy？
                 TowerDestroy();
+                destroyText.SetActive(false);
             }
 
             if (Input.GetMouseButtonDown(1))
@@ -583,6 +625,7 @@ public class UIManager : MonoBehaviour , IUIManager
                 ClickOut();
                 showCount = 0;
                 faceDirection = 0;
+                destroyText.SetActive(false);
             }
         }
     }
@@ -1034,11 +1077,53 @@ public class UIManager : MonoBehaviour , IUIManager
         Time.timeScale = 1f;
         PlayStateMachine.Instance.ExitPlayState();
         PlayStateMachine.Instance.ReInit(++mIndex);
+
         if (mIndex == 1)
         {
             TeachText.Instance.talkCount = 6;
             //TeachText.Instance.LoadDialogue();
+            teachText.SetActive(true);
         }
+        else
+        {
+            teachText.SetActive(false);
+            attackTable.SetActive(true);
+        }
+        
+        
+        #region 禁用
+
+        if (mIndex == 0)
+        {   
+            rf.color = new Color(56, 56, 56);
+            rl.color = new Color(56, 56, 56);
+            bf.color = new Color(56, 56, 56);
+            bt.color = new Color(56, 56, 56);
+            bl.color = new Color(56, 56, 56);
+            gf.color = new Color(56, 56, 56);
+            gl.color = new Color(56, 56, 56);
+            dsaw.color = new Color(56, 56, 56);
+            dh.color = new Color(56, 56, 56);
+            ds.color = new Color(56, 56, 56);
+            dc.color = new Color(56, 56, 56);
+        }
+        else
+        {
+            rf.color = new Color(255, 255, 255);
+            rl.color = new Color(255, 255, 255);
+            bf.color = new Color(255, 255, 255);
+            bt.color = new Color(255, 255, 255);
+            bl.color = new Color(255, 255, 255);
+            gf.color = new Color(255, 255, 255);
+            gl.color = new Color(255, 255, 255);
+            dsaw.color = new Color(255, 255, 255);
+            dh.color = new Color(255, 255, 255);
+            ds.color = new Color(255, 255, 255);
+            dc.color = new Color(255, 255, 255);
+            
+        }
+        
+        #endregion
     }
 
     #endregion
