@@ -1142,7 +1142,8 @@ public class UIManager : MonoBehaviour , IUIManager
     }
     
     public void ShowEnemyCountAndTypes(List<IEnemyManager.EnemyType> types, List<int> counts)
-    {   
+    {
+        int h,j = 0;
         if (types == null || counts == null || types.Count != counts.Count)
         {
             Debug.LogError("传入的列表为空或长度不一致！");
@@ -1161,7 +1162,7 @@ public class UIManager : MonoBehaviour , IUIManager
         }
         
         
-        for (int i = 0,j = 0; i < types.Count; i++)
+        for (int i = 0; i < types.Count; i++)
         {   
             if (types.Count > enemyImages.Length || types.Count > enemyTexts.Length)
             {
@@ -1230,13 +1231,18 @@ public class UIManager : MonoBehaviour , IUIManager
                     continue;
             }
 
-            for (; j < enemyImages.Length; j++)
-            {
-                enemyImages[j].sprite = null;
-                enemyTexts[j].text = "";
-                enemyImages[j].color = new Color(255, 255, 255, 0); //隐藏图片
-            }
+           
         }
+
+        h = j;
+        for (; h < enemyImages.Length; h++)
+        {
+            enemyImages[h].sprite = null;
+            enemyTexts[h].text = "";
+            enemyImages[h].color = new Color(255, 255, 255, 0); //隐藏图片
+        }
+
+        j = 0;
     }
 
    
