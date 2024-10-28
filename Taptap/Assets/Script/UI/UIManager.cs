@@ -193,7 +193,7 @@ public class UIManager : MonoBehaviour , IUIManager
             {
                 instance = Instantiate(Resources.Load<GameObject>("Prefab/GameCanvas")).GetComponent<UIManager>();
                 instance.InitializeUI();
-                instance._coinText.text = "Coin:" + instance.Coin;
+                instance._coinText.text = "       " + instance.Coin;
             }
             return instance;
         }
@@ -1060,7 +1060,7 @@ public class UIManager : MonoBehaviour , IUIManager
 
     public void coinChange(int coinCount)
     {
-        _coinText.text = "Coin : " + coinCount.ToString();
+        _coinText.text = "       " + coinCount.ToString();
     }
 
     public void RoundChange(int level,int round)
