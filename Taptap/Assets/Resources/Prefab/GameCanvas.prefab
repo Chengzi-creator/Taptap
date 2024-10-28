@@ -1796,6 +1796,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6be6f09ff4c4d7582ce76d90143c9c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _audioSourceBuild: {fileID: 0}
+  _audioSourceBuildSuccess: {fileID: 0}
   _coinText: {fileID: 7856269043474032989}
   _roundText: {fileID: 1120957086372230173}
   enemyTexts:
@@ -6651,6 +6653,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -20.7
       objectReference: {fileID: 0}
+    - target: {fileID: 2616524846628872451, guid: 49e00de03bff03c41b4cad9ee206b7c3, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: f60241b2e1816d544969f40db13956df, type: 3}
     - target: {fileID: 2647048571539400641, guid: 49e00de03bff03c41b4cad9ee206b7c3, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -7427,7 +7433,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5890550673351038879, guid: 49e00de03bff03c41b4cad9ee206b7c3, type: 3}
       propertyPath: m_text
-      value: 'Coin:'
+      value: '
+
+'
       objectReference: {fileID: 0}
     - target: {fileID: 5890550673351038879, guid: 49e00de03bff03c41b4cad9ee206b7c3, type: 3}
       propertyPath: m_fontAsset
@@ -7439,6 +7447,22 @@ PrefabInstance:
       objectReference: {fileID: 6584527225198431303, guid: ce85a57787ba5724a98656004fc70d57, type: 2}
     - target: {fileID: 5890550673351038879, guid: 49e00de03bff03c41b4cad9ee206b7c3, type: 3}
       propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6132022743835229210, guid: 49e00de03bff03c41b4cad9ee206b7c3, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 75
+      objectReference: {fileID: 0}
+    - target: {fileID: 6132022743835229210, guid: 49e00de03bff03c41b4cad9ee206b7c3, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 75
+      objectReference: {fileID: 0}
+    - target: {fileID: 6132022743835229210, guid: 49e00de03bff03c41b4cad9ee206b7c3, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -62.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6132022743835229210, guid: 49e00de03bff03c41b4cad9ee206b7c3, type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6158797721644231810, guid: 49e00de03bff03c41b4cad9ee206b7c3, type: 3}
