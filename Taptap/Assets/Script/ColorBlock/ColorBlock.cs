@@ -5,10 +5,13 @@ public class ColorBlock : MonoBehaviour
     public float Speed;
     private Vector2 target;
     private bool isActive = false;
+    [SerializeField]
+    private SpriteRenderer spriteRenderer;
     public void ReInit(Vector2 target,int color)
     {
         this.target = target;
         isActive = true;
+        spriteRenderer.color = ColorBlockManager.Instance.GetColor(color);
     }
 
 
