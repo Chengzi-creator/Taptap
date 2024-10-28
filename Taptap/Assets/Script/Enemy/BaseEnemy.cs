@@ -14,6 +14,10 @@ public class BaseEnemy : MonoBehaviour, IEnemy
 
     protected bool isArrived;
     public bool IsArrived => isArrived;
+    public bool IsClosed
+    {
+        set => isArrived = value;
+    }
     protected int damage;
     protected Vector3 maxHP;
     protected Vector3 currentHP;

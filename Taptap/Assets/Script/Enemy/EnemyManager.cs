@@ -43,6 +43,7 @@ public class EnemyManager : IEnemyManager
         for(int i = enemyList.Count - 1 ; i >= 0 ; i--)
         {
             enemyPool[(int)enemyList[i].Type].Push(enemyList[i]);
+            enemyList[i].IsClosed = true;
             enemyList[i].Die();
             enemyList.RemoveAt(i);
         }
