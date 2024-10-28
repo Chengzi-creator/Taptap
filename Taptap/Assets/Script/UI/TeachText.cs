@@ -1,8 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using System;
+using Unity.VisualScripting;
+using UnityEngine.EventSystems;
+using UnityEngine;
 
 public class TeachText : MonoBehaviour
 {
@@ -60,16 +64,47 @@ public class TeachText : MonoBehaviour
                 StartDialogue(new List<string>
                 {    
                     "(按Enter继续)",
-                    "欢迎来到光怪梦离的世界!在本关中,你将会学到本游戏的基础操作.",
-                    "在光怪梦离的世界里,灯塔是所有建筑的立足之本,用于抵御怪物的防御塔只能建造在有光照亮的地块.",
-                    "现在,在建筑栏里选择红色的煤油灯,在地图的中心位置花费初始的光之精华建造你的第一个灯塔!"
+                    "欢迎来到光怪梦离的世界！在本关中，你将会学到本游戏的基础操作。",
+                    "在光怪梦离的世界里，灯塔是所有建筑的立足之本，用于抵御怪物的防御塔只能建造在有光照亮的地块。",
+                    "现在，在建筑栏里选择红色的煤油灯，在地图的中心位置花费初始的光之精华建造你的第一个灯塔！"
                 });
                 break;
 
             case 1:
                 StartDialogue(new List<string>
                 {
-                   
+                   "趁热打灯，在煤油灯旁建造你的第一个水晶防御塔吧！"
+                });
+                break;
+            
+            case 2:
+                StartDialogue(new List<string>
+                {
+                    "你已经成功地构筑了你的防线！在红色灯塔内的防御塔会造成红色伤害，有效打击红色的敌人。",
+                    "现在你可以点击迎敌按钮放出敌人了，敌人死亡时，会掉落相应的光之精华。注意，敌人来袭时无法建造任何建筑！"
+                });
+                break;
+            
+            case 3:
+                StartDialogue(new List<string>
+                {
+                    "下个波次的怪物不同于刚刚我们遇到的怪物，它具有蓝色特征的身体，因此它必须要用蓝色灯塔照亮的防御塔来抵御。",
+                    "待怪物消失后，点击右下角的拆除按钮，依次拆除防御塔与灯塔，将原本的红色煤油灯替换为蓝色煤油灯后,点击迎敌按钮。"
+                });
+                break;
+            
+            case 4:
+                StartDialogue(new List<string>
+                {
+                   "有一个怪物进入终点造成了扣血没关系，血量将会随着收集到怪物死亡掉落的色块慢慢恢复，但当角色显示黑白图案时，说明你的角色岌岌可危，无法再承受更多伤害了。",
+                   "再次点击出怪按钮。"
+                });
+                break;
+            
+            case 5:
+                StartDialogue(new List<string>
+                {
+                    "你完成本关的教程了！"
                 });
                 break;
 
@@ -92,16 +127,11 @@ public class TeachText : MonoBehaviour
         DisplayNextSentence();
     }
 
-    void Update()
+    private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Return) && !isTyping)
         {
             DisplayNextSentence();
-        }
-
-        if (Count == 2)
-        {
-            talkConut = 1;
         }
     }
 
@@ -140,19 +170,34 @@ public class TeachText : MonoBehaviour
 
     private void EndDialogue()
     {
-        dialogueText.text = "";
+        //dialogueText.text = "";
         //nextButton.gameObject.SetActive(false);
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
 
         if (talkConut == 0)
         {
-           
+            UIManager.Instance.isTeaching0 = true;//建造红色煤油
         }
 
         if (talkConut == 1)
+        {   
+            Debug.Log("isTeaching1");
+            UIManager.Instance.isTeaching1 = true;//建造水晶
+        }
+
+        if (talkConut == 2)
         {
-           
-            gameObject.SetActive(false);
+            UIManager.Instance.isTeaching2 = true;//出怪
+        }
+        
+        if (talkConut == 3)
+        {
+            UIManager.Instance.isTeaching3 = true;//拆除加第二轮出怪
+        }
+        
+        if (talkConut == 4)
+        {
+            UIManager.Instance.isTeaching4 = true;//拆除加第二轮出怪
         }
     }
 }
