@@ -68,11 +68,11 @@ public class BaseEnemy : MonoBehaviour, IEnemy
 
     public virtual void BeAttacked(Vector3 damage , int colorDamage)
     {
-<<<<<<< Updated upstream
         CurrentHP -= damage * defense;
         Debug.LogWarning(CurrentHP);
-        currentHP -= damage;
->>>>>>> Stashed changes
+//        Debug.Log("be Attacked");
+//        Debug.LogWarning(currentHP);
+        //currentHP -= damage;
         this.colorTime[colorDamage] = GlobalSetting.Instance.GlobalSettingSO.GetColorRemainTime(colorDamage);
         SetHorn(new Vector3(CurrentHP.x/maxHP.x , CurrentHP.y/maxHP.y , CurrentHP.z/maxHP.z));
     }

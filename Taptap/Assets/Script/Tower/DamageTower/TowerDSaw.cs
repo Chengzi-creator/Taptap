@@ -10,6 +10,7 @@ public class TowerDSaw : BaseDamageTower
     protected LinkedList<float> lockedTime;
     public override void Init(ITowerManager.TowerAttribute towerAttribute, Vector2Int position , int faceDirection)
     {
+        Debug.Log("init saw");
         this.type = ITowerManager.TowerType.D_saw;
         this.lockedTime = new LinkedList<float>();
         this.lockedPosition = new LinkedList<Vector2Int>();
@@ -54,6 +55,10 @@ public class TowerDSaw : BaseDamageTower
     }
     protected override void BulletFly(float deltaTime)
     {
+        if(lockedDirection.Count != lockedPosition.Count || lockedDirection.Count != lockedTime.Count || lockedTime.Count != lockedPosition.Count)
+        {
+            Debug.LogError("error not the same");
+        }
         var node = lockedTime.First;
         while(node != null)
         {
@@ -63,6 +68,13 @@ public class TowerDSaw : BaseDamageTower
         node = lockedTime.First;
         while(node != null && node.Value <= 0)
         {
+            Debug.Log(lockedTime.Count + " " + lockedDirection.Count + " " + lockedPosition.Count);
+            if (lockedTime.First == null)
+                Debug.Log("lockedTimePosition is null");
+            if (lockedPosition.First == null)
+                Debug.Log("lockedPosition is null");
+            if (lockedDirection.First == null)
+                Debug.Log("lockedDirction is null");
             Vector2Int position = lockedPosition.First.Value;
             Vector3Int direction = lockedDirection.First.Value;
             lockedPosition.RemoveFirst();
@@ -76,9 +88,9 @@ public class TowerDSaw : BaseDamageTower
             if(MyGridManager.Instance.GetIGrid(nextPosition) == null)
             {
 
-                if(lockedDirection.First.Value.z == 0)
+                if(direction.z == 0)
                     continue;
-                else if(lockedDirection.First.Value.z != 0)
+                else if(direction.z != 0)
                 {
                     direction.z--;
                     direction.x = -direction.x;
