@@ -63,13 +63,18 @@ public class BaseEnemy : MonoBehaviour, IEnemy
         }
     }
     protected float moveScale;
-    // public float MoveScale => moveScale;
     public float DisToDestination => MyGridManager.Instance.GetPathCost(pathIndex) - pathNodeIndex - moveScale ;
+
+    protected GameObject icon_3;
+    protected GameObject icon_5;
+    protected GameObject icon_6;
+    protected GameObject icon_7;
 
     public virtual void BeAttacked(Vector3 damage , int colorDamage)
     {
+<<<<<<< Updated upstream
         CurrentHP -= damage * defense;
-        Debug.LogWarning(CurrentHP);
+        // Debug.LogWarning(CurrentHP);
 //        Debug.Log("be Attacked");
 //        Debug.LogWarning(currentHP);
         //currentHP -= damage;
@@ -86,6 +91,7 @@ public class BaseEnemy : MonoBehaviour, IEnemy
             ColorBlockManager.Instance.CreateColorBlock(Position, blockNum.y, 2);
             ColorBlockManager.Instance.CreateColorBlock(Position, blockNum.z, 4);
         }
+        VFXManager.Instance.CreateVFX_Monster_Dead(Position);
 
         //        Debug.Log("die");
     }
@@ -110,11 +116,13 @@ public class BaseEnemy : MonoBehaviour, IEnemy
             }
             if(nextPosition.x - beginPosition.x > 0)
             {
-                transform.localScale = new Vector3( Mathf.Abs(transform.localScale.x) , transform.localScale.y , transform.localScale.z);
+                transform.GetComponent<SpriteRenderer>().flipX = false;
+                // transform.localScale = new Vector3( Mathf.Abs(transform.localScale.x) , transform.localScale.y , transform.localScale.z);
             }
             else if(nextPosition.x - beginPosition.x < 0)
             {
-                transform.localScale = new Vector3(- Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+                transform.GetComponent<SpriteRenderer>().flipX = true;
+                // transform.localScale = new Vector3(- Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
             }
         }
     }
@@ -156,26 +164,45 @@ public class BaseEnemy : MonoBehaviour, IEnemy
         // {
 //钱
         // }
+        if(currentColor[3])
+        {
+            icon_3.SetActive(true);
+        }
+        else
+        {
+            icon_3.SetActive(false);
+        }
+
         if(currentColor[5])
         {
             timeScale = GlobalSetting.Instance.GlobalSettingSO.GetBuffValue(5);
+            icon_5.SetActive(true);
         }
         else
         {
             timeScale = 1;
+            icon_5.SetActive(false);
         }
 
         if(currentColor[6])
         {
             CurrentHP -= GlobalSetting.Instance.GlobalSettingSO.GetBuffValue(6) * deltaTime * Vector3.one;
+            icon_6.SetActive(true);
         }
+        else
+        {
+            icon_6.SetActive(false);
+        }
+
         if(currentColor[7])
         {
             defense = GlobalSetting.Instance.GlobalSettingSO.GetBuffValue(7);
+            icon_7.SetActive(true);
         }
         else
         {
             defense = 1;
+            icon_7.SetActive(false);
         }
     }
 
@@ -189,6 +216,10 @@ public class BaseEnemy : MonoBehaviour, IEnemy
         greenRender = transform.Find("green").GetComponent<SpriteRenderer>();
         blueRender = transform.Find("blue").GetComponent<SpriteRenderer>();
         this.ReInit(enemyAttribute , pathIndex);
+        this.icon_3 = transform.Find("3").gameObject;
+        this.icon_5 = transform.Find("5").gameObject;
+        this.icon_6 = transform.Find("6").gameObject;
+        this.icon_7 = transform.Find("7").gameObject;
     }
 
     public virtual void ReInit(IEnemyManager.EnemyAttribute enemyAttribute , int pathIndex)
@@ -214,11 +245,13 @@ public class BaseEnemy : MonoBehaviour, IEnemy
 
         if (nextPosition.x - beginPosition.x > 0)
         {
-            transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+            transform.GetComponent<SpriteRenderer>().flipX = false;
+            // transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
         }
         else if (nextPosition.x - beginPosition.x < 0)
         {
-            transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+            transform.GetComponent<SpriteRenderer>().flipX = true;
+            // transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
         }
     }
 
