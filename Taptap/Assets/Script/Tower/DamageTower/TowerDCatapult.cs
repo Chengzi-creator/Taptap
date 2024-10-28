@@ -50,7 +50,7 @@ public class TowerDCatapult : BaseDamageTower
             lockedEnemy.RemoveFirst();
             lockedTime.RemoveFirst();
             node = lockedTime.First;
-            VFXManager.Instance.CreateVFX_Attack_Toushiqi(lockedEnemy.First.Value.MapPos() , TowerManager.Instance.GetColor(lockedEnemy.First.Value.MapPos()));
+            VFXManager.Instance.CreateVFX_Attack_Toushiqi(lockedEnemy.First.Value.MapPos , TowerManager.Instance.GetColor(lockedEnemy.First.Value.MapPos));
         }
     }
     protected override void WaitCD(float deltaTime)
