@@ -102,7 +102,7 @@ public class VFXManager
         lineRenderer.SetPosition(0, startWorldPos);
         lineRenderer.SetPosition(1, endWorldPos);
         vfx.SetColor(GetColor(color));
-        DelayToInvoke.Instance.StartDelayToInvokeDo(Reduce, vfx, 0.5f);
+        DelayToInvoke.Instance.StartDelayToInvokeDo(Reduce, vfx, 0.1f);
     }
 
     public void CreateVFX_Attack_Chuizi(Vector2Int position, int color = 7)
