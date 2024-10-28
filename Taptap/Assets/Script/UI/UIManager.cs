@@ -739,7 +739,7 @@ public class UIManager : MonoBehaviour , IUIManager
     
     private void ClickGT()
     {
-        if (mIndex != 0)
+        if (isTeaching3)
         {
             _selectedTowerType = ITowerManager.TowerType.B_torch_G;
 
@@ -796,7 +796,7 @@ public class UIManager : MonoBehaviour , IUIManager
     }
     private void ClickBT()
     {
-        if (isTeaching3)
+        if (mIndex != 0)
         {
             _selectedTowerType = ITowerManager.TowerType.B_torch_B;
 
