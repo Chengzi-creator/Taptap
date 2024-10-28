@@ -44,7 +44,7 @@ public class VFXManager
         instance.prefab_VFX_Attack_Tuci = Resources.Load<GameObject>("Prefab/UseVFX/VFX_Attack_Ziguang_main");
         instance.prefab_VFX_Attack_FeiBiao = Resources.Load<GameObject>("Prefab/UseVFX/VFX_Attack_FeiBiao");
         instance.prefab_VFX_Attack_Chuizi = Resources.Load<GameObject>("Prefab/UseVFX/VFX_Attack_Chuizi");
-        instance.prefab_VFX_Attack_Toushiqi = Resources.Load<GameObject>("Prefab/UseVFX/VFX_Attack_Toushiqi");
+        instance.prefab_VFX_Attack_Toushiqi = Resources.Load<GameObject>("Prefab/UseVFX/VFX_Attack_Toushiqi_new");
         instance.prefab_VFX_Attack_Lianju = Resources.Load<GameObject>("Prefab/UseVFX/VFX_Attack_Lianju");
 
         instance.prefab_VFX_Range_Torch = Resources.Load<GameObject>("Prefab/UseVFX/VFX_Range_Torch");
