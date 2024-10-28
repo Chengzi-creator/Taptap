@@ -98,16 +98,16 @@ public class PlayStateMachine
         HP = 100;
     }
 
-    public void Close()
-    {
-        EnemyManager.Instance.Close();
-        TowerManager.Instance.Close();
-        // MyGridManager.Instance.Close();
-        MyGridManager.Instance.UnloadLevel();
-        ChangeState(PlayStateType.Empty);
-        Debug.Log("Close PlayStateMachine");
+    // public void Close()
+    // {
+    //     EnemyManager.Instance.Close();
+    //     TowerManager.Instance.Close();
+    //     // MyGridManager.Instance.Close();
+    //     MyGridManager.Instance.UnloadLevel();
+    //     ChangeState(PlayStateType.Empty);
+    //     Debug.Log("Close PlayStateMachine");
 
-    }
+    // }
     public void UpdateState(float deltaTime)
     {
         // Debug.Log(deltaTime);
@@ -182,7 +182,13 @@ public class PlayStateMachine
 
     public void ExitPlayState()
     {
+        // return ;
+        EnemyManager.Instance.Close();
+        TowerManager.Instance.Close();
+        // MyGridManager.Instance.Close();
+        MyGridManager.Instance.UnloadLevel();
         ChangeState(PlayStateType.Empty);
+        Debug.Log("Close PlayStateMachine");
     }
 
     
