@@ -36,28 +36,28 @@ MonoBehaviour:
     size: {x: 0.9, y: 0.9}
     speed: 0.55
     damage: 100
-    money: 40
+    money: 50
   - type: 6
     maxHP: {x: 200, y: 400, z: 0}
     size: {x: 0.9, y: 0.9}
-    speed: 1.1
+    speed: 1
     damage: 100
-    money: 60
+    money: 50
   - type: 5
     maxHP: {x: 0, y: 200, z: 400}
     size: {x: 0.9, y: 0.9}
-    speed: 1.1
+    speed: 1
     damage: 100
-    money: 60
+    money: 65
   - type: 2
     maxHP: {x: 400, y: 400, z: 200}
     size: {x: 0.9, y: 0.9}
     speed: 0.65
     damage: 100
-    money: 100
+    money: 80
   - type: 1
     maxHP: {x: 200, y: 200, z: 400}
     size: {x: 0.9, y: 0.9}
     speed: 0.8
     damage: 100
-    money: 150
+    money: 100
