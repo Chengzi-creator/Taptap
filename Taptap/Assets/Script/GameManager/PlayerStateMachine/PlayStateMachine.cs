@@ -247,7 +247,7 @@ public class PlayStateMachine
                 if(PlayStateMachine.Instance.waveIndex == PlayStateMachine.Instance.levelDataSO.GetMaxWave(PlayStateMachine.Instance.levelIndex) - 1)
                 {
                     Debug.Log("Victory!!!!");
-                    UIManager.Instance.overMasksOn();
+                    UIManager.Instance.sucessMasksOn();
                     UIManager.Instance.SuccessAudio();
                     return;
                 }

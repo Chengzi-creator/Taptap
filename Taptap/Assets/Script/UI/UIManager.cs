@@ -27,6 +27,8 @@ public class UIManager : MonoBehaviour , IUIManager
     [SerializeField] private GameObject buildText;
     [SerializeField] private GameObject destroyText;
     [SerializeField] private GameObject rotateText;
+    [SerializeField] private GameObject victoryText;
+    [SerializeField] private GameObject defeatText;
     
     [Header("ImageAndText")]
     //[SerializeField] private List<ToggleImagePair> toggleImagePairs;
@@ -34,7 +36,7 @@ public class UIManager : MonoBehaviour , IUIManager
     [SerializeField] private GameObject setupMasks;
     [SerializeField] private GameObject buildMasks;
     [SerializeField] private GameObject overMasks;
-    //[SerializeField] private GameObject succcessMasks;
+    [SerializeField] private GameObject succcessMasks;
     [SerializeField] private GameObject buildButtons;
     [SerializeField] private GameObject rImages;
     [SerializeField] private GameObject gImages;
@@ -492,7 +494,7 @@ public class UIManager : MonoBehaviour , IUIManager
         setupMasks.SetActive(false);
         buildMasks.SetActive(false);
         overMasks.SetActive(false);
-        //succcessMasks.SetActive(false);
+        succcessMasks.SetActive(false);
         buildButtons.SetActive(false);
         buildBack.SetActive(false);
         rImages.SetActive(false);
@@ -508,6 +510,7 @@ public class UIManager : MonoBehaviour , IUIManager
         exitB.SetActive(true);
         enemyImage.SetActive(false);
         TeachText.Instance.talkCount = 0;
+        isSpawning = false;
     }
     
     public void OnRestartButtonClick()
@@ -1113,7 +1116,7 @@ public class UIManager : MonoBehaviour , IUIManager
     #region 游戏结束或者成功
     public void sucessMasksOn()
     {
-        //succcessMasks.SetActive(true);
+        succcessMasks.SetActive(true);
         Time.timeScale = 0f;
     }
     
