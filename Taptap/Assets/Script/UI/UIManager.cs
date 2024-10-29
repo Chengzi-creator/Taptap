@@ -1174,13 +1174,13 @@ public class UIManager : MonoBehaviour , IUIManager
 
     public void coinChange(int coinCount)
     {
-        _coinText.text = "       " + coinCount.ToString();
+        _coinText.text = "    " + coinCount.ToString();
     }
 
-    public void RoundChange(int level,int round)
+    public void RoundChange(int level,int round, int roundCount)
     {
         mRound = round;
-        _roundText.text = "Level " + level + "      " + "Round" + round;
+        _roundText.text = "Level " + level + "   " + "Round " + (round+1)+"/"+ roundCount;
     }
 
     #endregion
