@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelData:
   - beginPosition: {x: 5, y: 2}
-    beginMoney: 100
+    beginMoney: 1000
     waveList:
     - enemyDataList:
       - type: 7
@@ -40,7 +40,7 @@ MonoBehaviour:
       - type: 7
         spawnTime: 3
   - beginPosition: {x: 0, y: 4}
-    beginMoney: 100
+    beginMoney: 1000
     waveList:
     - enemyDataList:
       - type: 0
@@ -64,7 +64,7 @@ MonoBehaviour:
       - type: 3
         spawnTime: 2
   - beginPosition: {x: 1, y: 5}
-    beginMoney: 27
+    beginMoney: 270
     waveList:
     - enemyDataList:
       - type: 7
@@ -213,7 +213,7 @@ MonoBehaviour:
       - type: 5
         spawnTime: 66
   - beginPosition: {x: 0, y: 0}
-    beginMoney: 53
+    beginMoney: 530
     waveList:
     - enemyDataList:
       - type: 7
@@ -362,7 +362,7 @@ MonoBehaviour:
       - type: 5
         spawnTime: 66
   - beginPosition: {x: 0, y: 2}
-    beginMoney: 45
+    beginMoney: 450
     waveList:
     - enemyDataList:
       - type: 7
@@ -511,7 +511,7 @@ MonoBehaviour:
       - type: 5
         spawnTime: 66
   - beginPosition: {x: 0, y: 0}
-    beginMoney: 45
+    beginMoney: 450
     waveList:
     - enemyDataList:
       - type: 7
@@ -660,7 +660,7 @@ MonoBehaviour:
       - type: 5
         spawnTime: 66
   - beginPosition: {x: 3, y: 0}
-    beginMoney: 27
+    beginMoney: 270
     waveList:
     - enemyDataList:
       - type: 7
@@ -809,7 +809,7 @@ MonoBehaviour:
       - type: 5
         spawnTime: 66
   - beginPosition: {x: 1, y: 1}
-    beginMoney: 35
+    beginMoney: 350
     waveList:
     - enemyDataList:
       - type: 7
@@ -958,7 +958,7 @@ MonoBehaviour:
       - type: 5
         spawnTime: 66
   - beginPosition: {x: 0, y: 5}
-    beginMoney: 34
+    beginMoney: 340
     waveList:
     - enemyDataList:
       - type: 7
@@ -1107,7 +1107,7 @@ MonoBehaviour:
       - type: 5
         spawnTime: 66
   - beginPosition: {x: 5, y: 0}
-    beginMoney: 32
+    beginMoney: 320
     waveList:
     - enemyDataList:
       - type: 7
@@ -1256,7 +1256,7 @@ MonoBehaviour:
       - type: 5
         spawnTime: 66
   - beginPosition: {x: 2, y: 6}
-    beginMoney: 45
+    beginMoney: 450
     waveList:
     - enemyDataList:
       - type: 7
@@ -1405,7 +1405,7 @@ MonoBehaviour:
       - type: 5
         spawnTime: 66
   - beginPosition: {x: 0, y: 0}
-    beginMoney: 35
+    beginMoney: 350
     waveList:
     - enemyDataList:
       - type: 7
