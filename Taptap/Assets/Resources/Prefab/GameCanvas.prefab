@@ -2003,7 +2003,6 @@ MonoBehaviour:
   startB: {fileID: 9008815509354741833}
   exitB: {fileID: 4668027712288125525}
   towerX: {fileID: 8290062903943919331, guid: d99e37fad93f0274ca1a05dca4dcdd1e, type: 3}
-  isHome: 1
   isTeaching0: 1
   isTeaching1: 1
   isTeaching2: 1
@@ -5353,7 +5352,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Level        Round
+  m_text: Level     Round
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ce85a57787ba5724a98656004fc70d57, type: 2}
   m_sharedMaterial: {fileID: 6584527225198431303, guid: ce85a57787ba5724a98656004fc70d57, type: 2}
