@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   showTowerData:
   - type: 1
-    cost: 90
-    damage: 60
+    cost: 85
+    damage: 65
     color: 0
     bulletTime: 0.2
-    timeInterval: 1.6
+    timeInterval: 1.5
     attackRange:
     - {x: 0, y: 0}
     - {x: 1, y: 0}
@@ -168,8 +168,8 @@ MonoBehaviour:
     - {x: 1, y: -1}
     - {x: -1, y: 1}
   - type: 14
-    cost: 140
-    damage: 20
+    cost: 175
+    damage: 25
     color: 0
     bulletTime: 1
     timeInterval: 3
