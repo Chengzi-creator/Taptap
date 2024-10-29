@@ -31,6 +31,7 @@ public class UIManager : MonoBehaviour , IUIManager
     [SerializeField] private GameObject rotateText;
     [SerializeField] private GameObject victoryText;
     [SerializeField] private GameObject defeatText;
+    [SerializeField] private GameObject teachText2;
     
     [Header("ImageAndText")]
     //[SerializeField] private List<ToggleImagePair> toggleImagePairs;
@@ -126,7 +127,6 @@ public class UIManager : MonoBehaviour , IUIManager
     [SerializeField] private GameObject dC;
     [SerializeField] private GameObject dS;
     [SerializeField] private GameObject dSA;
-    [SerializeField] private GameObject attackTable;
 
     
     [Header("Home")]
@@ -153,6 +153,8 @@ public class UIManager : MonoBehaviour , IUIManager
     //[SerializeField] private Button[] buildButtons;  //存储所有建造按钮
     
     private ITowerManager.TowerType _selectedTowerType = ITowerManager.TowerType.NULL;
+    
+    
     
     private bool IsSpawning = false;
     public bool isSpawning
@@ -236,11 +238,11 @@ public class UIManager : MonoBehaviour , IUIManager
         round.SetActive(false);
         teachText.SetActive(false);
         enemyImage.SetActive(false);
-        attackTable.SetActive(false);
         buildText.SetActive(false);
         destroyText.SetActive(false);
         rotateText.SetActive(false);
         ChooseLevel.SetActive(false);
+        teachText2.SetActive(false);
         exitButton.onClick.AddListener(OnexitButtonClick);
         exitButton.onClick.AddListener(ClickAudio);
         backButton.onClick.AddListener(OnbackButtonClick);
@@ -427,11 +429,18 @@ public class UIManager : MonoBehaviour , IUIManager
         else
         {
             teachText.SetActive(false);
-            attackTable.SetActive(true);
         }
         
         Time.timeScale = 1f;
-        
+
+        if (mIndex != 0 && mIndex != 1)
+        {
+            teachText2.SetActive(true);
+        }
+        else
+        {
+            teachText2.SetActive(false);
+        }
        
         #region 禁用
 
@@ -448,6 +457,7 @@ public class UIManager : MonoBehaviour , IUIManager
             dh.color = Color.gray;
             ds.color = Color.gray;
             dc.color = Color.gray;
+            dd.color = Color.white;
         }
         else if (mIndex == 1)
         {   
@@ -549,6 +559,7 @@ public class UIManager : MonoBehaviour , IUIManager
         startB.SetActive(true);
         exitB.SetActive(true);
         
+        
         ChooseLevel.SetActive(false);
         SpawnButtons.SetActive(false);
         pauseMasks.SetActive(false);
@@ -564,6 +575,7 @@ public class UIManager : MonoBehaviour , IUIManager
         gameEvents.SetActive(false);
         round.SetActive(false);
         teachText.SetActive(false);
+        teachText2.SetActive(false);
         enemyImage.SetActive(false);
         enemyImage.SetActive(false);
         round.SetActive(false);
@@ -1203,7 +1215,15 @@ public class UIManager : MonoBehaviour , IUIManager
         else
         {
             teachText.SetActive(false);
-            attackTable.SetActive(true);
+        }
+        
+        if (mIndex != 0 && mIndex != 1)
+        {
+            teachText2.SetActive(true);
+        }
+        else
+        {
+            teachText2.SetActive(false);
         }
         
         ResumeGame();
