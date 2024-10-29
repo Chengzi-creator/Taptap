@@ -65,7 +65,7 @@ public class AudioControl : MonoBehaviour
     
     private void SetNextClip()
     {
-        if (currentSource == audioSourceBuild)
+        if (UIManager.Instance.isSpawning)
         {
             newClip = audioSourceAttack.clip;
         }
@@ -90,33 +90,15 @@ public class AudioControl : MonoBehaviour
         StartCoroutine(FadeMusic(fadeDuration)); //开启协程处理淡入淡出
     }
     
-    private void SetTBNextClip()
-    {
-        if (currentSource == audioSourceBuild)
-        {
-            newClip = audioSourceAttack.clip;
-        }
-        else
-        {
-            newClip = audioSourceBuild.clip;
-        }
+    public void Switch()
+    {   
+        Debug.Log("newnewnew");
+        
+        currentSource.Stop();
+        audioSourceBuild.Play(); //开始播放新音频
+        //StartCoroutine(FadeMusic(fadeDuration)); //开启协程处理淡入淡出
     }
     
-    public void SwitchTBMusic(float fadeDuration = 1f)
-    {
-        if (isSwitching) return;
-        
-        SetNextClip();
-        
-        //切换前设置新音频源的Clip，并同步播放进度
-        nextSource.clip = newClip;
-        nextSource.time = currentSource.time; //保持同步的播放进度
-        nextSource.volume = 0f; //设置音量为0，准备淡入
-
-        nextSource.Play(); //开始播放新音频
-        StartCoroutine(FadeMusic(fadeDuration)); //开启协程处理淡入淡出
-    }
-
     //淡入淡出
     private System.Collections.IEnumerator FadeMusic(float duration)
     {

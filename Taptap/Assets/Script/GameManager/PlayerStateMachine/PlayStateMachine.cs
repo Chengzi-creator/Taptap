@@ -275,6 +275,7 @@ public class PlayStateMachine
         public void EnterState()
         {
             UIManager.Instance.isSpawning = false;
+            AudioControl.Instance.SwitchMusic();
             List<LevelDataSO.EnemyData> enemyList = PlayStateMachine.Instance.levelDataSO.GetWaveData(PlayStateMachine.Instance.levelIndex , PlayStateMachine.Instance.waveIndex);
             PlayStateMachine.Instance.enemyTypeList.Clear();
             PlayStateMachine.Instance.enemyCountList.Clear();
