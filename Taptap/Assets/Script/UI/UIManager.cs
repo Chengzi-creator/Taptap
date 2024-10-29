@@ -691,12 +691,14 @@ public class UIManager : MonoBehaviour , IUIManager
         {
             faceDirection = (faceDirection + 1) % 4;
             Debug.Log(faceDirection);
+            tower.GetComponent<IShow>().ShowRange();
             tower.GetComponent<IShow>().SetFaceDirection(faceDirection);
         }
         else if (Input.GetKeyDown(KeyCode.E))
         {
             faceDirection = (faceDirection + 3) % 4;
             Debug.Log(faceDirection);
+            tower.GetComponent<IShow>().ShowRange();
             tower.GetComponent<IShow>().SetFaceDirection(faceDirection); 
         }
     }
