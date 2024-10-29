@@ -42,6 +42,7 @@ public class PlayStateMachine
             {
                 Debug.Log("Game Over");
                 UIManager.Instance.overMasksOn();
+                UIManager.Instance.DeafeatAudio();
             }
             else
             {
@@ -246,6 +247,7 @@ public class PlayStateMachine
                 {
                     Debug.Log("Victory!!!!");
                     UIManager.Instance.overMasksOn();
+                    UIManager.Instance.SuccessAudio();
                     return;
                 }
                 PlayStateMachine.Instance.waveIndex++;
