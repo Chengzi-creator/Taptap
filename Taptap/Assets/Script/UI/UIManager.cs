@@ -1133,7 +1133,7 @@ public class UIManager : MonoBehaviour , IUIManager
         if (mIndex == 1)
         {
             TeachText.Instance.talkCount = 6;
-            //TeachText.Instance.LoadDialogue();
+            TeachText.Instance.LoadDialogue();
             teachText.SetActive(true);
         }
         else
