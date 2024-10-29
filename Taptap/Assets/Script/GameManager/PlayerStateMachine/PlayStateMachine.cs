@@ -232,7 +232,8 @@ public class PlayStateMachine
         }
 
         public void EnemyDie(IEnemy enemy)
-        {
+        {   
+            UIManager.Instance.MonstereDeadAudio();
             // UIManager.Instance.EnemyDie(enemy);
             PlayStateMachine.Instance.enemyCountList[PlayStateMachine.Instance.enemyTypeList.IndexOf(enemy.Type)]--;
             // UIManager.Instance.EnemyReduce(PlayStateMachine.Instance.enemyTypeList , PlayStateMachine.Instance.enemyCountList , enemy.Type);
