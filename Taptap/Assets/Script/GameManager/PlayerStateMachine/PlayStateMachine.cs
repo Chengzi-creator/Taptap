@@ -42,6 +42,7 @@ public class PlayStateMachine
             {
                 Debug.Log("Game Over");
                 UIManager.Instance.overMasksOn();
+                UIManager.Instance.DeafeatAudio();
             }
             else
             {
@@ -231,7 +232,8 @@ public class PlayStateMachine
         }
 
         public void EnemyDie(IEnemy enemy)
-        {
+        {   
+            UIManager.Instance.MonstereDeadAudio();
             // UIManager.Instance.EnemyDie(enemy);
             PlayStateMachine.Instance.enemyCountList[PlayStateMachine.Instance.enemyTypeList.IndexOf(enemy.Type)]--;
             // UIManager.Instance.EnemyReduce(PlayStateMachine.Instance.enemyTypeList , PlayStateMachine.Instance.enemyCountList , enemy.Type);
@@ -245,7 +247,8 @@ public class PlayStateMachine
                 if(PlayStateMachine.Instance.waveIndex == PlayStateMachine.Instance.levelDataSO.GetMaxWave(PlayStateMachine.Instance.levelIndex) - 1)
                 {
                     Debug.Log("Victory!!!!");
-                    UIManager.Instance.overMasksOn();
+                    UIManager.Instance.sucessMasksOn();
+                    UIManager.Instance.SuccessAudio();
                     return;
                 }
                 PlayStateMachine.Instance.waveIndex++;

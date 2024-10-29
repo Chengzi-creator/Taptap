@@ -44,7 +44,7 @@ public class VFXManager
         instance.prefab_VFX_Attack_Tuci = Resources.Load<GameObject>("Prefab/UseVFX/VFX_Attack_Ziguang_main");
         instance.prefab_VFX_Attack_FeiBiao = Resources.Load<GameObject>("Prefab/UseVFX/VFX_Attack_FeiBiao");
         instance.prefab_VFX_Attack_Chuizi = Resources.Load<GameObject>("Prefab/UseVFX/VFX_Attack_Chuizi");
-        instance.prefab_VFX_Attack_Toushiqi = Resources.Load<GameObject>("Prefab/UseVFX/VFX_Attack_Toushiqi");
+        instance.prefab_VFX_Attack_Toushiqi = Resources.Load<GameObject>("Prefab/UseVFX/VFX_Attack_Toushiqi_new");
         instance.prefab_VFX_Attack_Lianju = Resources.Load<GameObject>("Prefab/UseVFX/VFX_Attack_Lianju");
 
         instance.prefab_VFX_Range_Torch = Resources.Load<GameObject>("Prefab/UseVFX/VFX_Range_Torch");
@@ -124,7 +124,11 @@ public class VFXManager
     public void CreateVFX_Attack_Lianju(Vector2Int position, int faceDirection, int color = 7, bool firstInvoke = true)
     {
         var vfx = Get(VFXType.Attack_Lianju, prefab_VFX_Attack_Lianju);
-        int attackMapDistance = GetDistance(position, faceDirection);
+        int attackMapDistance = GetDistance(position, faceDirection) ;   // 这里加了 -1
+        if(firstInvoke)
+        {
+            attackMapDistance --;
+        }
         float dis = MyGridManager.Instance.GetWorldDistance(attackMapDistance);
         if (firstInvoke)
             vfx.vfxObject.transform.position = MyGridManager.Instance.GetWorldPos(position);
@@ -134,6 +138,7 @@ public class VFXManager
                 - GetFaceDirVector(faceDirection);
         }
         vfx.vfxObject.transform.eulerAngles = new Vector3(0, 0, faceDirection * 90);
+        // vfx.vfxObject.transform.localScale = new Vector3(1.6f , 1.6f , 1.6f);
         vfx.SetColor(GetColor(color));
         vfx.SetLifeTime((dis + 1) / 2f);
         DelayToInvoke.Instance.StartDelayToInvokeDo(Reduce, vfx, (dis + 1) / 2);
@@ -141,7 +146,7 @@ public class VFXManager
         {
             Vector2Int endPos = GetFaceDirVector(faceDirection) * attackMapDistance;
             DelayToInvoke.Instance.StartDelayToInvokeDo(CreateVFX_Attack_Lianju,
-            position + endPos, (faceDirection + 2) % 4, color, (dis + 1) / 2, false);
+            position + endPos, (faceDirection + 2) % 4, color, (dis + 1) / 2 + 1, false);   // 这里时间 +1
         }
     }
 

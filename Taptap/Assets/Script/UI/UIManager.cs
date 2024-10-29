@@ -11,7 +11,14 @@ using UnityEngine.EventSystems;
 public class UIManager : MonoBehaviour , IUIManager
 {
     private static UIManager instance;
-    
+    [Header("Audio")]
+    [SerializeField] private AudioSource audioBuildSuccess;
+    [SerializeField] private AudioSource audioBuildDelete;
+    [SerializeField] private AudioSource audioMonsterDead;
+    [SerializeField] private AudioSource audioClick;
+    [SerializeField] private AudioSource audioSuccess;
+    [SerializeField] private AudioSource audioDeafeat;
+    //[SerializeField] private AudioSource audioClick;
     
     [Header("Text")]
     [SerializeField] private TextMeshProUGUI _coinText;
@@ -20,6 +27,8 @@ public class UIManager : MonoBehaviour , IUIManager
     [SerializeField] private GameObject buildText;
     [SerializeField] private GameObject destroyText;
     [SerializeField] private GameObject rotateText;
+    [SerializeField] private GameObject victoryText;
+    [SerializeField] private GameObject defeatText;
     
     [Header("ImageAndText")]
     //[SerializeField] private List<ToggleImagePair> toggleImagePairs;
@@ -27,6 +36,7 @@ public class UIManager : MonoBehaviour , IUIManager
     [SerializeField] private GameObject setupMasks;
     [SerializeField] private GameObject buildMasks;
     [SerializeField] private GameObject overMasks;
+    [SerializeField] private GameObject succcessMasks;
     [SerializeField] private GameObject buildButtons;
     [SerializeField] private GameObject rImages;
     [SerializeField] private GameObject gImages;
@@ -75,6 +85,9 @@ public class UIManager : MonoBehaviour , IUIManager
     [SerializeField] private Button overhomeButton;
     [SerializeField] private Button overLevelButton;
     [SerializeField] private Button overRestartButton;
+    //[SerializeField] private Button suhomeButton;
+    //[SerializeField] private Button suLevelButton;
+    //[SerializeField] private Button suRestartButton;
         
     [Header("Build")]
     [SerializeField] private Button _buttonRF;
@@ -193,7 +206,7 @@ public class UIManager : MonoBehaviour , IUIManager
             {
                 instance = Instantiate(Resources.Load<GameObject>("Prefab/GameCanvas")).GetComponent<UIManager>();
                 instance.InitializeUI();
-                instance._coinText.text = "Coin:" + instance.Coin;
+                instance._coinText.text = "       " + instance.Coin;
             }
             return instance;
         }
@@ -209,6 +222,7 @@ public class UIManager : MonoBehaviour , IUIManager
         setupMasks.SetActive(false);
         buildMasks.SetActive(false);//
         overMasks.SetActive(false);
+        //succcessMasks.SetActive(false);
         buildButtons.SetActive(false);//
         buildBack.SetActive(false);
         rImages.SetActive(false);
@@ -224,17 +238,36 @@ public class UIManager : MonoBehaviour , IUIManager
         rotateText.SetActive(false);
         ChooseLevel.SetActive(false);
         exitButton.onClick.AddListener(OnexitButtonClick);
+        exitButton.onClick.AddListener(ClickAudio);
         backButton.onClick.AddListener(OnbackButtonClick);
+        backButton.onClick.AddListener(ClickAudio);
         setupButton.onClick.AddListener(OnsetupButtonClick);
+        setupButton.onClick.AddListener(ClickAudio);
         menuButton.onClick.AddListener(OnmenuButtonClick);
+        menuButton.onClick.AddListener(ClickAudio);
         overLevelButton.onClick.AddListener(OnoverLevelButtonClick);
+        overLevelButton.onClick.AddListener(ClickAudio);
         overhomeButton.onClick.AddListener(OnHomeButtonClick);
+        overhomeButton.onClick.AddListener(ClickAudio);
+        //suRestartButton.onClick.AddListener(OnRestartButtonClick);
+        //suLevelButton.onClick.AddListener(ClickAudio);
+        //suhomeButton.onClick.AddListener(OnHomeButtonClick);
+        //suhomeButton.onClick.AddListener(ClickAudio);
+        //suLevelButton.onClick.AddListener(OnoverLevelButtonClick);
+        //suRestartButton.onClick.AddListener(ClickAudio);
         restartButton.onClick.AddListener(OnRestartButtonClick);
+        restartButton.onClick.AddListener(ClickAudio);
         overRestartButton.onClick.AddListener(OnRestartButtonClick);
+        overRestartButton.onClick.AddListener(ClickAudio);
         homeButton.onClick.AddListener(OnHomeButtonClick);
+        homeButton.onClick.AddListener(ClickAudio);
         homeexitButton.onClick.AddListener(OnexitButtonClick);
+        homeexitButton.onClick.AddListener(ClickAudio);
+        
         destroyButton.onClick.AddListener(OndestroyButtonClick);
         buildBackButton.onClick.AddListener(BuildBack);
+        buildBackButton.onClick.AddListener(ClickAudio);
+        
         rButton.onClick.AddListener(OnRButtonClick);
         gButton.onClick.AddListener(OnGButtonClick);
         bButton.onClick.AddListener(OnBButtonClick);
@@ -243,8 +276,11 @@ public class UIManager : MonoBehaviour , IUIManager
         bButton.onClick.AddListener(() => OnButtonClick(bButton));
         
         startButton.onClick.AddListener(OnstartButtonClick);
+        startButton.onClick.AddListener(ClickAudio);
         exitButton.onClick.AddListener(OnexitButtonClick);
+        exitButton.onClick.AddListener(ClickAudio);
         spawnButton.onClick.AddListener(SpawnEnemy);
+        spawnButton.onClick.AddListener(ClickAudio);
         
         levelButton0.onClick.AddListener(() => levelChoose(0));
         levelButton1.onClick.AddListener(() => levelChoose(1));
@@ -424,6 +460,7 @@ public class UIManager : MonoBehaviour , IUIManager
         
         ResumeGame();
         overMasks.SetActive(false);
+        //succcessMasks.SetActive(false);
         ChooseLevel.SetActive(false);
         GameStartMasks.SetActive(false);
         gameEvents.SetActive(true);
@@ -457,6 +494,7 @@ public class UIManager : MonoBehaviour , IUIManager
         setupMasks.SetActive(false);
         buildMasks.SetActive(false);
         overMasks.SetActive(false);
+        succcessMasks.SetActive(false);
         buildButtons.SetActive(false);
         buildBack.SetActive(false);
         rImages.SetActive(false);
@@ -472,6 +510,7 @@ public class UIManager : MonoBehaviour , IUIManager
         exitB.SetActive(true);
         enemyImage.SetActive(false);
         TeachText.Instance.talkCount = 0;
+        isSpawning = false;
     }
     
     public void OnRestartButtonClick()
@@ -481,6 +520,7 @@ public class UIManager : MonoBehaviour , IUIManager
         _selectDestroy = false;
         //PlayStateMachine.Instance.ReInit(mIndex);
         overMasks.SetActive(false);
+        //.SetActive(false);
         ResumeGame();//恢复游戏
     }
 
@@ -574,6 +614,7 @@ public class UIManager : MonoBehaviour , IUIManager
                 //DestroyImage(image);
                 buildText.SetActive(false);
                 rotateText.SetActive(false);
+                audioBuildSuccess.Play();
                 if (isTeaching0)
                 {
                     if (TeachText.Instance.talkCount == 0)
@@ -625,6 +666,7 @@ public class UIManager : MonoBehaviour , IUIManager
                 //获取当前鼠标所指地图上的塔，然后传入TowerDestroy？
                 TowerDestroy();
                 destroyText.SetActive(false);
+                audioBuildDelete.Play();
             }
 
             if (Input.GetMouseButtonDown(1))
@@ -1060,7 +1102,7 @@ public class UIManager : MonoBehaviour , IUIManager
 
     public void coinChange(int coinCount)
     {
-        _coinText.text = "Coin : " + coinCount.ToString();
+        _coinText.text = "       " + coinCount.ToString();
     }
 
     public void RoundChange(int level,int round)
@@ -1071,8 +1113,13 @@ public class UIManager : MonoBehaviour , IUIManager
 
     #endregion
 
-    #region 游戏结束
-
+    #region 游戏结束或者成功
+    public void sucessMasksOn()
+    {
+        succcessMasks.SetActive(true);
+        Time.timeScale = 0f;
+    }
+    
     public void overMasksOn()
     {
         overMasks.SetActive(true);
@@ -1089,7 +1136,7 @@ public class UIManager : MonoBehaviour , IUIManager
         if (mIndex == 1)
         {
             TeachText.Instance.talkCount = 6;
-            //TeachText.Instance.LoadDialogue();
+            TeachText.Instance.LoadDialogue();
             teachText.SetActive(true);
         }
         else
@@ -1254,7 +1301,8 @@ public class UIManager : MonoBehaviour , IUIManager
     public void SpawnEnemy()
     {
         if (enterGame && !isSpawning && isTeaching2)
-        {
+        {   
+            ClickOut();
             PlayStateMachine.Instance.StartSpawnState();
             Debug.Log("Switch");
             AudioControl.Instance.SwitchMusic();
@@ -1296,7 +1344,29 @@ public class UIManager : MonoBehaviour , IUIManager
     
     
     #endregion
+
+    #region 音效
+
+    public void MonstereDeadAudio()
+    {
+        audioMonsterDead.Play();
+    }
     
+    public void ClickAudio()
+    {
+        audioClick.Play();
+    }
     
+    public void SuccessAudio()
+    {
+        audioSuccess.Play();
+    }
+    
+    public void DeafeatAudio()
+    {
+        audioDeafeat.Play();
+    }
+
+    #endregion
    
 }
