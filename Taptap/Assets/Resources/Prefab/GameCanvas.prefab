@@ -2411,9 +2411,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "   \u7EA2+\u7EFF\uFF1D\u9EC4    \u989D\u5916\u5149\u80FD\n\u7EA2+\u84DD\uFF1D\u7D2B   
-    \u51CF\u7F13\u79FB\u901F\n\u84DD+\u7EFF = \u9752    \u4E2D\u6BD2\u6263\u8840\n\u7EA2+\u7EFF+\u84DD\uFF1D\u767D     
-    \u6613\u4F24"
+  m_text: "\u7EA2+\u7EFF=\u9EC4 \u989D\u5916\u5149\u80FD\n\u7EA2+\u84DD=\u7D2B \u51CF\u7F13\u79FB\u901F\n\u84DD+\u7EFF=\u9752
+    \u4E2D\u6BD2\u6263\u8840\n\u7EA2+\u7EFF+\u84DD=\u767D \u6613\u4F24"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ce85a57787ba5724a98656004fc70d57, type: 2}
   m_sharedMaterial: {fileID: 6584527225198431303, guid: ce85a57787ba5724a98656004fc70d57, type: 2}
@@ -7617,7 +7616,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3139514873684746691, guid: 49e00de03bff03c41b4cad9ee206b7c3, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 3.899994
+      value: 3.9000244
       objectReference: {fileID: 0}
     - target: {fileID: 3258960251550683614, guid: 49e00de03bff03c41b4cad9ee206b7c3, type: 3}
       propertyPath: m_Pivot.y
