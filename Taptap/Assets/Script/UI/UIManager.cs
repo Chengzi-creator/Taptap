@@ -154,25 +154,26 @@ public class UIManager : MonoBehaviour , IUIManager
     
     private ITowerManager.TowerType _selectedTowerType = ITowerManager.TowerType.NULL;
     
-    public bool IsSpawning = false;
+    private bool IsSpawning = false;
     public bool isSpawning
     {
-        get { return IsSpawning; }
+        get => IsSpawning;
         set
         {
             if (IsSpawning != value)  // 检测值是否改变
             {
                 IsSpawning = value;
                 OnIsSpawningChanged(IsSpawning);  //当值改变时调用函数
-                Debug.Log("ChangeAudio");
+               
             }
         }
     }
 
     private void OnIsSpawningChanged(bool isSpawning)
-    {
-        if(!isSpawning)
-            AudioControl.Instance.SwitchMusic();
+    {   
+        //Debug.Log("newnew");
+        //Debug.Log(isSpawning);
+        AudioControl.Instance.SwitchMusic();
     }
     
     
@@ -394,6 +395,8 @@ public class UIManager : MonoBehaviour , IUIManager
         }
     }
 
+   
+
     #region 开始界面
     private void OnstartButtonClick()
     {   
@@ -428,6 +431,8 @@ public class UIManager : MonoBehaviour , IUIManager
         }
         
         Time.timeScale = 1f;
+        
+       
         #region 禁用
 
         if (mIndex == 0)
@@ -444,6 +449,51 @@ public class UIManager : MonoBehaviour , IUIManager
             ds.color = Color.gray;
             dc.color = Color.gray;
         }
+        else if (mIndex == 1)
+        {   
+            rf.color = Color.white;
+            rl.color = Color.white;
+            bf.color = Color.white;
+            bt.color = Color.white;
+            bl.color = Color.white;
+            gf.color = Color.white;
+            gl.color = Color.white;
+            dh.color = Color.white;
+            ds.color = Color.white;
+            dd.color = Color.white;
+            dc.color = Color.gray;
+            dsaw.color = Color.gray;
+        }
+        else if (mIndex == 2)
+        {   
+            rf.color = Color.white;
+            rl.color = Color.white;
+            bf.color = Color.white;
+            bt.color = Color.white;
+            bl.color = Color.white;
+            gf.color = Color.white;
+            gl.color = Color.white;
+            dh.color = Color.white;
+            ds.color = Color.white;
+            dc.color = Color.white;
+            dsaw.color = Color.gray;
+            dd.color = Color.gray;
+        }
+        else if (mIndex == 3)
+        {   
+            rf.color = Color.white;
+            rl.color = Color.white;
+            bf.color = Color.white;
+            bt.color = Color.white;
+            bl.color = Color.white;
+            gf.color = Color.white;
+            gl.color = Color.white;
+            dsaw.color = Color.white;
+            dh.color = Color.white;
+            ds.color = Color.gray;
+            dc.color = Color.gray;
+            dd.color = Color.gray;
+        }
         else
         {
             rf.color = Color.white;
@@ -457,8 +507,8 @@ public class UIManager : MonoBehaviour , IUIManager
             dh.color = Color.white;
             ds.color = Color.white;
             dc.color = Color.white;
+            dd.color = Color.white;
         }
-        
         #endregion
         
         ResumeGame();
@@ -487,12 +537,18 @@ public class UIManager : MonoBehaviour , IUIManager
     }
 
     public void OnHomeButtonClick()
-    {
-        PlayStateMachine.Instance.ExitPlayState();
+    {   
         isSpawning = false;
-        AudioControl.Instance.Switch();
+        ClickOut();
+        _selectDestroy = false;
+        
+        AudioControl.Instance.SwitchMusic();
+        PlayStateMachine.Instance.ExitPlayState();
         // PlayStateMachine.Instance.Close();
         GameStartMasks.SetActive(true);
+        startB.SetActive(true);
+        exitB.SetActive(true);
+        
         ChooseLevel.SetActive(false);
         SpawnButtons.SetActive(false);
         pauseMasks.SetActive(false);
@@ -509,11 +565,8 @@ public class UIManager : MonoBehaviour , IUIManager
         round.SetActive(false);
         teachText.SetActive(false);
         enemyImage.SetActive(false);
-        ClickOut();
-        _selectDestroy = false;
-        startB.SetActive(true);
-        exitB.SetActive(true);
         enemyImage.SetActive(false);
+        round.SetActive(false);
         TeachText.Instance.talkCount = 0;
         
     }
@@ -939,7 +992,7 @@ public class UIManager : MonoBehaviour , IUIManager
     
     private void ClickDC()
     {
-        if (mIndex != 0)
+        if (mIndex != 0 && mIndex != 1 && mIndex != 3)
         {
             _selectedTowerType = ITowerManager.TowerType.D_catapult;
 
@@ -977,7 +1030,7 @@ public class UIManager : MonoBehaviour , IUIManager
     
     private void ClickDS()
     {
-        if (mIndex != 0)
+        if (mIndex != 0 && mIndex != 3)
         {
             _selectedTowerType = ITowerManager.TowerType.D_spike;
 
@@ -996,7 +1049,7 @@ public class UIManager : MonoBehaviour , IUIManager
     
     private void ClickDD()
     {
-        if (isTeaching1)
+        if (mIndex != 2 && mIndex != 3)
         {
             _selectedTowerType = ITowerManager.TowerType.D_dart;
             // Debug.Log("HelloDD");
@@ -1016,7 +1069,7 @@ public class UIManager : MonoBehaviour , IUIManager
     
     private void ClickDSA()
     {
-        if (mIndex != 0)
+        if (mIndex != 0 && mIndex != 1 && mIndex != 2)
         {
             _selectedTowerType = ITowerManager.TowerType.D_saw;
 
@@ -1171,6 +1224,51 @@ public class UIManager : MonoBehaviour , IUIManager
             ds.color = Color.gray;
             dc.color = Color.gray;
         }
+        else if (mIndex == 1)
+        {   
+            rf.color = Color.white;
+            rl.color = Color.white;
+            bf.color = Color.white;
+            bt.color = Color.white;
+            bl.color = Color.white;
+            gf.color = Color.white;
+            gl.color = Color.white;
+            dh.color = Color.white;
+            ds.color = Color.white;
+            dd.color = Color.white;
+            dc.color = Color.gray;
+            dsaw.color = Color.gray;
+        }
+        else if (mIndex == 2)
+        {   
+            rf.color = Color.white;
+            rl.color = Color.white;
+            bf.color = Color.white;
+            bt.color = Color.white;
+            bl.color = Color.white;
+            gf.color = Color.white;
+            gl.color = Color.white;
+            dh.color = Color.white;
+            ds.color = Color.white;
+            dc.color = Color.white;
+            dsaw.color = Color.gray;
+            dd.color = Color.gray;
+        }
+        else if (mIndex == 3)
+        {   
+            rf.color = Color.white;
+            rl.color = Color.white;
+            bf.color = Color.white;
+            bt.color = Color.white;
+            bl.color = Color.white;
+            gf.color = Color.white;
+            gl.color = Color.white;
+            dsaw.color = Color.white;
+            dh.color = Color.white;
+            ds.color = Color.gray;
+            dc.color = Color.gray;
+            dd.color = Color.gray;
+        }
         else
         {
             rf.color = Color.white;
@@ -1184,6 +1282,7 @@ public class UIManager : MonoBehaviour , IUIManager
             dh.color = Color.white;
             ds.color = Color.white;
             dc.color = Color.white;
+            dd.color = Color.white;
         }
         #endregion
     }
@@ -1202,7 +1301,6 @@ public class UIManager : MonoBehaviour , IUIManager
         int h,j = 0;
         if (types == null || counts == null || types.Count != counts.Count)
         {
-            Debug.LogError("传入的列表为空或长度不一致！");
             return;
         }
         
@@ -1222,7 +1320,6 @@ public class UIManager : MonoBehaviour , IUIManager
         {   
             if (types.Count > enemyImages.Length || types.Count > enemyTexts.Length)
             {
-                Debug.LogError("enemyImages 或 enemyTexts 数组长度不足！");
                 return;
             }
             // Debug.Log(types[i]);
@@ -1315,8 +1412,8 @@ public class UIManager : MonoBehaviour , IUIManager
             rotateText.SetActive(false);
             ClickOut();
             PlayStateMachine.Instance.StartSpawnState();
-            Debug.Log("Switch");
-            AudioControl.Instance.SwitchMusic();
+            //Debug.Log("Switch");
+            //AudioControl.Instance.SwitchMusic();
             ClickOut();
             MyGridManager.Instance.CancelShowBuildModeGrid();
             showCount = 0;
