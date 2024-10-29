@@ -34,19 +34,20 @@ public class TowerDSaw : BaseDamageTower
             IGrid rigGrid = MyGridManager.Instance.GetIGrid(Position + FaceDirectionVector2Int * i);
             if(lefGrid == null && rigGrid == null)
                 break;
+            float timeFactor = 0.5f;
             if(lefGrid != null && lefGrid.EnemysCount() > 0)
             {
-                lockedTime.AddLast(bulletTime);
-                lockedPosition.AddLast(Position - FaceDirectionVector2Int * i);
+                lockedTime.AddLast(bulletTime * timeFactor);
+                lockedPosition.AddLast(Position - FaceDirectionVector2Int );
                 lockedDirection.AddLast(new Vector3Int(-FaceDirectionVector2Int.x , -FaceDirectionVector2Int.y , 1));
                 VFXManager.Instance.CreateVFX_Attack_Lianju(Position, (faceDirection + 2) % 4, TowerManager.Instance.GetColor(position));
-                VFXManager.Instance.CreateVFX_Attack_Tower_Self(position , TowerManager.Instance.GetColor(position));        
+                VFXManager.Instance.CreateVFX_Attack_Tower_Self(Position , TowerManager.Instance.GetColor(position));        
                 break;
             }
             if(rigGrid != null && rigGrid.EnemysCount() > 0)
             {
-                lockedTime.AddLast(bulletTime);
-                lockedPosition.AddLast(Position + FaceDirectionVector2Int * i);
+                lockedTime.AddLast(bulletTime * timeFactor);
+                lockedPosition.AddLast(Position + FaceDirectionVector2Int );
                 lockedDirection.AddLast(new Vector3Int(FaceDirectionVector2Int.x , FaceDirectionVector2Int.y , 1));
                 VFXManager.Instance.CreateVFX_Attack_Lianju(Position, faceDirection, TowerManager.Instance.GetColor(position));
                 VFXManager.Instance.CreateVFX_Attack_Tower_Self(position , TowerManager.Instance.GetColor(position));
@@ -57,10 +58,6 @@ public class TowerDSaw : BaseDamageTower
     }
     protected override void BulletFly(float deltaTime)
     {
-        if(lockedDirection.Count != lockedPosition.Count || lockedDirection.Count != lockedTime.Count || lockedTime.Count != lockedPosition.Count)
-        {
-            Debug.LogError("error not the same");
-        }
         var node = lockedTime.First;
         while(node != null)
         {
@@ -70,48 +67,42 @@ public class TowerDSaw : BaseDamageTower
         node = lockedTime.First;
         while(node != null && node.Value <= 0)
         {
-            if (lockedTime.Count == 0)
-                break;
-//            Debug.Log(lockedTime.Count + " " + lockedDirection.Count + " " + lockedPosition.Count);
-//            if (lockedTime.First == null)
-//                Debug.Log("lockedTimePosition is null");
-//            if (lockedPosition.First == null)
-//                Debug.Log("lockedPosition is null");
-//            if (lockedDirection.First == null)
-//                Debug.Log("lockedDirction is null");
-            Vector2Int position = lockedPosition.First.Value;
+            float lastTime = lockedTime.First.Value;
+            Vector2Int targetPosition = lockedPosition.First.Value;
             Vector3Int direction = lockedDirection.First.Value;
             lockedPosition.RemoveFirst();
             lockedDirection.RemoveFirst();
             lockedTime.RemoveFirst();
-//            Debug.Log(position);
 
-            IGrid midGrid = MyGridManager.Instance.GetIGrid(position);
-//            midGrid.GetEnemys().ForEach(enemy => enemy.BeAttacked(damage* TowerManager.Instance.GetColorVector(position) , TowerManager.Instance.GetColor(position)));
+            IGrid midGrid = MyGridManager.Instance.GetIGrid(targetPosition);
             foreach(IEnemy midEnemy in midGrid.GetEnemys())
             {
                 midEnemy.BeAttacked(damage * TowerManager.Instance.GetColorVector(Position), TowerManager.Instance.GetColor(Position));
             }
-                Debug.Log(Position);
-//                VFXManager.Instance.CreateVFX_Attack_Toushiqi(position , 1);
+// VFXManager.Instance.CreateVFX_Attack_Toushiqi(targetPosition , 1);
             
-            Vector2Int nextPosition = position + new Vector2Int(direction.x, direction.y);
+            Vector2Int nextPosition = targetPosition + new Vector2Int(direction.x, direction.y);
             if(MyGridManager.Instance.GetIGrid(nextPosition) == null)
             {
 
                 if(direction.z == 0)
+                {
+                    node = lockedTime.First;
                     continue;
+                }
                 else if(direction.z != 0)
                 {
+                    Debug.Log(nextPosition);
                     direction.z--;
                     direction.x = -direction.x;
                     direction.y = -direction.y;
-                    nextPosition = position + new Vector2Int(direction.x, direction.y);
+                    nextPosition = targetPosition + new Vector2Int(direction.x, direction.y);
+                    Debug.Log(nextPosition);
                 }
             }
             lockedPosition.AddLast(nextPosition);
             lockedDirection.AddLast(direction);
-            lockedTime.AddLast(bulletTime);
+            lockedTime.AddLast(bulletTime + lastTime);
 
             node = lockedTime.First;
         }

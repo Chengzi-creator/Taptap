@@ -12,6 +12,8 @@ public class UIManager : MonoBehaviour , IUIManager
 {
     private static UIManager instance;
     [Header("Audio")]
+    [SerializeField] private AudioSource audioBuild;
+    [SerializeField] private AudioSource audioAttack;
     [SerializeField] private AudioSource audioBuildSuccess;
     [SerializeField] private AudioSource audioBuildDelete;
     [SerializeField] private AudioSource audioMonsterDead;
@@ -29,6 +31,7 @@ public class UIManager : MonoBehaviour , IUIManager
     [SerializeField] private GameObject rotateText;
     [SerializeField] private GameObject victoryText;
     [SerializeField] private GameObject defeatText;
+    [SerializeField] private GameObject teachText2;
     
     [Header("ImageAndText")]
     //[SerializeField] private List<ToggleImagePair> toggleImagePairs;
@@ -124,7 +127,6 @@ public class UIManager : MonoBehaviour , IUIManager
     [SerializeField] private GameObject dC;
     [SerializeField] private GameObject dS;
     [SerializeField] private GameObject dSA;
-    [SerializeField] private GameObject attackTable;
 
     
     [Header("Home")]
@@ -152,23 +154,27 @@ public class UIManager : MonoBehaviour , IUIManager
     
     private ITowerManager.TowerType _selectedTowerType = ITowerManager.TowerType.NULL;
     
-    public bool IsSpawning = false;
+    
+    
+    private bool IsSpawning = false;
     public bool isSpawning
     {
-        get { return IsSpawning; }
+        get => IsSpawning;
         set
         {
             if (IsSpawning != value)  // 检测值是否改变
             {
                 IsSpawning = value;
                 OnIsSpawningChanged(IsSpawning);  //当值改变时调用函数
-                Debug.Log("ChangeAudio");
+               
             }
         }
     }
 
     private void OnIsSpawningChanged(bool isSpawning)
-    {
+    {   
+        //Debug.Log("newnew");
+        //Debug.Log(isSpawning);
         AudioControl.Instance.SwitchMusic();
     }
     
@@ -232,11 +238,11 @@ public class UIManager : MonoBehaviour , IUIManager
         round.SetActive(false);
         teachText.SetActive(false);
         enemyImage.SetActive(false);
-        attackTable.SetActive(false);
         buildText.SetActive(false);
         destroyText.SetActive(false);
         rotateText.SetActive(false);
         ChooseLevel.SetActive(false);
+        teachText2.SetActive(false);
         exitButton.onClick.AddListener(OnexitButtonClick);
         exitButton.onClick.AddListener(ClickAudio);
         backButton.onClick.AddListener(OnbackButtonClick);
@@ -391,6 +397,8 @@ public class UIManager : MonoBehaviour , IUIManager
         }
     }
 
+   
+
     #region 开始界面
     private void OnstartButtonClick()
     {   
@@ -421,10 +429,19 @@ public class UIManager : MonoBehaviour , IUIManager
         else
         {
             teachText.SetActive(false);
-            attackTable.SetActive(true);
         }
         
         Time.timeScale = 1f;
+
+        if (mIndex != 0 && mIndex != 1)
+        {
+            teachText2.SetActive(true);
+        }
+        else
+        {
+            teachText2.SetActive(false);
+        }
+       
         #region 禁用
 
         if (mIndex == 0)
@@ -440,6 +457,52 @@ public class UIManager : MonoBehaviour , IUIManager
             dh.color = Color.gray;
             ds.color = Color.gray;
             dc.color = Color.gray;
+            dd.color = Color.white;
+        }
+        else if (mIndex == 1)
+        {   
+            rf.color = Color.white;
+            rl.color = Color.white;
+            bf.color = Color.white;
+            bt.color = Color.white;
+            bl.color = Color.white;
+            gf.color = Color.white;
+            gl.color = Color.white;
+            dh.color = Color.white;
+            ds.color = Color.white;
+            dd.color = Color.white;
+            dc.color = Color.gray;
+            dsaw.color = Color.gray;
+        }
+        else if (mIndex == 2)
+        {   
+            rf.color = Color.white;
+            rl.color = Color.white;
+            bf.color = Color.white;
+            bt.color = Color.white;
+            bl.color = Color.white;
+            gf.color = Color.white;
+            gl.color = Color.white;
+            dh.color = Color.white;
+            ds.color = Color.white;
+            dc.color = Color.white;
+            dsaw.color = Color.gray;
+            dd.color = Color.gray;
+        }
+        else if (mIndex == 3)
+        {   
+            rf.color = Color.white;
+            rl.color = Color.white;
+            bf.color = Color.white;
+            bt.color = Color.white;
+            bl.color = Color.white;
+            gf.color = Color.white;
+            gl.color = Color.white;
+            dsaw.color = Color.white;
+            dh.color = Color.white;
+            ds.color = Color.gray;
+            dc.color = Color.gray;
+            dd.color = Color.gray;
         }
         else
         {
@@ -454,8 +517,8 @@ public class UIManager : MonoBehaviour , IUIManager
             dh.color = Color.white;
             ds.color = Color.white;
             dc.color = Color.white;
+            dd.color = Color.white;
         }
-        
         #endregion
         
         ResumeGame();
@@ -484,10 +547,19 @@ public class UIManager : MonoBehaviour , IUIManager
     }
 
     public void OnHomeButtonClick()
-    {
+    {   
+        isSpawning = false;
+        ClickOut();
+        _selectDestroy = false;
+        
+        AudioControl.Instance.SwitchMusic();
         PlayStateMachine.Instance.ExitPlayState();
         // PlayStateMachine.Instance.Close();
         GameStartMasks.SetActive(true);
+        startB.SetActive(true);
+        exitB.SetActive(true);
+        
+        
         ChooseLevel.SetActive(false);
         SpawnButtons.SetActive(false);
         pauseMasks.SetActive(false);
@@ -503,14 +575,12 @@ public class UIManager : MonoBehaviour , IUIManager
         gameEvents.SetActive(false);
         round.SetActive(false);
         teachText.SetActive(false);
+        teachText2.SetActive(false);
         enemyImage.SetActive(false);
-        ClickOut();
-        _selectDestroy = false;
-        startB.SetActive(true);
-        exitB.SetActive(true);
         enemyImage.SetActive(false);
+        round.SetActive(false);
         TeachText.Instance.talkCount = 0;
-        isSpawning = false;
+        
     }
     
     public void OnRestartButtonClick()
@@ -686,12 +756,14 @@ public class UIManager : MonoBehaviour , IUIManager
         {
             faceDirection = (faceDirection + 1) % 4;
             Debug.Log(faceDirection);
+            tower.GetComponent<IShow>().ShowRange();
             tower.GetComponent<IShow>().SetFaceDirection(faceDirection);
         }
         else if (Input.GetKeyDown(KeyCode.E))
         {
             faceDirection = (faceDirection + 3) % 4;
             Debug.Log(faceDirection);
+            tower.GetComponent<IShow>().ShowRange();
             tower.GetComponent<IShow>().SetFaceDirection(faceDirection); 
         }
     }
@@ -932,7 +1004,7 @@ public class UIManager : MonoBehaviour , IUIManager
     
     private void ClickDC()
     {
-        if (mIndex != 0)
+        if (mIndex != 0 && mIndex != 1 && mIndex != 3)
         {
             _selectedTowerType = ITowerManager.TowerType.D_catapult;
 
@@ -970,7 +1042,7 @@ public class UIManager : MonoBehaviour , IUIManager
     
     private void ClickDS()
     {
-        if (mIndex != 0)
+        if (mIndex != 0 && mIndex != 3)
         {
             _selectedTowerType = ITowerManager.TowerType.D_spike;
 
@@ -989,7 +1061,7 @@ public class UIManager : MonoBehaviour , IUIManager
     
     private void ClickDD()
     {
-        if (isTeaching1)
+        if (mIndex != 2 && mIndex != 3)
         {
             _selectedTowerType = ITowerManager.TowerType.D_dart;
             // Debug.Log("HelloDD");
@@ -1009,7 +1081,7 @@ public class UIManager : MonoBehaviour , IUIManager
     
     private void ClickDSA()
     {
-        if (mIndex != 0)
+        if (mIndex != 0 && mIndex != 1 && mIndex != 2)
         {
             _selectedTowerType = ITowerManager.TowerType.D_saw;
 
@@ -1102,13 +1174,13 @@ public class UIManager : MonoBehaviour , IUIManager
 
     public void coinChange(int coinCount)
     {
-        _coinText.text = "       " + coinCount.ToString();
+        _coinText.text = "    " + coinCount.ToString();
     }
 
-    public void RoundChange(int level,int round)
+    public void RoundChange(int level,int round, int roundCount)
     {
         mRound = round;
-        _roundText.text = "Level" + level + "      " + "Round" + round;
+        _roundText.text = "Level " + level + "   " + "Round " + (round+1)+"/"+ roundCount;
     }
 
     #endregion
@@ -1143,7 +1215,15 @@ public class UIManager : MonoBehaviour , IUIManager
         else
         {
             teachText.SetActive(false);
-            attackTable.SetActive(true);
+        }
+        
+        if (mIndex != 0 && mIndex != 1)
+        {
+            teachText2.SetActive(true);
+        }
+        else
+        {
+            teachText2.SetActive(false);
         }
         
         ResumeGame();
@@ -1164,6 +1244,51 @@ public class UIManager : MonoBehaviour , IUIManager
             ds.color = Color.gray;
             dc.color = Color.gray;
         }
+        else if (mIndex == 1)
+        {   
+            rf.color = Color.white;
+            rl.color = Color.white;
+            bf.color = Color.white;
+            bt.color = Color.white;
+            bl.color = Color.white;
+            gf.color = Color.white;
+            gl.color = Color.white;
+            dh.color = Color.white;
+            ds.color = Color.white;
+            dd.color = Color.white;
+            dc.color = Color.gray;
+            dsaw.color = Color.gray;
+        }
+        else if (mIndex == 2)
+        {   
+            rf.color = Color.white;
+            rl.color = Color.white;
+            bf.color = Color.white;
+            bt.color = Color.white;
+            bl.color = Color.white;
+            gf.color = Color.white;
+            gl.color = Color.white;
+            dh.color = Color.white;
+            ds.color = Color.white;
+            dc.color = Color.white;
+            dsaw.color = Color.gray;
+            dd.color = Color.gray;
+        }
+        else if (mIndex == 3)
+        {   
+            rf.color = Color.white;
+            rl.color = Color.white;
+            bf.color = Color.white;
+            bt.color = Color.white;
+            bl.color = Color.white;
+            gf.color = Color.white;
+            gl.color = Color.white;
+            dsaw.color = Color.white;
+            dh.color = Color.white;
+            ds.color = Color.gray;
+            dc.color = Color.gray;
+            dd.color = Color.gray;
+        }
         else
         {
             rf.color = Color.white;
@@ -1177,6 +1302,7 @@ public class UIManager : MonoBehaviour , IUIManager
             dh.color = Color.white;
             ds.color = Color.white;
             dc.color = Color.white;
+            dd.color = Color.white;
         }
         #endregion
     }
@@ -1195,7 +1321,6 @@ public class UIManager : MonoBehaviour , IUIManager
         int h,j = 0;
         if (types == null || counts == null || types.Count != counts.Count)
         {
-            Debug.LogError("传入的列表为空或长度不一致！");
             return;
         }
         
@@ -1215,7 +1340,6 @@ public class UIManager : MonoBehaviour , IUIManager
         {   
             if (types.Count > enemyImages.Length || types.Count > enemyTexts.Length)
             {
-                Debug.LogError("enemyImages 或 enemyTexts 数组长度不足！");
                 return;
             }
             // Debug.Log(types[i]);
@@ -1308,8 +1432,8 @@ public class UIManager : MonoBehaviour , IUIManager
             rotateText.SetActive(false);
             ClickOut();
             PlayStateMachine.Instance.StartSpawnState();
-            Debug.Log("Switch");
-            AudioControl.Instance.SwitchMusic();
+            //Debug.Log("Switch");
+            //AudioControl.Instance.SwitchMusic();
             ClickOut();
             MyGridManager.Instance.CancelShowBuildModeGrid();
             showCount = 0;

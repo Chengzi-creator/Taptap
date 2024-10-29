@@ -137,7 +137,8 @@ public class PlayStateMachine
         currentState.EnterState();
         if(stateType != PlayStateType.Empty)
         {
-            UIManager.Instance.RoundChange(PlayStateMachine.Instance.levelIndex , PlayStateMachine.Instance.waveIndex);
+            UIManager.Instance.RoundChange(PlayStateMachine.Instance.levelIndex , PlayStateMachine.Instance.waveIndex, 
+                PlayStateMachine.Instance.levelDataSO.GetMaxWave(PlayStateMachine.Instance.levelIndex));
         }
     }
 
@@ -202,6 +203,7 @@ public class PlayStateMachine
         private List<LevelDataSO.EnemyData> enemyList;
         public void EnterState()
         {
+            PlayStateMachine.Instance.lastWaveMoney = PlayStateMachine.Instance.Money;
             UIManager.Instance.isSpawning = true;
             totalTime = 0;
             enemyIndex = 0;
@@ -274,7 +276,9 @@ public class PlayStateMachine
         
         public void EnterState()
         {
+            PlayStateMachine.Instance.lastWaveMoney = PlayStateMachine.Instance.Money;
             UIManager.Instance.isSpawning = false;
+            AudioControl.Instance.SwitchMusic();
             List<LevelDataSO.EnemyData> enemyList = PlayStateMachine.Instance.levelDataSO.GetWaveData(PlayStateMachine.Instance.levelIndex , PlayStateMachine.Instance.waveIndex);
             PlayStateMachine.Instance.enemyTypeList.Clear();
             PlayStateMachine.Instance.enemyCountList.Clear();
