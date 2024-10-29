@@ -1873,6 +1873,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6be6f09ff4c4d7582ce76d90143c9c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioBuild: {fileID: 3796141293918508800}
+  audioAttack: {fileID: 1065930881056847083}
   audioBuildSuccess: {fileID: 7495726142836335623}
   audioBuildDelete: {fileID: 2111880206244093465}
   audioMonsterDead: {fileID: 1151324128354038979}

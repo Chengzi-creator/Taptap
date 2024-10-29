@@ -12,6 +12,8 @@ public class UIManager : MonoBehaviour , IUIManager
 {
     private static UIManager instance;
     [Header("Audio")]
+    [SerializeField] private AudioSource audioBuild;
+    [SerializeField] private AudioSource audioAttack;
     [SerializeField] private AudioSource audioBuildSuccess;
     [SerializeField] private AudioSource audioBuildDelete;
     [SerializeField] private AudioSource audioMonsterDead;
@@ -169,7 +171,8 @@ public class UIManager : MonoBehaviour , IUIManager
 
     private void OnIsSpawningChanged(bool isSpawning)
     {
-        AudioControl.Instance.SwitchMusic();
+        if(!isSpawning)
+            AudioControl.Instance.SwitchMusic();
     }
     
     
@@ -486,6 +489,8 @@ public class UIManager : MonoBehaviour , IUIManager
     public void OnHomeButtonClick()
     {
         PlayStateMachine.Instance.ExitPlayState();
+        isSpawning = false;
+        AudioControl.Instance.Switch();
         // PlayStateMachine.Instance.Close();
         GameStartMasks.SetActive(true);
         ChooseLevel.SetActive(false);
@@ -510,7 +515,7 @@ public class UIManager : MonoBehaviour , IUIManager
         exitB.SetActive(true);
         enemyImage.SetActive(false);
         TeachText.Instance.talkCount = 0;
-        isSpawning = false;
+        
     }
     
     public void OnRestartButtonClick()
@@ -1108,7 +1113,7 @@ public class UIManager : MonoBehaviour , IUIManager
     public void RoundChange(int level,int round)
     {
         mRound = round;
-        _roundText.text = "Level" + level + "      " + "Round" + round;
+        _roundText.text = "Level " + level + "      " + "Round" + round;
     }
 
     #endregion
