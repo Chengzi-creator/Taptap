@@ -203,6 +203,7 @@ public class PlayStateMachine
         private List<LevelDataSO.EnemyData> enemyList;
         public void EnterState()
         {
+            PlayStateMachine.Instance.lastWaveMoney = PlayStateMachine.Instance.Money;
             UIManager.Instance.isSpawning = true;
             totalTime = 0;
             enemyIndex = 0;
@@ -275,6 +276,7 @@ public class PlayStateMachine
         
         public void EnterState()
         {
+            PlayStateMachine.Instance.lastWaveMoney = PlayStateMachine.Instance.Money;
             UIManager.Instance.isSpawning = false;
             AudioControl.Instance.SwitchMusic();
             List<LevelDataSO.EnemyData> enemyList = PlayStateMachine.Instance.levelDataSO.GetWaveData(PlayStateMachine.Instance.levelIndex , PlayStateMachine.Instance.waveIndex);
