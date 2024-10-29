@@ -1896,7 +1896,7 @@ MonoBehaviour:
   setupMasks: {fileID: 1730350615495535924}
   buildMasks: {fileID: 1607878838523862579}
   overMasks: {fileID: 4208150148992291781}
-  successMasks: {fileID: 0}
+  successMasks: {fileID: 2492818240617413083}
   buildButtons: {fileID: 8134401240603163866}
   rImages: {fileID: 5415083770523886619}
   gImages: {fileID: 4355330785159294824}
@@ -5854,6 +5854,11 @@ MonoBehaviour:
 --- !u!224 &2381595143464233508 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2434759561198520642, guid: a13420e18193dfb4c981eefd0669729f, type: 3}
+  m_PrefabInstance: {fileID: 56049537596416870}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2492818240617413083 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2476808522828815037, guid: a13420e18193dfb4c981eefd0669729f, type: 3}
   m_PrefabInstance: {fileID: 56049537596416870}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &8334953518294956604 stripped
