@@ -36,7 +36,7 @@ public class UIManager : MonoBehaviour , IUIManager
     [SerializeField] private GameObject setupMasks;
     [SerializeField] private GameObject buildMasks;
     [SerializeField] private GameObject overMasks;
-    [SerializeField] private GameObject succcessMasks;
+    [SerializeField] private GameObject successMasks;
     [SerializeField] private GameObject buildButtons;
     [SerializeField] private GameObject rImages;
     [SerializeField] private GameObject gImages;
@@ -85,8 +85,8 @@ public class UIManager : MonoBehaviour , IUIManager
     [SerializeField] private Button overhomeButton;
     [SerializeField] private Button overLevelButton;
     [SerializeField] private Button overRestartButton;
-    //[SerializeField] private Button suhomeButton;
-    //[SerializeField] private Button suLevelButton;
+    [SerializeField] private Button suhomeButton;
+    [SerializeField] private Button suLevelButton;
     //[SerializeField] private Button suRestartButton;
         
     [Header("Build")]
@@ -222,7 +222,7 @@ public class UIManager : MonoBehaviour , IUIManager
         setupMasks.SetActive(false);
         buildMasks.SetActive(false);//
         overMasks.SetActive(false);
-        //succcessMasks.SetActive(false);
+        successMasks.SetActive(false);
         buildButtons.SetActive(false);//
         buildBack.SetActive(false);
         rImages.SetActive(false);
@@ -250,10 +250,10 @@ public class UIManager : MonoBehaviour , IUIManager
         overhomeButton.onClick.AddListener(OnHomeButtonClick);
         overhomeButton.onClick.AddListener(ClickAudio);
         //suRestartButton.onClick.AddListener(OnRestartButtonClick);
-        //suLevelButton.onClick.AddListener(ClickAudio);
-        //suhomeButton.onClick.AddListener(OnHomeButtonClick);
-        //suhomeButton.onClick.AddListener(ClickAudio);
-        //suLevelButton.onClick.AddListener(OnoverLevelButtonClick);
+        suLevelButton.onClick.AddListener(ClickAudio);
+        suhomeButton.onClick.AddListener(OnHomeButtonClick);
+        suhomeButton.onClick.AddListener(ClickAudio);
+        suLevelButton.onClick.AddListener(OnoverLevelButtonClick);
         //suRestartButton.onClick.AddListener(ClickAudio);
         restartButton.onClick.AddListener(OnRestartButtonClick);
         restartButton.onClick.AddListener(ClickAudio);
@@ -460,7 +460,7 @@ public class UIManager : MonoBehaviour , IUIManager
         
         ResumeGame();
         overMasks.SetActive(false);
-        //succcessMasks.SetActive(false);
+        successMasks.SetActive(false);
         ChooseLevel.SetActive(false);
         GameStartMasks.SetActive(false);
         gameEvents.SetActive(true);
@@ -494,7 +494,7 @@ public class UIManager : MonoBehaviour , IUIManager
         setupMasks.SetActive(false);
         buildMasks.SetActive(false);
         overMasks.SetActive(false);
-        succcessMasks.SetActive(false);
+        successMasks.SetActive(false);
         buildButtons.SetActive(false);
         buildBack.SetActive(false);
         rImages.SetActive(false);
@@ -1116,7 +1116,7 @@ public class UIManager : MonoBehaviour , IUIManager
     #region 游戏结束或者成功
     public void sucessMasksOn()
     {
-        succcessMasks.SetActive(true);
+        successMasks.SetActive(true);
         Time.timeScale = 0f;
     }
     
@@ -1129,6 +1129,7 @@ public class UIManager : MonoBehaviour , IUIManager
     public void OnoverLevelButtonClick()
     {
         overMasks.SetActive(false);
+        successMasks.SetActive(false);
         Time.timeScale = 1f;
         PlayStateMachine.Instance.ExitPlayState();
         PlayStateMachine.Instance.ReInit(++mIndex);
@@ -1145,6 +1146,7 @@ public class UIManager : MonoBehaviour , IUIManager
             attackTable.SetActive(true);
         }
         
+        ResumeGame();
         
         #region 禁用
 
@@ -1302,6 +1304,8 @@ public class UIManager : MonoBehaviour , IUIManager
     {
         if (enterGame && !isSpawning && isTeaching2)
         {   
+            buildText.SetActive(false);
+            rotateText.SetActive(false);
             ClickOut();
             PlayStateMachine.Instance.StartSpawnState();
             Debug.Log("Switch");
