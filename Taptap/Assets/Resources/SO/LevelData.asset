@@ -76,7 +76,9 @@ MonoBehaviour:
       - type: 7
         spawnTime: 12
       - type: 7
-        spawnTime: 15
+        spawnTime: 16
+      - type: 7
+        spawnTime: 20
     - enemyDataList:
       - type: 3
         spawnTime: 0
@@ -93,35 +95,41 @@ MonoBehaviour:
     - enemyDataList:
       - type: 3
         spawnTime: 0
-      - type: 6
-        spawnTime: 5
+      - type: 5
+        spawnTime: 6
       - type: 3
         spawnTime: 9
-      - type: 6
-        spawnTime: 14
-      - type: 3
-        spawnTime: 18
-    - enemyDataList:
-      - type: 7
-        spawnTime: 0
-      - type: 7
-        spawnTime: 2
-      - type: 7
-        spawnTime: 4
-      - type: 6
-        spawnTime: 12
       - type: 3
         spawnTime: 14
-      - type: 3
-        spawnTime: 18
+      - type: 5
+        spawnTime: 19
       - type: 3
         spawnTime: 22
+    - enemyDataList:
+      - type: 0
+        spawnTime: 0
+      - type: 0
+        spawnTime: 2
+      - type: 0
+        spawnTime: 4
+      - type: 0
+        spawnTime: 6
+      - type: 0
+        spawnTime: 8
+      - type: 6
+        spawnTime: 14
       - type: 3
-        spawnTime: 26
+        spawnTime: 16
+      - type: 3
+        spawnTime: 20
+      - type: 3
+        spawnTime: 24
       - type: 6
-        spawnTime: 31
-      - type: 6
-        spawnTime: 33
+        spawnTime: 29
+      - type: 3
+        spawnTime: 30
+      - type: 3
+        spawnTime: 35
     - enemyDataList:
       - type: 4
         spawnTime: 0
@@ -140,78 +148,74 @@ MonoBehaviour:
       - type: 4
         spawnTime: 10
       - type: 5
-        spawnTime: 12
+        spawnTime: 14
       - type: 5
-        spawnTime: 15
+        spawnTime: 17
       - type: 5
-        spawnTime: 18
+        spawnTime: 20
       - type: 2
         spawnTime: 23
-      - type: 2
+      - type: 5
         spawnTime: 27
+      - type: 2
+        spawnTime: 28
       - type: 6
-        spawnTime: 30
-      - type: 6
-        spawnTime: 32
-      - type: 6
-        spawnTime: 34
+        spawnTime: 33
       - type: 6
         spawnTime: 36
-      - type: 6
-        spawnTime: 38
       - type: 2
-        spawnTime: 40
-      - type: 1
-        spawnTime: 45
+        spawnTime: 41
+      - type: 6
+        spawnTime: 43
+      - type: 6
+        spawnTime: 46
     - enemyDataList:
-      - type: 6
+      - type: 0
         spawnTime: 0
-      - type: 6
+      - type: 0
         spawnTime: 2
-      - type: 6
+      - type: 0
         spawnTime: 4
-      - type: 6
+      - type: 0
         spawnTime: 6
-      - type: 6
+      - type: 0
         spawnTime: 8
-      - type: 3
-        spawnTime: 10
       - type: 4
-        spawnTime: 13
-      - type: 3
-        spawnTime: 16
+        spawnTime: 14
       - type: 4
-        spawnTime: 19
-      - type: 3
+        spawnTime: 18
+      - type: 0
         spawnTime: 22
-      - type: 5
-        spawnTime: 25
-      - type: 5
-        spawnTime: 28
-      - type: 1
-        spawnTime: 31
-      - type: 5
+      - type: 4
+        spawnTime: 22
+      - type: 0
+        spawnTime: 26
+      - type: 4
+        spawnTime: 26
+      - type: 4
+        spawnTime: 30
+      - type: 4
         spawnTime: 34
+      - type: 2
+        spawnTime: 41
+      - type: 2
+        spawnTime: 45
       - type: 5
-        spawnTime: 37
-      - type: 2
-        spawnTime: 38
-      - type: 2
-        spawnTime: 42
+        spawnTime: 49
+      - type: 5
+        spawnTime: 51
       - type: 1
-        spawnTime: 47
-      - type: 1
-        spawnTime: 52
+        spawnTime: 53
       - type: 2
-        spawnTime: 54
-      - type: 1
+        spawnTime: 55
+      - type: 5
         spawnTime: 58
       - type: 5
-        spawnTime: 62
+        spawnTime: 61
+      - type: 1
+        spawnTime: 63
       - type: 5
-        spawnTime: 64
-      - type: 5
-        spawnTime: 66
+        spawnTime: 65
   - beginPosition: {x: 0, y: 0}
     beginMoney: 530
     waveList:
