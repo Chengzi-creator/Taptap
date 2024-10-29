@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelData:
   - beginPosition: {x: 5, y: 2}
-    beginMoney: 34
+    beginMoney: 100
     waveList:
     - enemyDataList:
       - type: 7
